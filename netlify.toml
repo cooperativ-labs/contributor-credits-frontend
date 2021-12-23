@@ -3,3 +3,10 @@ package = "@netlify/plugin-nextjs"
 
 [build]
 publish = ".next"
+
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+force = false
