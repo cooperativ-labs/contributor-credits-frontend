@@ -1,0 +1,41 @@
+version: "3.2"
+
+volumes:
+  cooperativ_dgraph:
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  zero:
+    image: dgraph/dgraph:latest
+    volumes:
+      - cooperativ_dgraph:/dgraph
+    ports:
+      - 5080:5080
+      - 6080:6080
+    restart: on-failure
+    command: dgraph zero --my=zero:5080
+
+  alpha:
+    image: dgraph/dgraph:latest
+    volumes:
+      - cooperativ_dgraph:/dgraph
+      - ./fixtures:/dgraph/fixtures
+    ports:
+      - 8080:8080
+      - 9080:9080
+    restart: on-failure
+    command: dgraph alpha --security whitelist=0.0.0.0/0 --my=alpha:7080 --zero=zero:5080
+
+  ratel:
+    image: fenos/ratel-ui:latest
+    ports:
+      - 8000:8000

@@ -1,0 +1,1 @@
+Purpose: Trigger-Based Contributor Credits (TBCCs) give contributors a predictable stake in the success of a project in exchange for services being discounted up front. Each Trigger-Based Contributor Credit is a promise to pay the contributor one dollar (or any currency) upon a particular trigger, such as securing a round of investment or reaching a revenue target. 

@@ -1,0 +1,178 @@
+{
+  "project": {
+    "creationDate": "January 2021",
+    "name": "VisitMind",
+    "category": "Education",
+    "thumbnail": "visitmind.png",
+    "brandColor": "#800080",
+    "sharing": {
+      "image": "visitmind-wide.png"
+    },
+    "lightBrand": false,
+    "progress": 2,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription":
+      "VisitMind is a website to host online interactive and collaborative learning tools and resources, such as effective typed notes, smartest clipboard organizer for the web, podcast player for your articles, shortcuts for Google Docs and much more.",
+    "needSummary":
+      "Looking for a co-founder to focus on marketing and product development, and interns who can create content and manage social media & email marketing.",
+    "elevatorPitch":
+      "VisitMind is a web to host tools and resources for students and learners who want to optimize their success. We look for the best materials and you do your best work!",
+    "problem":
+      "When I did the surveys and interviews with the college students, I noticed that they use tools and resources very well known in the market, but however they mentioned at the same time how hard is find on the Internet what they need in a sea of information, they do not know where to find the information, for them is hard to choose because there are many things, they aren't so sure which pages are the most reliable to pick information, that is what I'm trying to solve.",
+    "mission": null,
+    "vision": null,
+    "timeGoals": {
+      "now":
+        "Finish the testing with the MVP, start to create social networks, Instagram, define the message and values of the brand.",
+      "oneYear":
+        "Launch website, grow students using the web, grow traffic through a blog and social networks, achieve students use the tools and resources hosted on the web, contact more creators with new educational materials. Work on brand.",
+      "threeYears":
+        "Make VisitMind have brand recognition in the educational market, be a referent in the mind of the college students at the moment to looking for new tools and resources that fit their academic and professional needs."
+    },
+    "website": "https://visitmind.info/",
+    "description": {
+      "excerpt":
+        "Provide new tools and resources in only one place that really can help the students to find the materials easily that fit their academic requirements, solve their needs, and help them to develop new skills and knowledge. All these through a website where we will host new tools and resources that match with the requirements of the students, they will have access to a general explanation about how to use the material, advantages, disadvantages, and benefits, they can write and read reviews about these materials, gain points for every review that they write and redeem them in benefits, be part of a community of students to share knowledge and experience.",
+      "full": true
+    },
+    "pitchDeckURL": "https://app.pitch.com/app/public/presentation/e1ea7b1e-10ea-4009-990e-20eca3afbeb7",
+    "goToMarket": {
+      "excerpt":
+        "Testing on social networks, starting with Instagram, sharing educational content related to tools and resources listed on the web. Work in the hashtags, related accounts, storytelling among other points.",
+      "full": "### SEE FILE ###"
+    },
+    "featureHighlights": [],
+    "fundraises": [],
+    "company": {
+      "companyName": "VisitMind",
+      "companyType": "Individual",
+      "companyFullName": "Angelica Liberato",
+      "companyJurisdiction": null
+    },
+    "competition": {
+      "description": null,
+      "companies": []
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason": "I need support in the marketing and product development",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Copywriting",
+        "icon": "brain",
+        "description":
+          "Looking for an intern or assistant in the creation of copy for the website, blogs, articles, and content for social media.",
+        "expertise": ["Copywriting", "blogging", "content marketing", "social media"]
+      },
+      {
+        "id": 2,
+        "title": "Marketing Intern",
+        "icon": "brain",
+        "file": "marketing-intern",
+        "description":
+          "Looking for an intern or assistant in the creation of the content for email campaigns, provide support to social media efforts, monitor social media for trending topics to utilize on social media channels, attract potential customers.",
+        "expertise": ["marketing", "email marketing", "content marketing", "social media"]
+      },
+      {
+        "id": 3,
+        "title": "Social Media",
+        "icon": "search-dollar",
+        "description":
+          "Looking for an intern to help create content for social media, post the content, knowledge in platforms, and programs to develop interactive and engaging content.",
+        "expertise": ["social media", "content creation"]
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Unpaid",
+        "slug": "Internship",
+        "trigger": null,
+        "description":
+          "Flexible schedule | Practical experience with marketing and website launch | Opportunity to participate in networking events and meetings | Guidance mentorship programs.",
+        "primary": true
+      },
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": false
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Marketing",
+        "value": 50,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Social Media",
+        "value": 20,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 3,
+        "title": "Content Creation",
+        "value": 30,
+        "fill": "#EF7D64"
+      }
+    ],
+    "credits": null,
+    "dynamicDataModules": {
+      "currentInvestments": {
+        "description":
+          "Currently, I'm taking part in the program Mission Female in the first half of fempreneurs of the #webelieve mentoring program by Mission Female and Female Founders. VisitMind is participating in the Spanish accelerator EduTECH Emprèn of the University UOC Universitat Oberta de Catalunya.",
+        "backers": null
+      },
+      "investmentProjections": null
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Angelica",
+      "lastName": "Liberato",
+      "nickname": "Angelica",
+      "thumbnail": "/assets/images/UserImages/aliberato.jpg",
+      "title": "Creator",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/angelicaliberato"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 6,
+          "tue": 6,
+          "wed": 6,
+          "thu": 6,
+          "fri": 6,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 900, "currency": "USD" },
+      "openSuggestions": true,
+      "bio":
+        "Professional in International Business, I have experience working as an administrative and marketing assistant, creating the structural organization of a StartUp, development, and analysis of marketing strategies, positioning and recognizing of the StartUp and of the product, analysis of results of sales,  behavior of the customers.",
+      "interests": ["Entrepreneurship", "Traveling", "Languages", "Science"],
+      "expertise": ["Product Management", "Marketing", "Foreign Policy"],
+      "projectHopes":
+        "Supporting the college students with the new learning process originated by the virus through new tools and resources that fit their academic and professional needs, promote the development of new educational tools and resources that solve the real problems of the college students, giving the new creators a space.",
+      "projectLove": "Because it was born of a personal experience that I had when I was in the College.",
+      "compensationPackage": null
+    }
+  ]
+}

@@ -1,0 +1,540 @@
+{
+  "project": {
+    "creationDate": "September 2020",
+    "name": "TWIYS Media",
+    "nameNormalized": "twiys",
+    "category": "Art & Production",
+    "thumbnail": "TWIYSMediaLogo.jpg",
+    "brandColor": "#CC5500",
+    "sharing": {
+      "image": "twiys-wide.png"
+    },
+    "lightBrand": false,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "Contributors",
+    "shortDescription": "We are gamifying the vetting process related to landing a lucrative brand or label deal for artists.",
+    "needSummary": "We need help with admin of creative team as well as legal to advise on policies having to do with the manner of which the shows content is framed.",
+    "elevatorPitch": "We are gamifying the vetting process related to landing a lucrative brand or label deal for artists.",
+    "additionalWidget1": "I am actively building the framework for this new series and have also identified and formed relationships with some potential investors.",
+    "problem": "The Hip Hop R&B music space is filled with mediocrity. By gamifying and raising a higher standard to achieve stardom, we are also inspiring a  new narrative for the industry as a whole.",
+    "mission": "To effectively provide underground artists a fast track alternative to the music industry maze while inspiring a higher standard of conduct within it.",
+    "vision": "To change the narrative surrounding the urban music culture globally.",
+    "timeGoals": {
+      "now": "I have a brand partnership on the horizon with a prominent media house based out of Atlanta.",
+      "oneYear": "Fully operational with at least two seasons of content in the hanger, while actively licensing our first season to media conglomerates like Netflix or Hulu. ",
+      "threeYears": "Recognized globally for effectively changing the narrative surrounding the music industry at large."
+    },
+    "website": "http://twiysmedia.com/",
+    "mainVideo": "http://bit.ly/3izACxn",
+    "description": {
+      "excerpt": "Imagine a music entertainment series, developed solely to inspire artists toward a higher code of conduct within the music industry. The World Is Your Stage or TWIYS  Media, centers around 8 contestants and the challenges they face having to do with a different set of criteria other than simply their talent and charisma.",
+      "full": true
+    },
+    "pitchDeckURL": null,
+    "goToMarket": null,
+
+    "featureHighlights": [],
+    "fundraises": [
+      {
+        "time": "LMT Studios - investment mid 2021-waiting for MVP",
+        "amount": 500000
+      },
+      {
+        "time": "LND1440 Media House -Brand partnership on the horizon",
+        "amount": 1500000
+      }
+    ],
+    "company": {
+      "companyName": "TWIYS Media",
+      "companyType": "LLC",
+      "companyFullName": "TWIYS Media Inc.",
+      "companyJurisdiction": "Delaware"
+    },
+    "competition": {
+      "description": null,
+      "companies": []
+    },
+    "seekingCofounder": false,
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Full stack developer",
+        "icon": "brain",
+        "description": "Design for the front end and back end, of the connected app for the contestant user experience, as well as the audience user experience.",
+        "expertise": []
+      },
+      {
+        "id": 2,
+        "title": "Marketing lead",
+        "icon": "brain",
+        "description": "Design rollout/launch in concert with existing marketing/promo strategies. Promotion materials for socials and business sites at launch.",
+        "expertise": []
+      },
+      {
+        "id": 3,
+        "title": "Public Relations",
+        "icon": "search-dollar",
+        "description": "facilitate associated press releases, radio, and/or television appearances of the cast and crew of the series.",
+        "expertise": []
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 2,
+        "title": "Most Popular",
+        "slug": "Primarily Contributor Credits",
+        "trigger": "$2 Million In Investment",
+        "description": "Contributors get 1% of their normal rate in cash, and the remaining 99% in Contributor Credits* at 3 credits per dollar.",
+        "primary": true
+      },
+      {
+        "id": 2,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description": "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": false
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Management",
+        "value": 40,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Legal",
+        "value": 10,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 3,
+        "title": "Sales",
+        "value": 20,
+        "fill": "#EF7D64"
+      },
+      {
+        "id": 4,
+        "title": "Engineering",
+        "value": 30,
+        "fill": "#4DBD98"
+      }
+    ],
+    "helpDescription": "Where to start? 1st may need help with all the admin of an entire creative team complete with PA's and a legal arm to properly advise on policies having to do with the dynamic of filming and the manner of which the shows content is framed.",
+    "desiredAttributes": ["honesty", "resourcefulness", "Anonymity"],
+    "credits": null,
+    "dynamicDataModules": {
+      "currentInvestments": {
+        "description": null,
+        "backers": [
+          {
+            "name": "LMT Studios",
+            "url": "https://www.lmtstudios.com/",
+            "type": "Art Studio",
+            "thumbnail": "https://static1.squarespace.com/static/5a47a9b2e5dd5b62b3e7d5ed/t/5a8df4e953450a74afe0509a/1599938276990/?format=1500w"
+          },
+          {
+            "name": "Lnd1440 Media House",
+            "url": "http://www.n2nmanagement.com",
+            "type": "Marketing Agency",
+            "thumbnail": "https://1.bp.blogspot.com/-SuMb5sJVxcE/VpVLqSgI52I/AAAAAAAADU4/zH-yYhESPLk/s1600-r/n2n-transparent.png"
+          }
+        ]
+      }
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Luke",
+      "lastName": "Lang",
+      "nickname": "Luc",
+      "thumbnail": "/assets/images/UserImages/llang.jpg",
+      "title": "Founder",
+      "social": {
+        "linkedin": "http://linkedin.com/in/luc-lang-75066b26",
+        "facebook": "http://facebook.com/LucTLang",
+        "twitter": "https://twitter.com/bvnksinvtrv",
+        "instagram": "http://instagram.com/bvnksinvtrv"
+      },
+      "timeInvestment": {
+        "total": 30,
+        "byDay": null
+      },
+      "financialInvestment": { "amount": 10000, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I am an entrepreneur with over 15 years experience behind the scenes of the music industry. My contacts range from A list celebrities to models and photographers and influencers and span continents. My personal experiences have afforded me a deep humility and reverence for our icons and it is my goal to highlight their legacies while building mine.",
+      "interests": ["Music", "Traveling", "Hip Hop", "Science"],
+      "expertise": ["Rapper", "Singer", "Songwriter"],
+      "projectLove": "I want to inspire entrepreneurs toward social change.",
+      "projectRole": "",
+      "compensationPackage": null
+    },
+    {
+      "id": 2,
+      "role": 2,
+      "firstName": "Nick",
+      "lastName": "Wright",
+      "nickname": "Huggy",
+      "thumbnail": "/assets/images/UserImages/nwright.jpeg",
+      "title": "Team member/artist",
+      "social": {
+        "twitter": "https://twitter.com/huggyduzit",
+        "instagram": "http://instagram.com/huggyduzit"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 3,
+          "tue": 3,
+          "wed": 3,
+          "thu": 1,
+          "fri": 0,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I’m a 27 year old male located in Los Angeles. I’m currently a full time behavioral therapist and recording artist. I have experience working in graphic design, streetwear, and large scale music festival planning.",
+      "interests": [
+        "Music",
+        "Hiphop",
+        "soul",
+        "funk",
+        "painting",
+        "emceeing",
+        "djing",
+        "skating",
+        "guitar",
+        "drums",
+        "production",
+        "songwriting"
+      ],
+      "expertise": ["emceeing", "Music", "guitar", "drums", "production", "songwriting"],
+      "projectLove": "My dude Luc!",
+      "projectRole": "Artistic contributor, songwriter, graphic designer",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 3,
+      "role": 2,
+      "firstName": "Micky",
+      "lastName": "Mosikili",
+      "nickname": "Micky",
+      "thumbnail": "/assets/images/UserImages/mmosikili.jpg",
+      "title": "Networking and Administration",
+      "social": null,
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 0,
+          "tue": 3,
+          "wed": 3,
+          "thu": 1,
+          "fri": 0,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "Transcribers,  Administration, Logistics,  Research",
+      "interests": null,
+      "expertise": ["Logistics", "Admin", "Networking", "Research"],
+      "projectLove": "Helping and joining hands with a friend to do better, connect with others and to grow for a better life.",
+      "projectRole": "Networking and Administration",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 4,
+      "role": 2,
+      "firstName": "Brandy",
+      "lastName": "Lucero",
+      "nickname": "Brandy",
+      "thumbnail": "/assets/images/UserImages/blucero.jpeg",
+      "title": "Brand Ambassador",
+      "social": {
+        "facebook": "http://facebook.com/brandylucero",
+        "instagram": "http://instagram.com/destineyhomecarellc"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 3,
+          "tue": 3,
+          "wed": 3,
+          "thu": 3,
+          "fri": 3,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "Nurse small business owner entrepreneur",
+      "interests": ["Helping humanity"],
+      "expertise": ["Nursing", "Fashion", "Catering"],
+      "projectLove": "I want to make the world a better place in any capacity that I’m able to.",
+      "projectRole": "Contributor brand ambassador ",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 5,
+      "role": 2,
+      "firstName": "Kenchasa",
+      "lastName": "Bryant Picquet ",
+      "nickname": "Kenchasa",
+      "thumbnail": "/assets/images/UserImages/kpicquet.jpg",
+      "title": "Actress, Model, Stylist",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/kbenterpriseskare",
+        "instagram": "https://www.instagram.com/kb_enterprises/"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 3,
+          "tue": 3,
+          "wed": 3,
+          "thu": 3,
+          "fri": 3,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "Influential, Creator I have been in the Entertainment Industry for over twenty years with a combination of Marketing, Music, Business Production experience and mentor.",
+      "expertise": ["Music", "Dance", "Casting", "Marketing", "Acting"],
+      "projectLove": "I was asked to join this team I was immediately inspired,  and I know I will be an asset to the team.",
+      "projectRole": "Part of the creative team working as a Actress, Model, Stylist",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 6,
+      "role": 2,
+      "firstName": "Xolani",
+      "lastName": "Sedibe",
+      "nickname": "Xolani",
+      "thumbnail": "/assets/images/UserImages/xsedibe.jpeg",
+      "title": "Creative & Digital Marketing Strategist",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/xolani-wiseman-sedibe-390a8b19/",
+        "facebook": "https://www.facebook.com/WaxxDecemba",
+        "twitter": "https://twitter.com/waxxdecemba/",
+        "instagram": "https://www.instagram.com/waxxdecemba/",
+        "soundcloud": "https://soundcloud.com/waxxdecemba",
+        "youtube": "https://www.youtube.com/channel/UCEqdpfyBbEMdm4eMt-E54mQ?",
+        "medium": "https://medium.com/@sedibexolani"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 0,
+          "tue": 3,
+          "wed": 3,
+          "thu": 3,
+          "fri": 1,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I am a street smart digital native well versed with the digital world and digital lifestyles. I am curious about how things digital are increasingly becoming integrated with all facets of life as a result I have been involved in building & launching multiple start-ups, local brands & products online and offline where my main role has been Creative & Digital Strategy. I am an active user of many digital platforms from slack to sprout, and I know a thing or two about coding(HTML & CSS).",
+      "expertise": ["Music Marketing", "Digital Marketing", "Business", "Marketing", "Arts Administration"],
+      "projectLove": "I am passionate about small businesses and the arts and I want to dedicate my time and effort in helping artists build sustainable businesses.",
+      "projectRole": "As a Creative & Digital Marketing Strategist my role is first and foremost a creative leader and thinker. I will help in crafting proposals for brands across advertising, film, television and streaming etc. I will work with the broader team to make sure the marketing strategy aligns with the business objectives, I will conceptualize social media campaigns and experiential marketing activities to ensure that the project is successful.",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 7,
+      "role": 2,
+      "firstName": "Erykah",
+      "lastName": "Lynne",
+      "nickname": "Erykah",
+      "thumbnail": "/assets/images/UserImages/elynne.jpg",
+      "title": "Influencer & Team Member",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/thecolorsareimmaculate/",
+        "facebook": "https://www.facebook.com/thecolorsareimmaculate",
+        "twitter": "https://twitter.com/thecolorsareimmaculate/",
+        "instagram": "https://www.instagram.com/thecolorsareimmaculate/"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 0,
+          "tue": 0,
+          "wed": 0,
+          "thu": 0,
+          "fri": 0,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I am a Massachusetts-based model and influencer.",
+      "expertise": ["modeling", "fashion", "art", "music", "makeup"],
+      "projectLove": "I heard about it from Clubhouse!",
+      "projectRole": "model/influencer/team member",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 8,
+      "role": 2,
+      "firstName": "Leigh-Anne",
+      "lastName": "Harrison",
+      "nickname": "Leigh-Anne",
+      "thumbnail": "/assets/images/UserImages/lharrison.jpeg",
+      "title": "Influencer & Team Member",
+      "social": {
+        "facebook": "https://www.facebook.com/leighanne2811/",
+        "instagram": "https://www.instagram.com/leigh2811/",
+        "twitter": "https://twitter.com/leighanne2811",
+        "soundcloud": "https://soundcloud.com/leigh-anne2811"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 5,
+          "tue": 5,
+          "wed": 5,
+          "thu": 5,
+          "fri": 5,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I graduated with a BA Corporate Communication degree from Rand Afrikaans University in 2003. For 7 years, I worked as a Production/Account Manager doing brand activations such as product launches, events, road shows, mall activations and in-store promotions for numerous major companies. My most recent profession and something that I am very good at and I enjoy immensely, is copywriting. I have done freelance work as a ghostwriter, copywriter, editor and online write-ups.",
+      "expertise": [
+        "reading",
+        "writing",
+        "dj-ing",
+        "horse riding",
+        "clothes and fashion",
+        "people",
+        "talking",
+        "living"
+      ],
+      "projectLove": "Luke asked me because he knew I would be a good fit but it would be ridiculous to say that was my only motivating factor. I am also extremely motivated be involved in a project that has the most potential. To be part of creating something of such magnitude would motivate just about anybody.",
+      "projectRole": "My role is whatever it needs to be! I excel at project management, organization, promotions, event management and planning, basically - brand activations. I can also be a top micro-manager and what I mean by micro-management is that I'm good at telling people what to do, when to do it and how to do it whilst I watch them do it. So if you need someone to micro-manage, I've been one for as long as I can remember because I have bossy-boot qualities. I am an excellent writer and writing is something I really enjoy. I love talking to and meeting interesting people I can be extremely persuasive and convincing. So my role could be marketing, sales, copywriting, networking and/or micro-management.",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 9,
+      "role": 2,
+      "firstName": "Lerato",
+      "lastName": "Matilda",
+      "nickname": "Lerato",
+      "thumbnail": "/assets/images/UserImages/lmatilda.jpg",
+      "title": "Contributor",
+      "social": {
+        "facebook": "https://www.facebook.com/LR_May/",
+        "instagram": "https://www.instagram.com/LR_May/",
+        "twitter": "https://twitter.com/LR_May",
+        "soundcloud": "https://soundcloud.com/LR_May"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 5,
+          "tue": 5,
+          "wed": 5,
+          "thu": 2,
+          "fri": 5,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "A mind blowing upcoming artist that keeps the audience staring in Awe.",
+      "expertise": ["Music", "Ventures", "Being a team player"],
+      "projectLove": "It supports me, helps me grow, and will help me be more equipped with information.",
+      "projectRole": "Contributor and a supporter to gain and absorb more as an artist/team member.",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 10,
+      "role": 2,
+      "firstName": "Dale",
+      "lastName": "Kopping",
+      "nickname": "Dale",
+      "thumbnail": "/assets/images/UserImages/dkopping.jpg",
+      "title": "Influencer & Media Entertainment Manager",
+      "social": {
+        "linkedin": "https://www.linkedin.com/mwlite/in/dalekopping",
+        "facebook": "https://www.facebook.com/dale.kopping",
+        "instagram": "https://www.instagram.com/dalekopping",
+        "twitter": "https://www.twitter.com/DaleKopping"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 5,
+          "tue": 2,
+          "wed": 5,
+          "thu": 2,
+          "fri": 5,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I am a Blogger, Web & Graphic Designer, Editor, Copywriter, International Photographer, Social Media Specialist and Influencer",
+      "expertise": [
+        "Photography",
+        "Media",
+        "Sports",
+        "Music",
+        "Entertainment",
+        "Technology",
+        "Wildlife",
+        "Women",
+        "Food"
+      ],
+      "projectLove": "When a good friend approached me and asked if I'd be interested in joining this project I immediately said yes. Any project my friend is a part of can only be one that is going to help others and if there is anything I can assist with in helping others too. You can count me in",
+      "projectRole": "My role is to be the person on the ground promoting the project through various methods to ensure maximum exposure is reached from maximum audience",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    }
+  ]
+}

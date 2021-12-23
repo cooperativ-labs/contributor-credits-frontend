@@ -1,0 +1,113 @@
+{
+  "project": {
+    "creationDate": "",
+    "name": "Skaiware",
+    "nameNormalized": "skaiware",
+    "category": "Games",
+    "thumbnail": "skaiware.webp",
+    "brandColor": "#000000",
+    "sharing": null,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "Contributors",
+    "shortDescription": "Development and release of a video game.",
+    "needSummary": "We are searching for a networking coder (Godot).",
+    "elevatorPitch": "",
+    "problem": "The lack of good coop FPS",
+    "solution": "A coop FPS",
+    "mission": null,
+    "vision": null,
+    "timeGoals": {},
+    "website": "http://www.skAIware.org",
+    "locations": ["United States"],
+    "languages": ["English"],
+    "description": {
+      "excerpt": "A coop FPS",
+      "full": false
+    },
+    "pitchDeckURL": null,
+    "goToMarket": null,
+    "featureHighlights": [],
+    "fundraises": null,
+    "company": {
+      "companyName": "Skaiware",
+      "companyType": "Individual",
+      "companyFullName": "Will Skaiware",
+      "companyJurisdiction": "United States"
+    },
+    "seekingCofounder": false,
+    "cofounderGoals": {
+      "reason": "",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "teamCulture": "",
+    "availableRoles": [],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Software Development",
+        "value": 100,
+        "fill": "#619DD2"
+      }
+    ],
+    "teamFit": "",
+    "credits": {
+      "contributorCreditClasses": []
+    },
+    "dynamicDataModules": {
+      "pages": {
+        "project": true,
+        "team": true,
+        "opportunities": true,
+        "contracts": false
+      },
+      "currentInvestments": null,
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Will",
+      "lastName": "Skaiware",
+      "nickname": "Will",
+      "thumbnail": "/assets/images/UserImages/placeholder.png",
+      "title": "Founder",
+      "social": null,
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 6,
+          "mon": 0,
+          "tue": 0,
+          "wed": 0,
+          "thu": 0,
+          "fri": 0,
+          "sat": 4
+        }
+      },
+      "financialInvestment": { "amount": 100, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "20 years of professional development.",
+      "interests": [],
+      "expertise": [],
+      "projectHopes": null,
+      "projectLove": null,
+      "compensationPackage": {}
+    }
+  ]
+}

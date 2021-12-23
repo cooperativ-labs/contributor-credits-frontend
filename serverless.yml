@@ -1,0 +1,10 @@
+cooperativApplication:
+  name: Webapp
+  component: "@sls-next/serverless-component@3.5.3" # it is recommended you pin the latest stable version of serverless-next.js @{version}
+  inputs: 
+    domain: 
+      - cooperativ.io
+    cloudfront: 
+      distributionId: E12OFUR6LKSDDS
+    bucketName: cooperativ-webapp-primary
+

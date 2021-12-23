@@ -1,0 +1,126 @@
+{
+  "project": {
+    "creationDate": "April 2021",
+    "name": "Gardream",
+    "nameNormalized": "gardream",
+    "category": "Marketplace & Services",
+    "thumbnail": "gardream.png",
+    "brandColor": "#6fa079",
+    "sharing": null,
+    "lightBrand": false,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription":
+      "The most customer-oriented e-commerce service platform of the world. We make it possible to order a service with guaranteed prices in a short period of time.",
+    "needSummary":
+      "We need a CTO who is responsible for the entire web presence and additionally who has experience in 3-D-Model development.",
+    "elevatorPitch": null,
+    "problem": "",
+    "mission": "",
+    "vision": "",
+    "timeGoals": null,
+    "website": "https://theselfdrivingboat.com/",
+    "video": null,
+    "locations": ["Germany"],
+    "languages": ["English", "German"],
+    "description": {
+      "excerpt": "",
+      "full": true
+    },
+    "pitchDeckURL": null,
+    "goToMarket": null,
+    "featureHighlights": [],
+    "fundraises": [],
+    "company": {
+      "companyName": "Gardream",
+      "companyType": "GmbH",
+      "companyFullName": "Gardream GmbH",
+      "companyJurisdiction": "Germany"
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason": "",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Software Engineer",
+        "icon": "brain",
+        "description": "Help building the webapp.",
+        "file": "software-engineer",
+        "expertise": []
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Software Engineering",
+        "value": 100,
+        "fill": "#619DD2"
+      }
+    ],
+    "credits": null,
+    "dynamicDataModules": {
+      "pages": {
+        "project": true,
+        "team": true,
+        "opportunities": true,
+        "contracts": true
+      },
+      "currentInvestments": null,
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Florian",
+      "lastName": "Stefanides",
+      "nickname": "Florian",
+      "thumbnail": "/assets/images/UserImages/fstefanides.jpg",
+      "title": "Founder",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/florian-stefanides-6b0047176/"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 5,
+          "mon": 0,
+          "tue": 0,
+          "wed": 5,
+          "thu": 0,
+          "fri": 0,
+          "sat": 5
+        }
+      },
+      "financialInvestment": { "amount": 1500, "currency": "EUR" },
+      "openSuggestions": true,
+      "bio": "",
+      "interests": [],
+      "expertise": ["Business Development", "Management", "Operations"],
+      "hopes": null,
+      "projectLove": null,
+      "compensationPackage": {
+        "shares": 1000,
+        "credits": 0
+      }
+    }
+  ]
+}

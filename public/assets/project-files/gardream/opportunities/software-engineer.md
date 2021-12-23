@@ -1,0 +1,1 @@
+Development of the front-end and back-end for the website and the entire calculation process. In addition, the mail management, payment system and the customer and craftsman back office are to be created. For our system to work we need a matching mechanism that matches the customer and the craftsman with each other. 

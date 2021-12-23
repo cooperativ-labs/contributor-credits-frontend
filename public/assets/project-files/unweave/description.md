@@ -1,0 +1,1 @@
+Unweave lets people keep their code and data in sync. It aims to introduce a workflow that lets data-scientists and machine-learning engineers do work that's reproducible and collaborative. In the long term, Unweave aims to be a complete programming environment that's completely customizable, versionable and collaborative.

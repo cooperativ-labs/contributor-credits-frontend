@@ -1,0 +1,181 @@
+{
+  "project": {
+    "creationDate": "February 2018",
+    "name": "Dap Land",
+    "nameNormalized": "dapland",
+    "category": "Social",
+    "thumbnail": "dapland.svg",
+    "brandColor": "#000000",
+    "sharing": {
+      "image": "dapland-wide.png"
+    },
+    "lightBrand": false,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription":
+      "Dap Land is a video app for basketball. It uses authentic basketball features for challenging players online and for showcase their skills. It can help to unite 450M players and 2B fans.",
+    "needSummary": "Looking yarn for app and back-end developing, SMM, finances, QA",
+    "elevatorPitch":
+      "Dap Land is a video app for basketball. It uses authentic basketball features for challenging players online and for showcase their skills. It can help to unite 450M players and 2B fans.",
+    "problem":
+      "Players can't challenge each other online when they use social media for sharing their skills. On another hand are fans who are just observers and they can't influence the community.",
+    "mission":
+      "We believe we will elevate the basketball community together with players and fans. We will boost players' skills level and engage fans more. Our principle is 'skills say more than a thousand words'.",
+    "vision": "Grow the biggest community.",
+    "targetMarket": "13-21 years old basketball lovers.",
+    "timeGoals": {
+      "now": "1-minute video demo.",
+      "oneYear": "iOS and Android apps.",
+      "threeYears": "Expanding service to China."
+    },
+    "website": "http://dap.land/",
+    "languages": ["English", "Russian"],
+    "description": {
+      "excerpt":
+        "This is an app where players challenge each other online and fans showcase players' skills. Everyone can be recognized by the community and get respect with specific basketball rewards.",
+      "full": true
+    },
+    "pitchDeckURL":
+      "https://docs.google.com/presentation/d/1L4B7LIMD_AvlwrjYq_s8_41EgoFA6LGcCKLiTuVi9P4/edit?usp=sharing",
+    "goToMarket": null,
+    "video": "https://www.youtube.com/watch?v=RI2ptLRe4Ig&feature=emb_logo",
+    "values": ["Challenges", "Getting Respect"],
+    "featureHighlights": [],
+    "fundraises": [],
+    "company": {
+      "companyName": "Dapland",
+      "companyType": "Individual",
+      "companyFullName": "Dmitrii Ziuzin",
+      "companyJurisdiction": "Estonia"
+    },
+    "competition": {
+      "description":
+        "TikTok. We focused only on basketball and we use specific basketball culture things. Players can challenge each other and fans showcase players skills with Dap Land.",
+      "companies": []
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason":
+        "I need a partner who can compliment my ideas or criticize them. I need a team member who can share their ideas. Two heads are better than one head.",
+      "topTraits": ["Team player", "tech background", "ability to hear and to share their doubts"],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "iOS Developer",
+        "icon": "brain",
+        "description": "",
+        "expertise": []
+      },
+      {
+        "id": 2,
+        "title": "Android Developer",
+        "icon": "brain",
+        "description": "",
+        "expertise": []
+      },
+      {
+        "id": 3,
+        "title": "Back-End Developer",
+        "icon": "brain",
+        "description": "",
+        "expertise": []
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "App Development",
+        "value": 30,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Backend Development",
+        "value": 30,
+        "fill": "#C2C3C4"
+      },
+      {
+        "id": 3,
+        "title": "SMM",
+        "value": 15,
+        "fill": "#EF7D64"
+      },
+      {
+        "id": 4,
+        "title": "Finance",
+        "value": 15,
+        "fill": "#4DBD98"
+      },
+      {
+        "id": 5,
+        "title": "Quality Assurance",
+        "value": 10,
+        "fill": "#C2C3C4"
+      }
+    ],
+    "credits": {
+      "contributorCreditClasses": []
+    },
+    "dynamicDataModules": {
+      "currentInvestments": null,
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Dmitrii",
+      "lastName": "Ziuzin",
+      "nickname": "Dmitrii",
+      "thumbnail": "/assets/images/UserImages/dziuzin.jpg",
+      "title": "Founder",
+      "email": null,
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/dimazyuzin/",
+        "facebook": "https://www.facebook.com/dimazyuzin",
+        "instagram": "https://www.instagram.com/dzyuzin/"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 4,
+          "mon": 0,
+          "tue": 0,
+          "wed": 0,
+          "thu": 0,
+          "fri": 0,
+          "sat": 4
+        }
+      },
+      "financialInvestment": { "amount": 100, "currency": "EUR" },
+      "openSuggestions": true,
+      "bio":
+        "I'm a digital product designer with 10 years of experience. I worked both with startups and companies from Fortune 500. Also I have 8-year basketball experience.",
+      "interests": ["basketball", "football", "meditation", "fitness", "design", "cycling", "cars", "urban studies"],
+      "expertise": ["HTML", "UX/UI", "Product Design", "Agile", "Product Management"],
+      "projectHopes":
+        "This is a cross road of two of my passions, basketball and design. I believe I can add new ideas and stream to the community.",
+      "projectLove": "I love building things for the basketball community",
+      "compensationPackage": {
+        "shares": null,
+        "credits": null
+      }
+    }
+  ]
+}

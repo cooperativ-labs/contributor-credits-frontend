@@ -1,0 +1,402 @@
+{
+  "project": {
+    "creationDate": "March 2020",
+    "name": "Sunshine Labs",
+    "nameNormalized": "sunshine",
+    "category": "Business & Legal",
+    "thumbnail": "sunshine.png",
+    "brandColor": "#619DD2",
+    "sharing": {
+      "image": "sunshine-wide.png"
+    },
+    "lightBrand": false,
+    "progress": 2,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription": "Making it possible to set up a business, across borders, without awkward equity conversations, in 15 minutes. Builders of Cooperativ.",
+    "needSummary": "Someone who really ",
+    "elevatorPitch": "Sunshine Labs is building a set of tools that help entrepreneurs with early-stage projects find, onboard, and compensate collaborators without cash while protecting IP. We plan to replace incorporation with a new kind of digital entity.",
+    "problem": "Starting a business is too hard. There is currently no structured way to collaborate and share value without forming a legal business entity, which is expensive, time-consuming, intimidating, and forces the entrepreneur to make a bunch of decisions she may not be ready to make.",
+    "mission": "Sunshine Labs will make it possible for anyone anywhere to work with collaborators to quickly start and grow a business.",
+    "vision": "Starting a business should be much easier. There should be no incorporation, no attorneys, no awkward equity conversations, no invoicing, no contracts. You should be able to come up with an idea, invite people to your team, and start building.",
+    "timeGoals": {
+      "now": "We have an alpha running for the blockchain-based 'Contributor Credits' product, and we are preparing to role out a production version of the rest of the platform. We have ten groups who have agreed to add their projects to the platform at launch.",
+      "oneYear": "Our target for 1 Jan 2022 is to have at least 300 projects live on the platform with at least 1000 total collaborators. We also expect to expand the types of contracts built into the system and to offer tokenized equity options.",
+      "threeYears": "By 1 Jan 2024 we hope that our platform will be considered the standard way to start, organize, and govern a business. We expect many projects to be collectively owned and to be experimenting with new ways of sharing control."
+    },
+    "website": "https://sunshinelabs.io/",
+    "description": {
+      "excerpt": "",
+      "full": true
+    },
+    "pitchDeckURL": null,
+    "goToMarket": "Our plan is to let users with businesses, or even ideas for businesses, create free Project Profiles and us them them to recruit collaborators in existing networks (Twitter, Facebook, Indiehackers, etc.) We are going to promote these profiles aggressively to help the projects find help, and also to demonstrate the value of profiles to other potential creators.",
+    "featureHighlights": [
+      {
+        "name": "Contributor Credits",
+        "details": "Contributor Credits let you share the success of your project with early contributors without promising equity",
+        "url": "https://sunshinelabs.io/contributor-credits"
+      }
+    ],
+    "fundraises": [
+      {
+        "time": "Mid 2021",
+        "amount": 500000
+      },
+      {
+        "time": "Early 2022",
+        "amount": 1500000
+      }
+    ],
+    "company": {
+      "companyName": "Sunshine Labs",
+      "companyType": "Corporation",
+      "companyFullName": "Sunshine Labs Inc.",
+      "companyJurisdiction": "Delaware"
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason": "",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Blockchain Engineer",
+        "icon": "ethereum",
+        "description": null,
+        "file": "blockchain-engineer",
+        "expertise": ["Ethereum", "Smart Contracts", "Solidity", "Truffle", "Layer-2 Solutions"]
+      },
+      {
+        "id": 2,
+        "title": "Community Builder",
+        "icon": "users",
+        "description": null,
+        "file": "community-builder",
+        "expertise": ["Social Media", "Reddit", "Discord", "Writing", "Gaming"]
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 2,
+        "title": "Most Popular",
+        "slug": "Primarily Contributor Credits",
+        "trigger": "$2 Million In Investment",
+        "description": "Contributors get 1% of their normal rate in cash, and the remaining 99% in Contributor Credits* at 3 credits per dollar.",
+        "primary": true
+      },
+      {
+        "id": 2,
+        "type": 2,
+        "title": "In Special Cases",
+        "slug": "50 | 50",
+        "trigger": "$2 Million In Investment",
+        "description": "Contributors get 50% of their normal rate in cash, and the remaining 50% in Contributor Credits* at 3 credits per dollar.",
+        "primary": false
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Social Media",
+        "value": 40,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Blockchain",
+        "value": 40,
+        "fill": "#4DBD98"
+      },
+      {
+        "id": 3,
+        "title": "Sales",
+        "value": 10,
+        "fill": "#C2C3C4"
+      },
+      {
+        "id": 4,
+        "title": "Engineering",
+        "value": 10,
+        "fill": "#4DBD98"
+      }
+    ],
+    "credits": {
+      "contributorCreditClasses": [
+        {
+          "id": 1,
+          "triggerFundraising": 2000000,
+          "triggerRevenue": 700000,
+          "triggerSale": true,
+          "currentValue": 0.0,
+          "creditsOutstanding": 113000
+        }
+      ]
+    },
+    "dynamicDataModules": {
+      "pages": {
+        "project": true,
+        "team": true,
+        "opportunities": true,
+        "contracts": true
+      },
+      "currentInvestments": {
+        "description": "We are currently bootstrapping, with all investment coming from personal funds. The goal is to focus on recruiting early customers to demonstrate that we have traction, and only then to seek investment.",
+        "backers": [
+          {
+            "name": "Troutman Pepper SEED program",
+            "url": "https://seed.troutman.com/",
+            "type": "Law Firm",
+            "thumbnail": "https://seed.troutman.com/images/SEED_Logo_120x120.png"
+          }
+        ]
+      },
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Jacob",
+      "lastName": "Chase-Lubitz",
+      "nickname": "Jake",
+      "thumbnail": "/assets/images/UserImages/jchaselubitz.jpg",
+      "title": "Creator",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/jchaselubitz/",
+        "github": "https://github.com/jchaselubitz",
+        "discord": "https://discordapp.com/users/jchaselubitz"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 4,
+          "mon": 3,
+          "tue": 2,
+          "wed": 2,
+          "thu": 2,
+          "fri": 3,
+          "sat": 7
+        }
+      },
+      "financialInvestment": { "amount": 10000, "currency": "USD" },
+      "openSuggestions": true,
+      "bio": "I am a product strategist with five years of experience designing multi-sided platforms and business models, crafting product roadmaps, and managing development projects. I served as Director of Product Development at Everybill LLC, where I lead the design of an award-winning concept for a healthcare payment platform.",
+      "interests": ["Entrepreneurship", "Traveling", "Languages", "Science"],
+      "expertise": ["Product Management", "Marketing", "Foreign Policy"],
+      "hopes": "If we are successful, this project will give users the opportunity to test out a whole bunch of organizational and ownership structures, including those that are more equitable than the businesses we have today.",
+      "projectLove": "If we are successful, this project will give users the opportunity to test out a whole bunch of organizational and ownership structures, including those that are more equitable than the businesses we have today.",
+      "compensationPackage": {
+        "shares": 1000,
+        "credits": 0
+      }
+    },
+
+    {
+      "id": 2,
+      "role": 2,
+      "firstName": "Nathaniel",
+      "lastName": "Faber",
+      "nickname": "Nate",
+      "thumbnail": "/assets/images/UserImages/nfaber.jpeg",
+      "title": "Software Engineer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/nate-faber-86a255b7/",
+        "github": "https://github.com/vividn"
+      },
+      "timeInvestment": 8,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "Nate received training as a neuroscientist, studying the effects of serotonin on visual processing. Since then he has transitioned to software development working full stack.",
+      "interests": [
+        "cryptocurrency",
+        "Neuroscience",
+        "smart contracts",
+        "brain-machine interfaces",
+        "informatics",
+        "data tracking"
+      ],
+      "expertise": ["node", "react", "python", "solidity", "bitcoin", "Ethereum", "cryptography"],
+      "projectLove": "Combining smart- and legal contracts is an innovative space that will shape the future of society.",
+      "compensationPackage": {
+        "credits": 60331,
+        "shares": 0
+      }
+    },
+
+    {
+      "id": 3,
+      "role": 2,
+      "firstName": "Robin",
+      "lastName": "Raymond",
+      "nickname": "Robin",
+      "thumbnail": "/assets/images/UserImages/rraymond.jpg",
+      "title": "Software Engineer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/robin-raymond/",
+        "github": "https://github.com/r-raymond"
+      },
+      "timeInvestment": 6,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "Former mathematician, I started working in the deep tech startup space after leaving academia. After that I've been involved in various pre-seed, seed and series A startups, as head of engineering / CTO.",
+      "interests": ["Defi", "Smart Contracts", "Security", "CI/CD"],
+      "expertise": ["Math", "NIXos", "Blockchain"],
+      "projectLove": "I'm super excited about working in the defi space, which in my opinion is the killer app of blockchain.",
+      "compensationPackage": {
+        "credits": 34214,
+        "shares": 0
+      }
+    },
+    {
+      "id": 4,
+      "role": 2,
+      "firstName": "Gabby",
+      "lastName": "Valdespino",
+      "nickname": "Gabby",
+      "thumbnail": "/assets/images/UserImages/gvaldespino.jpg",
+      "title": "Designer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/gabby-valdespino-4a473435/",
+        "dribbble": "https://dribbble.com/gabv289"
+      },
+      "timeInvestment": 6,
+      "financialInvestment": null,
+      "openSuggestions": null,
+      "bio": "I am a proud product nerd with over seven years of digital experience. Throughout my experience as a designer, I've worked with a diversity of industries including automotive, healthcare, aerospace, food & beverage, consulting, technology sales, insurance, consumer goods, real-estate and non-profits. Some of the clients I have had the pleasure of working with include: United Launch Alliance, Pepsi, Comcast, DaVita, Bahlsen, Daimler, Henkel, Ogilvy & Mather, McFit, Breckenridge Brewery and Metlife. What I enjoy most about my work is being able to provide creative solutions to the unique challenges each market faces.",
+      "interests": ["Hiking", "Traveling", "Doodling", "Baking", "Geocaching", "Consuming Podcasts"],
+      "expertise": ["UX/UI Design", "Product Design", "Marketing", "Branding"],
+      "compensationPackage": {
+        "credits": 10350,
+        "shares": 0
+      }
+    },
+    {
+      "id": 5,
+      "role": 2,
+      "firstName": "Sean",
+      "lastName": "Morgan",
+      "nickname": "Sean",
+      "thumbnail": "/assets/images/UserImages/mmorgan.jpg",
+      "title": "Software Engineer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/seantbmorgan/",
+        "instagram": "https://www.instagram.com/therealbongwa",
+        "github": "https://github.com/seantbmorgan"
+      },
+      "timeInvestment": 6,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "Digital media jack of all trades and software engineer with over a decade of experience in frontend web development and litigation technology support services. Accustomed to high pressure, time-sensitive environments in both individual and team-oriented scenarios. A self-driven unicorn encompassing both creative design flair and technical hard skills aptitude with excellent communication skills and commendable individual oversight.",
+      "interests": ["MMA", "Mycology", "Gaming", "Horror", "Sci Fi", "Military History"],
+      "expertise": ["React", "Vue", "Nuxt", "Next", "Nest", "JS", "HTML", "CSS", "Sass", "Tailwind"],
+      "projectLove": "I get to play with fun tech in good company.",
+      "compensationPackage": {
+        "credits": 24480,
+        "shares": 0
+      }
+    },
+    {
+      "id": 6,
+      "role": 2,
+      "firstName": "Jason",
+      "lastName": "Allen",
+      "nickname": "Jason",
+      "thumbnail": "/assets/images/UserImages/jallen.jpg",
+      "title": "Legal Engineer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/jasongrantallen/"
+      },
+      "timeInvestment": 6,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "Dual-qualified lawyer currently in full time academia. I research the impact of digital technologies on the law, with a focus on the law of money (cryptocurrencies, CBDC), digital assets, and governance. Over 15 years in academia I have worked across the public law/private law divide and am now uniquely positioned to engage with FinTech, RegTech, and LegalTech in their proper context.",
+      "interests": [],
+      "expertise": [],
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 7,
+      "role": 2,
+      "firstName": "David",
+      "lastName": "Sheffield",
+      "nickname": "David",
+      "thumbnail": "/assets/images/UserImages/dsheffield.jpg",
+      "title": "Python/Javascript Developer",
+      "social": {
+        "facebook": "https://www.facebook.com/sheffield2"
+      },
+      "timeInvestment": 16,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "Starting at Lucent Technologies (formerly Bell Labs) in 1997 as a web development intern, I have worked as a software developer for large media companies like CBS, NPR, and financial firms like the EasyGroup, Cresco Capital, and First Mariner Bank.",
+
+      "interests": [],
+      "expertise": [],
+      "projectLove": "It's innovative in all the ways I had always imagined society should go, what an exciting project to work on!",
+
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 8,
+      "role": 2,
+      "firstName": "Konstantin",
+      "lastName": "Gonikman",
+      "nickname": "Konstantin",
+      "thumbnail": "/assets/images/UserImages/kgonikman.jpg",
+      "title": "Software Engineer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/gonie/",
+        "github": "https://github.com/CocoaPriest",
+        "instagram": "https://www.instagram.com/cocoapriest/"
+      },
+      "timeInvestment": 16,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "I'm a software engineer from Hamburg / Germany with a proven track record of shipping apps for any kind of client, from small start-ups to large corporations like BMW Group, Bosch, Deutsche Telekom and DreamWorks Animation. Passionate about blockchain, DeFi and smart contracts.",
+
+      "interests": ["smart contracts", "blockchain", "defi", "traveling", "aviation"],
+      "expertise": ["iOS", "swift", "mobile", "ethereum", "solidity"],
+      "projectLove": "DeFi is the future and I'm super excited to be part of it. I love writing efficient software and learning new technologies and tools.",
+
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    },
+    {
+      "id": 9,
+      "role": 2,
+      "firstName": "Nevan",
+      "lastName": "Tan",
+      "nickname": "Nevan",
+      "thumbnail": "/assets/images/UserImages/ntan.jpg",
+      "title": "Software Engineer",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/gonie/",
+        "github": "https://github.com/CocoaPriest",
+        "instagram": "https://www.instagram.com/cocoapriest/"
+      },
+      "timeInvestment": 20,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio": "Web developer with 10 years of experience working with a wide variety of small businesses and start-ups, helping to launch projects from the earliest stages. I love learning new technologies, with a focus on applying the latest and greatest to solve real problems.",
+      "interests": null,
+      "expertise": ["Web Development", "JavaScript", "React", "Svelte", "Node.js", "GraphQL", "Serverless"],
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    }
+  ]
+}

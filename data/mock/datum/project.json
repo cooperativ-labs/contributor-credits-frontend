@@ -1,0 +1,191 @@
+{
+  "project": {
+    "creationDate": "November 2016",
+    "name": "Datum",
+    "nameNormalized": "datum",
+    "category": "Personal Data Management",
+    "thumbnail": "datum.png",
+    "brandColor": "#d3d3d3",
+    "sharing": {
+      "image": "datum-wide.png"
+    },
+    "lightBrand": true,
+    "progress": 1,
+    "intention": "Just for fun 🔧",
+    "seeking": "Contributors",
+    "shortDescription":
+      "I want to make it really easy for individuals to track any sort of data on their life, and visualize, analyze, and understand the way their life works.",
+    "needSummary":
+      "I need help turning a robust backend into a mobile app that makes it possible to enter data *very* quickly.",
+    "elevatorPitch":
+      "I want to make it really easy for individuals to track any sort of data on their life, and visualize, analyze, and understand the way their life works.",
+    "problem": "Easy data collection/analysis for everybody",
+    "mission":
+      "A series of interfaces (smartphone app, command line interface [CLI], smartwatch app, etc) to quickly record and visualize data on your life",
+    "vision":
+      "Encourage data literacy and running experiments on yourself and your surrounding. Making data collection easy and fun will enable everyone to learn more about themselves and their time.",
+    "values": ["Truth", "Integrity", "Ethics", "Durability"],
+    "timeGoals": {
+      "now": "Migrating all data to couchdb and building the analysis infrastructure",
+      "oneYear": "Smartwatch and mobile apps",
+      "threeYears": "Building advanced analysis infrastructure."
+    },
+    "website": "",
+    "locations": ["Berlin"],
+    "languages": ["English"],
+    "description": {
+      "excerpt":
+        "Datum is a multi-platform software designed to make data collection on your personal life extremely easy and as fast as possible. Collecting data on your life reveals incredible insights into how you spend your time, and also builds an understanding of your life that intuition alone cannot offer. I personally use Datum to collect over 50 streams of data in my life and it given me a zen like appreciation for how I live my life. By making data collection and analysis very easy it enables people to draw conclusions and understand their lives better and gives them more power in their lives.",
+      "full": "### SEE FILE ###"
+    },
+    "pitchDeckURL": null,
+    "goToMarket": "",
+    "featureHighlights": [],
+    "fundraises": [],
+    "company": {
+      "companyName": "Datum",
+      "companyType": "Individual",
+      "companyFullName": "Nathaniel Faber",
+      "companyJurisdiction": "Germany"
+    },
+    "seekingCofounder": false,
+    "cofounderGoals": {
+      "reason": "",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "UX/UI Designer",
+        "icon": "brain",
+        "description": "Need help designing a smartphone app to *very* quickly get arbitrary data into the system",
+        "expertise": []
+      },
+      {
+        "id": 2,
+        "title": "Couchdb Expert",
+        "icon": "brain",
+        "description":
+          "We use Couchdb for managing data. It would be great to work with someone who has experience with this framework.",
+        "expertise": []
+      },
+      {
+        "id": 3,
+        "title": "Data Analyst",
+        "icon": "brain",
+        "description": "time series data expert",
+        "expertise": []
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 2,
+        "title": "Most Popular",
+        "slug": "Contributor Credits & Rate per Hour",
+        "trigger": "$2 Million In Investment",
+        "description":
+          "Contributors get 1% of their normal rate in cash, and the remaining 99% in Contributor Credits at 3 credits per dollar.",
+        "primary": true
+      },
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": false
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Designer",
+        "value": 40,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Marketing",
+        "value": 10,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 3,
+        "title": "Data Analysis",
+        "value": 20,
+        "fill": "#EF7D64"
+      },
+      {
+        "id": 4,
+        "title": "DevOps",
+        "value": 30,
+        "fill": "#4DBD98"
+      }
+    ],
+    "credits": {
+      "contributorCreditClasses": [
+        {
+          "id": 1,
+          "triggerFundraising": 2000000,
+          "triggerRevenue": 700000,
+          "triggerSale": true,
+          "currentValue": 0.0,
+          "creditsOutstanding": 0
+        }
+      ]
+    },
+    "dynamicDataModules": {
+      "pages": {
+        "project": true,
+        "team": true,
+        "opportunities": true,
+        "contracts": true
+      },
+      "currentInvestments": null,
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Nathaniel",
+      "lastName": "Faber",
+      "nickname": "Nate",
+      "thumbnail": "/assets/images/UserImages/nfaber.jpeg",
+      "title": "Creator",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/nate-faber-86a255b7/",
+        "github": "https://github.com/vividn"
+      },
+      "timeInvestment": 6,
+      "financialInvestment": {},
+      "openSuggestions": null,
+      "bio":
+        "I received training as a neuroscientist, studying the effects of serotonin on visual processing. Since then I turned into a software engineer working full stack. I manually collect over 50 data streams in my life and am trying to learn everything I can. I find time and brains and data fascinating!",
+      "interests": [
+        "cryptocurrency",
+        "Neuroscience",
+        "smart contracts",
+        "brain-machine interfaces",
+        "informatics",
+        "data collection",
+        "piano",
+        "cello"
+      ],
+      "expertise": ["node", "react", "python", "solidity", "bitcoin", "Ethereum", "cryptography"],
+      "projectHopes":
+        "Data is the most powerful resource in the world. That's why companies like Google and Facebook have so much control in our lives. I want to make data collection to users and let them control the data and learn things about their lives. I also want to increase my knowledge of time and learn interesting things about how I work and how I spend my time.",
+      "projectLove":
+        "Seeing my days and weeks and months and years in data form. It's an extremely detailed history. It reveals a lot of insights about my life",
+      "compensationPackage": {
+        "credits": 0,
+        "shares": 0
+      }
+    }
+  ]
+}

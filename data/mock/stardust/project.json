@@ -1,0 +1,176 @@
+{
+  "project": {
+    "creationDate": "November 2020",
+    "name": "Stardust",
+    "nameNormalized": "stardust",
+    "category": "Business & Legal",
+    "thumbnail": "stardust.png",
+    "brandColor": "#000000",
+    "lightBrand": false,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "Contributors",
+    "shortDescription": "Stardust educates the next generation of polymathic thinkers.",
+    "needSummary": "We need help building our Chrome extension and with building our data model.",
+    "elevatorPitch": "Stardust educates the next generation of polymathic thinkers.",
+    "problem": "Today's workforce is too specialized, lacking creative problem-solving abilities.",
+    "mission": "Educating the next generation of polymathic thinkers",
+    "vision": "Engineer new human species",
+    "values": ["Freedom", "Curiosity", "Unity"],
+    "timeGoals": null,
+    "website": "https://www.joinstardust.com/",
+    "locations": ["Nomad", "Karlsruhe, Germany"],
+    "languages": ["English", "German"],
+    "description": {
+      "excerpt": "",
+      "full": false
+    },
+    "pitchDeckURL": null,
+    "goToMarket":
+      "Our plan is to let users with businesses, or even ideas for businesses, create free Project Profiles and us them them to recruit collaborators in existing networks (Twitter, Facebook, Indiehackers, etc.) We are going to promote these profiles aggressively to help the projects find help, and also to demonstrate the value of profiles to other potential creators.",
+    "featureHighlights": [
+      {
+        "name": "Contributor Credits",
+        "details":
+          "Contributor Credits let you share the success of your project with early contributors without promising equity",
+        "url": "https://sunshinelabs.io/contributor-credits"
+      }
+    ],
+    "fundraises": [
+      {
+        "time": "Mid 2021",
+        "amount": 500000
+      },
+      {
+        "time": "Early 2022",
+        "amount": 1500000
+      }
+    ],
+    "company": {
+      "companyName": "Stardust",
+      "companyType": "Corporation",
+      "companyFullName": "Stardust Inc.",
+      "companyJurisdiction": ""
+    },
+    "seekingCofounder": false,
+    "cofounderGoals": {
+      "reason": "",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Software Engineer",
+        "icon": "brain",
+        "description": "Build the web app and Chrome extension.",
+        "expertise": []
+      },
+      {
+        "id": 2,
+        "title": "ML Engineer",
+        "icon": "brain",
+        "description": "Develop a virtual learning tutor with GTP-3",
+        "expertise": []
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Engineering",
+        "value": 40,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "UI/UX Design",
+        "value": 30,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 3,
+        "title": "Legal (US)",
+        "value": 30,
+        "fill": "#EF7D64"
+      }
+    ],
+    "credits": {},
+    "dynamicDataModules": {
+      "pages": {
+        "project": true,
+        "team": true,
+        "opportunities": true,
+        "contracts": false
+      },
+      "currentInvestments": {
+        "description": "We are currently bootstrapping, with most investment coming from personal funds.",
+        "backers": [
+          {
+            "name": "Pioneer.app",
+            "url": "https://pioneer.app/",
+            "type": "Incubator",
+            "thumbnail": "https://webwide.io/data/avatars/o/1/1646.jpg?1581996519"
+          }
+        ]
+      },
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Leander",
+      "lastName": "Maerkisch",
+      "nickname": "Leander",
+      "thumbnail": "/assets/images/UserImages/lmaerkisch.jpg",
+      "title": "Co-Founder",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/leandermaerkisch/"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 5,
+          "mon": 5,
+          "tue": 5,
+          "wed": 5,
+          "thu": 5,
+          "fri": 5,
+          "sat": 5
+        }
+      },
+      "financialInvestment": { "amount": 1300, "currency": "EUR" },
+      "openSuggestions": true,
+      "bio":
+        "I'm Leander, a 24-year old German with a passion for revolutionising the way we learn. I built my first company at the age of 18. I'm a self-taught BI engineer, built a tech-focused student initiative, created two ECT-accredited university courses, and wrote a book on effective learning.",
+      "interests": ["Philosophy", "Rationality", "Psychology", "Systems Thinking", "Community Building"],
+      "expertise": [
+        "Communication",
+        "Creative Lateral Thinking",
+        "Data Engineering",
+        "UX",
+        "Financial Modelling",
+        "Sales",
+        "Leadership"
+      ],
+      "projectHopes":
+        "We are building the learning system for the 21st century. At the age of 15, I started questioning our authoritarian and outdated education system. Since then, I am obsessed with unconventional learning. This is going to be profitable, high growth, non-venture backed software company.",
+      "projectLove":
+        "It's solving my own problem. I've already had many interests but society forced me into specialization. Now, I'm fighting back. I LOVE working with smart people on a complex problem.",
+      "compensationPackage": {}
+    }
+  ]
+}

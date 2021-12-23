@@ -1,0 +1,7 @@
+schema: 
+  - ${DGRAPH_PATH}
+generates:
+  types/index.ts:
+    plugins:
+      - typescript
+      - typescript-react-query

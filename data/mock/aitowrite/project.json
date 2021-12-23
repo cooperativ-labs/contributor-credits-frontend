@@ -1,0 +1,150 @@
+{
+  "project": {
+    "creationDate": "January 2021",
+    "name": "AI to Write",
+    "nameNormalized": "aitowrite",
+    "category": "Development Tools",
+    "thumbnail": "aitowrite.png",
+    "sharing": {
+      "image": "aitowrite-wide.png"
+    },
+    "brandColor": "#E9F1FF",
+    "lightBrand": true,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription": "AI-powered writing tool for open source documentation.",
+    "needSummary":
+      "Looking for co-founder who is passionate about software documentation, a UX designer, and a full stack dev.",
+    "elevatorPitch": "AI-powered writing tool for open source documentation.",
+    "problem": "Drive adoption of open source projects with well-written documentation.",
+    "mission": "To create a general purpose writing tool that helps people write better.",
+    "vision": null,
+    "timeGoals": null,
+    "website": "https://aitowrite.com/",
+    "description": {
+      "excerpt": null,
+      "full": true
+    },
+    "goToMarket": {
+      "excerpt": "",
+      "full": "### SEE FILE ###"
+    },
+    "featureHighlights": [],
+    "fundraises": [],
+    "company": {
+      "companyName": "AI to Write",
+      "companyType": "Individual",
+      "companyFullName": "Ashwin Kumar",
+      "companyJurisdiction": null
+    },
+    "competition": {
+      "description": null,
+      "companies": []
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason": "Looking for a software developer passionate about documentation.",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Software Engineer",
+        "icon": "brain",
+        "file": "programmer",
+        "description": "Full stack developer to implement features.",
+        "expertise": ["Python", "Django", "GraphQL"]
+      },
+      {
+        "id": 2,
+        "title": "Technical Writer",
+        "icon": "brain",
+        "file": "technical-writer",
+        "description": "Improve product UX.",
+        "expertise": ["Software Documentation", "UI/UX Design", "Marketing", "Social Media"]
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 2,
+        "title": "Most Popular",
+        "slug": "Primarily Contributor Credits",
+        "trigger": "$2 Million In Investment",
+        "description":
+          "Contributors get 1% of their normal rate in cash, and the remaining 99% in Contributor Credits* at 3 credits per dollar.",
+        "primary": true
+      },
+      {
+        "id": 2,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": false
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Software Engineering",
+        "value": 30,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "UX/UI",
+        "value": 30,
+        "fill": "#4DBD98"
+      },
+      {
+        "id": 3,
+        "title": "Technical Writing",
+        "value": 20,
+        "fill": "#EF7D64"
+      }
+    ],
+    "credits": null,
+    "dynamicDataModules": null
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Ashwin",
+      "lastName": "Kumar",
+      "nickname": "Ashwin",
+      "thumbnail": "/assets/images/UserImages/akumar.jpeg",
+      "title": "Founder",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/ashwin-kumar-3bab3419/",
+        "github": "https://github.com/ashwinkumar12345"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 0,
+          "tue": 0,
+          "wed": 0,
+          "thu": 0,
+          "fri": 0,
+          "sat": 8
+        }
+      },
+      "financialInvestment": { "amount": 7000, "currency": "USD" },
+      "openSuggestions": true,
+      "bio":
+        "I'm primarily a technical writer. I have also worked as a documentation tools engineer and a data analyst. I'm passionate about technical communication and writing. I have worked at Ericsson, Dell, Yahoo, and Amazon. I live in Santa Clara, California.",
+      "interests": ["Writing", "AI", "Languages", "Science"],
+      "expertise": ["Writing", "Documentation", "Open Source"],
+      "projectHopes": null,
+      "projectLove": null,
+      "compensationPackage": null
+    }
+  ]
+}

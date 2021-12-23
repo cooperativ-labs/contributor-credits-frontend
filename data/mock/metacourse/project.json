@@ -1,0 +1,144 @@
+{
+  "project": {
+    "creationDate": null,
+    "name": "Meta Learning Community",
+    "nameNormalized": "metacourse",
+    "category": "Education Tech",
+    "thumbnail": null,
+    "brandColor": null,
+    "lightBrand": true,
+    "progress": 0,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription":
+      "Texts and courses with the scientifically proven principles of effective learning built into the way that the content is consumed.",
+    "needSummary":
+      "Looking for a co-founder and contributors with backend and/or business development experience to help define and build the product.",
+    "elevatorPitch":
+      "Texts and courses with the scientifically proven principles of effective learning built into the way that the content is consumed.",
+    "problem":
+      "Online courses and books are usually structured in some variation of the assumption that knowledge can be transferred to the person that is consuming the content as long as enough information is presented. This has little to do with how we know that people learn.",
+    "website": null,
+    "fundraises": [],
+    "company": {
+      "companyName": "Metacourse",
+      "companyType": "Individual",
+      "companyFullName": "Javier Gonzalez",
+      "companyJurisdiction": null
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason": null,
+      "topTraits": ["Being passionate about education is a must."],
+      "topNeeds": []
+    },
+
+    "availableRoles": null,
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Sales Experience",
+        "value": 40,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Client Management",
+        "value": 10,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 3,
+        "title": "Social Media Expert",
+        "value": 20,
+        "fill": "#EF7D64"
+      },
+      {
+        "id": 4,
+        "title": "Data Researcher",
+        "value": 30,
+        "fill": "#4DBD98"
+      }
+    ]
+  },
+  "credits": {},
+  "dynamicDataModules": {
+    "pages": {
+      "project": true,
+      "team": true,
+      "opportunities": true,
+      "credits": false
+    },
+    "currentInvestments": {
+      "description":
+        "This will be bootstrapped for now, meaning that I am not really interested in raising lots of VC money if it means going on the 'grow exponentially fast enough to outperform our ridiculous spending or bust' path.",
+      "backers": []
+    },
+    "investmentProjections": false
+  },
+  "competitors": [
+    {
+      "competitorName": "Scrimba",
+      "competitorAngle":
+        "has some aspects of practice built into the platform itself, but no (effective) community, and little spaced repetition.",
+      "competitorURL": null
+    },
+    {
+      "competitorName": "quantum.country",
+      "competitorAngle":
+        "A book with spaced repetition built in. Again, little community, and not really focused on practice.",
+      "competitorURL": "https://quantum.country/"
+    },
+    {
+      "competitorName": "Coursera and Edx",
+      "competitorAngle": "do content well, but their community building efforts are not there.",
+      "competitorURL": "these both have websites..."
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Javier",
+      "lastName": "Gonzalez",
+      "nickname": "Javier",
+      "thumbnail": null,
+      "title": "Creator",
+      "social": {},
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 4,
+          "mon": 0,
+          "tue": 0,
+          "wed": 0,
+          "thu": 0,
+          "fri": 0,
+          "sat": 3
+        }
+      },
+      "financialInvestment": 0,
+      "openSuggestions": true,
+      "bio":
+        "I am a software developer with entrepreneur experience. I am really interesting in making online education more effective and open to suggestions on how to do that. Not married to any idea, but looking for someone to collaborate with on this.",
+      "interests": [],
+      "expertise": [],
+      "projectHopes":
+        "I am a software developer with entrepreneur experience. I will be working on this part time for now with the hopes of getting some side income, and of course going full time eventually. This will be bootstrapped for now, meaning that I am not really interested in raising lots of VC money if it means going on the 'grow exponentially fast enough to outperform our ridiculous spending or bust' path.",
+      "projectLove": "",
+      "compensationPackage": {}
+    }
+  ]
+}

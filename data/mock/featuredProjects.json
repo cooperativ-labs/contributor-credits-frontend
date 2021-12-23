@@ -1,0 +1,51 @@
+{
+  "projects": [
+    {
+      "title": "Sunshine Labs",
+      "link": "sunshinelabs",
+      "logo": "assets/images/company-logos/sunshine.png",
+      "brandColor": "#619DD2",
+      "members": 7,
+      "seeking": "a Co-Founder",
+      "summary": "Making it possible to set up a business, across borders, without signing contracts, in 15 minutes."
+    },
+    {
+      "title": "Dapland",
+      "link": "dapland",
+      "logo": "assets/images/company-logos/dapland.svg",
+      "brandColor": "#000000",
+      "members": 1,
+      "seeking": "a Co-Founder",
+      "summary":
+        "Dap Land is a video app for basketball. It uses authentic basketball features for challenging players online and for showcase their skills."
+    },
+    {
+      "title": "AI to Write",
+      "link": "aitowrite",
+      "logo": "assets/images/company-logos/aitowrite.png",
+      "brandColor": "#8997b0",
+      "members": 1,
+      "seeking": "a Co-Founder",
+      "summary": "AI-powered writing tool for open source documentation."
+    },
+    {
+      "title": "VisitMind",
+      "link": "visitmind",
+      "logo": "assets/images/company-logos/visitmind.png",
+      "brandColor": "#800080",
+      "members": 1,
+      "seeking": "a Co-Founder",
+      "summary":
+        "Hosting learning tools and resources, such as effective typed notes, smartest clipboard organizer for the web, podcast player for your articles."
+    },
+    {
+      "title": "TWIYS Media",
+      "link": "twiysmedia",
+      "logo": "assets/images/company-logos/TWIYSMediaLogo.jpg",
+      "brandColor": "#CC5500",
+      "members": 7,
+      "seekingCofounder": true,
+      "summary": "We are gamifying the vetting process related to landing a lucrative brand or label deal for artists."
+    }
+  ]
+}

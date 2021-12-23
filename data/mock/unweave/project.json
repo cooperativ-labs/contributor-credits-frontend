@@ -1,0 +1,178 @@
+{
+  "project": {
+    "creationDate": "March 2020",
+    "name": "Unweave",
+    "category": "DevOps",
+    "thumbnail": "unweave.svg",
+    "brandColor": "#396DC7",
+    "lightBrand": false,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription": "Unweave lets you keep your code and data in sync.",
+    "needSummary":
+      "Looking for a full-stack engineer, and someone who can own the looks of the project to create a professional appearance.",
+    "elevatorPitch": "Unweave lets you keep your code and data in sync.",
+    "problem": "Please describe the problem you are trying to solve.",
+    "started": "March 2020",
+    "mission":
+      "Our goal is to provide users the tools they need to be productive when working with large amounts of data.",
+    "vision":
+      "We want to bring interactivity and intuitiveness to computing. In particular, aim to do this in data-science/machine learning industry where the tools of traditional software development just don't fit the mould of data engineering.",
+    "timeGoals": {
+      "now": "Building the MVP and getting the first users.",
+      "oneYear": "Our target for 1 Jan 2022 is to have reached $5000 MRR.",
+      "threeYears":
+        "By 1 Jan 2024 we hope to be recognized as place to go when working with data - storage, versioning and execution environments."
+    },
+    "website": "https://unweave.io",
+    "description": {
+      "excerpt":
+        "Unweave lets people keep their code and data in sync. It aims to introduce a workflow that lets data-scientists and machine-learning engineers do work that's reproducible and collaborative. In the long term, Unweave aims to be a complete programming environment that's completely customisable, versionable and collaborative.",
+      "full": true
+    },
+    "pitchDeckURL": null,
+    "goToMarket": null,
+    "featureHighlights": [],
+    "fundraises": [
+      {
+        "time": "Q3 2021",
+        "amount": 150000
+      }
+    ],
+    "company": {
+      "companyName": "Unweave",
+      "companyType": "Corporation",
+      "companyFullName": "Unweave Inc.",
+      "companyJurisdiction": "Delaware"
+    },
+    "competition": {
+      "description": null,
+      "companies": []
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason": null,
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 2,
+        "title": "Designer",
+        "icon": "brain",
+        "description": "Someone who can own the looks of the project to create a professional appearance.",
+        "expertise": ["Branding", "UX"]
+      },
+      {
+        "id": 3,
+        "title": "Full-Stack Engineer",
+        "icon": "brain",
+        "description": "I am looking for someone to help with ... Noorvir what is the stack?",
+        "expertise": ["Python", "Tailwind CSS", "React", "NextJS", "Solidity"]
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 2,
+        "title": "Most Popular",
+        "slug": "Contributor Credits & Rate per Hour",
+        "trigger": "$2 Million In Investment",
+        "description":
+          "Contributors get 1% of their normal rate in cash, and the remaining 99% in Contributor Credits at 3 credits per dollar.",
+        "primary": true
+      },
+      {
+        "id": 2,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Design",
+        "value": 50,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 2,
+        "title": "Engineering",
+        "value": 50,
+        "fill": "#4DBD98"
+      }
+    ],
+    "credits": {
+      "contributorCreditClasses": [
+        {
+          "id": 1,
+          "triggerFundraising": 2000000,
+          "triggerRevenue": 700000,
+          "triggerSale": true,
+          "currentValue": 0.8,
+          "creditsOutstanding": 113000
+        }
+      ]
+    },
+    "dynamicDataModules": {
+      "currentInvestments": {
+        "description":
+          "We are currently bootstrapping, with all investment coming from personal funds. The goal is to focus on recruiting early customers to demonstrate that we have traction, and only then to seek investment.",
+        "backers": [
+          {
+            "name": "Pioneer.app",
+            "url": "https://pioneer.app/",
+            "type": "Incubator",
+            "thumbnail": "https://webwide.io/data/avatars/o/1/1646.jpg?1581996519"
+          }
+        ]
+      },
+      "investmentProjections": false
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Noorvir",
+      "lastName": "Aulakh",
+      "nickname": "Noorvir",
+      "thumbnail": "/assets/images/UserImages/naulakh.jpg",
+      "title": "Founder",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/noorvir-aulakh/",
+        "github": "https://gist.github.com/noorvir"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 10,
+          "mon": 10,
+          "tue": 10,
+          "wed": 10,
+          "thu": 10,
+          "fri": 10,
+          "sat": 10
+        }
+      },
+      "financialInvestment": { "amount": 500, "currency": "EUR" },
+      "openSuggestions": true,
+      "bio":
+        "I started off doing UX and data-engineering at Tesla in CA. I then did MSc in Robotics and Machine Learning at UCL. I worked at a robotics startup in Berlin where I taught robots to perceive the world around them and learn from human demonstration. I'm particularly interested in the intersection of robotics, machine learning and UX/UI.",
+      "interests": ["Entrepreneurship", "Machine Learning", "Languages", "Science"],
+      "expertise": ["Robotics", "Computer Vision", "Machine Learning"],
+      "projectHopes": "If we are successful, this project will redefine how people do work.",
+      "projectLove": null,
+      "compensationPackage": {
+        "shares": 1000,
+        "credits": 0
+      }
+    }
+  ]
+}

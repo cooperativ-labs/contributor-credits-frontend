@@ -1,0 +1,28 @@
+{
+    "env": {
+        "production": {
+            "plugins": [
+                ["react-remove-properties", {"properties": ["data-test"]}]
+            ]
+        }
+    },
+    "presets": [["next/babel"]],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": ["./"],
+          "alias": {
+            "@interfaces": "./interfaces",
+            "@pages": "./pages",
+            "@src": "./src",
+            "@context": "./context",
+            "@hooks": "./hooks",
+            "@styles": "./styles",
+            "@utils": "./src/utils",
+            "@data": "./data"
+          }
+        }
+      ]
+    ]
+  }

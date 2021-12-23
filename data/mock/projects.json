@@ -1,0 +1,24 @@
+{
+  "projects": [
+    {
+      "title": "Sunshine Labs",
+      "link": "sunshinelabs",
+      "logo": "assets/images/company-logos/sunshine.png",
+      "brandColor": "#619DD2",
+      "members": 6,
+      "seeking": "a Co-Founder",
+      "progress": "MVP_IS_LIVE",
+      "summary": "Making it possible to set up a business, across borders, without signing contracts, in 15 minutes."
+    },
+    {
+      "title": "TWIYS Media",
+      "link": "twiysmedia",
+      "logo": "assets/images/company-logos/TWIYSMediaLogo.jpg",
+      "brandColor": "#CC5500",
+      "members": 6,
+      "seeking": "Contributors",
+      "progress": "SOME_STUFF_BUILT",
+      "summary": "We are gamifying the vetting process related to landing a lucrative brand or label deal for artists."
+    }
+  ]
+}

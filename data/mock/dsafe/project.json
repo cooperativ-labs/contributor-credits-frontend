@@ -1,0 +1,160 @@
+{
+  "project": {
+    "creationDate": "December 2020",
+    "name": "DSafe",
+    "nameNormalized": "dsafe",
+    "category": "DevOps",
+    "thumbnail": "dSafeLogo.svg",
+    "brandColor": "#4f46e5",
+    "lightBrand": false,
+    "progress": 1,
+    "intention": "Building a business 🔧",
+    "seeking": "a Co-Founder",
+    "shortDescription":
+      "Smart Contract monitoring, governance and security will be become very important next decade. DSafe is a SaaS providing tools to solve this problem.",
+    "needSummary":
+      "Looking for a co-founder who can lead sales customer research. Also need UX design support and someone with strong DevOps experience.",
+    "elevatorPitch":
+      "Smart Contract monitoring, governance and security will be become very important next decade. DSafe is a SaaS providing tools to solve this problem.",
+    "problem": "There is currently no good way of keeping track of your smart contracts.",
+    "mission": "DSafe's mission is to revolutionize the world by enabling blockchain technology for everyone.",
+    "vision": "DSafe will be the number one address for smart contract security and governance for serious developers.",
+    "timeGoals": {
+      "now": "Building an MVP",
+      "oneYear": "Target for 1 Jan 2022 is to have at least one signed customer",
+      "threeYears": "Target for 1 Jan 2024 is to be in the process of raising a Series B round of investment"
+    },
+    "website": null,
+    "description": {
+      "excerpt":
+        "As of now only a tiny percentage of companies make use of blockchain technology. Part of the problem is that the ecosystem is not prime time ready - tools commonly available in regular software development (or currently being developed for the AI/ML space) is completely are no where to be found in the blockchain space.",
+      "full": "### SEE FILE ###"
+    },
+    "pitchDeckURL": null,
+    "goToMarket": null,
+    "backers": [],
+    "featureHighlights": [],
+    "fundraises": [
+      {
+        "time": "Q3 2021",
+        "amount": 300000
+      }
+    ],
+    "company": {
+      "companyName": "Robin Raymond",
+      "companyType": "Individual",
+      "companyFullName": "Robin Raymond",
+      "companyJurisdiction": null
+    },
+    "competition": {
+      "description": null,
+      "companies": []
+    },
+    "seekingCofounder": true,
+    "cofounderGoals": {
+      "reason":
+        "Currently there is only minimal funding available and a lot to do. So equity based compensations are to be expected.",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Sales & Business Development",
+        "icon": "brain",
+        "description":
+          "Own the CRs by talking to companies, cold calling companies, getting introductions and discovering the needs and wishes of customers.",
+        "expertise": ["Enterprise Sales", "SaaS", "Crypto"]
+      },
+      {
+        "id": 1,
+        "title": "DevOps",
+        "icon": "brain",
+        "description": "Own the stack that we create to show the demos, and run our system on.",
+        "expertise": ["Elastic stack", "postgresql", "serverless technoligies", "AWS or GPC"]
+      },
+      {
+        "id": 1,
+        "title": "Design",
+        "icon": "brain",
+        "description": "Someone who can own the looks of the project to create a professional appearance.",
+        "expertise": ["Branding", "UX"]
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Sales",
+        "value": 60,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 3,
+        "title": "DevOps",
+        "value": 20,
+        "fill": "#EF7D64"
+      },
+      {
+        "id": 4,
+        "title": "Design",
+        "value": 20,
+        "fill": "#4DBD98"
+      }
+    ],
+    "credits": {},
+    "dynamicDataModules": {
+      "currentInvestments": null,
+      "backers": null
+    }
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Robin",
+      "lastName": "Raymond",
+      "nickname": "Robin",
+      "thumbnail": "/assets/images/UserImages/rraymond.jpg",
+      "title": "Founder",
+      "social": {
+        "linkedin": "https://www.linkedin.com/in/robin-raymond/",
+        "github": "https://github.com/r-raymond"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 3,
+          "mon": 0,
+          "tue": 0,
+          "wed": 0,
+          "thu": 0,
+          "fri": 0,
+          "sat": 3
+        }
+      },
+      "financialInvestment": { "amount": 0, "currency": "EUR" },
+      "openSuggestions": null,
+      "bio":
+        "PhD Mathematics, I have worked in multiple startups in the crypto space and have ample experience founding projects and raising money.",
+      "interests": ["Craft Brewing", "Gary Vaynerchuck", "Traveling", "Hiking", "Sci Fi Movies"],
+      "expertise": ["Creative Direction", "Marketing", "SEO", "B2C Sales", "Customer Research"],
+      "projectLove":
+        "Honestly, this is just really fun to build. My hope is that we get to keep building more useful crypto tools.",
+      "compensationPackage": {
+        "credits": 18732
+      }
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "project": {
+    "creationDate": "August 2020",
+    "name": "Joe's Writers' Club",
+    "nameNormalized": "jwc",
+    "category": "Social & Art",
+    "thumbnail": "jwc.png",
+    "brandColor": "#D2CCBE",
+    "sharing": {
+      "image": "jwc-wide.png"
+    },
+    "lightBrand": true,
+    "progress": 3,
+    "intention": "Building a business 🔧",
+    "seeking": "Contributors",
+    "shortDescription":
+      "Writers Educate, Collaborate, and Publish. We are bringing the best of lessons learned from the open source software movement to writing in general.",
+    "needSummary":
+      "Looking for Audio/Video Editor (backlog of video and audio content), Animator (new animated series), and a Front-end Dev (website).",
+    "elevatorPitch":
+      "Writers Educate, Collaborate, and Publish. We are bringing the best of lessons learned from the open source software movement to writing in general.",
+    "problem":
+      "Although technological opportunities are at it's highest for writers we haven't yet leveraged the full organizational possibilities to efficiently utilize this advantage. There is a decreased equitable opportunity for independent writers as today's publishing conglomerates corner the market share in modern day digital media distribution and customer acquisition.",
+    "mission":
+      "To help writers explore their creative obsessions, discuss all roads that our muses take us on, reflect upon works that meander in the mind, and share the writings that our busy schedules have allowed to develop.",
+    "vision": "To empower writers to pursue their creativity equitably.",
+    "timeGoals": null,
+    "website": "https://joeswritersclub.com/",
+    "description": {
+      "excerpt": "",
+      "full": true
+    },
+    "pitchDeckURL": null,
+    "goToMarket": null,
+    "featureHighlights": [],
+    "fundraises": [],
+    "company": {
+      "companyName": "Joe's Writers' Club",
+      "companyType": "Corporation",
+      "companyFullName": "Joe's Writers' Club Inc.",
+      "companyJurisdiction": "Delaware"
+    },
+    "competition": {
+      "description": null,
+      "companies": []
+    },
+    "seekingCofounder": false,
+    "cofounderGoals": {
+      "reason": "",
+      "topTraits": [],
+      "topNeeds": []
+    },
+    "availableRoles": [
+      {
+        "id": 1,
+        "title": "Audio/Video Editor",
+        "icon": "brain",
+        "description":
+          "We have a backlog of meeting recordings and podcast audio needed to be edited. We also have video conferences of workshops led by well known writers.",
+        "expertise": ["audio", "video", "podcasts", "content"]
+      },
+      {
+        "id": 2,
+        "title": "Animator",
+        "icon": "brain",
+        "description":
+          "We have begun production of an animated series which is written by our members and who have been guided by well known script writers during club workshop sessions.",
+        "expertise": ["animation", "video", "visual effects"]
+      },
+      {
+        "id": 3,
+        "title": "Front End Developer",
+        "icon": "search-dollar",
+        "description": "We have several web domains which either need some css refinement and/or ground up development",
+        "expertise": ["web development", "CSS", "React", "software engineering", "HTML"]
+      }
+    ],
+    "compensationOfferings": [
+      {
+        "id": 1,
+        "type": 1,
+        "title": "Custom",
+        "slug": "Case by Case",
+        "trigger": null,
+        "description":
+          "Compensation amounts and options will be based on the qualifications of individual and the service he or she is providing",
+        "primary": true
+      }
+    ],
+    "desiredSkills": [
+      {
+        "id": 1,
+        "title": "Engineering",
+        "value": 40,
+        "fill": "#619DD2"
+      },
+      {
+        "id": 2,
+        "title": "Legal",
+        "value": 30,
+        "fill": "#E4E4E4"
+      },
+      {
+        "id": 3,
+        "title": "Sales",
+        "value": 30,
+        "fill": "#EF7D64"
+      }
+    ],
+    "credits": {
+      "contributorCreditClasses": []
+    },
+    "dynamicDataModules": null
+  },
+  "users": [
+    {
+      "id": 1,
+      "role": 1,
+      "firstName": "Thomas",
+      "lastName": "Nevin",
+      "nickname": "T.C.",
+      "thumbnail": "/assets/images/UserImages/tnevin.jpg",
+      "title": "COO",
+      "social": {
+        "twitter": "https://twitter.com/whirledwind"
+      },
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 8,
+          "tue": 8,
+          "wed": 8,
+          "thu": 8,
+          "fri": 8,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 1500, "currency": "USD" },
+      "openSuggestions": true,
+      "bio":
+        "Thomas Nevin who goes by the pseudonym T.C. MacNevin in Joe's Writers' Club has been consulting businesses and educating in the fields of engineering and prototyping/fabrication and media creation for the past decade. As the founder of Invention Store he has consulted independent inventors, small businesses and fortune500 companies.",
+      "interests": ["Inventing", "Writing", "Production", "Business Development", "Intellectual Property"],
+      "expertise": ["Inventing", "Writing", "Production", "Business Development", "Intellectual Property"],
+      "projectHopes": null,
+      "projectLove": null,
+      "compensationPackage": {
+        "shares": null,
+        "credits": null
+      }
+    },
+
+    {
+      "id": 2,
+      "role": 1,
+      "firstName": "Richard",
+      "lastName": "Andrew Olkusz",
+      "nickname": "Ricky",
+      "thumbnail": "/assets/images/UserImages/raolkusz.jpeg",
+      "title": "CEO",
+      "social": null,
+      "timeInvestment": {
+        "total": 0,
+        "byDay": {
+          "sun": 0,
+          "mon": 8,
+          "tue": 8,
+          "wed": 8,
+          "thu": 8,
+          "fri": 8,
+          "sat": 0
+        }
+      },
+      "financialInvestment": { "amount": 1500, "currency": "USD" },
+      "openSuggestions": true,
+      "bio":
+        "Richard Andrew Olkusz, “Ricky” to his friends and family, is on a life mission - to perfect his words and bring poetic dimension to a secondary world. The diverse experiences that accompanied his eighteen-year surveying career profoundly shaped his life. The daily measuring of real estate and construction properties fueled his love of poetic description, humorous anecdotes, spiritualism, and paranormal investigation. Ricky and his business partner, Dave, ran Olkwood publishing since 2007, where they developed rules for a tabletop R.P.G. and created Afternity. Ricky works from home drafting maps using AutoCAD, he continues to write novels, poetry, and short stories, which have yielded nearly a million words of fiction overall. Ricky supports the pursuit of creative obsessions by hosting Joe’s Writers Club Podcast, an affiliation of Joe’s Writers Club, LLC, and by contributing his fictional works to its Corporate Gothic anthology, a selection of short stories set in haunted work spaces.",
+      "interests": [],
+      "expertise": [],
+      "projectHopes": null,
+      "projectLove": null,
+      "compensationPackage": {
+        "shares": null,
+        "credits": null
+      }
+    }
+  ]
+}
