@@ -2,7 +2,7 @@
 
 const GRAPHQL_ENDPOINT =
   process.env.NODE_ENV === 'production'
-    ? 'https://little-cloud.us-west-2.aws.cloud.dgraph.io/graphql'
+    ? 'https://blue-surf-550072.us-east-1.aws.cloud.dgraph.io/graphql'
     : 'http://localhost:8080/graphql';
 
 module.exports = {

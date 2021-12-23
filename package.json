@@ -89,6 +89,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.6",
+    "@netlify/plugin-nextjs": "^4.1.1",
     "@sentry/webpack-plugin": "^1.14.0",
     "@typechain/ethers-v5": "^7.0.1",
     "@types/enzyme": "^3.10.8",

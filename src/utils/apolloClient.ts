@@ -9,7 +9,6 @@ function createApolloClient() {
   return new ApolloClient({
     link: new HttpLink({
       uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
-      // uri: 'https://little-cloud.us-west-2.aws.cloud.dgraph.io/graphql',
     }),
     credentials: 'same-origin',
     cache: new InMemoryCache(),
