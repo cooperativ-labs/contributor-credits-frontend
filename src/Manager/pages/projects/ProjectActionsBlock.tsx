@@ -9,8 +9,6 @@ import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
 type ActionsBlock = {
-  isProjectManager: boolean;
-  projectId: string;
   userId: string;
 };
 
@@ -25,53 +23,27 @@ const ActionsBlock: FC<any> = ({ isProjectManager, projectId, userId }) => {
   if (active) {
     return (
       <div className="mt-10">
-        {isProjectManager ? (
-          <>
-            <StandardButton
-              className="mt-2 "
-              outlined
-              color="blue"
-              text="Create New Class"
-              onClick={() => setDeployDialogVisible(true)}
-            />
-            <ActionDialog
-              visible={deployDialog}
-              preventClose={preventClose}
-              onClose={(e) => {
-                if (e.target.id === 'dialog-curtain' || e.currentTarget.id === 'close-button')
-                  setDeployDialogVisible(false);
-              }}
-            >
-              <div className="my-3 text-sm">{HowToCreate}</div>
-              <CreateCcClass projectId={projectId} userId={userId} setPreventClose={setPreventClose} />
-              <FormChainWarning />
-            </ActionDialog>
-             
-          </>
-        ) : (
-          <>
-            <StandardButton
-              className="mt-2 "
-              outlined
-              link=""
-              color="blue"
-              text="Manage Credits"
-              onClick={() => {
-                setMainActionDialog(true);
-              }}
-            />
-            <ActionDialog
-              visible={mainActionDialog}
-              onClose={(e) => {
-                if (e.target.id === 'dialog-curtain' || e.currentTarget.id === 'close-button')
-                  setMainActionDialog(false);
-              }}
-            >
-              <ManageCredits />
-              <FormChainWarning />
-            </ActionDialog>
-          </>
-        )}
+        <>
+          <StandardButton
+            className="mt-2 "
+            outlined
+            color="blue"
+            text="Create New Class"
+            onClick={() => setDeployDialogVisible(true)}
+          />
+          <ActionDialog
+            visible={deployDialog}
+            preventClose={preventClose}
+            onClose={(e) => {
+              if (e.target.id === 'dialog-curtain' || e.currentTarget.id === 'close-button')
+                setDeployDialogVisible(false);
+            }}
+          >
+            <div className="my-3 text-sm">{HowToCreate}</div>
+            <CreateCcClass userId={userId} setPreventClose={setPreventClose} />
+            <FormChainWarning />
+          </ActionDialog>
+        </>
       </div>
     );
   }

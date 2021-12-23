@@ -11,13 +11,8 @@ import WalletChooserModal from './WalletChooserModal';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
-export const ProjectContext = React.createContext<{ projectSlug: string | undefined }>({
-  projectSlug: undefined,
-});
-
 type ManagerProps = {
   children: React.ReactNode;
-  dispatchProject?: any;
 };
 
 const Manager: FC<ManagerProps> = ({ children }) => {
@@ -25,9 +20,7 @@ const Manager: FC<ManagerProps> = ({ children }) => {
     <>
       <NavBar />
       <div className="flex md:w-screen h-full">
-        <div className="flex z-30 md:z-10 min-h-full min-h-screen">
-          <ManagerSideBar />
-        </div>
+        <div className="flex z-30 md:z-10 min-h-full min-h-screen">{/* <ManagerSideBar /> */}</div>
         <div className="flex-grow h-full z-10">
           <div className="h-full px-4 md:px-8 py-2 md:py-5">
             <div className={'mx-auto min-h-full'} style={{ maxWidth: '1580px' }}>
@@ -47,11 +40,6 @@ type ManagerWrapperProps = {
 
 const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {
   const { userId, loading: idLoading } = useContext(UserContext);
-  const [selection, setSelection] = useState(undefined);
-  useEffect(() => {
-    setSelection(window.sessionStorage);
-  });
-  const projectSlug = selection?.getItem('CHOSEN_PROJECT');
 
   if (idLoading || loadingComponent) {
     return <LoadingModal />;
@@ -59,11 +47,7 @@ const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComp
     return <NeedAccount />;
   }
 
-  return (
-    <ProjectContext.Provider value={{ projectSlug: projectSlug }}>
-      <Manager>{children}</Manager>
-    </ProjectContext.Provider>
-  );
+  return <Manager>{children}</Manager>;
 };
 
 const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {

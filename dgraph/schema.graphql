@@ -4,10 +4,9 @@ AGREEMENT MODEL
 type AgreementSignatory  {
 	id: ID!
 	agreement: Agreement! @hasInverse(field:signatories) 
-	projectUser: ProjectUser @hasInverse(field:agreements) 
+	user: User @hasInverse(field:agreements) 
 	signature: String 
 	date: DateTime
-	payments: [Payment] 
 }
 
 type Agreement  {
@@ -20,6 +19,7 @@ type Agreement  {
 	creationDate: DateTime!
 	lastUpdate: DateTime 
 	type: AgreementType
+	payments: [Payment] @hasInverse(field:agreement) 
 }
 
 enum AgreementType {
@@ -33,6 +33,8 @@ type Payment  {
 	currency: Currency! 
 	date: DateTime!
 	note: String
+	recipient: User @hasInverse(field:payments)
+	agreement: Agreement @hasInverse(field:payments)
 }
 
 type Currency  {
@@ -41,14 +43,8 @@ type Currency  {
 }
 
 """
-CAMPAIGN MODEL 
+CONTRIBUTOR CREDIT MODEL 
 """
-type Campaign  {
-	name: String! 
-	project: Project! @hasInverse(field:campaigns) 
-	logo: String 
-	website: String 
-}
 
 enum ContributorCreditClassTriggerType {
 	FUNDING_RAISED
@@ -75,13 +71,13 @@ type ContributorCreditClass {
 	triggers: [ContributorCreditClassTrigger] 
 	backingCurrency: CurrencyCode 
 	currentFunding: Float
+
 }
 
 type SmartContractUnestablished {
 	id: ID!
 	cryptoAddress: CryptoAddress!
 	type: SmartContractType!
-	project: Project @hasInverse(field:unestablishedSmartContracts)
 	owner: User @hasInverse(field:unestablishedSmartContracts)
 	used: Boolean
 }
@@ -111,7 +107,6 @@ type CryptoAddress  {
 	chainId: Int 
 	type: CryptoAddressType 
 	user: User @hasInverse(field:walletAddresses) 
-	project: Project @hasInverse(field:walletAddresses) 
 }
 
 """
@@ -127,7 +122,6 @@ type Organization  {
 	country: String 
 	jurisdiction: String 
 	type: String 
-	projects: [Project] @hasInverse(field:organization) 
 	users: [OrganizationUser] @hasInverse(field:organization) 
 }
 
@@ -152,308 +146,22 @@ type OrganizationUser  {
 	permission: OrganizationPermissionType 
 }
 
-enum ProjectInfoBackerType {
-	VENTURE_CAPITALIST
-	LAW_FIRM
-	ANGEL_INVESTOR
-	ACCELERATOR 
-	INCUBATOR
-	BANK
-	BUSINESS
-	STUDIO
-	AGENCY
-}
-
-type ProjectInfoBacker  {
-	name: String! @search(by:[fulltext]) 
-	url: String 
-	type: ProjectInfoBackerType 
-	logo: String
-	organizations: [Organization]
-	financialInvestments: [ProjectUserFinancialInvestment]
-}
-
-enum ProjectInfoCategory {
-  BUSINESS_SERVICES
-  GAMES
-  ARTS_CULTURE
-  POLITICS_ACTIVISM
-  CONSUMER_SOFTWARE
-  BUSINESS_SOFTWARE
-  HEALTH_BIOTECH
-  MUSIC_FILM_ENTERTAINMENT
-  DEVELOPER_TOOLS
-  SCIENCE_EDUCATION
-  MACHINE_LEARNING_DATA
-  WRITING_JOURNALISM
-		CONSUMER_SERVICES
-}
-
-enum ProjectInfoDocumentType {
-	GOOGLE_DRIVE
-	GOOGLE_DOC
-	GOOGLE_SHEET
-	GOOGLE_SLIDE
-	WORD_DOC
-	EXCEL
-	POWERPOINT
-	GITHUB
-	PDF
-	NOTION
-	OTHER
-}
-
-type ProjectInfoDocument  {
-	id: ID!
-	type: ProjectInfoDocumentType 
-	title: String 
-	url: String
-	hidden: Boolean
-}
-
-enum ProjectInfoIntention {
-	BUILDING_A_BUSINESS
-	BUILDING_A_BETTER_WORLD
-	CREATING_A_GAME
-	CREATING_ART
-	JUST_FOR_FUN
-}
-
-enum ProjectInfoProgress {
-	JUST_AN_IDEA
-	SOME_STUFF_BUILT
-	MVP_IS_LIVE
-	ON_THE_MARKET
-	INVESTOR_FUNDED
-	SIGNIFICANT_REVENUE
-}
-
-type ProjectInfoSharing {
-	image: String
-}
-
-enum ProjectInfoSpecialGameGenre {
-	ACTION
-	ADVENTURE
-	RPG
-	FPS
-}
-
-enum ProjectInfoSpecialFilmLength {
-	SHORT
-	FEATURE
-}
-
-type ProjectInfoSpecialFilm  {
-	length: ProjectInfoSpecialFilmLength 
-	genre: String 
-}
-
-type ProjectInfoSpecialGame  {
-	genre: ProjectInfoSpecialGameGenre 
-	tagline: String 
-	engine: String 
-	monitization: String 
-}
-
-type ProjectInfoSpecial  {
-	game: ProjectInfoSpecialGame 
-	film: ProjectInfoSpecialFilm 
-}
-
-type ProjectInfoTimeGoals  {
-	now: String 
-	oneYear: String 
-	threeYears: String 
-}
-
-type ProjectInfo  {
-	id: ID!
-	creationDate: DateTime! 
-	category: ProjectInfoCategory 
-	logo: String 
-	sharing: ProjectInfoSharing
-	brandColor: String 
-	lightBrand: Boolean 
-	headerImg: String 
-	progress: ProjectInfoProgress 
-	intention: ProjectInfoIntention 
-	shortDescription: String 
-	special: ProjectInfoSpecial 
-	generalDescription: String 
-	problem: String 
-	solution: String 
-	gtmStrategy: String 
-	investmentDescription: String
-	documents: [ProjectInfoDocument] 
-	mission: String 
-	vision: String 
-	targetMarket: String 
-	timeGoals: ProjectInfoTimeGoals 
-	backers: [ProjectInfoBacker] 
-	website: String 
-	pitchDeck: String 
-	videoURL: String 
-	languages: [String] 
-	locations: [String] 
-	project: Project! @hasInverse(field:info) 
-}
-
-enum ProjectOpportunitiesSeeking {
-	CO_FOUNDER
-	CONTRIBUTORS
-	INVESTMENT
-}
-
-type ProjectOpportunitiesJob  {
-	id: ID!
-	title: String! @search(by:[fulltext]) 
-	icon: String 
-	description: String 
-	expertise: [String] @search(by:[exact]) 
-	compensation: String 
-	archived: Boolean
-}
-
-type ProjectOpportunitiesNeed  {
-	id: ID!
-	name: String 
-	value: Int @dgraph(pred: "ProjectOpportunitiesNeed.severity")
-	fill: String 
-}
-
-type ProjectTeam  {
-	culture: String 
-	teamTalents: String 
-	teamFit: String 
-}
-
-type Project  {
-	id: ID! 
-	name: String @search(by:[fulltext]) 
-	slug: String! @id
-	lastUpdate: DateTime 
-	campaigns: [Campaign] 
-	projectUsers: [ProjectUser] @hasInverse(field:project) 
-	info: ProjectInfo 
-	walletAddresses: [CryptoAddress] 
-	team: ProjectTeam 
- organization: Organization! @hasInverse(field:projects)
-	seeking: ProjectOpportunitiesSeeking 
-	needSummary: String 
-	needs: [ProjectOpportunitiesNeed] 
-	jobs: [ProjectOpportunitiesJob]
-	unestablishedSmartContracts: [SmartContractUnestablished] @hasInverse(field:project)
-}
-
-"""
-PROJECTUSER MODEL 
-"""
-type ProjectUserCompensationPackage  {
-	credits: Int64 
-	shares: Int64 
-}
-
-enum FinancialInvestmentType {
-	EQUITY_PURCHASE
-	LOAN
-}
-
-type ProjectUserFinancialInvestment  {
-	id: ID!
-	amount: Int64! 
-	currency: CurrencyCode! 
-	date: DateTime!
-	type: FinancialInvestmentType
-}
-
-enum ProjectUserRole {
-	CREATOR
-	CONTRIBUTOR
-	ADVISOR
-	INVESTOR
-	SUPPORTER
-}
-
-type ProjectUserTimeCommitmentByDay  {
-	sun: Int 
-	mon: Int 
-	tue: Int 
-	wed: Int 
-	thu: Int 
-	fri: Int 
-	sat: Int 
-}
-
-type ProjectUserTimeCommitment  {
-	total: Int 
-	byDay: ProjectUserTimeCommitmentByDay 
-}
-
-type ProjectUser  {
-	id: ID! 
-	user: User! @hasInverse(field:projects) 
-	project: Project! @hasInverse(field:projectUsers) 
-	agreements: [AgreementSignatory] @hasInverse(field:projectUser) 
-	title: String! 
-	timeCommitment: ProjectUserTimeCommitment 
-	financialInvestments: [ProjectUserFinancialInvestment] 
-	compensationPackage: ProjectUserCompensationPackage 
-	projectLove: String 
-	roles: [ProjectUserRole!] 
-	lastUpdate: DateTime!
-	archived: Boolean
-}
 
 """
 USER MODEL 
 """
-type UserLinkedCustomAccounts  {
-	name: String 
-	value: String 
-}
-
-type UserLinkedAccounts  {
-	linkedin: String 
-	github: String 
-	discord: String 
-	dribbble: String 
-	instagram: String 
-	facebook: String 
-	medium: String 
-	youtube: String 
-	customAccounts: [UserLinkedCustomAccounts] 
-}
-
-type UserSocial  {
-	linkedin: String 
-	github: String 
-	discord: String 
-	dribbble: String 
-	instagram: String 
-	facebook: String 
-  twitter: String 
-  medium: String 
-  substack: String 
-  youtube: String
-  soundcloud: String
-}
 
 type User  {
 	id: ID! 
 	email: String! @id
-	displayName: String @search(by:[fulltext]) 
-	fullName: String! @search(by:[fulltext]) 
+	displayName: String
+	fullName: String
 	profileImage: String 
-	biography: String 
-	social: UserSocial 
-	linkedAccounts: UserLinkedAccounts 
-	expertise: [String] 
-	interests: [String] 
-	projects: [ProjectUser] 
 	walletAddresses: [CryptoAddress] 
-	organizations: [OrganizationUser!]
+	organizations: [OrganizationUser]
 	unestablishedSmartContracts: [SmartContractUnestablished] @hasInverse(field:owner)
+	agreements: [AgreementSignatory] @hasInverse(field:user)
+	payments: [Payment] @hasInverse(field:recipient)
 	creationDate: DateTime
 }
 

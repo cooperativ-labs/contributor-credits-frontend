@@ -38,8 +38,6 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
       </Button>
       {open && (
         <Card className="absolute top-14 md:top-16 right-6 p-3 rounded-xl shadow-lg z-40">
-          <div className="flex items-center my-3 justify-center text-gray-500 w-52">{user.fullName}</div>
-
           {active && (
             <div className="flex flex-col items-center">
               <NetworkIndicator />
@@ -53,10 +51,6 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
           </div>
           <div className="md:hidden flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
             <LogoutButton />
-          </div>
-          <hr className="my-5" />
-          <div className="mt-6">
-            <RecipientStats user={user} />
           </div>
         </Card>
       )}

@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { CORE_AGREEMENT_FIELDS, CORE_PAYMENT_FIELDS } from './fragments';
 
 export const GET_USERS = () => {
   return gql`
@@ -33,6 +34,8 @@ export const GET_USER_FROM_EMAIL = gql`
 `;
 
 export const GET_USER = gql`
+  ${CORE_AGREEMENT_FIELDS}
+  ${CORE_PAYMENT_FIELDS}
   query GetUser($userId: ID!) {
     getUser(id: $userId) {
       id
@@ -40,22 +43,6 @@ export const GET_USER = gql`
       displayName
       fullName
       profileImage
-      biography
-      expertise
-      interests
-      social {
-        linkedin
-        github
-        discord
-        dribbble
-        instagram
-        facebook
-        twitter
-        medium
-        substack
-        youtube
-        soundcloud
-      }
       walletAddresses {
         name
         address
@@ -73,52 +60,22 @@ export const GET_USER = gql`
           }
         }
       }
-      projects {
+      payments {
+        ...paymentData
+      }
+      agreements {
+        agreement {
+          ...agreementData
+        }
+      }
+      unestablishedSmartContracts {
         id
-        roles
-        title
-        agreements {
-          date
-          agreement {
-            title
-          }
-          payments {
-            id
-            amount
-            date
-            note
-            currency {
-              code
-              contributorCreditClass {
-                name
-                backingCurrency
-                currentFunding
-                cryptoAddress {
-                  address
-                  chainId
-                }
-              }
-            }
-          }
-        }
-        user {
-          id
-        }
-        project {
-          id
-          slug
-          name
-          lastUpdate
-          needs {
-            name
-            value
-            fill
-          }
-          info {
-            logo
-            shortDescription
-            brandColor
-          }
+        used
+        type
+        cryptoAddress {
+          address
+          protocol
+          chainId
         }
       }
     }
@@ -126,21 +83,12 @@ export const GET_USER = gql`
 `;
 
 export const ADD_USER_WITH_WALLET = gql`
-  mutation AddUser(
-    $currentDate: DateTime!
-    $email: String!
-    $fullName: String!
-    $displayName: String!
-    $walletAddress: String!
-    $chainId: Int!
-  ) {
+  mutation AddUser($currentDate: DateTime!, $email: String!, $walletAddress: String!, $chainId: Int!) {
     addUser(
       input: [
         {
           creationDate: $currentDate
           email: $email
-          fullName: $fullName
-          displayName: $displayName
           walletAddresses: {
             name: "Primary wallet"
             address: $walletAddress
@@ -148,13 +96,11 @@ export const ADD_USER_WITH_WALLET = gql`
             chainId: $chainId
             type: WALLET
           }
-          organizations: { organization: { fullLegalName: $fullName, type: "Individual" } }
         }
       ]
     ) {
       user {
         id
-        fullName
         email
         profileImage
         walletAddresses {
@@ -169,63 +115,14 @@ export const ADD_USER_WITH_WALLET = gql`
   }
 `;
 
-export const ADD_USER_WITHOUT_WALLET = gql`
-  mutation AddUser($currentDate: DateTime!, $email: String!, $fullName: String!, $displayName: String!) {
-    addUser(
-      input: [
-        {
-          creationDate: $currentDate
-          email: $email
-          fullName: $fullName
-          displayName: $displayName
-          organizations: { organization: { fullLegalName: $fullName, type: "Individual" } }
-        }
-      ]
-    ) {
-      user {
-        id
-        fullName
-        email
-        profileImage
-      }
-    }
-  }
-`;
-
 export const UPDATE_USER_INFORMATION = gql`
-  mutation UpdateUser(
-    $userId: [ID!]
-    $fullName: String!
-    $displayName: String
-    $profileImage: String
-    $biography: String
-    $expertiseAdd: [String]
-    $expertiseRemove: [String]
-    $interestsAdd: [String]
-    $interestsRemove: [String]
-  ) {
-    updateUser(
-      input: {
-        filter: { id: $userId }
-        remove: { interests: $interestsRemove, expertise: $expertiseRemove }
-        set: {
-          displayName: $displayName
-          fullName: $fullName
-          profileImage: $profileImage
-          biography: $biography
-          interests: $interestsAdd
-          expertise: $expertiseAdd
-        }
-      }
-    ) {
+  mutation UpdateUser($userId: [ID!], $profileImage: String, $displayName: String) {
+    updateUser(input: { filter: { id: $userId }, set: { displayName: $displayName, profileImage: $profileImage } }) {
       user {
         id
         email
         fullName
         displayName
-        biography
-        expertise
-        interests
       }
     }
   }

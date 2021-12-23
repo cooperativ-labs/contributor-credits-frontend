@@ -1,5 +1,4 @@
 import CreateAccount from '../forms/CreateAccount';
-import LogIn from '../forms/LogIn';
 import React, { FC, useState } from 'react';
 
 interface NeedAccountProps {}
@@ -16,15 +15,7 @@ const NeedAccount: FC<NeedAccountProps> = ({}) => {
                 style={{ maxWidth: '600px' }}
               >
                 <div className="px-3  md:mx-2">
-                  {showAccountCreation ? <CreateAccount /> : <LogIn />}
-                  <button
-                    className="p-1 px-2 border-2 border-gray-500 rounded-md text-gray-500 text-sm font-semibold focus:outline-none"
-                    onClick={() => {
-                      setShowAccountCreation(!showAccountCreation);
-                    }}
-                  >
-                    {showAccountCreation ? 'Log in to existing account' : 'Create Account'}
-                  </button>
+                  <CreateAccount />
                 </div>
               </div>
             </div>

@@ -1,15 +1,12 @@
 import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
 import ManagerSideBarContents from './components/ManagerSideBarContents';
-import ProjectChooser from './components/ChooseProject';
+
 import React, { FC, useContext } from 'react';
 import { ApplicationStoreProps, store } from '@context/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GET_PROJECT } from '@src/utils/dGraphQueries/project';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { getUsersByRole } from '@hooks/useProjectUsers';
-import { Project, User } from 'types';
-import { ProjectContext } from './ManagerWrapper';
 import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 
@@ -20,15 +17,9 @@ const ManagerSideBar: FC = () => {
   const { userId } = useContext(UserContext);
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
 
-  const { projectSlug } = useContext(ProjectContext);
-  const { data: projectData } = useQuery(GET_PROJECT, {
-    variables: { projectSlug: projectSlug },
-  });
-
-  const project = projectData?.getProject;
   const user = userData?.getUser;
 
-  if (!user || !project) {
+  if (!user) {
     return <></>;
   }
 
@@ -39,11 +30,8 @@ const ManagerSideBar: FC = () => {
   return (
     <>
       <div className="hidden md:flex flex-col bg-white w-52 z-10 shadow-lg min-h-full">
-        <div className=" flex p-1 border-b-2 border-gray-300 pt-8 pb-3  ">
-          <ProjectChooser projectUsers={projectUsers} />
-        </div>
         <div className="h-full bg-opacity-0 p-1 pr-2">
-          <ManagerSideBarContents projectSlug={project?.slug} isProjectManager={isProjectManager} />
+          <ManagerSideBarContents />
         </div>
       </div>
       {ManagerSidebarOpen && (
@@ -69,10 +57,8 @@ const ManagerSideBar: FC = () => {
                 </Button>
               </div>
             </div>
-            <div className="p-1 border-b-2 border-gray-300 pt-4 pb-3 justify-center">
-              <ProjectChooser projectUsers={projectUsers} />
-            </div>
-            <ManagerSideBarContents projectSlug={project?.slug} isProjectManager={isProjectManager} />
+            <div className="p-1 border-b-2 border-gray-300 pt-4 pb-3 justify-center"></div>
+            <ManagerSideBarContents />
           </div>
         </div>
       )}

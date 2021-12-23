@@ -1,19 +1,6 @@
-import { AgreementSignatory, Project, ProjectUser, ProjectUserRole, User } from 'types';
+import { User } from 'types/';
 
-export type ProjectUsersType = {
-  projectUsers: ProjectUser[];
-  creators: ProjectUser[];
-  contributors: ProjectUser[];
-  advisors: ProjectUser[];
-  investors: ProjectUser[];
-  supporters: ProjectUser[];
-  isProjectManager: boolean;
-  myProjectUser: ProjectUser;
-  projectSignatories: AgreementSignatory[];
-  memberAddresses: string[];
-};
-
-export const getUsersByRole = (projectUsers: ProjectUser[], roleType: string) => {
+export const getUsersByRole = (projectUsers, roleType: string) => {
   return projectUsers?.filter((user) => {
     return user?.roles.map((role) => {
       if (role.toString() === roleType) {
@@ -24,11 +11,11 @@ export const getUsersByRole = (projectUsers: ProjectUser[], roleType: string) =>
   });
 };
 
-export const getMyProjectUser = (projectUsers: ProjectUser[], user: User) => {
+export const getMyProjectUser = (projectUsers, user: User) => {
   return projectUsers.find((projectUser) => projectUser.user.id === user.id);
 };
 
-export const isProjectManager = (creators: ProjectUser[], userId) => {
+export const isProjectManager = (creators, userId) => {
   return creators.find((creator) => creator.user.id === userId);
 };
 
@@ -40,12 +27,12 @@ export const getSignatoriesFromProjectUsers = (projectUsers) => {
     .flat();
 };
 
-const getMemberAddresses = (projectUsers: ProjectUser[]) => {
+const getMemberAddresses = (projectUsers) => {
   const withWallet = projectUsers.filter((pUser) => !!pUser.user.walletAddresses[0]);
   return withWallet.map((pUser) => pUser.user.walletAddresses[0].address);
 };
 
-const useProjectUsers = (project: Project, user: User): ProjectUsersType => {
+const useProjectUsers = (project, user: User) => {
   const projectUsers = project?.projectUsers;
   const creators = getUsersByRole(projectUsers, ProjectUserRole.Creator);
   const contributors = getUsersByRole(projectUsers, ProjectUserRole.Contributor);

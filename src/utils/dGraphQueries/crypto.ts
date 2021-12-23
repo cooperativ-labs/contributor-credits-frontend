@@ -115,7 +115,6 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
     $cryptoAddress: String!
     $chainId: Int
     $type: SmartContractType!
-    $projectId: ID!
     $protocol: CryptoAddressProtocol
     $owner: ID!
   ) {
@@ -123,7 +122,6 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
       input: [
         {
           cryptoAddress: { address: $cryptoAddress, type: CONTRACT, chainId: $chainId, protocol: $protocol }
-          project: { id: $projectId }
           owner: { id: $owner }
           type: $type
           used: false
@@ -132,10 +130,11 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
     ) {
       smartContractUnestablished {
         id
-        project {
+        owner {
           id
         }
         cryptoAddress {
+          id
           address
           chainId
         }

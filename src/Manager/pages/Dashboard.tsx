@@ -8,6 +8,10 @@ import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import ClassCardList from '../components/containers/ClassCardList';
+import cn from 'classnames';
+import Card from '@src/containers/Card';
+import CCClassDetails from '../components/containers/ClassDetails';
 
 const Dashboard: FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
@@ -15,13 +19,10 @@ const Dashboard: FC = () => {
   const { userId } = useContext(UserContext);
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
-
+  const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
   if (!user) {
     return <></>;
   }
-
-  const projects = user.projects;
-  const hasProjects = projects.length > 0;
 
   return (
     <div className="md:mx-4">
@@ -43,29 +44,29 @@ const Dashboard: FC = () => {
         </div>
       )}
 
-      <hr className="border-t-2 mt-6 border-gray-300" />
-      <section>
-        {hasProjects && <h2 className="text-xl font-bold text-gray-800 my-5">Projects</h2>}
-        <div className="div ">
-          {hasProjects &&
-            projects.map((projectUser, i) => {
-              return (
-                <div className="flex-grow mb-4">
-                  <ProjectCard
-                    key={i}
-                    projectName={projectUser.project.name}
-                    shortDescription={projectUser.project.info.shortDescription}
-                    title={projectUser.title}
-                    slug={projectUser.project.slug}
-                  />
-                </div>
-              );
-            })}
-          <MajorActionButton className="w-full md:w-96" link="manager/create-project">
-            Create Project
-          </MajorActionButton>
+      <hr className="border-t-2 my-6 border-gray-300" />
+      <div className={cn(selectedClassId ? 'grid-cols-3 gap-4' : 'grid-cols-2', 'md:grid')}>
+        <div className={cn(selectedClassId ? 'hidden md:flex col-span-2' : 'flex md:col-span-2', 'flex-col')}>
+          <ClassCardList user={user} setSelectedClassId={setSelectedClassId} />
         </div>
-      </section>
+        <div className="col-span-1">
+          {selectedClassId && (
+            <Card className="relative bg-white rounded-xl shadow-md p-6">
+              <button
+                id="close-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedClassId(undefined);
+                }}
+                className="absolute -top-1 right-0 hover:shadow-lg text-gray-800 w-10 h-10 m-2 rounded-full"
+              >
+                <FontAwesomeIcon icon="times" />
+              </button>
+              {/* <CCClassDetails classId={selectedClassId} memberAddresses={memberAddresses} user={user} /> */}
+            </Card>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

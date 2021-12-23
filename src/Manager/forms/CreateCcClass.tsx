@@ -17,11 +17,10 @@ const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
 type CreateCcClassProps = {
   userId: string;
-  projectId: string;
   setPreventClose: any;
 };
 
-const CreateCcClass: FC<CreateCcClassProps> = ({ userId, projectId, setPreventClose }) => {
+const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
   const { library, chainId } = useWeb3React<Web3Provider>();
   const signer = library.getSigner();
   const [addUnestablishedSmartContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
@@ -38,13 +37,12 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, projectId, setPreventCl
           cryptoAddress: contract.address,
           chainId: chainId,
           type: ccType,
-          projectId: projectId,
           protocol: protocol,
           owner: userId,
         },
       });
     },
-    [signer, chainId, projectId, userId]
+    [signer, chainId, userId]
   );
 
   if (error) {
