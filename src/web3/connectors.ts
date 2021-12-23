@@ -32,7 +32,6 @@ export const MatchSupportedChains = (chainId) => {
   return SupportedChainIds.find((chain) => chain.id === chainId);
 };
 
-const POLLING_INTERVAL = 12000;
 const RPC_URLS: { [chainId: number]: string } = {
   1: 'https://mainnet.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
   3: 'https://ropsten.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
@@ -50,7 +49,6 @@ const walletconnect = new WalletConnectConnector({
     80001: RPC_URLS[80001],
   },
   qrcode: true,
-  pollingInterval: POLLING_INTERVAL,
 });
 
 const walletlink = new WalletLinkConnector({
