@@ -12,7 +12,7 @@
     "generate": ". ./.env && graphql-codegen && typechain --target=ethers-v5 ./src/web3/contracts/*.json --out-dir types/web3",
     "generate-production": ". ./prod.env && graphql-codegen && typechain --target=ethers-v5 ./src/web3/contracts/*.json --out-dir types/web3",
     "dev": "next dev",
-    "build": "next build",
+    "build": "graphql-codegen & next build",
     "start": "next start",
     "lint": "yarn run js-lint && yarn run style-lint && yarn run type-check",
     "fix": "yarn run fix-js-lint && yarn run fix-style-lint",
