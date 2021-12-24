@@ -1,7 +1,5 @@
-import { Project } from 'types';
 import { initializeApollo } from '../apolloClient';
 import { CHECK_WALLET_EXIST } from './crypto';
-import { GET_ID_FROM_SLUG } from './project';
 import { CHECK_USER_EXIST } from './user';
 
 const apolloClient = initializeApollo();
@@ -69,24 +67,6 @@ export function formatSlug(text: string) {
     .trim()
     .replace(/ /g, '')
     .replace(/[^\w-]+/g, '');
-}
-
-export async function checkSlugTaken(slug: string) {
-  try {
-    return await apolloClient
-      .query({
-        query: GET_ID_FROM_SLUG(slug),
-      })
-      .then((res) => {
-        return res.data.getProject ? true : false;
-      });
-  } catch (err) {
-    console.log('checkslug', err);
-  }
-}
-
-export function checkUserAdded(project: Project, userId: string) {
-  return !!project.projectUsers.find((user) => user.user.id === userId);
 }
 
 export async function checkEmailTaken(email: string) {

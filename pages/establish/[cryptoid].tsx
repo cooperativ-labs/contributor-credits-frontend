@@ -9,9 +9,9 @@ import { useRouter } from 'next/router';
 const EstablishClassPage: NextPage = ({}) => {
   const router = useRouter();
   const cryptoAddressId = router.query.cryptoid;
-  const { loading, data } = useQuery(GET_AVAILABLE_CONTRACT, { variables: { id: cryptoAddressId } });
+  const { loading, data, error } = useQuery(GET_AVAILABLE_CONTRACT, { variables: { id: cryptoAddressId } });
   const availableContract = data?.getSmartContractUnestablished;
-
+  console.log(error);
   return (
     <div data-test="component-landing" className="bg-white flex flex-col w-full h-full">
       <ManagerWrapper loadingComponent={loading}>

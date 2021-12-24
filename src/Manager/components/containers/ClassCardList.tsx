@@ -8,6 +8,7 @@ import { User } from 'types';
 import { unique } from '@src/utils/helpersGeneral';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import CompensationPackage from '@src/components/CompensationPackage';
 
 interface ClassCardListProps {
   user: User;

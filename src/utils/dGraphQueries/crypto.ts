@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { CORE_PAYMENT_FIELDS } from './fragments';
+import { CORE_PAYMENT_FIELDS, CORE_USER_FIELDS } from './fragments';
 
 export const CHECK_WALLET_EXIST = () => {
   return gql`
@@ -77,6 +77,7 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
 `;
 
 export const GET_AVAILABLE_CONTRACT = gql`
+  ${CORE_USER_FIELDS}
   query GetSmartContractUnestablished($id: ID!) {
     getSmartContractUnestablished(id: $id) {
       id
@@ -87,24 +88,8 @@ export const GET_AVAILABLE_CONTRACT = gql`
         chainId
       }
       type
-      project {
-        id
-        slug
-        name
-        projectUsers {
-          id
-          user {
-            id
-          }
-        }
-        organization {
-          displayName
-          fullLegalName
-          country
-          address
-          jurisdiction
-          type
-        }
+      owner {
+        ...userData
       }
     }
   }

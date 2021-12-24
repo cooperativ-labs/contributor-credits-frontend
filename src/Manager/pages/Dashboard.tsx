@@ -23,7 +23,6 @@ const Dashboard: FC = () => {
   if (!user) {
     return <></>;
   }
-
   return (
     <div className="md:mx-4">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-700">Hello {user.displayName}</h1>

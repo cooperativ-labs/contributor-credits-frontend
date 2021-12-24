@@ -1,14 +1,12 @@
 import Footer from '@src/Footer/Footer';
 import Link from 'next/link';
-import MarketingNav from '@src/MarketingSite/MarketingNav';
+
 import React from 'react';
 import RoundedImage from '@src/components/RoundedImage/RoundedImage';
 
 export default function Custom404() {
   return (
     <div className="w-full h-full min-h-full flex-col justify-center items-center">
-      <MarketingNav shadow />
-
       <div
         className="my-20 p-8 text-center min-h-full mx-auto flex flex-col items-center"
         style={{ maxWidth: '1280px' }}

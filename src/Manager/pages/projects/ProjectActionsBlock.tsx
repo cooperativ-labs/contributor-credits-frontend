@@ -12,9 +12,8 @@ type ActionsBlock = {
   userId: string;
 };
 
-const ActionsBlock: FC<any> = ({ isProjectManager, projectId, userId }) => {
+const ActionsBlock: FC<any> = ({ userId }) => {
   const { active } = useWeb3React<Web3Provider>();
-  const [mainActionDialog, setMainActionDialog] = useState(false);
   const [deployDialog, setDeployDialogVisible] = useState(false);
   const [preventClose, setPreventClose] = useState<boolean>(false);
 

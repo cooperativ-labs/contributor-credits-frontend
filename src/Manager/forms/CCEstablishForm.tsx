@@ -46,11 +46,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const signer = library.getSigner();
   const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
-  const { project, cryptoAddress, type, id } = availableContract;
+  const { cryptoAddress, type, id } = availableContract;
   //Feels a bit sketchy getting project from the unestablished contract here
-  const myProjectUser = getMyProjectUser(project.projectUsers, user);
 
   const [addCcAgreement, { data: agreementData, error: agreementError }] = useMutation(ADD_CC_AGREEMENT);
 
@@ -67,6 +64,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
     return;
   };
 
+  console.log(agreementError);
   if (agreementError && !alerted) {
     alert('Oops. Looks like something went wrong');
     setLoadingModal(false);
@@ -76,7 +74,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   const router = useRouter();
   if (agreementData && !alerted) {
     setAlerted(true);
-    router.push(`/manager/${project.slug}/obligations`);
+    router.push(`/`);
   }
 
   const chainBacs = bacOptions.filter((bac) => bac.chainId === chainId);
@@ -91,6 +89,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
       <Formik
         initialValues={{
           customToggle: false,
+          organizationName: '',
           title: '',
           backingToken: '',
           triggerCurrency: undefined,
@@ -104,6 +103,10 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           setCustomText(values.customToggle);
           setAgreementContent(values);
           const errors: any = {}; /** @TODO : Shape */
+          if (!values.organizationName) {
+            errors.organizationName =
+              'Please enter the name of the organization or individual that will be paying credits';
+          }
           if (!values.title) {
             errors.title = 'Please title this class';
           }
@@ -142,8 +145,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           await establishContract();
           await addCcAgreement({
             variables: {
+              userId: userId,
               currentDate: currentDate,
-              projectUserId: myProjectUser.id,
               ccName: values.title,
               ccType: type,
               backingToken: values.backingToken,
@@ -170,6 +173,14 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               <Checkbox className={fieldDiv} checked={values.customToggle} name="customToggle" />
               <p className="mb-4 ml-2 text-sm text-blue-900 font-semibold text-opacity-80 ">Use custom text</p>
             </div>
+            <Input
+              className={fieldDiv}
+              labelText="Paying organization's full legal name"
+              name="organizationName"
+              type="text"
+              placeholder="Cooperativ Labs Inc."
+              required
+            />
             <Input
               className={fieldDiv}
               labelText="Title this class"

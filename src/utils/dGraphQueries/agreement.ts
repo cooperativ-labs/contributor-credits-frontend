@@ -5,7 +5,7 @@ export const ADD_CC_AGREEMENT = gql`
   ${CORE_AGREEMENT_FIELDS}
   mutation AddCcAgreement(
     $currentDate: DateTime!
-    $projectUserId: ID!
+    $userId: ID!
     $ccName: String!
     $ccType: SmartContractType!
     $backingToken: CurrencyCode!
@@ -45,7 +45,7 @@ export const ADD_CC_AGREEMENT = gql`
           title: $agreementTitle
           text: $agreementText
           type: CONTRIBUTOR_CREDIT
-          signatories: { projectUser: { id: $projectUserId }, signature: $signature, date: $currentDate }
+          signatories: { user: { id: $userId }, signature: $signature, date: $currentDate }
         }
       ]
     ) {

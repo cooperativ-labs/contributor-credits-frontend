@@ -33,7 +33,7 @@ export const NavBar: FC<NavBarProps> = () => {
             <div className="m-2" />
           </div>
 
-          <Link href="/manager">
+          <Link href="/">
             <img
               src={
                 windowSize.width < 768

@@ -22,6 +22,7 @@ const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
 
 export type AgreementContentType = {
+  organizationName: string;
   backingToken: string;
   triggerCurrency: string;
   financingTriggerAmount: number;
@@ -47,6 +48,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
   const user = userData?.getUser;
 
   const [agreementContent, setAgreementContent] = useState<AgreementContentType>({
+    organizationName: '',
     backingToken: '',
     triggerCurrency: '',
     financingTriggerAmount: null,
@@ -69,20 +71,22 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
     return <></>;
   }
 
-  const { project, cryptoAddress } = availableContract;
-  const name = project?.name;
-  const orgLegalName = project.organization.fullLegalName;
-  const orgType = project.organization.type;
+  const { cryptoAddress } = availableContract;
   const contractAddress = cryptoAddress.address;
-  const { triggerText, backingToken, triggerCurrency, financingTriggerAmount, revenueTriggerAmount, signature } =
-    agreementContent;
+  const {
+    organizationName,
+    triggerText,
+    backingToken,
+    triggerCurrency,
+    financingTriggerAmount,
+    revenueTriggerAmount,
+    signature,
+  } = agreementContent;
 
   const getToken = (value) => {
     const token = currencyOptions.filter((option) => option.value === value);
     return token[0];
   };
-
-  const isCompany = orgType !== 'Individual';
 
   const setText = customText ? customAgreementText : standardAgreementText;
 
@@ -93,9 +97,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
 
   const agreement = generateAgreement(
     {
-      organizationName: name ?? orgLegalName,
-      organizationLegalName: orgLegalName,
-      isNotIndividual: isCompany,
+      organizationName: organizationName,
       c2Address: contractAddress,
       bacName: bacName,
       chainName: MatchSupportedChains(chainId).name,

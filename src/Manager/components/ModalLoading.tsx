@@ -2,10 +2,8 @@ import Loading from './Loading';
 import React, { FC } from 'react';
 import Link from 'next/link';
 
-interface LoadingModalProps {
-  additionalMessage?: string;
-}
-const LoadingModal: FC<LoadingModalProps> = ({ additionalMessage }) => {
+interface LoadingModalProps {}
+const LoadingModal: FC<LoadingModalProps> = ({}) => {
   return (
     <div className="flex-grow h-full z-10">
       <div className="h-full px-4 md:px-8 py-2 md:py-5">
@@ -18,12 +16,6 @@ const LoadingModal: FC<LoadingModalProps> = ({ additionalMessage }) => {
                   style={{ maxWidth: '700' }}
                 >
                   <Loading />
-                </div>
-                <div className="mt-10">
-                  If this page does not load within two seconds,{' '}
-                  <Link href="/manager">
-                    <span className="text-cLightBlue font-bold">click here.</span>
-                  </Link>
                 </div>
               </div>
             </div>
