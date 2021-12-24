@@ -12,6 +12,7 @@ import ClassCardList from '../components/containers/ClassCardList';
 import cn from 'classnames';
 import Card from '@src/containers/Card';
 import CCClassDetails from '../components/containers/ClassDetails';
+import { unique } from '@src/utils/helpersGeneral';
 
 const Dashboard: FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
@@ -23,6 +24,14 @@ const Dashboard: FC = () => {
   if (!user) {
     return <></>;
   }
+
+  const { unestablishedSmartContracts, agreements } = user;
+
+  const payments = agreements.map((agreement) => agreement.agreement.payments).flat();
+  const memberAddresses = payments.map((payment) => payment.recipient.walletAddresses[0].address);
+
+  const isContractManager = true;
+
   return (
     <div className="md:mx-4">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-700">Hello {user.displayName}</h1>
@@ -46,7 +55,13 @@ const Dashboard: FC = () => {
       <hr className="border-t-2 my-6 border-gray-300" />
       <div className={cn(selectedClassId ? 'grid-cols-3 gap-4' : 'grid-cols-2', 'md:grid')}>
         <div className={cn(selectedClassId ? 'hidden md:flex col-span-2' : 'flex md:col-span-2', 'flex-col')}>
-          <ClassCardList user={user} setSelectedClassId={setSelectedClassId} />
+          <ClassCardList
+            user={user}
+            setSelectedClassId={setSelectedClassId}
+            agreements={agreements}
+            unestablishedSmartContracts={unestablishedSmartContracts}
+            memberAddresses={memberAddresses}
+          />
         </div>
         <div className="col-span-1">
           {selectedClassId && (
@@ -61,7 +76,13 @@ const Dashboard: FC = () => {
               >
                 <FontAwesomeIcon icon="times" />
               </button>
-              {/* <CCClassDetails classId={selectedClassId} memberAddresses={memberAddresses} user={user} /> */}
+              <CCClassDetails
+                classId={selectedClassId}
+                memberAddresses={memberAddresses}
+                user={user}
+                payments={payments}
+                isContractManager={isContractManager}
+              />
             </Card>
           )}
         </div>

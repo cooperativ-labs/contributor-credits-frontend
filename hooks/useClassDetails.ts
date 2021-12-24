@@ -1,30 +1,18 @@
 import { GetCcPayments, GetPaymentsFromProjectUsers } from '@src/utils/helpersMoney';
-import { Agreement, Payment, ProjectUser, User } from 'types';
+import { Agreement, Payment, User } from 'types';
 import { getMyProjectUser } from './useProjectUsers';
 
 export type ClassDetailsType = {
-  allClassPayments: Payment[];
-  myCreditPayments: Payment[];
+  myPayments: Payment[];
 };
 
-const useClassDetails = (
-  projectUsers: ProjectUser[],
-  user: User,
-  agreement: Agreement,
-  classId: string
-): ClassDetailsType => {
-  const myProjectUser = getMyProjectUser(projectUsers, user);
-  const mySignatory = agreement.signatories.find((signatory) => signatory.projectUser.id === myProjectUser.id);
-  const allProjectPayments = GetPaymentsFromProjectUsers(projectUsers);
-  const allClassPayments = GetCcPayments(allProjectPayments, classId);
-  const myProjectPayments = mySignatory && GetPaymentsFromProjectUsers([myProjectUser]);
-  const myCreditPayments = myProjectPayments && GetCcPayments(myProjectPayments, classId);
+const useClassDetails = (user: User, agreement: Agreement): ClassDetailsType => {
+  const allPayments = agreement.payments;
+  //find payments among this agreement where I am the recipient
+  const myPayments = allPayments.filter((payment) => payment.recipient === user);
 
   const classDetails = {
-    // myProjectUser,
-    // mySignatory,
-    allClassPayments,
-    myCreditPayments,
+    myPayments,
   };
 
   return classDetails;

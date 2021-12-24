@@ -10,7 +10,7 @@ import React, { FC, useContext } from 'react';
 import SectionBlock from '@src/Manager/components/containers/SectionBlock';
 import useClassDetails from 'hooks/useClassDetails';
 import useProjectUsers from 'hooks/useProjectUsers';
-import { ContributorCreditClass, Project, ProjectUser, User } from 'types';
+import { ContributorCreditClass, Payment, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
@@ -19,30 +19,32 @@ import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 
 type BaseProps = {
-  project: Project;
-  projectUsers: ProjectUser[];
-  isProjectManager: boolean;
+  isContractManager: boolean;
   memberAddresses: string[];
   user: User;
+  payments: Payment[];
 };
 
 type DetailsProps = BaseProps & {
   CCClass: ContributorCreditClass;
 };
 
-const Details: FC<DetailsProps> = ({ CCClass, project, user, projectUsers, isProjectManager, memberAddresses }) => {
+const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAddresses, payments }) => {
   const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
 
+  console.log(agreement);
+
   const c2 = useC2(cryptoAddress.address, memberAddresses);
 
-  const { allClassPayments, myCreditPayments } = useClassDetails(projectUsers, user, agreement, id);
+  //this should filter for payments to that recipient
+  const { myPayments } = useClassDetails(user, agreement);
 
   const displayPayments = () => {
-    if (isProjectManager && allClassPayments) {
-      return <PaymentList payments={allClassPayments} projectUsers={projectUsers} projectLogo={project.info.logo} />;
-    } else if (!isProjectManager && myCreditPayments) {
-      return <PaymentList payments={myCreditPayments} projectLogo={project.info.logo} />;
+    if (isContractManager && payments) {
+      return <PaymentList payments={payments} />;
+    } else if (!isContractManager && myPayments) {
+      return <PaymentList payments={myPayments} />;
     }
     return 'No payments to display';
   };
@@ -59,8 +61,8 @@ const Details: FC<DetailsProps> = ({ CCClass, project, user, projectUsers, isPro
 
       <div className="my-3 mb-6">
         <CCClassDescription
+          payerName="FILL THIS IN"
           classShortDescription={triggerShortDescription}
-          projectName={project.name}
           triggerFundraising={triggerFundraising}
           triggerRevenue={triggerRevenue}
         />
@@ -68,10 +70,10 @@ const Details: FC<DetailsProps> = ({ CCClass, project, user, projectUsers, isPro
       <ClassStatusBlock cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
 
       <SectionBlock sectionTitle="Payments" className="mt-6">
-        {allClassPayments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
+        {payments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
       </SectionBlock>
 
-      <ClassActions name={name} members={projectUsers} c2={c2} ccId={id} />
+      {/* <ClassActions name={name} members={projectUsers} c2={c2} ccId={id} /> */}
       <div className="mt-5">
         <HashInstructions hash={c2?.info.agreementHash} agreementText={agreement.text} />
       </div>
@@ -82,15 +84,9 @@ const Details: FC<DetailsProps> = ({ CCClass, project, user, projectUsers, isPro
 type CCClassDetailsProps = BaseProps & {
   classId: string;
 };
-const CCClassDetails: FC<CCClassDetailsProps> = ({
-  classId,
-  project,
-  user,
-  projectUsers,
-  isProjectManager,
-  memberAddresses,
-}) => {
-  const { data: classData } = useQuery(GET_CONTRIBUTOR_CREDITS, { variables: { id: classId } });
+const CCClassDetails: FC<CCClassDetailsProps> = ({ classId, payments, user, isContractManager, memberAddresses }) => {
+  const { data: classData, error } = useQuery(GET_CONTRIBUTOR_CREDITS, { variables: { id: classId } });
+  console.log(error);
   const CCClass = classData?.getContributorCreditClass;
   if (!CCClass) {
     return <Loading />;
@@ -98,10 +94,9 @@ const CCClassDetails: FC<CCClassDetailsProps> = ({
 
   return (
     <Details
-      project={project}
+      payments={payments}
       CCClass={CCClass}
-      projectUsers={projectUsers}
-      isProjectManager={!!isProjectManager}
+      isContractManager={!!isContractManager}
       memberAddresses={memberAddresses}
       user={user}
     />

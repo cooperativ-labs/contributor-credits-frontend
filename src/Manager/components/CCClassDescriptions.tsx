@@ -3,16 +3,16 @@ import { ContributorCreditClassTrigger } from 'types';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
 interface CCClassDescriptionProps {
-  projectName: string;
+  payerName: string;
   triggerFundraising: ContributorCreditClassTrigger;
   triggerRevenue: ContributorCreditClassTrigger;
   classShortDescription: string;
 }
 
-const DescriptionWithTriggers = ({ projectName, triggerFundraising, triggerRevenue }) => {
+const DescriptionWithTriggers = ({ payerName, triggerFundraising, triggerRevenue }) => {
   return (
     <div className="font-semibold text-gray-400 mt-4">
-      {`${projectName} must fully fund these credits when it raises `}
+      {`${payerName} must fully fund these credits when it raises `}
       <span className="text-green-500 font-bold">
         {numberWithCommas(triggerFundraising.amount)} {triggerFundraising.currency}
       </span>
@@ -26,7 +26,7 @@ const DescriptionWithTriggers = ({ projectName, triggerFundraising, triggerReven
 };
 
 const CCClassDescription: React.FC<CCClassDescriptionProps> = ({
-  projectName,
+  payerName,
   triggerFundraising,
   triggerRevenue,
   classShortDescription,
@@ -34,7 +34,7 @@ const CCClassDescription: React.FC<CCClassDescriptionProps> = ({
   if (triggerFundraising.amount && triggerRevenue.amount) {
     return (
       <DescriptionWithTriggers
-        projectName={projectName}
+        payerName={payerName}
         triggerFundraising={triggerFundraising}
         triggerRevenue={triggerRevenue}
       />

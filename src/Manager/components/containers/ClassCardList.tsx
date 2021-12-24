@@ -4,7 +4,7 @@ import CCClassCard from '../cards/CCClassCard';
 import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
 import React, { FC } from 'react';
 import UnestablishedContractCard from '../cards/UnestablishedContractCard';
-import { User } from 'types';
+import { ContributorCreditClass, User } from 'types';
 import { unique } from '@src/utils/helpersGeneral';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
@@ -13,17 +13,25 @@ import CompensationPackage from '@src/components/CompensationPackage';
 interface ClassCardListProps {
   user: User;
   setSelectedClassId: any;
+  agreements: ContributorCreditClass[];
+  unestablishedSmartContracts;
+  memberAddresses: string[];
 }
 
 export const colStyle = 'col-span-1 uppercase text-sm font-bold text-gray-700';
 
-const ClassCardList: FC<ClassCardListProps> = ({ setSelectedClassId, user }) => {
+const ClassCardList: FC<ClassCardListProps> = ({
+  setSelectedClassId,
+  user,
+  agreements,
+  unestablishedSmartContracts,
+  memberAddresses,
+}) => {
   const { active, chainId } = useWeb3React<Web3Provider>();
 
   if (!user) {
     return <></>;
   }
-  const { unestablishedSmartContracts, agreements } = user;
 
   const contributorCreditClassesOwned = () => {
     const ccClasses = agreements.map((signatory) => {
@@ -40,9 +48,6 @@ const ClassCardList: FC<ClassCardListProps> = ({ setSelectedClassId, user }) => 
   };
 
   const existingClasses = contributorCreditClassesOwned().length > 0 || contributorCreditClassesReceived().length > 0;
-
-  const payments = agreements.map((agreement) => agreement.agreement.payments).flat();
-  const memberAddresses = payments.map((payment) => payment.recipient.walletAddresses[0].address);
 
   if (active) {
     return (

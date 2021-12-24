@@ -50,25 +50,11 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
         id
         title
         text
+        payments {
+          ...paymentData
+        }
         signatories {
           id
-          payments {
-            ...paymentData
-          }
-          projectUser {
-            id
-            user {
-              id
-              fullName
-              displayName
-            }
-            roles
-            project {
-              id
-              name
-            }
-            archived
-          }
         }
       }
       name
