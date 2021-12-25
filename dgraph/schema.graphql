@@ -6,12 +6,14 @@ type AgreementSignatory  {
 	agreement: Agreement! @hasInverse(field:signatories) 
 	user: User @hasInverse(field:agreements) 
 	signature: String 
+	signerAddress: String
 	date: DateTime
 }
 
 type Agreement  {
 	id: ID! 
 	signatories: [AgreementSignatory] 
+	organizationName: String
 	contributorCreditClass: ContributorCreditClass @hasInverse(field:agreement) 
 	agreementThreadID: String 
 	title: String! 

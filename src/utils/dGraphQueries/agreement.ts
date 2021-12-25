@@ -14,12 +14,14 @@ export const ADD_CC_AGREEMENT = gql`
     $protocol: CryptoAddressProtocol!
     $chainId: Int!
     $agreementTitle: String!
+    $organizationName: String!
     $triggerShortDescription: String
     $triggerCurrency: String
     $financingTriggerAmount: Int64
     $revenueTriggerAmount: Int64
     $agreementText: String!
     $signature: String
+    $signerAddress: String
   ) {
     addAgreement(
       input: [
@@ -44,8 +46,14 @@ export const ADD_CC_AGREEMENT = gql`
           }
           title: $agreementTitle
           text: $agreementText
+          organizationName: $organizationName
           type: CONTRIBUTOR_CREDIT
-          signatories: { user: { id: $userId }, signature: $signature, date: $currentDate }
+          signatories: {
+            user: { id: $userId }
+            signature: $signature
+            signerAddress: $signerAddress
+            date: $currentDate
+          }
         }
       ]
     ) {

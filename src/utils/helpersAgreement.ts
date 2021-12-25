@@ -10,6 +10,7 @@ export type GenerateAgreementType = {
   triggerCurrency: string;
   signature: string;
   signerEmail: string;
+  signerAddress: string;
   isNotMainnet: boolean;
   [key: string]: any;
 };

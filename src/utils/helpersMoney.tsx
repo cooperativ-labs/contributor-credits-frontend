@@ -1,4 +1,4 @@
-import { CurrencyCode, Payment, ProjectUser } from 'types';
+import { CurrencyCode, Payment } from 'types';
 import { liveChain } from '@src/web3/connectors';
 import { unique } from './helpersGeneral';
 import { useWeb3React } from '@web3-react/core';
@@ -6,19 +6,6 @@ import { useWeb3React } from '@web3-react/core';
 export function numberWithCommas(amount: number, decimals = 0) {
   return amount ? amount.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
 }
-
-export const GetPaymentsFromProjectUsers = (projectUsers: ProjectUser[]) => {
-  const payments = projectUsers
-    .map((pUser) => {
-      return pUser.agreements
-        .map((agreement) => {
-          return agreement.payments;
-        })
-        .flat();
-    })
-    .flat();
-  return unique(payments);
-};
 
 export const GetClassesFromPayments = (payments: Payment[]) => {
   return payments.map((payment) => {

@@ -41,7 +41,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   agreement,
   setCustomText,
 }) => {
-  const { chainId, library } = useWeb3React<Web3Provider>();
+  const { chainId, library, account } = useWeb3React<Web3Provider>();
   const [alerted, setAlerted] = useState<boolean>(false);
   const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const signer = library.getSigner();
@@ -160,7 +160,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               financingTriggerAmount: values.financingTriggerAmount,
               revenueTriggerAmount: values.revenueTriggerAmount,
               agreementText: agreement,
-              $signature: values.signature,
+              signature: values.signature,
+              signerAddress: account,
             },
           });
           setButtonStep('confirmed');

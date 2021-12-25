@@ -1,6 +1,4 @@
-import { GetCcPayments, GetPaymentsFromProjectUsers } from '@src/utils/helpersMoney';
 import { Agreement, Payment, User } from 'types';
-import { getMyProjectUser } from './useProjectUsers';
 
 export type ClassDetailsType = {
   myPayments: Payment[];

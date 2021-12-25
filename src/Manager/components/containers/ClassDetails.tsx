@@ -73,7 +73,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAdd
         {payments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
       </SectionBlock>
 
-      {/* <ClassActions name={name} members={projectUsers} c2={c2} ccId={id} /> */}
+      <ClassActions name={name} members={projectUsers} c2={c2} ccId={id} />
       <div className="mt-5">
         <HashInstructions hash={c2?.info.agreementHash} agreementText={agreement.text} />
       </div>
@@ -85,8 +85,7 @@ type CCClassDetailsProps = BaseProps & {
   classId: string;
 };
 const CCClassDetails: FC<CCClassDetailsProps> = ({ classId, payments, user, isContractManager, memberAddresses }) => {
-  const { data: classData, error } = useQuery(GET_CONTRIBUTOR_CREDITS, { variables: { id: classId } });
-  console.log(error);
+  const { data: classData } = useQuery(GET_CONTRIBUTOR_CREDITS, { variables: { id: classId } });
   const CCClass = classData?.getContributorCreditClass;
   if (!CCClass) {
     return <Loading />;

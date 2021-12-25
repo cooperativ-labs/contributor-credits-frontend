@@ -35,5 +35,5 @@ Agreement goes into effect and {{ organizationName }} agrees to the following:
 ### Terms:
 {{ triggerText }}
 
-I, {{ signature }}, holding email address {{ signerEmail }}, certify that I have authority to sign on behalf of and
+I, {{ signature }}, holding email address {{ signerEmail }} and wallet address {{ signerAddress }}, certify that I have authority to sign on behalf of and
 legally bind {{ organizationName }}.

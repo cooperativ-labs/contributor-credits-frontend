@@ -41,7 +41,7 @@ type ClassEstablishProps = {
 };
 
 const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) => {
-  const { chainId } = useWeb3React<Web3Provider>();
+  const { chainId, account } = useWeb3React<Web3Provider>();
   const { userId } = useContext(UserContext);
   const [customText, setCustomText] = useState<boolean>();
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
@@ -107,6 +107,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
       revenueTriggerAmount: revenueTriggerAmount && numberWithCommas(revenueTriggerAmount),
       triggerText: triggerText,
       signature: signature,
+      signerAddress: account,
       signerEmail: user.email,
       isNotMainnet: !isMainNet,
     },
