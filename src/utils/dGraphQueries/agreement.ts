@@ -155,6 +155,11 @@ export const GET_AGREEMENTS_THAT_PAID_ME = gql`
         contributorCreditClass {
           ...contributorCreditData
         }
+        signatories {
+          user {
+            id
+          }
+        }
       }
     }
   }

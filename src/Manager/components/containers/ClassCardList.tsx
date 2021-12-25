@@ -34,19 +34,19 @@ const ClassCardList: FC<ClassCardListProps> = ({
     return <></>;
   }
 
-  const contributorCreditClassesOwned = () => {
-    const ccClasses = agreements.map((signatory) => {
+  const contributorCreditClasses = () => {
+    const ccClassesPaid = agreements.map((signatory) => {
       return signatory.agreement.contributorCreditClass;
     });
-    return unique(ccClasses);
+    const ccClassesReceived = paymentsToMe.filter((payment) => {
+      !payment.agreement.signatories.find((signatory) => signatory.user.id === user.id) &&
+        payment.agreement.contributorCreditClass;
+    });
+    ccClassesReceived.push(...ccClassesPaid);
+    return ccClassesReceived;
   };
 
-  const contributorCreditClassesReceived = paymentsToMe.map((payment) => {
-    return payment.agreement.contributorCreditClass;
-  });
-
-  const existingClasses = contributorCreditClassesOwned().length > 0 || contributorCreditClassesReceived.length > 0;
-
+  const existingClasses = contributorCreditClasses().length > 0;
   if (active) {
     return (
       <Card className="bg-white rounded-xl shadow-md p-6">
@@ -63,7 +63,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
           </div>
         )}
         <div className="flex flex-wrap">
-          {contributorCreditClassesOwned().map((cClass, index) => {
+          {contributorCreditClasses().map((cClass, index) => {
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
@@ -76,14 +76,6 @@ const ClassCardList: FC<ClassCardListProps> = ({
               return (
                 <div key={index} className="my-2 w-full ">
                   <UnestablishedContractCard unestablishedContract={unestablishedContract} />
-                </div>
-              );
-          })}
-          {contributorCreditClassesReceived.map((cClass, index) => {
-            if (cClass && cClass.cryptoAddress.chainId === chainId)
-              return (
-                <div key={index} className="my-2 w-full">
-                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} />
                 </div>
               );
           })}
