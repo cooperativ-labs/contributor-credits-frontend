@@ -22,27 +22,26 @@ type BaseProps = {
   isContractManager: boolean;
   memberAddresses: string[];
   user: User;
-  payments: Payment[];
 };
 
 type DetailsProps = BaseProps & {
   CCClass: ContributorCreditClass;
 };
 
-const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAddresses, payments }) => {
+const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAddresses }) => {
   const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
-
-  console.log(agreement);
 
   const c2 = useC2(cryptoAddress.address, memberAddresses);
 
   //this should filter for payments to that recipient
-  const { myPayments } = useClassDetails(user, agreement);
+  const allPayments = agreement.payments;
+  console.log(agreement);
+  const { myPayments } = useClassDetails(agreement);
 
   const displayPayments = () => {
-    if (isContractManager && payments) {
-      return <PaymentList payments={payments} />;
+    if (isContractManager && allPayments) {
+      return <PaymentList payments={allPayments} />;
     } else if (!isContractManager && myPayments) {
       return <PaymentList payments={myPayments} />;
     }
@@ -61,7 +60,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAdd
 
       <div className="my-3 mb-6">
         <CCClassDescription
-          payerName="FILL THIS IN"
+          payerName={agreement.organizationName}
           classShortDescription={triggerShortDescription}
           triggerFundraising={triggerFundraising}
           triggerRevenue={triggerRevenue}
@@ -70,10 +69,10 @@ const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAdd
       <ClassStatusBlock cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
 
       <SectionBlock sectionTitle="Payments" className="mt-6">
-        {payments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
+        {allPayments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
       </SectionBlock>
 
-      <ClassActions name={name} members={projectUsers} c2={c2} ccId={id} />
+      <ClassActions name={name} chainId={cryptoAddress.chainId} c2={c2} ccId={id} agreementId={agreement.id} />
       <div className="mt-5">
         <HashInstructions hash={c2?.info.agreementHash} agreementText={agreement.text} />
       </div>
@@ -84,7 +83,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user, isContractManager, memberAdd
 type CCClassDetailsProps = BaseProps & {
   classId: string;
 };
-const CCClassDetails: FC<CCClassDetailsProps> = ({ classId, payments, user, isContractManager, memberAddresses }) => {
+const CCClassDetails: FC<CCClassDetailsProps> = ({ classId, user, isContractManager, memberAddresses }) => {
   const { data: classData } = useQuery(GET_CONTRIBUTOR_CREDITS, { variables: { id: classId } });
   const CCClass = classData?.getContributorCreditClass;
   if (!CCClass) {
@@ -92,13 +91,7 @@ const CCClassDetails: FC<CCClassDetailsProps> = ({ classId, payments, user, isCo
   }
 
   return (
-    <Details
-      payments={payments}
-      CCClass={CCClass}
-      isContractManager={!!isContractManager}
-      memberAddresses={memberAddresses}
-      user={user}
-    />
+    <Details CCClass={CCClass} isContractManager={!!isContractManager} memberAddresses={memberAddresses} user={user} />
   );
 };
 

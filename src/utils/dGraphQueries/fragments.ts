@@ -18,6 +18,7 @@ export const CORE_PAYMENT_FIELDS = gql`
     id
     amount
     note
+    recipient
     currency {
       code
       contributorCreditClass {

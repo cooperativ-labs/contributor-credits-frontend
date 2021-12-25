@@ -2,7 +2,7 @@ import React from 'react';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
 export interface ListItemPaymentProps {
-  title: string;
+  title: any;
   amount?: number;
   currency?: number | string;
   date?: string;

@@ -6,7 +6,7 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 import FormButton from '../components/buttons/FormButton';
 import ReactiveSelect from './components/ReactiveSelect';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
-import { AgreementType, CurrencyCode, ProjectUser } from 'types';
+import { AgreementType, CurrencyCode } from 'types';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
@@ -14,36 +14,33 @@ import { LoadingButtonText } from '../components/buttons/Button';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
+import CryptoAddress from '../components/CryptoAddress';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
-const FormButtonText = (member, amount) => {
-  return !member || !amount ? 'Pay a team member' : `Pay ${member} ${numberWithCommas(amount, 0)} Credits`;
+const FormButtonText = (recipient, amount, chainId) => {
+  return !recipient || !amount ? (
+    'Pay a team recipient'
+  ) : (
+    <div className="display: inline-block">
+      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} light /> ${numberWithCommas(amount, 0)}{' '}
+      Credits
+    </div>
+  );
 };
 
 export type PayCreditsProps = {
-  members: ProjectUser[];
   c2: C2Type;
   ccId: string;
+  chainId: number;
+  agreementId: string;
 };
 
-type MemberOptionProps = {
-  address: string;
-  fullName: string;
-  projectUser: ProjectUser;
-};
-
-type AgreementOptionProps = {
-  value: string;
-  label: string;
-};
-
-const PayCredits: FC<PayCreditsProps> = ({ members, c2, ccId }) => {
+const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => {
   const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
-  const [agreementOptions, setAgreementOptions] = useState<AgreementOptionProps[]>(undefined);
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
-
+  console.log(data);
   if (error) {
     alert('Oops. Looks like something went wrong');
   }
@@ -52,53 +49,48 @@ const PayCredits: FC<PayCreditsProps> = ({ members, c2, ccId }) => {
     setAlerted(true);
   }
 
-  const memberOptions = members?.map((projectUser) => {
-    /** @TODO : let people choose wallet for project */
-    //BREAKS when a user does not have a wallet address
-    if (projectUser.user.walletAddresses[0]) {
-      const walletAddress = projectUser.user.walletAddresses[0].address;
-      return {
-        value: {
-          address: walletAddress,
-          fullName: projectUser.user.fullName,
-          projectUser: projectUser,
-        },
-        label: `${projectUser.user.fullName} (...${walletAddress.substr(walletAddress.length - 4)})`,
-      };
-    }
-    return;
-  });
+  // const memberOptions = members?.map((projectUser) => {
+  //   /** @TODO : let people choose wallet for project */
+  //   //BREAKS when a user does not have a wallet address
+  //   if (projectUser.user.walletAddresses[0]) {
+  //     const walletAddress = projectUser.user.walletAddresses[0].address;
+  //     return {
+  //       value: {
+  //         address: walletAddress,
+  //         fullName: projectUser.user.fullName,
+  //         projectUser: projectUser,
+  //       },
+  //       label: `${projectUser.user.fullName} (...${walletAddress.substr(walletAddress.length - 4)})`,
+  //     };
+  //   }
+  //   return;
+  // });
 
-  const createAgreementOptions = (member) => {
-    const agreementOptions = member.projectUser.agreements.map((agreement) => {
-      //here agreement is type AgreementSignatory, which is associated with a type Agreement
-      return (
-        agreement.agreement.type !== AgreementType.ContributorCredit && {
-          value: agreement.id,
-          label: agreement.agreement.title,
-        }
-      );
-    });
-    setAgreementOptions(agreementOptions);
-  };
-
-  const createPayment = (signatoryId: string, amount: number, note: string, currencyCode: CurrencyCode) => {
+  const createPayment = (
+    agreementId: string,
+    amount: number,
+    recipient: string,
+    note: string,
+    currencyCode: CurrencyCode
+  ) => {
     addPayment({
       variables: {
         currentDate: currentDate,
-        signatoryId: signatoryId,
+        agreementId: agreementId,
         amount: amount,
         currencyCode: currencyCode,
         contributorCreditClassID: ccId,
+        recipient: recipient,
         note: note,
       },
     });
   };
 
   const [, payCredits] = useAsyncFn(
-    async (member: MemberOptionProps, signatoryId: string, amount: number, note: string) => {
-      await c2.contract.issue(member.address, toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      createPayment(signatoryId, amount, note, CurrencyCode.Cc);
+    async (agreementId: string, amount: number, recipient: string, note: string) => {
+      await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
+      console.log(agreementId, amount, recipient, note, CurrencyCode.Cc);
+      createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
       setButtonStep('confirmed');
     },
     [c2]
@@ -107,19 +99,14 @@ const PayCredits: FC<PayCreditsProps> = ({ members, c2, ccId }) => {
   return (
     <Formik
       initialValues={{
-        member: memberOptions[0],
-        signatoryId: '',
+        recipient: '',
         amount: undefined,
         note: '',
       }}
       validate={(values) => {
-        createAgreementOptions(values.member);
         const errors: any = {}; /** @TODO : Shape */
-        if (!values.member) {
-          errors.member = 'Please select a contract';
-        }
-        if (!values.signatoryId) {
-          errors.signatoryId = 'Please select an agreement';
+        if (!values.recipient) {
+          errors.recipient = 'Please specify a recipient';
         }
         if (!values.amount) {
           errors.amount = 'Please include an amount';
@@ -135,30 +122,20 @@ const PayCredits: FC<PayCreditsProps> = ({ members, c2, ccId }) => {
         setAlerted(false);
         setSubmitting(true);
         setButtonStep('submitting');
-        //@ts-ignore - ReactSelective strips "value" from the thing it returns.
-        //You expect values.member.value.[something], but instead get values.member.[something]
-        await payCredits(values.member, values.signatoryId, values.amount, values.note);
+        await payCredits(agreementId, values.amount, values.recipient, values.note);
         setSubmitting(false);
       }}
     >
       {({ isSubmitting, values }) => (
         <Form className="flex flex-col gap relative">
-          <ReactiveSelect
+          <Input
             className={fieldDiv}
-            options={memberOptions}
-            name="member"
-            labelText="Select a user"
+            labelText="recipient's wallet address"
+            name="recipient"
+            type="text"
+            placeholder="0x531518975607FE8867fd5F39e9a3754F1fc38276"
             required
           />
-          {agreementOptions && (
-            <ReactiveSelect
-              className={fieldDiv}
-              options={agreementOptions}
-              name="signatoryId"
-              labelText="Select an agreement"
-              required
-            />
-          )}
           <Input
             className={fieldDiv}
             labelText="Amount of credits to pay"
@@ -178,8 +155,8 @@ const PayCredits: FC<PayCreditsProps> = ({ members, c2, ccId }) => {
             <LoadingButtonText
               state={buttonStep}
               //@ts-ignore - ReactSelective strips "value" from the thing it returns.
-              //You expect values.member.value.[something], but instead get values.member.[something]
-              idleText={FormButtonText(values.member.fullName, values.amount)}
+              //You expect values.recipient.value.[something], but instead get values.recipient.[something]
+              idleText={FormButtonText(values.recipient, values.amount, chainId)}
               submittingText="Deploying (this could take a sec)"
               confirmedText="Confirmed!"
             />

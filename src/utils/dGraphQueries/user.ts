@@ -35,7 +35,6 @@ export const GET_USER_FROM_EMAIL = gql`
 
 export const GET_USER = gql`
   ${CORE_AGREEMENT_FIELDS}
-  ${CORE_PAYMENT_FIELDS}
   query GetUser($userId: ID!) {
     getUser(id: $userId) {
       id
@@ -59,9 +58,6 @@ export const GET_USER = gql`
             permission
           }
         }
-      }
-      payments {
-        ...paymentData
       }
       agreements {
         agreement {

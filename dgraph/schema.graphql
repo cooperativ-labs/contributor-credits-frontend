@@ -35,7 +35,7 @@ type Payment  {
 	currency: Currency! 
 	date: DateTime!
 	note: String
-	recipient: User @hasInverse(field:payments)
+	recipient: String!
 	agreement: Agreement @hasInverse(field:payments)
 }
 
@@ -163,7 +163,6 @@ type User  {
 	organizations: [OrganizationUser]
 	unestablishedSmartContracts: [SmartContractUnestablished] @hasInverse(field:owner)
 	agreements: [AgreementSignatory] @hasInverse(field:user)
-	payments: [Payment] @hasInverse(field:recipient)
 	creationDate: DateTime
 }
 

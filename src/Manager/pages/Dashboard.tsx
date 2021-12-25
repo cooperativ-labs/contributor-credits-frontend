@@ -28,7 +28,7 @@ const Dashboard: FC = () => {
   const { unestablishedSmartContracts, agreements } = user;
 
   const payments = agreements.map((agreement) => agreement.agreement.payments).flat();
-  const memberAddresses = payments.map((payment) => payment.recipient.walletAddresses[0].address);
+  const memberAddresses = payments.map((payment) => payment.recipient);
 
   const isContractManager = true;
 
@@ -80,7 +80,6 @@ const Dashboard: FC = () => {
                 classId={selectedClassId}
                 memberAddresses={memberAddresses}
                 user={user}
-                payments={payments}
                 isContractManager={isContractManager}
               />
             </Card>

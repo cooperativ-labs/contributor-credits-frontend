@@ -40,15 +40,15 @@ const ClassCardList: FC<ClassCardListProps> = ({
     return unique(ccClasses);
   };
 
-  const contributorCreditClassesReceived = () => {
-    const ccClasses = user.payments.map((payment) => {
-      return payment.agreement.contributorCreditClass;
-    });
-    return unique(ccClasses);
-  };
+  // const contributorCreditClassesReceived = () => {
+  //   const ccClasses = agre.payments.map((payment) => {
+  //     return payment.agreement.contributorCreditClass;
+  //   });
+  //   return unique(ccClasses);
+  // };
 
-  const existingClasses = contributorCreditClassesOwned().length > 0 || contributorCreditClassesReceived().length > 0;
-
+  // const existingClasses = contributorCreditClassesOwned().length > 0 || contributorCreditClassesReceived().length > 0;
+  const existingClasses = contributorCreditClassesOwned().length > 0;
   if (active) {
     return (
       <Card className="bg-white rounded-xl shadow-md p-6">
@@ -85,7 +85,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
                 </div>
               );
           })}
-          {contributorCreditClassesReceived().map((cClass, index) => {
+          {/* {contributorCreditClassesReceived().map((cClass, index) => {
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
@@ -96,7 +96,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
                   />
                 </div>
               );
-          })}
+          })} */}
         </div>
         <ActionsBlock userId={user.id} />
       </Card>

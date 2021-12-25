@@ -161,7 +161,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               revenueTriggerAmount: values.revenueTriggerAmount,
               agreementText: agreement,
               signature: values.signature,
-              signerAddress: account,
+              k,
             },
           });
           setButtonStep('confirmed');

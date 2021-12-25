@@ -9,30 +9,35 @@ type CryptoAddressProps = {
   label?: string;
   withCopy?: boolean;
   largeText?: boolean;
+  light?: boolean;
 };
 
-const CryptoAddress: FC<CryptoAddressProps> = ({ label, chainId, address, withCopy, largeText }) => {
+const CryptoAddress: FC<CryptoAddressProps> = ({ label, chainId, address, withCopy, largeText, light }) => {
   const [copied, setCopied] = useState<boolean>(false);
   const blockExplorer = MatchSupportedChains(chainId).blockExplorer;
   return (
-    <span className={cn(largeText ? 'text-lg font-bold' : 'text-sm', 'flex text-gray-600 ')}>
+    <span
+      className={cn([largeText ? 'text-lg font-bold' : 'text-sm'], [light ? 'flex text-white' : 'flex text-gray-600 '])}
+    >
       <a target="_blank" rel="noreferrer" href={`${blockExplorer}/address/${address}`}>
         {label}{' '}
         <span className="hover:underline mr-2">
           {address.slice(0, 7)}...{address.slice(-4)}
         </span>
       </a>
-      <button
-        onClick={() => {
-          navigator.clipboard.writeText(address);
-          setCopied(true);
-          setTimeout(() => {
-            setCopied(false);
-          }, 1000);
-        }}
-      >
-        {copied ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="copy" />}
-      </button>
+      {withCopy && (
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(address);
+            setCopied(true);
+            setTimeout(() => {
+              setCopied(false);
+            }, 1000);
+          }}
+        >
+          {copied ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="copy" />}
+        </button>
+      )}
     </span>
   );
 };

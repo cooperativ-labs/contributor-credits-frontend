@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { CORE_AGREEMENT_FIELDS, CORE_AGREEMENT_SIGNATORY_FIELDS } from './fragments';
+import { CORE_AGREEMENT_FIELDS, CORE_AGREEMENT_SIGNATORY_FIELDS, CORE_PAYMENT_FIELDS } from './fragments';
 
 export const ADD_CC_AGREEMENT = gql`
   ${CORE_AGREEMENT_FIELDS}
@@ -108,30 +108,34 @@ export const ADD_SIGNATORY_WITH_PAYMENT = gql`
 `;
 
 export const ADD_CC_PAYMENT = gql`
-  ${CORE_AGREEMENT_SIGNATORY_FIELDS}
+  ${CORE_PAYMENT_FIELDS}
   mutation AddCcPayment(
     $currentDate: DateTime!
-    $signatoryId: [ID!]
+    $agreementId: [ID!]
     $amount: Int64!
     $currencyCode: CurrencyCode!
     $contributorCreditClassID: ID!
+    $recipient: String
     $note: String
   ) {
-    updateAgreementSignatory(
+    updateAgreement(
       input: {
-        filter: { id: $signatoryId }
+        filter: { id: $agreementId }
         set: {
           payments: {
             amount: $amount
             currency: { code: $currencyCode, contributorCreditClass: { id: $contributorCreditClassID } }
             date: $currentDate
+            recipient: $recipient
             note: $note
           }
         }
       }
     ) {
-      agreementSignatory {
-        ...agreementSignatoryData
+      agreement {
+        payments {
+          ...paymentData
+        }
       }
     }
   }
