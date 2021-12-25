@@ -5,7 +5,6 @@ import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
 import React, { FC } from 'react';
 import UnestablishedContractCard from '../cards/UnestablishedContractCard';
 import { ContributorCreditClass, User } from 'types';
-import { unique } from '@src/utils/helpersGeneral';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
@@ -38,9 +37,8 @@ const ClassCardList: FC<ClassCardListProps> = ({
     const ccClassesPaid = agreements.map((signatory) => {
       return signatory.agreement.contributorCreditClass;
     });
-    const ccClassesReceived = paymentsToMe.filter((payment) => {
-      !payment.agreement.signatories.find((signatory) => signatory.user.id === user.id) &&
-        payment.agreement.contributorCreditClass;
+    const ccClassesReceived = paymentsToMe.map((payment) => {
+      return payment.agreement.contributorCreditClass;
     });
     ccClassesReceived.push(...ccClassesPaid);
     return ccClassesReceived;
