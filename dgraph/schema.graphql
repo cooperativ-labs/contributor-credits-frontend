@@ -153,12 +153,48 @@ type OrganizationUser  {
 USER MODEL 
 """
 
+type UserLinkedCustomAccounts  {
+	name: String 
+	value: String 
+}
+
+type UserLinkedAccounts  {
+	linkedin: String 
+	github: String 
+	discord: String 
+	dribbble: String 
+	instagram: String 
+	facebook: String 
+	medium: String 
+	youtube: String 
+	customAccounts: [UserLinkedCustomAccounts] 
+}
+
+type UserSocial  {
+	linkedin: String 
+	github: String 
+	discord: String 
+	dribbble: String 
+	instagram: String 
+	facebook: String 
+ twitter: String 
+ medium: String 
+ substack: String 
+ youtube: String
+  oundcloud: String
+}
+
 type User  {
 	id: ID! 
 	email: String! @id
 	displayName: String
 	fullName: String
 	profileImage: String 
+	biography: String 
+	social: UserSocial 
+	linkedAccounts: UserLinkedAccounts 
+	expertise: [String] 
+	interests: [String] 
 	walletAddresses: [CryptoAddress] 
 	organizations: [OrganizationUser]
 	unestablishedSmartContracts: [SmartContractUnestablished] @hasInverse(field:owner)

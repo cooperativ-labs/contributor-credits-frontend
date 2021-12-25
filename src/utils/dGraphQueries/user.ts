@@ -42,6 +42,22 @@ export const GET_USER = gql`
       displayName
       fullName
       profileImage
+      biography
+      expertise
+      interests
+      social {
+        linkedin
+        github
+        discord
+        dribbble
+        instagram
+        facebook
+        twitter
+        medium
+        substack
+        youtube
+        soundcloud
+      }
       walletAddresses {
         name
         address
@@ -112,13 +128,39 @@ export const ADD_USER_WITH_WALLET = gql`
 `;
 
 export const UPDATE_USER_INFORMATION = gql`
-  mutation UpdateUser($userId: [ID!], $profileImage: String, $displayName: String) {
-    updateUser(input: { filter: { id: $userId }, set: { displayName: $displayName, profileImage: $profileImage } }) {
+  mutation UpdateUser(
+    $userId: [ID!]
+    $fullName: String
+    $displayName: String
+    $profileImage: String
+    $biography: String
+    $expertiseAdd: [String]
+    $expertiseRemove: [String]
+    $interestsAdd: [String]
+    $interestsRemove: [String]
+  ) {
+    updateUser(
+      input: {
+        filter: { id: $userId }
+        remove: { interests: $interestsRemove, expertise: $expertiseRemove }
+        set: {
+          displayName: $displayName
+          fullName: $fullName
+          profileImage: $profileImage
+          biography: $biography
+          interests: $interestsAdd
+          expertise: $expertiseAdd
+        }
+      }
+    ) {
       user {
         id
         email
         fullName
         displayName
+        biography
+        expertise
+        interests
       }
     }
   }

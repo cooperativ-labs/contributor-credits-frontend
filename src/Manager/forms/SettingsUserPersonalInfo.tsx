@@ -43,14 +43,6 @@ const SettingUserPersonalInfo = ({ user }) => {
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
           errors.email = 'Invalid email address';
         }
-        if (!values.fullName) {
-          errors.fullName = 'Please include your full name.';
-        } else if (!/^[a-z ,.'-]+$/i.test(values.fullName)) {
-          errors.fullName = 'Please only use valid characters';
-        }
-        if (!values.displayName) {
-          errors.displayName = 'Please include a display name.';
-        }
         // @ts-ignore - we turn these into strings, then turn them back into arrays before submission
         if (/[^a-z A-Z 0-9,.'-]/.test(values?.expertise)) {
           errors.expertise = 'Please only use letters, numbers, spaces, and commas.';
@@ -64,8 +56,8 @@ const SettingUserPersonalInfo = ({ user }) => {
       onSubmit={(values, { setSubmitting }) => {
         const expertiseAdd = makeSubmissionList(values.expertise);
         const interestsAdd = makeSubmissionList(values.interests);
-        const expertiseRemove = makeRemovalList(incomingExpertise, expertiseAdd);
-        const interestsRemove = makeRemovalList(incomingInterests, interestsAdd);
+        const expertiseRemove = incomingExpertise && makeRemovalList(incomingExpertise, expertiseAdd);
+        const interestsRemove = incomingInterests && makeRemovalList(incomingInterests, interestsAdd);
         setAlerted(false);
         setSubmitting(true);
         updateUser({
@@ -90,17 +82,9 @@ const SettingUserPersonalInfo = ({ user }) => {
       {({ isSubmitting }) => (
         <Form className="flex flex-col relative">
           <h2 className="text-xl mt-8 text-blue-900 font-semibold">Personal Information</h2>
+          <Input className={fieldDiv} labelText="Display name" name="displayName" type="text" placeholder="Moritz" />
           <Input
             className={fieldDiv}
-            required
-            labelText="Display name"
-            name="displayName"
-            type="text"
-            placeholder="Moritz"
-          />
-          <Input
-            className={fieldDiv}
-            required
             labelText="Full name"
             name="fullName"
             type="text"

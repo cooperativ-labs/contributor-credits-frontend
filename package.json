@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "up": "docker-compose up -d",
-    "fresh": "yarn install && docker-compose down -v --remove-orphans && docker-compose up --build -d && sleep 10 && yarn schema && yarn generate",
-    "new": "yarn install && docker-compose down --remove-orphans && docker-compose up --build -d && sleep 10 && yarn schema && yarn generate",
+    "fresh": "yarn install && docker-compose down -v --remove-orphans && docker-compose up --build -d && sleep 20 && yarn schema && yarn generate",
+    "new": "yarn install && docker-compose down --remove-orphans && docker-compose up --build -d && sleep 20 && yarn schema && yarn generate",
     "stop": "docker-compose stop",
     "schema": "curl -X POST localhost:8080/admin/schema --data-binary '@dgraph/schema.graphql'",
     "generate": ". ./.env && graphql-codegen && typechain --target=ethers-v5 ./src/web3/contracts/*.json --out-dir types/web3",

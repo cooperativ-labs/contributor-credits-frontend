@@ -10,8 +10,8 @@ import ClassCardList from '../components/containers/ClassCardList';
 import cn from 'classnames';
 import Card from '@src/containers/Card';
 import CCClassDetails from '../components/containers/ClassDetails';
-import { Agreement } from 'types/';
-import { User } from 'types/';
+import { Agreement } from 'types';
+import { User } from 'types';
 
 export const ContractManager = (agreement: Agreement, user: User) => {
   return agreement.signatories.find((signatory) => signatory.user.id === user.id);
@@ -21,8 +21,9 @@ const Dashboard: FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
   const { account: walletAddress } = useWeb3React<Web3Provider>();
   const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { data: userData, error } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
+  console.log(error);
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
   if (!user) {
     return <></>;
