@@ -6,14 +6,15 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 
 type ClassCardProps = {
   cClass: ContributorCreditClass;
-  memberAddresses: string[];
+
   setSelectedClassId: any;
 };
 
-const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, memberAddresses }) => {
-  const { id, name, triggers, cryptoAddress, triggerShortDescription, type } = cClass;
+const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId }) => {
+  const { id, name, triggers, cryptoAddress, triggerShortDescription, type, agreement } = cClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
 
+  const memberAddresses = agreement.payments.map((payment) => payment.recipient);
   return (
     <div
       className="md:grid grid-cols-4 border-2 rounded-lg p-3 hover:shadow-md"

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { CORE_PAYMENT_FIELDS, CORE_USER_FIELDS } from './fragments';
+import { CORE_AGREEMENT_FIELDS, CORE_PAYMENT_FIELDS, CORE_USER_FIELDS } from './fragments';
 
 export const CHECK_WALLET_EXIST = () => {
   return gql`
@@ -24,6 +24,7 @@ export const GET_CRYPTO_ADDRESS = gql`
 
 export const GET_CONTRIBUTOR_CREDITS = gql`
   ${CORE_PAYMENT_FIELDS}
+  ${CORE_AGREEMENT_FIELDS}
   query GetContributorCredits($id: ID!) {
     getContributorCreditClass(id: $id) {
       id
@@ -47,15 +48,7 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
       }
       backingCurrency
       agreement {
-        id
-        title
-        text
-        payments {
-          ...paymentData
-        }
-        signatories {
-          id
-        }
+        ...agreementData
       }
       name
     }

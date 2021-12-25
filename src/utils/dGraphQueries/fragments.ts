@@ -39,35 +39,50 @@ export const CORE_PAYMENT_FIELDS = gql`
   }
 `;
 
+export const CORE_CC_FIELDS = gql`
+  fragment contributorCreditData on ContributorCreditClass {
+    id
+    name
+    type
+    cryptoAddress {
+      id
+      address
+      protocol
+      chainId
+    }
+    backingCurrency
+    description
+    triggerShortDescription
+    triggers {
+      amount
+      currency
+      name
+      type
+    }
+    agreement {
+      payments {
+        ...paymentData
+      }
+    }
+  }
+`;
+
 export const CORE_AGREEMENT_FIELDS = gql`
   ${CORE_PAYMENT_FIELDS}
+  ${CORE_CC_FIELDS}
   fragment agreementData on Agreement {
     id
     title
     text
     type
     contributorCreditClass {
-      id
-      name
-      type
-      cryptoAddress {
-        id
-        address
-        protocol
-        chainId
-      }
-      backingCurrency
-      description
-      triggerShortDescription
-      triggers {
-        amount
-        currency
-        name
-        type
-      }
+      ...contributorCreditData
     }
     signatories {
       id
+      user {
+        id
+      }
     }
     payments {
       ...paymentData
@@ -77,11 +92,9 @@ export const CORE_AGREEMENT_FIELDS = gql`
 
 export const CORE_AGREEMENT_SIGNATORY_FIELDS = gql`
   ${CORE_AGREEMENT_FIELDS}
-
   ${CORE_USER_FIELDS}
   fragment agreementSignatoryData on AgreementSignatory {
     id
-
     agreement {
       ...agreementData
     }

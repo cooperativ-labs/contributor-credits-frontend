@@ -8,14 +8,14 @@ import { ContributorCreditClass, User } from 'types';
 import { unique } from '@src/utils/helpersGeneral';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import CompensationPackage from '@src/components/CompensationPackage';
+import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
+import { useQuery } from '@apollo/client';
 
 interface ClassCardListProps {
   user: User;
   setSelectedClassId: any;
   agreements: ContributorCreditClass[];
   unestablishedSmartContracts;
-  memberAddresses: string[];
 }
 
 export const colStyle = 'col-span-1 uppercase text-sm font-bold text-gray-700';
@@ -25,11 +25,12 @@ const ClassCardList: FC<ClassCardListProps> = ({
   user,
   agreements,
   unestablishedSmartContracts,
-  memberAddresses,
 }) => {
-  const { active, chainId } = useWeb3React<Web3Provider>();
+  const { active, chainId, account } = useWeb3React<Web3Provider>();
+  const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: account } });
+  const paymentsToMe = data?.queryPayment;
 
-  if (!user) {
+  if (!user || !paymentsToMe) {
     return <></>;
   }
 
@@ -40,15 +41,12 @@ const ClassCardList: FC<ClassCardListProps> = ({
     return unique(ccClasses);
   };
 
-  // const contributorCreditClassesReceived = () => {
-  //   const ccClasses = agre.payments.map((payment) => {
-  //     return payment.agreement.contributorCreditClass;
-  //   });
-  //   return unique(ccClasses);
-  // };
+  const contributorCreditClassesReceived = paymentsToMe.map((payment) => {
+    return payment.agreement.contributorCreditClass;
+  });
 
-  // const existingClasses = contributorCreditClassesOwned().length > 0 || contributorCreditClassesReceived().length > 0;
-  const existingClasses = contributorCreditClassesOwned().length > 0;
+  const existingClasses = contributorCreditClassesOwned().length > 0 || contributorCreditClassesReceived.length > 0;
+
   if (active) {
     return (
       <Card className="bg-white rounded-xl shadow-md p-6">
@@ -69,11 +67,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
-                  <CCClassCard
-                    cClass={cClass}
-                    setSelectedClassId={setSelectedClassId}
-                    memberAddresses={memberAddresses}
-                  />
+                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} />
                 </div>
               );
           })}
@@ -85,18 +79,14 @@ const ClassCardList: FC<ClassCardListProps> = ({
                 </div>
               );
           })}
-          {/* {contributorCreditClassesReceived().map((cClass, index) => {
+          {contributorCreditClassesReceived.map((cClass, index) => {
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
-                  <CCClassCard
-                    cClass={cClass}
-                    setSelectedClassId={setSelectedClassId}
-                    memberAddresses={memberAddresses}
-                  />
+                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} />
                 </div>
               );
-          })} */}
+          })}
         </div>
         <ActionsBlock userId={user.id} />
       </Card>

@@ -35,7 +35,7 @@ type Payment  {
 	currency: Currency! 
 	date: DateTime!
 	note: String
-	recipient: String!
+	recipient: String! @search
 	agreement: Agreement @hasInverse(field:payments)
 }
 

@@ -1,5 +1,10 @@
 import gql from 'graphql-tag';
-import { CORE_AGREEMENT_FIELDS, CORE_AGREEMENT_SIGNATORY_FIELDS, CORE_PAYMENT_FIELDS } from './fragments';
+import {
+  CORE_AGREEMENT_FIELDS,
+  CORE_AGREEMENT_SIGNATORY_FIELDS,
+  CORE_CC_FIELDS,
+  CORE_PAYMENT_FIELDS,
+} from './fragments';
 
 export const ADD_CC_AGREEMENT = gql`
   ${CORE_AGREEMENT_FIELDS}
@@ -135,6 +140,20 @@ export const ADD_CC_PAYMENT = gql`
       agreement {
         payments {
           ...paymentData
+        }
+      }
+    }
+  }
+`;
+
+export const GET_AGREEMENTS_THAT_PAID_ME = gql`
+  ${CORE_CC_FIELDS}
+  ${CORE_PAYMENT_FIELDS}
+  query QueryPayment($walletAddress: String) {
+    queryPayment(filter: { recipient: { anyofterms: $walletAddress } }) {
+      agreement {
+        contributorCreditClass {
+          ...contributorCreditData
         }
       }
     }

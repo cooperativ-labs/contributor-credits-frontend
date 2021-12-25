@@ -12,8 +12,6 @@ import { bacOptions, currencyOptionsExcludeCredits } from '@src/utils/enumConver
 import { C2__factory, C3__factory } from 'types/web3';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { Form, Formik } from 'formik';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
-import { getMyProjectUser } from '@hooks/useProjectUsers';
 import { LoadingButtonText } from '../components/buttons/Button';
 import { sha256 } from 'js-sha256';
 import { SmartContractType } from 'types';
@@ -161,7 +159,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               revenueTriggerAmount: values.revenueTriggerAmount,
               agreementText: agreement,
               signature: values.signature,
-              k,
             },
           });
           setButtonStep('confirmed');

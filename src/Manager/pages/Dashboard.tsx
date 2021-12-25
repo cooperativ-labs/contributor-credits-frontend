@@ -1,6 +1,4 @@
 //access to user's settings
-import MajorActionButton from '../components/buttons/MajorActionButton';
-import ProjectCard from '../components/cards/ProjectCard';
 import React, { FC, useContext, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
@@ -12,7 +10,12 @@ import ClassCardList from '../components/containers/ClassCardList';
 import cn from 'classnames';
 import Card from '@src/containers/Card';
 import CCClassDetails from '../components/containers/ClassDetails';
-import { unique } from '@src/utils/helpersGeneral';
+import { Agreement } from 'types/';
+import { User } from 'types/';
+
+export const ContractManager = (agreement: Agreement, user: User) => {
+  return agreement.signatories.find((signatory) => signatory.user.id === user.id);
+};
 
 const Dashboard: FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
@@ -26,11 +29,6 @@ const Dashboard: FC = () => {
   }
 
   const { unestablishedSmartContracts, agreements } = user;
-
-  const payments = agreements.map((agreement) => agreement.agreement.payments).flat();
-  const memberAddresses = payments.map((payment) => payment.recipient);
-
-  const isContractManager = true;
 
   return (
     <div className="md:mx-4">
@@ -60,7 +58,6 @@ const Dashboard: FC = () => {
             setSelectedClassId={setSelectedClassId}
             agreements={agreements}
             unestablishedSmartContracts={unestablishedSmartContracts}
-            memberAddresses={memberAddresses}
           />
         </div>
         <div className="col-span-1">
@@ -76,12 +73,7 @@ const Dashboard: FC = () => {
               >
                 <FontAwesomeIcon icon="times" />
               </button>
-              <CCClassDetails
-                classId={selectedClassId}
-                memberAddresses={memberAddresses}
-                user={user}
-                isContractManager={isContractManager}
-              />
+              <CCClassDetails classId={selectedClassId} user={user} />
             </Card>
           )}
         </div>
