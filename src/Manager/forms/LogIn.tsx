@@ -56,17 +56,16 @@ const LogIn = () => {
       <Formik
         initialValues={{
           email: '',
-          // password: '',
         }}
         validate={(values) => {
           const errors: any = {}; /** @TODO : Shape */
+          if (!values.email) {
+            errors.email = 'Please set include an email address';
+          }
           if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
             errors.email = 'Invalid email address';
           }
 
-          // if (!values.password) {
-          //   errors.password = 'Please set a password';
-          // }
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {

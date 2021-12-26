@@ -37,11 +37,11 @@ export const NavBar: FC<NavBarProps> = () => {
             <img
               src={
                 windowSize.width < 768
-                  ? '/assets/images/branding/symbol_dark_blue.svg'
-                  : '/assets/images/branding/full_dark_blue.svg'
+                  ? '/assets/images/branding/stamp_dark_blue.svg'
+                  : '/assets/images/branding/stamp_dark_blue.svg'
               }
               alt="logo"
-              width={windowSize.width < 768 ? '50' : '200'}
+              width={windowSize.width < 768 ? '30' : '50'}
             />
           </Link>
         </div>
