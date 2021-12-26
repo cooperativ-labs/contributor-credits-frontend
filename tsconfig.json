@@ -29,8 +29,7 @@
       "@data/*": [
         "./data/*"
       ],
-      "types/*": 
-      [
+      "types/*": [
         "./types/*"
       ]
     },
@@ -55,14 +54,16 @@
       {
         "name": "typescript-tslint-plugin"
       }
-    ]
+    ],
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "__mocks__/styleMock.js",
-    "data/devServer.js", "context/store.tsx",
+    "data/devServer.js",
+    "context/store.tsx"
   ],
   "exclude": [
     "node_modules"
