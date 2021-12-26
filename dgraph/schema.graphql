@@ -20,8 +20,8 @@ type Agreement  {
 	text: String 
 	creationDate: DateTime!
 	lastUpdate: DateTime 
-	type: AgreementType
 	payments: [Payment] @hasInverse(field:agreement) 
+	type: AgreementType
 }
 
 enum AgreementType {

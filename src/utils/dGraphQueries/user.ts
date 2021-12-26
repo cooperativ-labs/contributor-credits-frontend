@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { CORE_AGREEMENT_FIELDS, CORE_PAYMENT_FIELDS } from './fragments';
+import { CORE_AGREEMENT_FIELDS } from './fragments';
 
 export const GET_USERS = () => {
   return gql`
