@@ -1,6 +1,6 @@
 import { initializeApollo } from '@src/utils/apolloClient';
 import { GET_USERS } from '@src/utils/dGraphQueries/user';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 const ShowCurrentUsers: FC = () => {
   const apolloClient = initializeApollo();
