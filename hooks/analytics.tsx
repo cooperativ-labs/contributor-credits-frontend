@@ -44,9 +44,9 @@ export function useAnalytics() {
   }, []);
 
   const gtmProperties = {
-    gtmId: 'GTM-TR24L6D',
+    gtmId: 'GTM-56KLJ9N',
     dataLayer: {
-      projectTitle: 'Cooperativ',
+      projectTitle: 'Contributor Credits',
     },
   };
   useEffect(() => {
