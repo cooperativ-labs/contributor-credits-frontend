@@ -49,12 +49,12 @@ const ClassCardList: FC<ClassCardListProps> = ({
     return (
       <Card className="bg-white rounded-xl shadow-md p-6">
         <h1 className="text-cDarkBlue text-xl font-semiBold">Contributor Credits</h1>
-        <div className="text-cLightBlue text-sm mb-10">
+        <div className="text-cLightBlue text-sm">
           Contributor Credits let you easily commit to paying your contributors in the future. Each Credit is worth 1
-          unit of backing currency (USD, EUR, etc.) at the trigger defined in the associated legal text.
+          unit of backing currency (USDC, DAI, etc.) at the trigger defined in the associated legal text.
         </div>
         {existingClasses && (
-          <div className="hidden md:grid grid-cols-4 p-1 px-2">
+          <div className="hidden mt-10 md:grid grid-cols-4 p-1 px-2">
             <div className={colStyle}>Class</div>
             <div className={colStyle}>Triggers</div> <div className={colStyle}>Numbers</div>
             <div className={colStyle}>Funding</div>
