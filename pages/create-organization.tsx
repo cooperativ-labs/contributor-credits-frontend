@@ -1,6 +1,6 @@
-import CreateOrganization from '@src/Manager/forms/CreateOrganization';
-import FormCard from '@src/Manager/components/cards/FormCard';
-import ManagerWrapper from '@src/Manager/ManagerWrapper';
+import CreateOrganization from '../src/Manager/forms/CreateOrganization';
+import FormCard from '../src/Manager/components/cards/FormCard';
+import ManagerWrapper from '../src/Manager/ManagerWrapper';
 import React, { FC } from 'react';
 
 const CreateProject: FC<any> = () => {

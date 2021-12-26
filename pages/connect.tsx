@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import React, { FC } from 'react';
-import SelectWallet from '@src/Manager/components/ModalSelectWallet';
+import SelectWallet from '../src/Manager/components/ModalSelectWallet';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 

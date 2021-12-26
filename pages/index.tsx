@@ -1,5 +1,5 @@
-import Dashboard from '@src/Manager/pages/Dashboard';
-import ManagerWrapper from '@src/Manager/ManagerWrapper';
+import Dashboard from '../src/Manager/pages/Dashboard';
+import ManagerWrapper from '../src/Manager/ManagerWrapper';
 import React from 'react';
 import { NextPage } from 'next';
 import { ResultProps } from '@interfaces/types';

@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import EnsureCompatibleNetwork from '@src/web3/ensureCompatibleNetwork';
 import LoadingModal from './components/ModalLoading';
-import ManagerSideBar from './ManagerSideBar';
 import NavBar from './NavigationBar';
 import NeedAccount from './components/ModalNeedAccount';
 import React, { FC, useContext } from 'react';
