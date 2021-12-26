@@ -6,7 +6,6 @@ import React, { FC, useContext } from 'react';
 import { ApplicationStoreProps, store } from '@context/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
-import { getUsersByRole } from '@hooks/useProjectUsers';
 import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 
@@ -22,10 +21,6 @@ const ManagerSideBar: FC = () => {
   if (!user) {
     return <></>;
   }
-
-  const projectUsers = user.projects;
-  const creators = getUsersByRole(projectUsers, 'CREATOR');
-  const isProjectManager = !!creators.find((creator) => creator.user.id === user.id);
 
   return (
     <>

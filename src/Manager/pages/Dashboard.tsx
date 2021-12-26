@@ -23,7 +23,6 @@ const Dashboard: FC = () => {
   const { userId } = useContext(UserContext);
   const { data: userData, error } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
-  console.log(error);
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
   if (!user) {
     return <></>;

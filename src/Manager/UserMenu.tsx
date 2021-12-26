@@ -52,6 +52,9 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
           <div className="md:hidden flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
             <LogoutButton />
           </div>
+          <div>
+            <RecipientStats />
+          </div>
         </Card>
       )}
     </div>

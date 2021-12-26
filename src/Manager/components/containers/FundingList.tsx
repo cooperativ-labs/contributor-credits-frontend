@@ -1,6 +1,6 @@
 import Card from '@src/containers/Card';
 import React, { FC } from 'react';
-import { colStyle } from '@src/Manager/pages/projects/credits/Obligations';
+import { colStyle } from './ClassCardList';
 
 const FundingList: FC = () => {
   return (

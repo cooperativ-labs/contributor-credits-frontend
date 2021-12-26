@@ -39,7 +39,7 @@ export const GetCcPayments = (payments: Payment[], classId?: string) => {
   return paymentArray;
 };
 
-export const TotalCreditsWithValue = (ccPayments) => {
+export const TotalCreditsWithValue = (ccPayments: Payment[]) => {
   let creditsReceived = 0;
   let totalWorth = 0;
   if (ccPayments) {

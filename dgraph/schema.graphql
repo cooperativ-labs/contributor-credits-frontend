@@ -181,7 +181,7 @@ type UserSocial  {
  medium: String 
  substack: String 
  youtube: String
-  oundcloud: String
+ soundcloud: String
 }
 
 type User  {
