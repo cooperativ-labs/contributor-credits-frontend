@@ -4,7 +4,7 @@ import LoadingModal from './components/ModalLoading';
 import ManagerSideBar from './ManagerSideBar';
 import NavBar from './NavigationBar';
 import NeedAccount from './components/ModalNeedAccount';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import SetUserContext, { UserContext } from '@src/utils/SetUserContext';
 import SetWalletContext from '@src/web3/SetWalletContext';
 import WalletChooserModal from './WalletChooserModal';
