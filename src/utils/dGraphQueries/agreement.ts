@@ -151,7 +151,9 @@ export const GET_AGREEMENTS_THAT_PAID_ME = gql`
   ${CORE_PAYMENT_FIELDS}
   query QueryPayment($walletAddress: String) {
     queryPayment(filter: { recipient: { anyofterms: $walletAddress } }) {
+      ...paymentData
       agreement {
+        organizationName
         contributorCreditClass {
           ...contributorCreditData
         }

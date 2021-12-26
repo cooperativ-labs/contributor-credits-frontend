@@ -60,6 +60,7 @@ export const CORE_CC_FIELDS = gql`
       type
     }
     agreement {
+      organizationName
       payments {
         ...paymentData
       }
@@ -75,6 +76,7 @@ export const CORE_AGREEMENT_FIELDS = gql`
     title
     text
     type
+    organizationName
     contributorCreditClass {
       ...contributorCreditData
     }

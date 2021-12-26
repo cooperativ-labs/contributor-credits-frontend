@@ -145,6 +145,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
             variables: {
               userId: userId,
               currentDate: currentDate,
+              organizationName: values.organizationName,
               ccName: values.title,
               ccType: type,
               backingToken: values.backingToken,
