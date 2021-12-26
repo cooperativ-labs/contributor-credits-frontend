@@ -1,5 +1,5 @@
 import '../styles/hamburgers.css';
-import '../styles/tailwind.css';
+import '@styles/tailwind.css';
 import '@styles/main.css';
 import AnalyticsContext from '@context/analytics';
 import React, { ReactElement } from 'react';
@@ -89,6 +89,7 @@ export default function MyApp({ Component, pageProps }): ReactElement {
         <StateProvider>
           <AnalyticsContext.Provider value={analyticsContext}>
             <div id="outer-container" className="bg-gray-200 flex flex-col">
+              app
               <main id="page-wrap flex-grow h-full">
                 <Component {...pageProps} />
               </main>

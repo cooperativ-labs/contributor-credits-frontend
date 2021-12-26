@@ -7,6 +7,7 @@ import { ResultProps } from '@interfaces/types';
 const DashboardPage: NextPage<ResultProps> = () => {
   return (
     <div data-test="component-landing" className="h-full flex">
+      index
       <ManagerWrapper>
         <Dashboard />
       </ManagerWrapper>
