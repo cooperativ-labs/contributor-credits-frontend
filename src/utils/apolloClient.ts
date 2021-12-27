@@ -11,10 +11,9 @@ const httpLink = createHttpLink({
   credentials: 'same-origin',
 });
 
-const KeyFromEnv = process.env.NETLIFY_CLIENT_CC;
 const authLink = setContext((_, { headers }) => {
   // const token = localStorage.getItem('token');
-  const key = KeyFromEnv;
+  const key = process.env.NEXT_PUBLIC_NETLIFY_CLIENT_CC;
   return {
     headers: {
       ...headers,
