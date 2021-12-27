@@ -1,16 +1,30 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import { useMemo } from 'react';
 
 // using setup from: https://www.apollographql.com/blog/apollo-client/next-js/building-a-next-js-app-with-slash-graphql/
 
 let apolloClient;
 
+const httpLink = createHttpLink({
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+  credentials: 'same-origin',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // const token = localStorage.getItem('token');
+  const key = process.env.NEXT_PUBLIC_NETLIFY_CLIENT_CC;
+  return {
+    headers: {
+      ...headers,
+      'DG-Auth': key ?? undefined,
+    },
+  };
+});
+
 function createApolloClient() {
   return new ApolloClient({
-    link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
-    }),
-    credentials: 'same-origin',
+    link: process.env.NODE_ENV === 'production' ? authLink.concat(httpLink) : httpLink,
     cache: new InMemoryCache(),
     ssrMode: typeof window === 'undefined',
   });
