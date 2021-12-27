@@ -28,7 +28,7 @@ const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
           <span className="flex md:mr-8 w-max">
             <img src={stamp} alt="logo" width="15" /> Sunshine Labs Inc. 2021{' '}
           </span>
-          <a target="_blank" href="undefined/icons/set/api">
+          <a target="_blank" rel="noreferrer" href="undefined/icons/set/api">
             Icons by Icons8
           </a>
         </div>
