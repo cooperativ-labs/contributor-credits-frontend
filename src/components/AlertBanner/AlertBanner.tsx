@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 
-const DemoWarning: FC = () => {
+const AlertBanner: FC = () => {
   return (
     <a
-      className="bg-green-600 flex p-2 shadow-xl"
+      className="bg-green-600 bg-opacity-90 flex p-2 shadow-xl"
       href="https://cooperativ.medium.com/a-new-way-to-compensate-contributors-to-early-stage-projects-fa7d83985fde"
       target="_blank"
     >
@@ -14,4 +14,4 @@ const DemoWarning: FC = () => {
   );
 };
 
-export default DemoWarning;
+export default AlertBanner;
