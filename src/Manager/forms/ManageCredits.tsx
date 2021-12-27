@@ -24,12 +24,13 @@ export type ManageCreditsProps = {
 };
 
 const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
+  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'submitted' | 'rejected'>('idle');
 
-  const [, cashIn] = useAsyncFn(
+  const [, cashOut] = useAsyncFn(
     async (amount: number) => {
       await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      setButtonStep('confirmed');
+      setButtonStep('submitted');
+      alert('Please watch your wallet for confirmation of this transaction');
     },
     [c2]
   );
@@ -37,7 +38,8 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
   const [, burnCredits] = useAsyncFn(
     async (amount: number) => {
       await c2.contract.burn(toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      setButtonStep('confirmed');
+      setButtonStep('submitted');
+      alert('Please watch your wallet for confirmation of this transaction');
     },
     [c2]
   );
@@ -45,7 +47,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
   return (
     <Formik
       initialValues={{
-        action: '1',
+        action: 'cash out',
         amount: null,
       }}
       validate={(values) => {
@@ -59,15 +61,19 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setButtonStep('submitting');
-        values.action === '2' ? burnCredits(values.amount) : cashIn(values.amount);
+        if (window.confirm(`Are you sure you want to ${values.action} ${values.amount} credits?`)) {
+          values.action === 'relinquish' ? burnCredits(values.amount) : cashOut(values.amount);
+        } else {
+          setButtonStep('rejected');
+        }
         setSubmitting(false);
       }}
     >
       {({ isSubmitting, values }) => (
         <Form className="flex flex-col gap relative">
           <Select className={fieldDiv} required name="action">
-            <option value="1">Cash-In</option>
-            <option value="2">Relinquish</option>
+            <option value="cash out">Cash Out</option>
+            <option value="relinquish">Relinquish</option>
           </Select>
           <Input
             className={fieldDiv}
@@ -82,7 +88,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
             type="submit"
             disabled={isSubmitting || !values.action}
             className={cn(
-              values.action === '2' ? 'bg-red-900' : 'bg-blue-900',
+              values.action === 'relinquish' ? 'bg-red-900' : 'bg-blue-900',
               'hover:bg-blue-800 text-white font-bold uppercase my-8 rounded p-4'
             )}
           >
@@ -93,6 +99,8 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
               idleText={FormButtonText(values.action, values.amount, chainId)}
               submittingText="Deploying (this could take a sec)"
               confirmedText="Confirmed!"
+              rejectedText="transaction rejected"
+              failedText="transaction failed"
             />
           </button>
         </Form>

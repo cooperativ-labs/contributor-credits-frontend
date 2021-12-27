@@ -11,11 +11,12 @@ export interface ButtonProps {
 }
 
 type LoadingButtonTextProps = {
-  state: 'idle' | 'submitting' | 'confirmed' | 'failed';
+  state: 'idle' | 'submitting' | 'confirmed' | 'failed' | 'submitted' | 'rejected';
   idleText: string;
   submittingText: string;
   confirmedText: string;
   failedText?: string;
+  rejectedText: string;
 };
 
 export const LoadingButtonText = ({
@@ -24,16 +25,21 @@ export const LoadingButtonText = ({
   submittingText,
   confirmedText,
   failedText,
+  rejectedText,
 }: LoadingButtonTextProps) => {
   switch (state) {
     case 'idle':
       return <>{idleText}</>;
     case 'submitting':
       return <>{submittingText}</>;
+    case 'submitted':
+      return <>{confirmedText}</>;
     case 'confirmed':
       return <>{confirmedText}</>;
     case 'failed':
       return <>{failedText}</>;
+    case 'rejected':
+      return <>{rejectedText}</>;
     default:
       return <>{idleText}</>;
   }
