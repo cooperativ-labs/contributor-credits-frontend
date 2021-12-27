@@ -61,6 +61,11 @@ export const CORE_CC_FIELDS = gql`
     }
     agreement {
       organizationName
+      signatories {
+        user {
+          id
+        }
+      }
       payments {
         ...paymentData
       }

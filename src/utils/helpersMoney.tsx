@@ -4,7 +4,7 @@ import { unique } from './helpersGeneral';
 import { useWeb3React } from '@web3-react/core';
 
 export function numberWithCommas(amount: number, decimals = 0) {
-  return amount ? amount.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+  return amount ? amount.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0';
 }
 
 export const GetClassesFromPayments = (payments: Payment[]) => {

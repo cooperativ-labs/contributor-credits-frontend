@@ -24,11 +24,11 @@ const ManagerSideBar: FC = () => {
 
   return (
     <>
-      <div className="hidden md:flex flex-col bg-white w-52 z-10 shadow-lg min-h-full">
+      {/* <div className="hidden md:flex flex-col bg-white w-52 z-10 shadow-lg min-h-full">
         <div className="h-full bg-opacity-0 p-1 pr-2">
           <ManagerSideBarContents />
         </div>
-      </div>
+      </div> */}
       {ManagerSidebarOpen && (
         <div
           id="sidebar-curtain"

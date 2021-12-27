@@ -77,14 +77,6 @@ const LogIn = () => {
         {({ isSubmitting }) => (
           <Form data-netlify="true" className="flex flex-col gap relative">
             <MarketingInput className={fieldDiv} required labelText="Email" name="email" type="email" placeholder="" />
-            {/* <MarketingInput
-            className={fieldDiv}
-            required
-            labelText="Password"
-            name="password"
-            type="password"
-            placeholder=""
-          /> */}
             <button
               type="submit"
               disabled={isSubmitting}

@@ -9,6 +9,7 @@ import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
 import { useQuery } from '@apollo/client';
+import { unique } from '@src/utils/helpersGeneral';
 
 interface ClassCardListProps {
   user: User;
@@ -41,7 +42,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
       return payment.agreement.contributorCreditClass;
     });
     ccClassesReceived.push(...ccClassesPaid);
-    return ccClassesReceived;
+    return unique(ccClassesReceived);
   };
 
   const existingClasses = contributorCreditClasses().length > 0;
@@ -65,7 +66,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
-                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} />
+                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} user={user} />
                 </div>
               );
           })}

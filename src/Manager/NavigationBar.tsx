@@ -17,10 +17,12 @@ export const NavBar: FC<NavBarProps> = () => {
 
   const { dispatch } = applicationStore;
   const windowSize = useWindowSize();
-
   return (
-    <div className="h-14 b-1 z-30 flex min-h-full md:bg-white bg-opacity-50 md:border-b-2">
-      <header className="py-2 px-2 md:px-6 pr-4 flex justify-between w-full mx-auto self-center items-center">
+    <div className="h-14 b-1 z-30 flex min-h-full bg-opacity-50 md:mx-8">
+      <header
+        className="py-2 px-2 pr-4 md:pt-14 flex justify-between w-full mx-auto self-center items-center "
+        style={{ maxWidth: '1580px' }}
+      >
         <div className="ml-1 justify-start flex items-center">
           <div className="flex md:hidden">
             <Button

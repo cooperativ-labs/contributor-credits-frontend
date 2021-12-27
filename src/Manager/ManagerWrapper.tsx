@@ -7,6 +7,7 @@ import React, { FC, useContext } from 'react';
 import SetUserContext, { UserContext } from '@src/utils/SetUserContext';
 import SetWalletContext from '@src/web3/SetWalletContext';
 import WalletChooserModal from './WalletChooserModal';
+import ManagerSideBar from './ManagerSideBar';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
@@ -16,19 +17,21 @@ type ManagerProps = {
 
 const Manager: FC<ManagerProps> = ({ children }) => {
   return (
-    <>
+    <div>
       <NavBar />
       <div className="flex md:w-screen h-full">
-        <div className="flex z-30 md:z-10 min-h-full min-h-screen">{/* <ManagerSideBar /> */}</div>
+        <div className="flex z-30 md:z-10 min-h-full min-h-screen">
+          <ManagerSideBar />
+        </div>
         <div className="flex-grow h-full z-10">
-          <div className="h-full px-4 md:px-8 py-2 md:py-5">
+          <div className="h-full px-4 md:px-8 py-2 md:my-12">
             <div className={'mx-auto min-h-full'} style={{ maxWidth: '1580px' }}>
               <EnsureCompatibleNetwork>{children}</EnsureCompatibleNetwork>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

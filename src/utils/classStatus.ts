@@ -41,15 +41,17 @@ export const ClassStatus = (cryptoAddress: string, memberAddresses: string[]) =>
 
     const fundRatio = proportionFunded(c2);
     const loading = false;
+    const isOwner = c2.info.isOwner;
 
-    return { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading };
+    return { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading, isOwner };
   } else {
     const creditsAuthorized: number = null;
     const creditsEarned: number = null;
     const fundRatio: number = null;
     const backingCurrency: string = 'null';
+    const isOwner = undefined;
 
     const loading = true;
-    return { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading };
+    return { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading, isOwner };
   }
 };
