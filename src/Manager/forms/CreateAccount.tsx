@@ -72,7 +72,7 @@ const CreateAccount = () => {
                 <div className="text-sm">Linked wallet address:</div>
                 <div className="hidden md:flex md:text-lg font-bold text-gray-600">{walletAddress} </div>
                 <div className="md:hidden">
-                  <CryptoAddress chainId={chainId} address={walletAddress} largeText />
+                  <CryptoAddress chainId={chainId} address={walletAddress} className="text-large font-bold" />
                 </div>
               </div>
             ) : (

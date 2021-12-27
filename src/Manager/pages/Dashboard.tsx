@@ -12,6 +12,7 @@ import Card from '@src/containers/Card';
 import CCClassDetails from '../components/containers/ClassDetails';
 import { Agreement } from 'types';
 import { User } from 'types';
+import CryptoAddress from '../components/CryptoAddress';
 
 export const ContractManager = (agreement: Agreement, user: User) => {
   return agreement.signatories.find((signatory) => signatory.user.id === user.id);
@@ -19,7 +20,7 @@ export const ContractManager = (agreement: Agreement, user: User) => {
 
 const Dashboard: FC = () => {
   const [copied, setCopied] = useState<boolean>(false);
-  const { account: walletAddress } = useWeb3React<Web3Provider>();
+  const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
   const { userId } = useContext(UserContext);
   const { data: userData, error } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
@@ -35,18 +36,13 @@ const Dashboard: FC = () => {
       <h1 className="text-2xl md:text-3xl font-bold text-gray-700">Hello {user.displayName}</h1>
       {walletAddress && (
         <div className="flex">
-          <div className="truncate w-64 md:w-auto mr-3">{walletAddress}</div>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(walletAddress);
-              setCopied(true);
-              setTimeout(() => {
-                setCopied(false);
-              }, 1000);
-            }}
-          >
-            {copied ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="copy" />}
-          </button>
+          <CryptoAddress
+            address={walletAddress}
+            chainId={chainId}
+            className="text-base text-gray-700"
+            withCopy
+            label="Wallet:"
+          />
         </div>
       )}
 

@@ -8,17 +8,15 @@ type CryptoAddressProps = {
   address: string;
   label?: string;
   withCopy?: boolean;
-  largeText?: boolean;
+  className?: string;
   light?: boolean;
 };
 
-const CryptoAddress: FC<CryptoAddressProps> = ({ label, chainId, address, withCopy, largeText, light }) => {
+const CryptoAddress: FC<CryptoAddressProps> = ({ label, chainId, address, withCopy, className, light }) => {
   const [copied, setCopied] = useState<boolean>(false);
   const blockExplorer = MatchSupportedChains(chainId).blockExplorer;
   return (
-    <span
-      className={cn([largeText ? 'text-lg font-bold' : 'text-sm'], [light ? 'flex text-white' : 'flex text-gray-600 '])}
-    >
+    <span className={cn('flex', [className ? className : 'text-sm text-gray-700'])}>
       <a target="_blank" rel="noreferrer" href={`${blockExplorer}/address/${address}`}>
         {label}{' '}
         <span className="hover:underline mr-2">

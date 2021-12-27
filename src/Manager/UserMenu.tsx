@@ -37,25 +37,27 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
         </div>
       </Button>
       {open && (
-        <Card className="absolute top-14 md:top-16 right-6 p-3 rounded-xl shadow-lg z-40">
-          {active && (
-            <div className="flex flex-col items-center">
-              <NetworkIndicator />
-              <div className="mt-3" />
-              <CryptoAddress chainId={chainId} address={walletAddress} />
+        <div className="absolute top-0 bottom-0 left-0 right-0 z-40" onClick={() => setOpen(!open)}>
+          <Card className="absolute top-28 md:top-28 right-6 p-3 rounded-xl shadow-lg z-40">
+            {active && (
+              <div className="flex flex-col items-center">
+                <NetworkIndicator />
+                <div className="mt-3" />
+                <CryptoAddress chainId={chainId} address={walletAddress} withCopy />
+              </div>
+            )}
+            <hr className="my-5" />
+            <div className="flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
+              <Link href="/account/">Account Settings</Link>
             </div>
-          )}
-          <hr className="my-5" />
-          <div className="flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
-            <Link href="/account/">Account Settings</Link>
-          </div>
-          <div className="md:hidden flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
-            <LogoutButton />
-          </div>
-          <div>
-            <RecipientStats />
-          </div>
-        </Card>
+            <div className="md:hidden flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
+              <LogoutButton />
+            </div>
+            <div>
+              <RecipientStats />
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   );

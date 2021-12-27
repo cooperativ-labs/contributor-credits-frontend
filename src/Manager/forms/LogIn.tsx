@@ -44,7 +44,7 @@ const LogIn = () => {
           <div className="text-sm">Your current Ethereum wallet address:</div>
           <div className="hidden md:flex md:text-lg font-bold text-gray-600">{walletAddress} </div>
           <div className="md:hidden">
-            <CryptoAddress chainId={chainId} address={walletAddress} largeText />
+            <CryptoAddress chainId={chainId} address={walletAddress} className="text-lg font-bold" />
           </div>
         </div>
       ) : (

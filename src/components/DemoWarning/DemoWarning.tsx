@@ -1,14 +1,17 @@
-import Link from 'next/link';
-import React from 'react';
+import React, { FC } from 'react';
 
-const DemoWarning = (
-  <div className="bg-green-600 flex p-1 shadow-xl">
-    <Link href="/manager">
-      <div className="font-medium text-white md:text-base text-sm mx-auto px-2">
-        Click here to set up your own Cooperativ project (please note that we are still in alpha)! 🎉
+const DemoWarning: FC = () => {
+  return (
+    <a
+      className="bg-green-600 flex p-2 shadow-xl"
+      href="https://cooperativ.medium.com/a-new-way-to-compensate-contributors-to-early-stage-projects-fa7d83985fde"
+      target="_blank"
+    >
+      <div className="font-medium text-white text-xs md:text-sm mx-auto px-2 ">
+        <div>Contributor Credits work on Ethereum, Polygon, and Ropsten. Click here to read more about them. 🎉</div>
       </div>
-    </Link>
-  </div>
-);
+    </a>
+  );
+};
 
 export default DemoWarning;
