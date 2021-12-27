@@ -9,7 +9,10 @@ const AlertBanner: FC = () => {
       rel="noreferrer"
     >
       <div className="font-medium text-white text-xs md:text-sm mx-auto px-2 ">
-        <div>Contributor Credits work on Ethereum, Polygon, and Ropsten. Click here to read more about them. 🎉</div>
+        <div>
+          Contributor Credits work on Ethereum, Polygon, and Ropsten.{' '}
+          <span className="underline mr-1"> Click here to read more about them.</span> 🎉
+        </div>
       </div>
     </a>
   );

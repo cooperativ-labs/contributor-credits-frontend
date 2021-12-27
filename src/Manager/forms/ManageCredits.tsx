@@ -98,7 +98,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
               //You expect values.recipient.value.[something], but instead get values.recipient.[something]
               idleText={FormButtonText(values.action, values.amount, chainId)}
               submittingText="Deploying (this could take a sec)"
-              confirmedText="Confirmed!"
+              confirmedText="Submitted"
               rejectedText="transaction rejected"
               failedText="transaction failed"
             />

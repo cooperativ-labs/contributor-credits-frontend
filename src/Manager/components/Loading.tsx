@@ -8,7 +8,7 @@ const Loading: FC = () => {
           <img src="/favicon.ico" />
         </div>
         <div>
-          <div className="text-center font-bold text-cDarkBlue md:text-xl">Thinking Thinking Thinking...</div>
+          <div className="text-center font-bold text-cDarkBlue md:text-xl">Thinking...</div>
         </div>
       </div>
     </div>
