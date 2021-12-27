@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { BigNumber } from 'ethers';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { Form, Formik } from 'formik';
-import { LoadingButtonText } from '../components/buttons/Button';
+import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { toContractInteger, toHumanNumber } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
@@ -16,7 +16,7 @@ interface FundClassProps {
 }
 
 const FundClass: React.FC<FundClassProps> = ({ c2 }) => {
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
+  const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
   // --- create service ---
   const { totalSupply, bacStaked, decimals: c2Decimals, address } = c2.info;

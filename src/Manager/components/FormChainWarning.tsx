@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react';
 import { BigNumber } from 'ethers';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { isMintableERC20 } from '@src/web3/info/erc20Info';
-import { LoadingButtonText } from './buttons/Button';
+import { LoadingButtonStateType, LoadingButtonText } from './buttons/Button';
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { toContractInteger } from '@src/web3/util';
 import { useWeb3React } from '@web3-react/core';
@@ -16,7 +16,7 @@ type FormChainWarningProps = {
 
 const FormChainWarning: FC<FormChainWarningProps> = ({ c2 }) => {
   const { chainId } = useWeb3React<Web3Provider>();
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
+  const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
   const mintBac = async (amount: BigNumber) => {
     if (isMintableERC20(c2.bacContract)) {

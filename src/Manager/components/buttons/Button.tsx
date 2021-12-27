@@ -10,13 +10,14 @@ export interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-type LoadingButtonTextProps = {
-  state: 'idle' | 'submitting' | 'confirmed' | 'failed' | 'submitted' | 'rejected';
+export type LoadingButtonStateType = 'idle' | 'submitting' | 'confirmed' | 'failed' | 'submitted' | 'rejected';
+export type LoadingButtonTextType = {
+  state: LoadingButtonStateType;
   idleText: string;
   submittingText: string;
   confirmedText: string;
   failedText?: string;
-  rejectedText: string;
+  rejectedText?: string;
 };
 
 export const LoadingButtonText = ({
@@ -26,7 +27,7 @@ export const LoadingButtonText = ({
   confirmedText,
   failedText,
   rejectedText,
-}: LoadingButtonTextProps) => {
+}: LoadingButtonTextType) => {
   switch (state) {
     case 'idle':
       return <>{idleText}</>;

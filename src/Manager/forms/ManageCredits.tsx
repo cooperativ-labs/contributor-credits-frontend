@@ -9,7 +9,7 @@ import { useAsyncFn } from 'react-use';
 import { toContractInteger } from '@src/web3/util';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { BigNumber } from '@ethersproject/bignumber';
-import { LoadingButtonText } from '../components/buttons/Button';
+import { LoadingButtonStateType, LoadingButtonText, LoadingButtonTextType } from '../components/buttons/Button';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -24,7 +24,7 @@ export type ManageCreditsProps = {
 };
 
 const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'submitted' | 'rejected'>('idle');
+  const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
   const [, cashOut] = useAsyncFn(
     async (amount: number) => {

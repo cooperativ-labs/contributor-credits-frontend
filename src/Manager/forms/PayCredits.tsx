@@ -10,7 +10,7 @@ import { AgreementType, CurrencyCode } from 'types';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
-import { LoadingButtonText } from '../components/buttons/Button';
+import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
@@ -37,7 +37,7 @@ export type PayCreditsProps = {
 };
 
 const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => {
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
+  const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
   console.log(data);

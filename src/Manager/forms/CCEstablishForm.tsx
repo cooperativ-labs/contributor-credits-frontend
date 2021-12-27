@@ -12,7 +12,7 @@ import { bacOptions, currencyOptionsExcludeCredits } from '@src/utils/enumConver
 import { C2__factory, C3__factory } from 'types/web3';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { Form, Formik } from 'formik';
-import { LoadingButtonText } from '../components/buttons/Button';
+import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { sha256 } from 'js-sha256';
 import { SmartContractType } from 'types';
 import { SmartContractUnestablished } from 'types';
@@ -76,7 +76,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   }
 
   const chainBacs = bacOptions.filter((bac) => bac.chainId === chainId);
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
+  const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
   if (loadingModal) {
     return <LoadingModal />;

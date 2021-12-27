@@ -5,7 +5,7 @@ import { CREATE_UNESTABLISHED_SMART_CONTRACT } from '@src/utils/dGraphQueries/cr
 import { deploy_c2_v0_1_3 } from '@web3/deploy/deployC2';
 import { deploy_c3_v1_0_0 } from '@web3/deploy/deployC3';
 import { Form, Formik } from 'formik';
-import { LoadingButtonText } from '../components/buttons/Button';
+import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { SmartContractType } from 'types';
 import { useAsyncFn } from 'react-use';
@@ -24,7 +24,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
   const { library, chainId } = useWeb3React<Web3Provider>();
   const signer = library.getSigner();
   const [addUnestablishedSmartContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
-  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed' | 'failed'>('idle');
+  const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
   /** @TODO : need to put this somewhere it wont fail when closed */
   const [deployState, deploy] = useAsyncFn(
