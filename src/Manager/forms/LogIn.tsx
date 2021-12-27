@@ -75,7 +75,7 @@ const LogIn = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form className="flex flex-col gap relative">
+          <Form data-netlify="true" className="flex flex-col gap relative">
             <MarketingInput className={fieldDiv} required labelText="Email" name="email" type="email" placeholder="" />
             {/* <MarketingInput
             className={fieldDiv}
