@@ -1,4 +1,4 @@
-import { ApolloClient, createHttpLink, HttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { useMemo } from 'react';
 
@@ -11,11 +11,10 @@ const httpLink = createHttpLink({
   credentials: 'same-origin',
 });
 
+const KeyFromEnv = process.env.NETLIFY_CLIENT_CC;
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
   // const token = localStorage.getItem('token');
-  // return the headers to the context so httpLink can read them
-  const key = process.env.NETLIFY_CLIENT_CC;
+  const key = KeyFromEnv;
   return {
     headers: {
       ...headers,
@@ -26,7 +25,7 @@ const authLink = setContext((_, { headers }) => {
 
 function createApolloClient() {
   return new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: process.env.NODE_ENV === 'production' ? authLink.concat(httpLink) : httpLink,
     cache: new InMemoryCache(),
     ssrMode: typeof window === 'undefined',
   });
