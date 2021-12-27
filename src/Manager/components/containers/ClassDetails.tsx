@@ -7,6 +7,7 @@ import Loading from '../Loading';
 import PaymentList from '@src/Manager/components/ListPayments';
 import React, { FC } from 'react';
 import SectionBlock from '@src/Manager/components/containers/SectionBlock';
+import { ContractManager } from '@src/Manager/pages/Dashboard';
 import { ContributorCreditClass, Payment, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
@@ -14,9 +15,8 @@ import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { useC2 } from '@src/web3/hooks/useC2';
 import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
-import { Web3Provider } from '@ethersproject/providers';
 import { useWeb3React } from '@web3-react/core';
-import { ContractManager } from '@src/Manager/pages/Dashboard';
+import { Web3Provider } from '@ethersproject/providers';
 
 type BaseProps = {
   user: User;

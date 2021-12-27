@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import Loading from './Loading';
 import React, { FC } from 'react';
-import Link from 'next/link';
 
 interface LoadingModalProps {}
 const LoadingModal: FC<LoadingModalProps> = ({}) => {

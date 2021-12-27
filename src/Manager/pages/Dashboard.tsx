@@ -1,18 +1,18 @@
 //access to user's settings
+import Card from '@src/containers/Card';
+import CCClassDetails from '../components/containers/ClassDetails';
+import ClassCardList from '../components/containers/ClassCardList';
+import cn from 'classnames';
+import CryptoAddress from '../components/CryptoAddress';
 import React, { FC, useContext, useState } from 'react';
+import { Agreement } from 'types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { useQuery } from '@apollo/client';
+import { User } from 'types';
 import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import ClassCardList from '../components/containers/ClassCardList';
-import cn from 'classnames';
-import Card from '@src/containers/Card';
-import CCClassDetails from '../components/containers/ClassDetails';
-import { Agreement } from 'types';
-import { User } from 'types';
-import CryptoAddress from '../components/CryptoAddress';
 
 export const ContractManager = (agreement: Agreement, user: User) => {
   return agreement.signatories.find((signatory) => signatory.user.id === user.id);
@@ -21,7 +21,7 @@ export const ContractManager = (agreement: Agreement, user: User) => {
 const Dashboard: FC = () => {
   const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
   const { userId } = useContext(UserContext);
-  const { data: userData, error } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
   if (!user) {

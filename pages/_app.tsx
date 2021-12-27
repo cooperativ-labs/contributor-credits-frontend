@@ -1,6 +1,6 @@
 import '../styles/hamburgers.css';
-import '@styles/tailwind.css';
 import '@styles/main.css';
+import '@styles/tailwind.css';
 import AnalyticsContext from '@context/analytics';
 import React, { ReactElement } from 'react';
 

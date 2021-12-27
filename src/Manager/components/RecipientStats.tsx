@@ -1,11 +1,11 @@
 import ChooseConnectorButton from '../ChooseConnectorButton';
 import React, { FC } from 'react';
+import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
 import { numberWithCommas, TotalCreditsWithValue } from '@src/utils/helpersMoney';
+import { useQuery } from '@apollo/client';
 import { User } from 'types';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
-import { useQuery } from '@apollo/client';
 
 interface RecipientStatsProps {}
 

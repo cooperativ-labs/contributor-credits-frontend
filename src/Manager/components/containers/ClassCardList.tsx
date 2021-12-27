@@ -5,11 +5,11 @@ import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
 import React, { FC } from 'react';
 import UnestablishedContractCard from '../cards/UnestablishedContractCard';
 import { ContributorCreditClass, User } from 'types';
+import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
+import { unique } from '@src/utils/helpersGeneral';
+import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
-import { useQuery } from '@apollo/client';
-import { unique } from '@src/utils/helpersGeneral';
 
 interface ClassCardListProps {
   user: User;

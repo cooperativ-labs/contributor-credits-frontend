@@ -1,7 +1,7 @@
+import CryptoAddress from './CryptoAddress';
 import ListItemPayment from './ListItemPayment';
 import React from 'react';
 import { Payment } from 'types';
-import CryptoAddress from './CryptoAddress';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 

@@ -1,15 +1,15 @@
+import AlertBanner from '@src/components/Alerts/AlertBanner';
+import AlertPopup from '@src/components/Alerts/AlertPopup';
 import cn from 'classnames';
 import EnsureCompatibleNetwork from '@src/web3/ensureCompatibleNetwork';
 import LoadingModal from './components/ModalLoading';
+import ManagerSideBar from './ManagerSideBar';
 import NavBar from './NavigationBar';
 import NeedAccount from './components/ModalNeedAccount';
 import React, { FC, useContext } from 'react';
 import SetUserContext, { UserContext } from '@src/utils/SetUserContext';
 import SetWalletContext from '@src/web3/SetWalletContext';
 import WalletChooserModal from './WalletChooserModal';
-import ManagerSideBar from './ManagerSideBar';
-import AlertBanner from '@src/components/Alerts/AlertBanner';
-import AlertPopup from '@src/components/Alerts/AlertPopup';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 

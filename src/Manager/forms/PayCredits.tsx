@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
+import CryptoAddress from '../components/CryptoAddress';
 import FormButton from '../components/buttons/FormButton';
 import ReactiveSelect from './components/ReactiveSelect';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
@@ -14,7 +15,6 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
-import CryptoAddress from '../components/CryptoAddress';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 

@@ -1,11 +1,11 @@
+import cn from 'classnames';
 import React from 'react';
 import { ClassCreditsStats, ClassFundingRatio, ClassFundingStats } from '../ClassStatusBlock';
+import { ClassStatus } from '@src/utils/classStatus';
+import { ContractManager } from '@src/Manager/pages/Dashboard';
 import { ContributorCreditClass, User } from 'types';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-import { ContractManager } from '@src/Manager/pages/Dashboard';
-import { ClassStatus } from '@src/utils/classStatus';
-import cn from 'classnames';
 
 type ClassCardProps = {
   cClass: ContributorCreditClass;

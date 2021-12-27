@@ -3,13 +3,13 @@ import cn from 'classnames';
 import Input from './components/Inputs';
 import React, { FC, useState } from 'react';
 import Select from './components/Select';
-import { Form, Formik } from 'formik';
-import { numberWithCommas } from '@src/utils/helpersMoney';
-import { useAsyncFn } from 'react-use';
-import { toContractInteger } from '@src/web3/util';
-import { C2Type } from '@src/web3/hooks/useC2';
 import { BigNumber } from '@ethersproject/bignumber';
+import { C2Type } from '@src/web3/hooks/useC2';
+import { Form, Formik } from 'formik';
 import { LoadingButtonStateType, LoadingButtonText, LoadingButtonTextType } from '../components/buttons/Button';
+import { numberWithCommas } from '@src/utils/helpersMoney';
+import { toContractInteger } from '@src/web3/util';
+import { useAsyncFn } from 'react-use';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
