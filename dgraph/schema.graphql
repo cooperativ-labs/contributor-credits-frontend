@@ -1,3 +1,8 @@
+
+# Dgraph.Allow-Origin "https://contributorcredits.com" 
+# Dgraph.Allow-Origin "https://www.contributorcredits.com"
+# Dgraph.Allow-Origin "https://cloud.dgraph.io"
+# Dgraph.Allow-Origin "http://localhost:3000"
 """
 AGREEMENT MODEL 
 """
