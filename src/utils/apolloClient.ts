@@ -15,7 +15,7 @@ const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   // const token = localStorage.getItem('token');
   // return the headers to the context so httpLink can read them
-  const key = process.env.NEXT_PUBLIC_NETLIFY_CLIENT_CC;
+  const key = 'MjQ5YTA0NTRmNmFmZDViM2M4MjIzYzliODJmNWYzZTE=';
   return {
     headers: {
       ...headers,
