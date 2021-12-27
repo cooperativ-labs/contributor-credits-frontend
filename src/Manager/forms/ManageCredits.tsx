@@ -1,10 +1,15 @@
 import axios from 'axios';
 import cn from 'classnames';
 import Input from './components/Inputs';
-import React from 'react';
+import React, { FC, useState } from 'react';
 import Select from './components/Select';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+import { useAsyncFn } from 'react-use';
+import { toContractInteger } from '@src/web3/util';
+import { C2Type } from '@src/web3/hooks/useC2';
+import { BigNumber } from '@ethersproject/bignumber';
+import { LoadingButtonText } from '../components/buttons/Button';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -13,12 +18,35 @@ const FormButtonText = (action, amount) => {
   return !action ? 'choose action' : `${actionWord} ${numberWithCommas(amount)} Credits`;
 };
 
-const ManageCredits = () => {
+export type ManageCreditsProps = {
+  c2: C2Type;
+  chainId: number;
+};
+
+const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
+  const [buttonStep, setButtonStep] = useState<'idle' | 'submitting' | 'confirmed'>('idle');
+
+  const [, cashIn] = useAsyncFn(
+    async (amount: number) => {
+      await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+      setButtonStep('confirmed');
+    },
+    [c2]
+  );
+
+  const [, burnCredits] = useAsyncFn(
+    async (amount: number) => {
+      await c2.contract.burn(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+      setButtonStep('confirmed');
+    },
+    [c2]
+  );
+
   return (
     <Formik
       initialValues={{
         action: '1',
-        amount: '',
+        amount: null,
       }}
       validate={(values) => {
         const errors: any = {}; /** @TODO : Shape */
@@ -30,11 +58,9 @@ const ManageCredits = () => {
         } else if (typeof values.amount !== 'number') return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        const data = {
-          action: values.action,
-          amount: values.amount,
-        };
-        alert(data);
+        setButtonStep('submitting');
+        values.action === '2' ? burnCredits(values.amount) : cashIn(values.amount);
+        setSubmitting(false);
       }}
     >
       {({ isSubmitting, values }) => (
@@ -60,7 +86,14 @@ const ManageCredits = () => {
               'hover:bg-blue-800 text-white font-bold uppercase my-8 rounded p-4'
             )}
           >
-            {FormButtonText(values.action, values.amount)}
+            <LoadingButtonText
+              state={buttonStep}
+              //@ts-ignore - ReactSelective strips "value" from the thing it returns.
+              //You expect values.recipient.value.[something], but instead get values.recipient.[something]
+              idleText={FormButtonText(values.action, values.amount, chainId)}
+              submittingText="Deploying (this could take a sec)"
+              confirmedText="Confirmed!"
+            />
           </button>
         </Form>
       )}

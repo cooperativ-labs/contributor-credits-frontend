@@ -59,7 +59,7 @@ const ClassActions: FC<ClassActionsProps> = ({ c2, name, ccId, chainId, agreemen
       {manageCreditsVisible && (
         <div className={panelClass}>
           <h2 className={panelTitleClass}>Manage Credits</h2>
-          <ManageCredits />
+          <ManageCredits c2={c2} chainId={chainId} />
           <FormChainWarning />
         </div>
       )}

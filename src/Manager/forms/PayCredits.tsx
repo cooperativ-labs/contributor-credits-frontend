@@ -45,7 +45,7 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
     alert('Oops. Looks like something went wrong');
   }
   if (data && !alerted) {
-    alert(`paid `);
+    alert(`Payment submitted. Confirmation from the network may take a few minutes.`);
     setAlerted(true);
   }
 
@@ -89,7 +89,6 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
   const [, payCredits] = useAsyncFn(
     async (agreementId: string, amount: number, recipient: string, note: string) => {
       await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      console.log(agreementId, amount, recipient, note, CurrencyCode.Cc);
       createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
       setButtonStep('confirmed');
     },
