@@ -21,7 +21,7 @@ export const ContractManager = (agreement: Agreement, user: User) => {
 const Dashboard: FC = () => {
   const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
   const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { data: userData, error } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
   if (!user) {

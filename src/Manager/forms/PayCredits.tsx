@@ -3,11 +3,10 @@ import React, { FC, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-import CryptoAddress from '../components/CryptoAddress';
+import CryptoAddressFormator from '../components/CryptoAddress';
 import FormButton from '../components/buttons/FormButton';
-import ReactiveSelect from './components/ReactiveSelect';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
-import { AgreementType, CurrencyCode } from 'types';
+import { ContributorCreditClass, CryptoAddress, CurrencyCode } from 'types';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
@@ -23,7 +22,7 @@ const FormButtonText = (recipient, amount, chainId) => {
     'Pay a team recipient'
   ) : (
     <div className="display: inline-block">
-      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} className="text-white" /> $
+      <CryptoAddressFormator label={'Pay:'} address={recipient} chainId={chainId} className="text-white" /> $
       {numberWithCommas(amount, 0)} Credits
     </div>
   );
@@ -31,12 +30,12 @@ const FormButtonText = (recipient, amount, chainId) => {
 
 export type PayCreditsProps = {
   c2: C2Type;
-  ccId: string;
+  ccClass: ContributorCreditClass;
   chainId: number;
   agreementId: string;
 };
 
-const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => {
+const PayCredits: FC<PayCreditsProps> = ({ c2, ccClass, chainId, agreementId }) => {
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
@@ -76,10 +75,12 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
     addPayment({
       variables: {
         currentDate: currentDate,
+        chainId: chainId,
         agreementId: agreementId,
         amount: amount,
         currencyCode: currencyCode,
-        contributorCreditClassID: ccId,
+        contributorCreditClassID: ccClass.id,
+        sender: ccClass.cryptoAddress.address,
         recipient: recipient,
         note: note,
       },
@@ -88,7 +89,7 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
 
   const [, payCredits] = useAsyncFn(
     async (agreementId: string, amount: number, recipient: string, note: string) => {
-      const tx = await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
+      await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
       // const txReceipt = await tx.wait();
       createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
       setButtonStep('confirmed');

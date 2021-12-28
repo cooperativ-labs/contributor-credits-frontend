@@ -18,6 +18,8 @@ export const CORE_PAYMENT_FIELDS = gql`
     id
     amount
     note
+    date
+    sender
     recipient
     currency {
       code
@@ -27,15 +29,11 @@ export const CORE_PAYMENT_FIELDS = gql`
         currentFunding
         backingCurrency
         type
-        cryptoAddress {
-          id
-          address
-          protocol
-          chainId
-        }
+        cryptoAddress
+        protocol
+        chainId
       }
     }
-    date
   }
 `;
 
@@ -44,12 +42,9 @@ export const CORE_CC_FIELDS = gql`
     id
     name
     type
-    cryptoAddress {
-      id
-      address
-      protocol
-      chainId
-    }
+    cryptoAddress
+    protocol
+    chainId
     backingCurrency
     description
     triggerShortDescription
@@ -66,15 +61,11 @@ export const CORE_CC_FIELDS = gql`
           id
         }
       }
-      payments {
-        ...paymentData
-      }
     }
   }
 `;
 
 export const CORE_AGREEMENT_FIELDS = gql`
-  ${CORE_PAYMENT_FIELDS}
   ${CORE_CC_FIELDS}
   fragment agreementData on Agreement {
     id
@@ -90,9 +81,6 @@ export const CORE_AGREEMENT_FIELDS = gql`
       user {
         id
       }
-    }
-    payments {
-      ...paymentData
     }
   }
 `;

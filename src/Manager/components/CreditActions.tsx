@@ -12,7 +12,7 @@ type ClassActionsProps = PayCreditsProps & {
 
 const panelClass = 'p-3 border-2 border-gray-400 rounded-md';
 const panelTitleClass = 'text-xl mt-3 text-blue-900 font-semibold';
-const ClassActions: FC<ClassActionsProps> = ({ c2, name, ccId, chainId, agreementId }) => {
+const ClassActions: FC<ClassActionsProps> = ({ c2, name, ccClass, chainId, agreementId }) => {
   const [fundVisible, setFundVisible] = useState(false);
   const [paymentSendVisible, setPaymentSendVisible] = useState(false);
   const [manageCreditsVisible, setManageCreditsVisible] = useState(false);
@@ -40,7 +40,7 @@ const ClassActions: FC<ClassActionsProps> = ({ c2, name, ccId, chainId, agreemen
       {paymentSendVisible && (
         <div className={panelClass}>
           <h2 className={panelTitleClass}>Send Credits</h2>
-          <PayCredits c2={c2} ccId={ccId} chainId={chainId} agreementId={agreementId} />
+          <PayCredits c2={c2} ccClass={ccClass} chainId={chainId} agreementId={agreementId} />
           <FormChainWarning />
         </div>
       )}

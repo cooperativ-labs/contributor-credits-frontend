@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MatchSupportedChains } from '@src/web3/connectors';
 
-type CryptoAddressProps = {
+type CryptoAddressFormatterProps = {
   chainId: number;
   address: string;
   label?: string;
@@ -12,7 +12,14 @@ type CryptoAddressProps = {
   light?: boolean;
 };
 
-const CryptoAddress: FC<CryptoAddressProps> = ({ label, chainId, address, withCopy, className, light }) => {
+export const CryptoAddressFormatter: FC<CryptoAddressFormatterProps> = ({
+  label,
+  chainId,
+  address,
+  withCopy,
+  className,
+  light,
+}) => {
   const [copied, setCopied] = useState<boolean>(false);
   const blockExplorer = MatchSupportedChains(chainId).blockExplorer;
   return (
@@ -40,4 +47,4 @@ const CryptoAddress: FC<CryptoAddressProps> = ({ label, chainId, address, withCo
   );
 };
 
-export default CryptoAddress;
+export default CryptoAddressFormatter;

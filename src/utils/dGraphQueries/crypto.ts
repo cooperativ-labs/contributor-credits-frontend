@@ -23,12 +23,12 @@ export const GET_CRYPTO_ADDRESS = gql`
 `;
 
 export const GET_CONTRIBUTOR_CREDITS = gql`
-  ${CORE_PAYMENT_FIELDS}
   ${CORE_AGREEMENT_FIELDS}
   query GetContributorCredits($id: ID!) {
     getContributorCreditClass(id: $id) {
       id
       description
+      name
       triggerShortDescription
       triggers {
         name
@@ -38,14 +38,36 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
         primary
       }
       currentFunding
-      cryptoAddress {
-        id
-        protocol
-        type
-        name
-        chainId
-        address
+      cryptoAddress
+      protocol
+      type
+      chainId
+      backingCurrency
+      agreement {
+        ...agreementData
       }
+    }
+  }
+`;
+
+export const GET_CC_CONTRACTS = gql`
+  ${CORE_AGREEMENT_FIELDS}
+  query QueryContributorCreditClass($walletAddresses: [String]) {
+    queryContributorCreditClass(filter: { cryptoAddress: $walletAddresses }) {
+      id
+      triggerShortDescription
+      triggers {
+        name
+        type
+        amount
+        currency
+        primary
+      }
+      currentFunding
+      cryptoAddress
+      protocol
+      type
+      chainId
       backingCurrency
       agreement {
         ...agreementData
@@ -54,7 +76,6 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
     }
   }
 `;
-
 export const GET_AVAILABLE_CONTRACT = gql`
   ${CORE_USER_FIELDS}
   query GetSmartContractUnestablished($id: ID!) {
@@ -85,7 +106,10 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
     addSmartContractUnestablished(
       input: [
         {
-          cryptoAddress: { address: $cryptoAddress, type: CONTRACT, chainId: $chainId, protocol: $protocol }
+          cryptoAddress: $cryptoAddress
+          type: CONTRACT
+          chainId: $chainId
+          protocol: $protocol
           owner: { id: $owner }
           type: $type
           used: false
@@ -97,11 +121,8 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
         owner {
           id
         }
-        cryptoAddress {
-          id
-          address
-          chainId
-        }
+        cryptoAddress
+        chainId
       }
     }
   }

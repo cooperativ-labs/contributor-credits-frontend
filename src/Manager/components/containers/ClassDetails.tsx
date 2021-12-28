@@ -8,15 +8,14 @@ import PaymentList from '@src/Manager/components/ListPayments';
 import React, { FC } from 'react';
 import SectionBlock from '@src/Manager/components/containers/SectionBlock';
 import { ContractManager } from '@src/Manager/pages/Dashboard';
-import { ContributorCreditClass, Payment, User } from 'types';
+import { ContributorCreditClass, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { useC2 } from '@src/web3/hooks/useC2';
 import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { GET_PAYMENTS } from '@src/utils/dGraphQueries/agreement';
 
 type BaseProps = {
   user: User;
@@ -28,16 +27,20 @@ type DetailsProps = BaseProps & {
 
 const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const { account } = useWeb3React<Web3Provider>();
-  const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
+  const { name, cryptoAddress, agreement, triggers, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
-  const memberAddresses = agreement.payments.map((payment) => payment.recipient);
+  const { data } = useQuery(GET_PAYMENTS, { variables: { sender: cryptoAddress.address } });
+  const payments = data?.getPayment;
+
+  //Get payments by looking up cryptoAddress
+  const memberAddresses = payments.map((payment) => payment.recipient);
 
   const c2 = useC2(cryptoAddress.address, memberAddresses);
 
   const isContractManager = ContractManager(agreement, user);
 
   //this should filter for payments to that recipient
-  const allPayments = agreement.payments;
+  const allPayments = payments;
   const myPayments = allPayments.filter((payment) => payment.recipient === account);
 
   const displayPayments = () => {
@@ -73,7 +76,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         {allPayments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
       </SectionBlock>
 
-      <ClassActions name={name} chainId={cryptoAddress.chainId} c2={c2} ccId={id} agreementId={agreement.id} />
+      <ClassActions name={name} chainId={cryptoAddress.chainId} c2={c2} ccClass={CCClass} agreementId={agreement.id} />
       <div className="mt-5">
         <HashInstructions hash={c2?.info.agreementHash} agreementText={agreement.text} />
       </div>

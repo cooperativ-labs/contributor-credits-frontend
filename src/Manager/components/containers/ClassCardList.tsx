@@ -2,14 +2,16 @@ import ActionsBlock from '@src/Manager/pages/projects/ProjectActionsBlock';
 import Card from '@src/containers/Card';
 import CCClassCard from '../cards/CCClassCard';
 import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import UnestablishedContractCard from '../cards/UnestablishedContractCard';
 import { ContributorCreditClass, User } from 'types';
-import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
+import { GET_PAYMENTS_SET } from '@src/utils/dGraphQueries/agreement';
 import { unique } from '@src/utils/helpersGeneral';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { GET_CC_CONTRACTS, GET_CRYPTO_ADDRESS } from '@src/utils/dGraphQueries/crypto';
+import apolloClient, { initializeApollo } from '@src/utils/apolloClient';
 
 interface ClassCardListProps {
   user: User;
@@ -27,9 +29,27 @@ const ClassCardList: FC<ClassCardListProps> = ({
   unestablishedSmartContracts,
 }) => {
   const { active, chainId, account } = useWeb3React<Web3Provider>();
-  const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: account } });
-  const paymentsToMe = data?.queryPayment;
 
+  const { data: paymentsData, loading } = useQuery(GET_PAYMENTS_SET, {
+    variables: { recipient: account },
+  });
+
+  console.log({ paymentsData, loading });
+
+  const paymentsToMe = paymentsData;
+
+  const getUniqueSenders = unique(
+    paymentsToMe.map((payment) => {
+      return payment.sender;
+    })
+  );
+  //get sender addresses from payments
+  //look up CC contracts via sender
+  const { data: CcClassesData, error: ClassesError } = useQuery(GET_CC_CONTRACTS, {
+    variables: { cryptoAddresses: getUniqueSenders },
+  });
+  const myClasses = CcClassesData?.getContributorCreditClass;
+  console.log(ClassesError);
   if (!user || !paymentsToMe) {
     return <></>;
   }
@@ -38,11 +58,8 @@ const ClassCardList: FC<ClassCardListProps> = ({
     const ccClassesPaid = agreements.map((signatory) => {
       return signatory.agreement.contributorCreditClass;
     });
-    const ccClassesReceived = paymentsToMe.map((payment) => {
-      return payment.agreement.contributorCreditClass;
-    });
-    ccClassesReceived.push(...ccClassesPaid);
-    return unique(ccClassesReceived);
+    myClasses.push(...ccClassesPaid);
+    return unique(myClasses);
   };
 
   const existingClasses = contributorCreditClasses().length > 0;
