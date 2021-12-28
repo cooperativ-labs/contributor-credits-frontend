@@ -23,8 +23,8 @@ const FormButtonText = (recipient, amount, chainId) => {
     'Pay a team recipient'
   ) : (
     <div className="display: inline-block">
-      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} light /> ${numberWithCommas(amount, 0)}{' '}
-      Credits
+      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} className="text-white" /> $
+      {numberWithCommas(amount, 0)} Credits
     </div>
   );
 };
