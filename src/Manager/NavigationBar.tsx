@@ -18,9 +18,9 @@ export const NavBar: FC<NavBarProps> = () => {
   const { dispatch } = applicationStore;
   const windowSize = useWindowSize();
   return (
-    <div className="h-14 b-1 z-30 flex min-h-full md:mx-8">
+    <div className="h-14 b-1 z-30 flex min-h-full md:mx-8 md:mt-8">
       <header
-        className="py-2 px-2 pr-4 mt-1 md:mt-12 flex justify-between w-full mx-auto self-center items-center "
+        className="py-2 px-2 pr-4 mt-1  flex justify-between w-full mx-auto self-center items-center "
         style={{ maxWidth: '1580px' }}
       >
         <div className="ml-1 justify-start flex items-center">
