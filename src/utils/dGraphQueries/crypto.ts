@@ -52,8 +52,8 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
 
 export const GET_CC_CONTRACTS = gql`
   ${CORE_AGREEMENT_FIELDS}
-  query QueryContributorCreditClass($walletAddresses: [String]) {
-    queryContributorCreditClass(filter: { cryptoAddress: $walletAddresses }) {
+  query QueryContributorCreditClass($cryptoAddresses: StringTermFilter) {
+    queryContributorCreditClass(filter: { cryptoAddress: $cryptoAddresses }) {
       id
       triggerShortDescription
       triggers {
@@ -82,11 +82,11 @@ export const GET_AVAILABLE_CONTRACT = gql`
     getSmartContractUnestablished(id: $id) {
       id
       type
-      cryptoAddress {
-        address
-        protocol
-        chainId
-      }
+      cryptoAddress
+
+      protocol
+      chainId
+
       type
       owner {
         ...userData
@@ -107,7 +107,6 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
       input: [
         {
           cryptoAddress: $cryptoAddress
-          type: CONTRACT
           chainId: $chainId
           protocol: $protocol
           owner: { id: $owner }

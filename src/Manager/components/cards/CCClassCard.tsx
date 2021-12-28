@@ -6,6 +6,8 @@ import { ContractManager } from '@src/Manager/pages/Dashboard';
 import { ContributorCreditClass, User } from 'types';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+import { useQuery } from '@apollo/client';
+import { GET_PAYMENTS } from '@src/utils/dGraphQueries/agreement';
 
 type ClassCardProps = {
   cClass: ContributorCreditClass;
@@ -16,8 +18,14 @@ type ClassCardProps = {
 const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, user }) => {
   const { id, name, triggers, cryptoAddress, triggerShortDescription, type, agreement } = cClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
+
+  const { data: paymentsData, loading } = useQuery(GET_PAYMENTS, {
+    variables: { recipient: cryptoAddress },
+  });
+  console.log(paymentsData, loading);
+
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const { isOwner } = ClassStatus(cryptoAddress.address, memberAddresses);
+  const { isOwner } = ClassStatus(cryptoAddress, memberAddresses);
 
   const isContractManager = isOwner;
 

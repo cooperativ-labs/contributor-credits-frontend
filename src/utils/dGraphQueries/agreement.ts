@@ -49,7 +49,6 @@ export const ADD_CC_AGREEMENT = gql`
           title: $agreementTitle
           text: $agreementText
           organizationName: $organizationName
-          type: CONTRIBUTOR_CREDIT
           signatories: {
             user: { id: $userId }
             signature: $signature
@@ -67,9 +66,7 @@ export const ADD_CC_AGREEMENT = gql`
       smartContractUnestablished {
         id
         used
-        cryptoAddress {
-          address
-        }
+        cryptoAddress
       }
     }
   }

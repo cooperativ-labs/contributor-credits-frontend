@@ -71,8 +71,6 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
     return <></>;
   }
 
-  const { cryptoAddress } = availableContract;
-  const contractAddress = cryptoAddress.address;
   const {
     organizationName,
     triggerText,
@@ -93,12 +91,12 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
   const bacToken = getToken(backingToken);
   const bacName = bacToken?.symbol;
   const bacAddress = bacToken?.address;
-  const isMainNet = cryptoAddress.chainId === 1 || cryptoAddress.chainId === 137;
+  const isMainNet = availableContract.chainId === 1 || availableContract.chainId === 137;
 
   const agreement = generateAgreement(
     {
       organizationName: organizationName,
-      c2Address: contractAddress,
+      c2Address: availableContract.cryptoAddress,
       bacName: bacName,
       chainName: MatchSupportedChains(chainId).name,
       bacAddress: bacAddress,
@@ -119,11 +117,15 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
       <div className="md:mx-4">
         <h1 className="text-3xl font-bold ">Establish New Class</h1>
         <div className="mb-6">
-          <CryptoAddressFormatter label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
+          <CryptoAddressFormatter
+            label={'Address:'}
+            address={availableContract.cryptoAddress}
+            chainId={availableContract.chainId}
+          />
         </div>
 
         <div className="my-3 text-sm">{HowToCreate}</div>
-        {cryptoAddress.chainId === chainId ? (
+        {availableContract.chainId === chainId ? (
           <div className="md:mt-10 lg:grid grid-cols-5 gap-6">
             <div className="col-span-2">
               <div className="lg:sticky top-6">
@@ -144,7 +146,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
         ) : (
           <div className="font-bold text-center">
             Please switch to the{' '}
-            <span className="text-yellow-600">{MatchSupportedChains(cryptoAddress.chainId).name} </span> network to
+            <span className="text-yellow-600">{MatchSupportedChains(availableContract.chainId).name} </span> network to
             establish this class.
           </div>
         )}

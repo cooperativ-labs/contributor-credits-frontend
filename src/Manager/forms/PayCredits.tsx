@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-import CryptoAddressFormator from '../components/CryptoAddressFormator';
+import CryptoAddressFormatter from '../components/CryptoAddressFormatter';
 import FormButton from '../components/buttons/FormButton';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
 import { ContributorCreditClass, CryptoAddress, CurrencyCode } from 'types';
@@ -22,7 +22,7 @@ const FormButtonText = (recipient, amount, chainId) => {
     'Pay a team recipient'
   ) : (
     <div className="display: inline-block">
-      <CryptoAddressFormator label={'Pay:'} address={recipient} chainId={chainId} className="text-white" /> $
+      <CryptoAddressFormatter label={'Pay:'} address={recipient} chainId={chainId} className="text-white" /> $
       {numberWithCommas(amount, 0)} Credits
     </div>
   );

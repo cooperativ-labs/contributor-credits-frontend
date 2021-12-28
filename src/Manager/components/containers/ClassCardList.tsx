@@ -11,7 +11,6 @@ import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { GET_CC_CONTRACTS, GET_CRYPTO_ADDRESS } from '@src/utils/dGraphQueries/crypto';
-import apolloClient, { initializeApollo } from '@src/utils/apolloClient';
 
 interface ClassCardListProps {
   user: User;
@@ -36,7 +35,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
 
   console.log({ paymentsData, loading });
 
-  const paymentsToMe = paymentsData;
+  const paymentsToMe = [];
 
   const getUniqueSenders = unique(
     paymentsToMe.map((payment) => {
@@ -45,11 +44,17 @@ const ClassCardList: FC<ClassCardListProps> = ({
   );
   //get sender addresses from payments
   //look up CC contracts via sender
-  const { data: CcClassesData, error: ClassesError } = useQuery(GET_CC_CONTRACTS, {
+  const {
+    data: CcClassesData,
+    error: ClassesError,
+    loading: ClassesLoading,
+  } = useQuery(GET_CC_CONTRACTS, {
     variables: { cryptoAddresses: getUniqueSenders },
   });
-  const myClasses = CcClassesData?.getContributorCreditClass;
-  console.log(ClassesError);
+
+  console.log({ CcClassesData, ClassesError, ClassesLoading });
+  const myClasses = CcClassesData?.queryContributorCreditClass;
+
   if (!user || !paymentsToMe) {
     return <></>;
   }
@@ -58,10 +63,10 @@ const ClassCardList: FC<ClassCardListProps> = ({
     const ccClassesPaid = agreements.map((signatory) => {
       return signatory.agreement.contributorCreditClass;
     });
-    myClasses.push(...ccClassesPaid);
-    return unique(myClasses);
+    // myClasses.push(...ccClassesPaid);
+    return unique(ccClassesPaid);
   };
-
+  console.log(contributorCreditClasses());
   const existingClasses = contributorCreditClasses().length > 0;
   if (active) {
     return (
@@ -80,7 +85,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
         )}
         <div className="flex flex-wrap">
           {contributorCreditClasses().map((cClass, index) => {
-            if (cClass && cClass.cryptoAddress.chainId === chainId)
+            if (cClass && cClass.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
                   <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} user={user} />
@@ -88,7 +93,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
               );
           })}
           {unestablishedSmartContracts.map((unestablishedContract, index) => {
-            if (unestablishedContract?.cryptoAddress.chainId === chainId && !unestablishedContract.used)
+            if (unestablishedContract?.chainId === chainId && !unestablishedContract.used)
               return (
                 <div key={index} className="my-2 w-full ">
                   <UnestablishedContractCard unestablishedContract={unestablishedContract} />

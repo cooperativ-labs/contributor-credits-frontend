@@ -1,6 +1,6 @@
 import BaseCard from './BaseCard';
 import cn from 'classnames';
-import CryptoAddress from '../CryptoAddress';
+import CryptoAddressFormatter from '../CryptoAddressFormatter';
 import Link from 'next/link';
 import React from 'react';
 import { SmartContractUnestablished } from 'types';
@@ -10,10 +10,10 @@ interface UnestablishedContractCardProps {
 }
 
 const UnestablishedContractCard: React.FC<UnestablishedContractCardProps> = ({ unestablishedContract }) => {
-  const { id, cryptoAddress, type } = unestablishedContract;
+  const { id, chainId, protocol, cryptoAddress, type } = unestablishedContract;
 
   const setBadgeColor = () => {
-    switch (cryptoAddress.chainId) {
+    switch (chainId) {
       case 1:
         return 'border-green-500 text-green-500';
       case 3:
@@ -32,10 +32,10 @@ const UnestablishedContractCard: React.FC<UnestablishedContractCardProps> = ({ u
       <div className="flex justify-between items-center">
         <h1 className="text-lg font-bold ">Unestablished {type}</h1>
         <div className={cn('text-xs  rounded-md max-w-min px-1 h-5 border-2 -mt-4 -mr-2', setBadgeColor())}>
-          {cryptoAddress.protocol}
+          {protocol}
         </div>
       </div>
-      <CryptoAddress address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
+      <CryptoAddressFormatter address={cryptoAddress} chainId={chainId} />
       <Link href={`/establish/${id}`}>
         <div className="text-sm font-bold text-blue-800 uppercase mt-4 cursor-pointer">Click to establish</div>
       </Link>

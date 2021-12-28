@@ -52,7 +52,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
 
   if (data) {
     alert(
-      `Successfully deployed ${data.addSmartContractUnestablished.smartContractUnestablished[0].id} at ${data.addSmartContractUnestablished.smartContractUnestablished[0].cryptoAddress.address}`
+      `Successfully deployed ${data.addSmartContractUnestablished.smartContractUnestablished[0].id} at ${data.addSmartContractUnestablished.smartContractUnestablished[0].cryptoAddress}`
     );
   }
 

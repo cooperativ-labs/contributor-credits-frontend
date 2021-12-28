@@ -39,12 +39,12 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   agreement,
   setCustomText,
 }) => {
-  const { chainId, library, account } = useWeb3React<Web3Provider>();
+  const { chainId, library } = useWeb3React<Web3Provider>();
   const [alerted, setAlerted] = useState<boolean>(false);
   const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const signer = library.getSigner();
   const { userId } = useContext(UserContext);
-  const { cryptoAddress, type, id } = availableContract;
+
   //Feels a bit sketchy getting project from the unestablished contract here
 
   const [addCcAgreement, { data: agreementData, error: agreementError }] = useMutation(ADD_CC_AGREEMENT);
@@ -52,9 +52,9 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   const agreementHash = sha256(agreement);
 
   const contract =
-    type == SmartContractType.C2
-      ? C2__factory.connect(cryptoAddress.address, signer)
-      : C3__factory.connect(cryptoAddress.address, signer);
+    availableContract.type == SmartContractType.C2
+      ? C2__factory.connect(availableContract.cryptoAddress, signer)
+      : C3__factory.connect(availableContract.cryptoAddress, signer);
   const establishContract = async (): Promise<void> => {
     const txResp: TransactionResponse = await contract.establish(bacAddress, arrayify('0x' + agreementHash));
     await txResp.wait();
@@ -147,11 +147,11 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               currentDate: currentDate,
               organizationName: values.organizationName,
               ccName: values.title,
-              ccType: type,
+              ccType: availableContract.type,
               backingToken: values.backingToken,
-              availableContractId: id,
-              availableContractAddress: cryptoAddress.address,
-              protocol: cryptoAddress.protocol,
+              availableContractId: availableContract.id,
+              availableContractAddress: availableContract.cryptoAddress,
+              protocol: availableContract.protocol,
               chainId: chainId,
               agreementTitle: `${values.title} - Contributor Credit Agreement`,
               triggerShortDescription: values.triggerShortDescription,
