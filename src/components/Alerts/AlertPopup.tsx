@@ -11,8 +11,6 @@ const AlertPopup: FC = () => {
     setDismissed(selection?.getItem('DISMISS_ALERT_POPUP'));
   });
 
-  console.log(dismissed);
-
   return (
     <>
       {dismissed ? (
