@@ -5,7 +5,7 @@ import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
 import React, { FC, useState } from 'react';
 import UnestablishedContractCard from '../cards/UnestablishedContractCard';
 import { ContributorCreditClass, User } from 'types';
-import { GET_PAYMENTS_SET } from '@src/utils/dGraphQueries/agreement';
+import { GET_PAYMENTS } from '@src/utils/dGraphQueries/agreement';
 import { unique } from '@src/utils/helpersGeneral';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
@@ -30,7 +30,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
 }) => {
   const { active, chainId, account } = useWeb3React<Web3Provider>();
 
-  const { data: paymentsData, loading } = useQuery(GET_PAYMENTS_SET, {
+  const { data: paymentsData, loading } = useQuery(GET_PAYMENTS, {
     variables: { recipient: account },
   });
 

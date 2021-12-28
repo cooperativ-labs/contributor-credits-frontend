@@ -3,7 +3,7 @@ import Card from '@src/containers/Card';
 import CCClassDetails from '../components/containers/ClassDetails';
 import ClassCardList from '../components/containers/ClassCardList';
 import cn from 'classnames';
-import CryptoAddress from '../components/CryptoAddress';
+import CryptoAddressFormatter from '../components/CryptoAddressFormatter';
 import React, { FC, useContext, useState } from 'react';
 import { Agreement } from 'types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,7 +35,7 @@ const Dashboard: FC = () => {
       <h1 className="text-2xl md:text-3xl font-bold text-gray-700">Hello {user.displayName}</h1>
       {walletAddress && (
         <div className="flex">
-          <CryptoAddress
+          <CryptoAddressFormatter
             address={walletAddress}
             chainId={chainId}
             className="text-base text-gray-700"

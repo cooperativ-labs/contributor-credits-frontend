@@ -1,6 +1,6 @@
 import Button from '@src/components/Buttons/Button';
 import Card from '@src/containers/Card';
-import CryptoAddress from './components/CryptoAddress';
+import CryptoAddressFormatter from './components/CryptoAddressFormatter';
 import Link from 'next/link';
 import LogoutButton from './components/buttons/LogoutButton';
 import NetworkIndicator, { NetworkIndicatorDot } from './components/indicators/NetworkIndicator';
@@ -45,7 +45,7 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
                 <div className="flex flex-col items-center">
                   <NetworkIndicator />
                   <div className="mt-3" />
-                  <CryptoAddress chainId={chainId} address={walletAddress} withCopy />
+                  <CryptoAddressFormatter chainId={chainId} address={walletAddress} withCopy />
                 </div>
               )}
               <hr className="my-5" />

@@ -1,5 +1,5 @@
 import ChooseConnectorButton from '../ChooseConnectorButton';
-import CryptoAddress from '../components/CryptoAddress';
+import CryptoAddressFormatter from '../components/CryptoAddressFormatter';
 import MajorActionButton from '../components/buttons/MajorActionButton';
 import React from 'react';
 import { ADD_USER_WITH_WALLET } from '@src/utils/dGraphQueries/user';
@@ -72,7 +72,7 @@ const CreateAccount = () => {
                 <div className="text-sm">Linked wallet address:</div>
                 <div className="hidden md:flex md:text-lg font-bold text-gray-600">{walletAddress} </div>
                 <div className="md:hidden">
-                  <CryptoAddress chainId={chainId} address={walletAddress} className="text-large font-bold" />
+                  <CryptoAddressFormatter chainId={chainId} address={walletAddress} className="text-large font-bold" />
                 </div>
               </div>
             ) : (

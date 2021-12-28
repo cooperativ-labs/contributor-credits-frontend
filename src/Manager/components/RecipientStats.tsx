@@ -1,6 +1,6 @@
 import ChooseConnectorButton from '../ChooseConnectorButton';
 import React, { FC } from 'react';
-import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
+import { GET_PAYMENTS } from '@src/utils/dGraphQueries/agreement';
 import { numberWithCommas, TotalCreditsWithValue } from '@src/utils/helpersMoney';
 import { useQuery } from '@apollo/client';
 import { User } from 'types';
@@ -11,7 +11,7 @@ interface RecipientStatsProps {}
 
 const RecipientStats: FC<RecipientStatsProps> = () => {
   const { active, account } = useWeb3React<Web3Provider>();
-  const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: account } });
+  const { data } = useQuery(GET_PAYMENTS, { variables: { recipient: account } });
   const paymentsToMe = data?.queryPayment;
   const myCreditEarnings = TotalCreditsWithValue(paymentsToMe && paymentsToMe);
 

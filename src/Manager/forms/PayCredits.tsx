@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-import CryptoAddressFormator from '../components/CryptoAddress';
+import CryptoAddressFormator from '../components/CryptoAddressFormator';
 import FormButton from '../components/buttons/FormButton';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
 import { ContributorCreditClass, CryptoAddress, CurrencyCode } from 'types';

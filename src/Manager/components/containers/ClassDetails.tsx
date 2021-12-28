@@ -1,7 +1,7 @@
 import CCClassDescription from '@src/Manager/components/CCClassDescriptions';
 import ClassActions from '@src/Manager/components/CreditActions';
 import ClassStatusBlock, { ClassFundingRatio } from '@src/Manager/components/ClassStatusBlock';
-import CryptoAddress from '@src/Manager/components/CryptoAddress';
+import CryptoAddressFormatter from '@src/Manager/components/CryptoAddressFormatter';
 import HashInstructions from '@src/Manager/components/HashInstructions';
 import Loading from '../Loading';
 import PaymentList from '@src/Manager/components/ListPayments';
@@ -58,7 +58,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         {name} {type}
       </h1>
       <div className="mb-6">
-        <CryptoAddress label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
+        <CryptoAddressFormatter label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
         <ClassFundingRatio cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
       </div>
 
