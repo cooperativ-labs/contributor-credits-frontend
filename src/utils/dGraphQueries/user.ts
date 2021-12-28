@@ -8,6 +8,14 @@ export const GET_USERS = () => {
         id
         fullName
         email
+        agreements {
+          agreement {
+            organizationName
+            contributorCreditClass {
+              name
+            }
+          }
+        }
       }
     }
   `;
