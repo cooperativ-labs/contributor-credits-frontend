@@ -104,7 +104,7 @@ export const ADD_CC_PAYMENT = gql`
   }
 `;
 
-export const GET_PAYMENTS_SET = gql`
+export const GET_PAYMENTS = gql`
   ${CORE_PAYMENT_FIELDS}
   query QueryPayment($recipient: String) {
     queryPayment(filter: { recipient: { anyofterms: $recipient } }) {
