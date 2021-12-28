@@ -63,7 +63,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
         )}
         <div className="flex flex-wrap">
           {contributorCreditClasses().map((cClass, index) => {
-            if (cClass && cClass.cryptoAddress.chainId === chainId)
+            if (cClass && cClass.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
                   <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} user={user} />
@@ -71,7 +71,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
               );
           })}
           {unestablishedSmartContracts.map((unestablishedContract, index) => {
-            if (unestablishedContract?.cryptoAddress.chainId === chainId && !unestablishedContract.used)
+            if (unestablishedContract?.chainId === chainId && !unestablishedContract.used)
               return (
                 <div key={index} className="my-2 w-full ">
                   <UnestablishedContractCard unestablishedContract={unestablishedContract} />

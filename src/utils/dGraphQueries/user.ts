@@ -92,11 +92,9 @@ export const GET_USER = gql`
         id
         used
         type
-        cryptoAddress {
-          address
-          protocol
-          chainId
-        }
+        address
+        protocol
+        chainId
       }
     }
   }

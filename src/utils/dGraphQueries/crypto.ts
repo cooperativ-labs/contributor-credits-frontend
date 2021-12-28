@@ -38,14 +38,10 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
         primary
       }
       currentFunding
-      cryptoAddress {
-        id
-        protocol
-        type
-        name
-        chainId
-        address
-      }
+      protocol
+      type
+      chainId
+      address
       backingCurrency
       agreement {
         ...agreementData
@@ -60,12 +56,9 @@ export const GET_AVAILABLE_CONTRACT = gql`
   query GetSmartContractUnestablished($id: ID!) {
     getSmartContractUnestablished(id: $id) {
       id
-      type
-      cryptoAddress {
-        address
-        protocol
-        chainId
-      }
+      address
+      protocol
+      chainId
       type
       owner {
         ...userData
@@ -85,7 +78,9 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
     addSmartContractUnestablished(
       input: [
         {
-          cryptoAddress: { address: $cryptoAddress, type: CONTRACT, chainId: $chainId, protocol: $protocol }
+          address: $cryptoAddress
+          chainId: $chainId
+          protocol: $protocol
           owner: { id: $owner }
           type: $type
           used: false

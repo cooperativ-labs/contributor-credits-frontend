@@ -27,12 +27,11 @@ export const CORE_PAYMENT_FIELDS = gql`
         currentFunding
         backingCurrency
         type
-        cryptoAddress {
-          id
-          address
-          protocol
-          chainId
-        }
+
+        id
+        address
+        protocol
+        chainId
       }
     }
     date
@@ -44,12 +43,10 @@ export const CORE_CC_FIELDS = gql`
     id
     name
     type
-    cryptoAddress {
-      id
-      address
-      protocol
-      chainId
-    }
+    id
+    address
+    protocol
+    chainId
     backingCurrency
     description
     triggerShortDescription

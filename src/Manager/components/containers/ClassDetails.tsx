@@ -28,11 +28,11 @@ type DetailsProps = BaseProps & {
 
 const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const { account } = useWeb3React<Web3Provider>();
-  const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
+  const { name, address: ccCryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
 
-  const c2 = useC2(cryptoAddress.address, memberAddresses);
+  const c2 = useC2(ccCryptoAddress, memberAddresses);
 
   const isContractManager = ContractManager(agreement, user);
 
@@ -55,8 +55,8 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         {name} {type}
       </h1>
       <div className="mb-6">
-        <CryptoAddress label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
-        <ClassFundingRatio cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+        <CryptoAddress label={'Address:'} address={ccCryptoAddress} chainId={CCClass.chainId} />
+        <ClassFundingRatio cryptoAddress={ccCryptoAddress} memberAddresses={memberAddresses} />
       </div>
 
       <div className="my-3 mb-6">
@@ -67,13 +67,20 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
           triggerRevenue={triggerRevenue}
         />
       </div>
-      <ClassStatusBlock cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+      <ClassStatusBlock cryptoAddress={ccCryptoAddress} memberAddresses={memberAddresses} />
 
       <SectionBlock sectionTitle="Payments" className="mt-6">
         {allPayments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
       </SectionBlock>
 
-      <ClassActions name={name} chainId={cryptoAddress.chainId} c2={c2} ccId={id} agreementId={agreement.id} />
+      <ClassActions
+        name={name}
+        chainId={CCClass.chainId}
+        c2={c2}
+        ccId={id}
+        senderAddress={ccCryptoAddress}
+        agreementId={agreement.id}
+      />
       <div className="mt-5">
         <HashInstructions hash={c2?.info.agreementHash} agreementText={agreement.text} />
       </div>

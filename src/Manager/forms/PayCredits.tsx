@@ -32,15 +32,15 @@ const FormButtonText = (recipient, amount, chainId) => {
 export type PayCreditsProps = {
   c2: C2Type;
   ccId: string;
+  senderAddress: string;
   chainId: number;
   agreementId: string;
 };
 
-const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => {
+const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, senderAddress, chainId, agreementId }) => {
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
-  console.log(data);
   if (error) {
     alert('Oops. Looks like something went wrong');
   }
@@ -81,6 +81,7 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
         currencyCode: currencyCode,
         contributorCreditClassID: ccId,
         recipient: recipient,
+        sender: senderAddress,
         note: note,
       },
     });

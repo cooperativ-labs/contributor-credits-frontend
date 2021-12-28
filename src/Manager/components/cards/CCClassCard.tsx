@@ -14,10 +14,10 @@ type ClassCardProps = {
 };
 
 const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, user }) => {
-  const { id, name, triggers, cryptoAddress, triggerShortDescription, type, agreement } = cClass;
+  const { id, name, triggers, triggerShortDescription, type, agreement } = cClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const { isOwner } = ClassStatus(cryptoAddress.address, memberAddresses);
+  const { isOwner } = ClassStatus(cClass.address, memberAddresses);
 
   const isContractManager = isOwner;
 
@@ -36,7 +36,7 @@ const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, use
       >
         <div className="font-bold md:font-base col-span-1 self-center">
           {name} {type}
-          <ClassFundingRatio cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+          <ClassFundingRatio cryptoAddress={cClass.address} memberAddresses={memberAddresses} />
         </div>
         <div className="col-span-1">
           {triggerFundraising.amount ? (
@@ -51,10 +51,10 @@ const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, use
           )}
         </div>
         <div className="col-span-1">
-          <ClassCreditsStats cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+          <ClassCreditsStats cryptoAddress={cClass.address} memberAddresses={memberAddresses} />
         </div>
         <div className="col-span-1">
-          <ClassFundingStats cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+          <ClassFundingStats cryptoAddress={cClass.address} memberAddresses={memberAddresses} />
         </div>
       </div>
     </div>

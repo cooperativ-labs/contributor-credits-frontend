@@ -41,6 +41,7 @@ type Payment  {
 	date: DateTime!
 	note: String
 	recipient: String! @search
+	sender: String! @search
 	agreement: Agreement @hasInverse(field:payments)
 }
 
@@ -70,7 +71,9 @@ type ContributorCreditClassTrigger  {
 type ContributorCreditClass {
 	id: ID! 
 	name: String! 
-	cryptoAddress: CryptoAddress!
+	address: String!
+	chainId: Int
+	protocol: CryptoAddressProtocol
 	type: SmartContractType!
 	agreement: Agreement! @hasInverse(field:contributorCreditClass) 
 	description: String 
@@ -83,7 +86,9 @@ type ContributorCreditClass {
 
 type SmartContractUnestablished {
 	id: ID!
-	cryptoAddress: CryptoAddress!
+	address: String!
+	chainId: Int
+	protocol: CryptoAddressProtocol
 	type: SmartContractType!
 	owner: User @hasInverse(field:unestablishedSmartContracts)
 	used: Boolean

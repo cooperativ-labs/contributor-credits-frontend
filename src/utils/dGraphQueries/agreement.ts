@@ -42,12 +42,9 @@ export const ADD_CC_AGREEMENT = gql`
               { name: "Sale", type: SALE }
             ]
             triggerShortDescription: $triggerShortDescription
-            cryptoAddress: {
-              address: $availableContractAddress
-              protocol: $protocol
-              chainId: $chainId
-              type: CONTRACT
-            }
+            address: $availableContractAddress
+            protocol: $protocol
+            chainId: $chainId
           }
           title: $agreementTitle
           text: $agreementText
@@ -78,40 +75,6 @@ export const ADD_CC_AGREEMENT = gql`
   }
 `;
 
-export const ADD_SIGNATORY_WITH_PAYMENT = gql`
-  ${CORE_AGREEMENT_SIGNATORY_FIELDS}
-  mutation AddCcSignatory(
-    $currentDate: DateTime!
-    $agreementId: ID!
-    $projectUserId: ID!
-    # $signature: String!
-    $amount: Int64!
-    $currencyCode: CurrencyCode!
-    $contributorCreditClassID: ID!
-    $note: String
-  ) {
-    addAgreementSignatory(
-      input: [
-        {
-          date: $currentDate
-          agreement: { id: $agreementId }
-          projectUser: { id: $projectUserId }
-          payments: {
-            amount: $amount
-            currency: { code: $currencyCode, contributorCreditClass: { id: $contributorCreditClassID } }
-            date: $currentDate
-            note: $note
-          }
-        }
-      ]
-    ) {
-      agreementSignatory {
-        ...agreementSignatoryData
-      }
-    }
-  }
-`;
-
 export const ADD_CC_PAYMENT = gql`
   ${CORE_PAYMENT_FIELDS}
   mutation AddCcPayment(
@@ -121,6 +84,7 @@ export const ADD_CC_PAYMENT = gql`
     $currencyCode: CurrencyCode!
     $contributorCreditClassID: ID!
     $recipient: String
+    $sender: String
     $note: String
   ) {
     updateAgreement(
@@ -132,6 +96,7 @@ export const ADD_CC_PAYMENT = gql`
             currency: { code: $currencyCode, contributorCreditClass: { id: $contributorCreditClassID } }
             date: $currentDate
             recipient: $recipient
+            sender: $sender
             note: $note
           }
         }
