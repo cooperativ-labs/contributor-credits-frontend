@@ -14,8 +14,7 @@ import { useAsyncFn } from 'react-use';
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
 const FormButtonText = (action, amount) => {
-  const actionWord = action === '1' ? 'Cash In' : 'Relinquish';
-  return !action ? 'choose action' : `${actionWord} ${numberWithCommas(amount)} Credits`;
+  return !action ? 'choose action' : `${action} ${numberWithCommas(amount)} Credits`;
 };
 
 export type ManageCreditsProps = {
