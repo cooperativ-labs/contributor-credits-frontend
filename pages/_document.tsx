@@ -6,7 +6,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <script src="https://cdn.tailwindcss.com"></script>
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Inter&family=Ubuntu:wght@400;700&display=swap"
@@ -20,6 +19,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
           <title>Contributor Credits</title>
+          <script src="https://cdn.tailwindcss.com"></script>
         </Head>
         <body>
           <Main />

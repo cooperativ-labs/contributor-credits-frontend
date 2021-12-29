@@ -1,14 +1,8 @@
-
-
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
   corePlugins: {
     preflight: false,
   },
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       typography: {
@@ -20,23 +14,22 @@ module.exports = {
           },
         },
       },
-      colors: {
-        transparent: 'transparent',
-        current: 'currentColor',
-        'cDarkBlue': '#161F48',
-        'cLightBlue': '#275A8F',
-        'cGold': '#9F7748',
-        'cRed': '#E43727',
-        'cCream': '#EAE5DD',
-        'cLightCream': '#F4F1EC',
-        'cYellow': '#F19938',
-      },
+
       maxWidth: {
         xxs: '15rem',
       },
+      colors: {
+        transparent: 'transparent',
+        current: 'currentColor',
+        cDarkBlue: '#161F48',
+        cLightBlue: '#275A8F',
+        cGold: '#9F7748',
+        cRed: '#E43727',
+        cCream: '#EAE5DD',
+        cLightCream: '#F4F1EC',
+        cYellow: '#F19938',
+      },
     },
-    
-
     screens: {
       sm: '460px',
       md: '768px',
