@@ -1,36 +1,42 @@
+
+
 module.exports = {
   future: {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'media',
+  corePlugins: {
+    preflight: false,
+  },
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       typography: {
         DEFAULT: {
           css: {
-            color: '#00000',
             strong: {
               fontWeight: '800',
             },
-            // ...
           },
         },
       },
       colors: {
-        cDarkBlue: '#161F48',
-        cLightBlue: '#275A8F',
-        cGold: '#9F7748',
-        cRed: '#E43727',
-        cCream: '#EAE5DD',
-        cLightCream: '#F4F1EC',
-        cYellow: '#F19938',
+        transparent: 'transparent',
+        current: 'currentColor',
+        'cDarkBlue': '#161F48',
+        'cLightBlue': '#275A8F',
+        'cGold': '#9F7748',
+        'cRed': '#E43727',
+        'cCream': '#EAE5DD',
+        'cLightCream': '#F4F1EC',
+        'cYellow': '#F19938',
       },
       maxWidth: {
         xxs: '15rem',
       },
     },
+    
+
     screens: {
       sm: '460px',
       md: '768px',
@@ -53,6 +59,5 @@ module.exports = {
       shareButton: '0 7px 10px 5px rgba(0, 0, 0, 0.1), 0 3px 5px 3px rgba(0, 0, 0, 0.07)',
     },
   },
-  variants: {},
   plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
 };

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 const AlertBanner: FC = () => {
   return (
     <a
-      className="bg-green-600 bg-opacity-90 flex p-2 shadow-xl"
+      className="bg-emerald-600 bg-opacity-90 flex p-2 shadow-xl"
       href="https://cooperativ.medium.com/a-new-way-to-compensate-contributors-to-early-stage-projects-fa7d83985fde"
       target="_blank"
       rel="noreferrer"
