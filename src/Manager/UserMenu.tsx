@@ -40,7 +40,7 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
         </Button>
         {open && (
           <div className="absolute top-0 bottom-0 left-0 right-0 z-40" onClick={() => setOpen(!open)}>
-            <Card className="absolute top-12 md:top-16 right-0 p-3 w-48 rounded-xl shadow-lg">
+            <Card className="absolute top-12 md:top-16 right-0 p-3 w-56 rounded-xl shadow-lg">
               {active && (
                 <div className="flex flex-col items-center">
                   <NetworkIndicator />

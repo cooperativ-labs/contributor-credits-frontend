@@ -104,10 +104,3 @@ const FundClass: React.FC<FundClassProps> = ({ c2 }) => {
 };
 
 export default FundClass;
-function totalSupply(totalSupply: any, c2Decimals: any) {
-  throw new Error('Function not implemented.');
-}
-
-function c2Decimals(totalSupply: (totalSupply: any, c2Decimals: any) => void, c2Decimals: any) {
-  throw new Error('Function not implemented.');
-}
