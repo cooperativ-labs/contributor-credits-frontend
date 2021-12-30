@@ -20,8 +20,10 @@ type ManagerProps = {
 const Manager: FC<ManagerProps> = ({ children }) => {
   const notice = '';
   return (
-    <div className="mx-auto">
-      <NavBar />
+    <div>
+      <div className="md:mx-8">
+        <NavBar />
+      </div>
       <div className="flex md:w-screen h-full">
         <div className="flex z-30 md:z-10 min-h-full min-h-screen">
           <ManagerSideBar />

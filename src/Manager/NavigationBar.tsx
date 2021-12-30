@@ -19,7 +19,7 @@ export const NavBar: FC<NavBarProps> = () => {
   const windowSize = useWindowSize();
   return (
     <div
-      className="py-2 px-2 pr-4 mt-1 md:mt-8 h-14 z-30 mx-8 flex justify-between self-center items-center "
+      className="py-2 px-2 pr-4 mt-1 md:mt-8 h-14 z-30 flex mx-auto justify-between self-center items-center "
       style={{ maxWidth: '1580px' }}
     >
       <div className="ml-1 justify-start flex items-center">
