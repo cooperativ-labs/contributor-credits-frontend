@@ -1,5 +1,5 @@
 import ClassEstablish from '@src/Manager/pages/projects/credits/ClassEstablish';
-import ManagerWrapper from '../../src/Manager/ManagerWrapper';
+import ManagerWrapper from '../../../src/Manager/ManagerWrapper';
 import React from 'react';
 import { GET_AVAILABLE_CONTRACT } from '@src/utils/dGraphQueries/crypto';
 import { NextPage } from 'next';

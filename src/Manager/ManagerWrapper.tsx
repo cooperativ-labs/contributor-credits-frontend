@@ -66,7 +66,6 @@ const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent })
       <SetUserContext>
         <div className="h-full">
           <div className={cn(BackgroundGradient, 'min-h-full w-screen min-h-screen')}>
-            <AlertBanner />
             <AlertPopup />
             <WalletChooserModal />
             <ManagerNavigationFrame loadingComponent={loadingComponent}>{children}</ManagerNavigationFrame>

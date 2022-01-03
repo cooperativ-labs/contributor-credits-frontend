@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
@@ -15,9 +16,10 @@ const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
     : 'https://cooperativ.io/assets/images/branding/stamp_dark_blue.svg';
   return (
     <div
-      className={`${
-        color ? color : 'bg-cCream'
-      } w-full relative bottom-0 text-gray-200 border-t-2 border-gray-400 py-4 mt-0`}
+      className={cn(
+        [color ? color : 'bg-cCream'],
+        'w-full relative bottom-0 text-gray-200 border-t-2 border-gray-400 py-4 mt-0'
+      )}
     >
       <footer
         data-test="component-footer"
@@ -25,9 +27,11 @@ const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
         style={{ maxWidth: '1280px' }}
       >
         <div className="flex px-4 py-1 md:p-0">
-          <span className="flex md:mr-8 w-max">
-            <img src={stamp} alt="logo" width="15" /> Sunshine Labs Inc. 2021{' '}
-          </span>
+          <a href="https://cooperativ.io" rel="noreferrer" target="_blank">
+            <span className="flex md:mr-8 w-max">
+              <img src={stamp} alt="logo" width="15" /> Cooperativ Labs 2022{' '}
+            </span>
+          </a>
           <a target="_blank" rel="noreferrer" href="undefined/icons/set/api">
             Icons by Icons8
           </a>
@@ -41,15 +45,6 @@ const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
           </Link>
         </div>
       </footer>
-      <div className={`py-1 pb-24 md:pb-4 border-t-2 ${textColor} border-gray-400`}>
-        <div className="mx-4 md:mx-8 lg:mx-16 flex flex-col md:flex-row justify-center items-center">
-          <Link href={signUpLink}>
-            <div className="flex items-center">
-              <a className="text-grey-700 font-light">Create your own Cooperativ project</a>
-            </div>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 };

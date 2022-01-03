@@ -1,4 +1,4 @@
-import ManagerWrapper from '../../src/Manager/ManagerWrapper';
+import ManagerWrapper from '../../../src/Manager/ManagerWrapper';
 import React, { FC } from 'react';
 import UserSettings from '@src/Manager/pages/members/UserSettings';
 

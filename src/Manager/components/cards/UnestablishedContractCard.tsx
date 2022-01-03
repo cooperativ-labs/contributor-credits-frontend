@@ -36,7 +36,7 @@ const UnestablishedContractCard: React.FC<UnestablishedContractCardProps> = ({ u
         </div>
       </div>
       <CryptoAddress address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
-      <Link href={`/establish/${id}`}>
+      <Link href={`/app/establish/${id}`}>
         <div className="text-sm font-bold text-blue-800 uppercase mt-4 cursor-pointer">Click to establish</div>
       </Link>
     </BaseCard>

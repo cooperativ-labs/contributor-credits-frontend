@@ -50,7 +50,7 @@ const UserMenu: FC<UserMenuProps> = ({}) => {
               )}
               <hr className="my-5" />
               <div className="flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
-                <Link href="/account/">Account Settings</Link>
+                <Link href="/app/account/">Account Settings</Link>
               </div>
               <div className="md:hidden flex flex-col items-center my-1 p-2 justify-center text-sm text-gray-500 hover:bg-gray-200 rounded-lg">
                 <LogoutButton />

@@ -62,7 +62,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
     return;
   };
 
-  console.log(agreementError);
   if (agreementError && !alerted) {
     alert('Oops. Looks like something went wrong');
     setLoadingModal(false);
@@ -72,7 +71,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   const router = useRouter();
   if (agreementData && !alerted) {
     setAlerted(true);
-    router.push(`/`);
+    router.push(`/app`);
   }
 
   const chainBacs = bacOptions.filter((bac) => bac.chainId === chainId);
