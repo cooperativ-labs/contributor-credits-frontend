@@ -19,7 +19,6 @@ type ManagerProps = {
 };
 
 const Manager: FC<ManagerProps> = ({ children }) => {
-  const notice = '';
   return (
     <div>
       <div className="md:mx-8">
@@ -35,7 +34,8 @@ const Manager: FC<ManagerProps> = ({ children }) => {
               <EnsureCompatibleNetwork>{children}</EnsureCompatibleNetwork>
             </div>
             <div className={'mx-auto min-h-full p-10'} style={{ maxWidth: '1580px' }}>
-              {notice}
+              We would love to hear your questions and suggestions. Please email us at{' '}
+              <span className="font-bold">feedback@cooperativ.io</span>.
             </div>
           </div>
         </div>
