@@ -100,7 +100,7 @@ const ContributorCreditsSection: FC = () => {
               {!detailsShown && <FontAwesomeIcon icon="chevron-down" />}
             </Button>
           </div>
-          {detailsShown && <div className="p-4 mx-4 bg-gray-200">{contributorCreditsExplainer}</div>}
+          {detailsShown && <div className="p-4 mx-4">{contributorCreditsExplainer}</div>}
         </div>
       </div>
     </div>
