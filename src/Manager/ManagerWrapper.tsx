@@ -10,6 +10,7 @@ import React, { FC, useContext } from 'react';
 import SetUserContext, { UserContext } from '@src/utils/SetUserContext';
 import SetWalletContext from '@src/web3/SetWalletContext';
 import WalletChooserModal from './WalletChooserModal';
+import WalletActionLockModel from './WalletActionLockModel';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
@@ -68,6 +69,7 @@ const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent })
           <div className={cn(BackgroundGradient, 'min-h-full w-screen min-h-screen')}>
             <AlertPopup />
             <WalletChooserModal />
+            <WalletActionLockModel />
             <ManagerNavigationFrame loadingComponent={loadingComponent}>{children}</ManagerNavigationFrame>
           </div>
         </div>

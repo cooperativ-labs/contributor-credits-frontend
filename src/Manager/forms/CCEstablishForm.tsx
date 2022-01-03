@@ -21,6 +21,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 import { useRouter } from 'next/router';
 import { useWeb3React } from '@web3-react/core';
+import { ApplicationStoreProps, store } from '@context/store';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -39,9 +40,10 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   agreement,
   setCustomText,
 }) => {
-  const { chainId, library, account } = useWeb3React<Web3Provider>();
+  const applicationStore: ApplicationStoreProps = useContext(store);
+  const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
+  const { chainId, library } = useWeb3React<Web3Provider>();
   const [alerted, setAlerted] = useState<boolean>(false);
-  const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const signer = library.getSigner();
   const { userId } = useContext(UserContext);
   const { cryptoAddress, type, id } = availableContract;
@@ -56,6 +58,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
       ? C2__factory.connect(cryptoAddress.address, signer)
       : C3__factory.connect(cryptoAddress.address, signer);
   const establishContract = async (): Promise<void> => {
+    dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     const txResp: TransactionResponse = await contract.establish(bacAddress, arrayify('0x' + agreementHash));
     await txResp.wait();
     console.log({ established: await contract.isEstablished() });
@@ -64,7 +67,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
 
   if (agreementError && !alerted) {
     alert('Oops. Looks like something went wrong');
-    setLoadingModal(false);
     setAlerted(true);
   }
 
@@ -76,10 +78,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
 
   const chainBacs = bacOptions.filter((bac) => bac.chainId === chainId);
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
-
-  if (loadingModal) {
-    return <LoadingModal />;
-  }
 
   return (
     <FormCard small>
@@ -138,7 +136,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           setAlerted(false);
           setSubmitting(true);
           setButtonStep('submitting');
-          setLoadingModal(true);
+          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
           await establishContract();
           await addCcAgreement({
             variables: {

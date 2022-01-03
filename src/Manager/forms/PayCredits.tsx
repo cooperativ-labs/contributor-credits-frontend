@@ -1,5 +1,5 @@
 import Input from './components/Inputs';
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
@@ -15,6 +15,7 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
+import { ApplicationStoreProps, store } from '@context/store';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -23,7 +24,7 @@ const FormButtonText = (recipient, amount, chainId) => {
     'Pay a team recipient'
   ) : (
     <div className="display: inline-block">
-      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} className="text-white" /> $
+      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} className="text-white" />
       {numberWithCommas(amount, 0)} Credits
     </div>
   );
@@ -37,6 +38,8 @@ export type PayCreditsProps = {
 };
 
 const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => {
+  const applicationStore: ApplicationStoreProps = useContext(store);
+  const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
@@ -88,8 +91,10 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
 
   const [, payCredits] = useAsyncFn(
     async (agreementId: string, amount: number, recipient: string, note: string) => {
-      const tx = await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      // const txReceipt = await tx.wait();
+      dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+      const txResp = await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
+      await txResp.wait();
+      dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
       setButtonStep('confirmed');
     },

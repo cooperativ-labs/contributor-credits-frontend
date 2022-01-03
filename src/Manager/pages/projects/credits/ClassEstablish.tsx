@@ -17,6 +17,7 @@ import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { ApplicationStoreProps, store } from '@context/store';
 
 const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
