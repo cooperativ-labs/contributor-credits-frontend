@@ -15,7 +15,7 @@ const initialState: ApplicationStoreProps = {
   project: {},
   ManagerSidebarOpen: false,
   WalletModalOpen: false,
-  WalletActionLockModalOpen: true,
+  WalletActionLockModalOpen: false,
   sidebarOpen: false,
   noticesOpen: true,
   dispatch: null,
