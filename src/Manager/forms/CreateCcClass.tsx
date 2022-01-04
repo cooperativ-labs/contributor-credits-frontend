@@ -1,5 +1,5 @@
 import FormButton from '../components/buttons/FormButton';
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import Select from './components/Select';
 import { CREATE_UNESTABLISHED_SMART_CONTRACT } from '@src/utils/dGraphQueries/crypto';
 import { deploy_c2_v0_1_3 } from '@web3/deploy/deployC2';
@@ -12,6 +12,8 @@ import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { ApplicationStoreProps, store } from '@context/store';
+import Router, { useRouter } from 'next/router';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -21,15 +23,19 @@ type CreateCcClassProps = {
 };
 
 const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
+  const applicationStore: ApplicationStoreProps = useContext(store);
+  const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const { library, chainId } = useWeb3React<Web3Provider>();
   const signer = library.getSigner();
   const [addUnestablishedSmartContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
+  const router = useRouter();
 
   /** @TODO : need to put this somewhere it wont fail when closed */
   const [deployState, deploy] = useAsyncFn(
     async (ccType: SmartContractType) => {
       const protocol = MatchSupportedChains(chainId).protocol;
+      dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       const contractDeployFn = ccType === SmartContractType.C2 ? deploy_c2_v0_1_3 : deploy_c3_v1_0_0;
       const contract = await contractDeployFn(signer);
       addUnestablishedSmartContract({
@@ -41,6 +47,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
           owner: userId,
         },
       });
+      dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
     [signer, chainId, userId]
   );
@@ -54,6 +61,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
     alert(
       `Successfully deployed ${data.addSmartContractUnestablished.smartContractUnestablished[0].id} at ${data.addSmartContractUnestablished.smartContractUnestablished[0].cryptoAddress.address}`
     );
+    router.reload();
   }
 
   return (
