@@ -12,7 +12,7 @@ const contributorCreditsExplainer = (
     </h3>
     <div className=" mb-10">
       Each Contributor Credit, written "C²", is a promise to pay $1 the future, when the project or business has cash.
-      If an project pays 300 C², then it must pay the holder of those C² $300 when it either reaches a trigger (like a
+      If a project pays 300 C², then it must pay the holder of those C² $300 when it either reaches a trigger (like a
       round of investment) or begins earning revenue. If the project fails to bring in money, then it doesn't have to
       pay.
     </div>
