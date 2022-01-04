@@ -61,6 +61,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
     dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     const txResp: TransactionResponse = await contract.establish(bacAddress, arrayify('0x' + agreementHash));
     await txResp.wait();
+    dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     console.log({ established: await contract.isEstablished() });
     return;
   };
@@ -136,7 +137,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           setAlerted(false);
           setSubmitting(true);
           setButtonStep('submitting');
-          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
           await establishContract();
           await addCcAgreement({
             variables: {
