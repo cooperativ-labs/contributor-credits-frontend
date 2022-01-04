@@ -11,10 +11,10 @@ const contributorCreditsExplainer = (
       A way to pay your collaborators before you have money or even a business.
     </h3>
     <div className=" mb-10">
-      Each Contributor Credit, written "C²", is a promise to pay $1 the future, when the project or business has cash.
-      If a project pays 300 C², then it must pay the holder of those C² $300 when it either reaches a trigger (like a
-      round of investment) or begins earning revenue. If the project fails to bring in money, then it doesn't have to
-      pay.
+      Each Contributor Credit, written "C²", is a promise to pay $1 in the future, when the project or business has
+      cash. If a project pays 300 C², then it must pay the holder of those C² $300 when it either reaches a trigger
+      (like a round of investment) or begins earning revenue. If the project fails to bring in money, then it doesn't
+      have to pay.
     </div>
     <h1 className="text-xl md:text-3xl mb-1 mt-8 font-bold">When do I use C²?</h1>
     <h3 className="text-gray-700 mb-4 font-bold">When you have a cool idea and collaborators to help you build it.</h3>
@@ -60,7 +60,7 @@ and holders of these credits will be able to cash them in. For an in-depth expla
       mainText="Revenue-Based"
       icon="coins"
       subHeader="Contributors get paid as dollars/euros arrive"
-      expandedDescription="This contract automatically allocates revenue to the holders of Credits in proportion to how many Credits they have. If I hold 10 out of 20 total credits, 50% of each Dollar or Euro is available for me to cash in as soon as it in the project's account."
+      expandedDescription="This contract automatically allocates revenue to the holders of Credits in proportion to how many Credits they have. If I hold 10 out of 20 total credits, 50% of each Dollar or Euro is available for me to cash out as soon as it is in the project's account."
       content={
         <div className="font-semibold text-gray-400 mt-4">
           Contributors can easily "charge" for their work on an early-stage passion-project and{' '}
