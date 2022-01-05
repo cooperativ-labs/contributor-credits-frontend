@@ -14,6 +14,7 @@ import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 import { ApplicationStoreProps, store } from '@context/store';
 import Router, { useRouter } from 'next/router';
+import { WalletErrorCodes } from '@src/web3/helpersChain';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -29,7 +30,6 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
   const [addUnestablishedSmartContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [alerted, setAlerted] = useState<boolean>(false);
-  const router = useRouter();
 
   /** @TODO : need to put this somewhere it wont fail when closed */
   const [deployState, deploy] = useAsyncFn(
@@ -37,16 +37,23 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
       const protocol = MatchSupportedChains(chainId).protocol;
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       const contractDeployFn = ccType === SmartContractType.C2 ? deploy_c2_v0_1_3 : deploy_c3_v1_0_0;
-      const contract = await contractDeployFn(signer);
-      addUnestablishedSmartContract({
-        variables: {
-          cryptoAddress: contract.address,
-          chainId: chainId,
-          type: ccType,
-          protocol: protocol,
-          owner: userId,
-        },
-      });
+      try {
+        const contract = await contractDeployFn(signer);
+        addUnestablishedSmartContract({
+          variables: {
+            cryptoAddress: contract.address,
+            chainId: chainId,
+            type: ccType,
+            protocol: protocol,
+            owner: userId,
+          },
+        });
+        setButtonStep('confirmed');
+      } catch (error) {
+        if (error.code === 4001) {
+          setButtonStep('rejected');
+        }
+      }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
     [signer, chainId, userId]
@@ -72,7 +79,6 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
       onSubmit={async (values, { setSubmitting }) => {
         setButtonStep('submitting');
         await deploy(values.type);
-        setButtonStep('confirmed');
       }}
     >
       {({ isSubmitting }) => (
@@ -88,6 +94,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
               submittingText="Deploying - This can take time. Please do not refresh."
               confirmedText="Confirmed!"
               failedText="Transaction failed"
+              rejectedText="You rejected the transaction. Click here to try again."
             />
           </FormButton>
         </Form>

@@ -47,10 +47,6 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
   if (error) {
     alert('Oops. Looks like something went wrong');
   }
-  if (data && !alerted) {
-    alert(`Payment submitted. Confirmation from the network may take a few minutes.`);
-    setAlerted(true);
-  }
 
   // const memberOptions = members?.map((projectUser) => {
   //   /** @TODO : let people choose wallet for project */
@@ -92,11 +88,18 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
   const [, payCredits] = useAsyncFn(
     async (agreementId: string, amount: number, recipient: string, note: string) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      const txResp = await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      await txResp.wait();
+      try {
+        const txResp = await c2.contract.issue(recipient, toContractInteger(BigNumber.from(amount), c2.info.decimals));
+        await txResp.wait();
+        createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
+        setButtonStep('confirmed');
+        c2.refresh();
+      } catch (error) {
+        if (error.code === 4001) {
+          setButtonStep('rejected');
+        }
+      }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
-      setButtonStep('confirmed');
     },
     [c2]
   );
@@ -164,6 +167,7 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
               idleText={FormButtonText(values.recipient, values.amount, chainId)}
               submittingText="Deploying (this could take a sec)"
               confirmedText="Confirmed!"
+              rejectedText="You rejected the transaction. Click here to try again."
             />
           </FormButton>
         </Form>

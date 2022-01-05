@@ -30,11 +30,16 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
   const [, cashOut] = useAsyncFn(
     async (amount: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      const txResp = await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      await txResp.wait();
+      try {
+        const txResp = await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+        await txResp.wait();
+        setButtonStep('submitted');
+      } catch (error) {
+        if (error.code === 4001) {
+          setButtonStep('rejected');
+        }
+      }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      setButtonStep('submitted');
-      alert('Confirmed! You may need to refresh the page to see your updated credit amount');
     },
     [c2]
   );
@@ -42,11 +47,16 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
   const [, burnCredits] = useAsyncFn(
     async (amount: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      const txResp = await c2.contract.burn(toContractInteger(BigNumber.from(amount), c2.info.decimals));
-      await txResp.wait();
+      try {
+        const txResp = await c2.contract.burn(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+        await txResp.wait();
+        setButtonStep('submitted');
+      } catch (error) {
+        if (error.code === 4001) {
+          setButtonStep('rejected');
+        }
+      }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      setButtonStep('submitted');
-      alert('Confirmed! You may need to refresh the page to see your updated credit amount');
     },
     [c2]
   );
@@ -106,7 +116,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
               idleText={FormButtonText(values.action, values.amount, chainId)}
               submittingText="Deploying (this could take a sec)"
               confirmedText="Submitted"
-              rejectedText="transaction rejected"
+              rejectedText="You rejected the transaction. Click here to try again."
               failedText="transaction failed"
             />
           </button>

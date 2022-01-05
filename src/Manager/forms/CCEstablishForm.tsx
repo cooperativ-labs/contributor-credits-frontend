@@ -58,10 +58,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
       ? C2__factory.connect(cryptoAddress.address, signer)
       : C3__factory.connect(cryptoAddress.address, signer);
   const establishContract = async (): Promise<void> => {
-    dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     const txResp: TransactionResponse = await contract.establish(bacAddress, arrayify('0x' + agreementHash));
     await txResp.wait();
-    dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     console.log({ established: await contract.isEstablished() });
     return;
   };
@@ -137,29 +135,37 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           setAlerted(false);
           setSubmitting(true);
           setButtonStep('submitting');
-          await establishContract();
-          await addCcAgreement({
-            variables: {
-              userId: userId,
-              currentDate: currentDate,
-              organizationName: values.organizationName,
-              ccName: values.title,
-              ccType: type,
-              backingToken: values.backingToken,
-              availableContractId: id,
-              availableContractAddress: cryptoAddress.address,
-              protocol: cryptoAddress.protocol,
-              chainId: chainId,
-              agreementTitle: `${values.title} - Contributor Credit Agreement`,
-              triggerShortDescription: values.triggerShortDescription,
-              triggerCurrency: values.triggerCurrency,
-              financingTriggerAmount: values.financingTriggerAmount,
-              revenueTriggerAmount: values.revenueTriggerAmount,
-              agreementText: agreement,
-              signature: values.signature,
-            },
-          });
-          setButtonStep('confirmed');
+          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+          try {
+            await establishContract();
+            await addCcAgreement({
+              variables: {
+                userId: userId,
+                currentDate: currentDate,
+                organizationName: values.organizationName,
+                ccName: values.title,
+                ccType: type,
+                backingToken: values.backingToken,
+                availableContractId: id,
+                availableContractAddress: cryptoAddress.address,
+                protocol: cryptoAddress.protocol,
+                chainId: chainId,
+                agreementTitle: `${values.title} - Contributor Credit Agreement`,
+                triggerShortDescription: values.triggerShortDescription,
+                triggerCurrency: values.triggerCurrency,
+                financingTriggerAmount: values.financingTriggerAmount,
+                revenueTriggerAmount: values.revenueTriggerAmount,
+                agreementText: agreement,
+                signature: values.signature,
+              },
+            });
+            setButtonStep('confirmed');
+          } catch (error) {
+            if (error.code === 4001) {
+              setButtonStep('rejected');
+            }
+          }
+          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
           setSubmitting(false);
         }}
       >
@@ -282,6 +288,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
                 idleText="Sign & Establish"
                 submittingText="Deploying (this could take a sec)"
                 confirmedText="Confirmed!"
+                rejectedText="You rejected the transaction. Click here to try again."
               />
             </FormButton>
           </Form>
