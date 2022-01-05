@@ -1,4 +1,3 @@
-import ActionsBlock from '@src/Manager/pages/projects/ProjectActionsBlock';
 import Card from '@src/containers/Card';
 import CCClassCard from '../cards/CCClassCard';
 import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
@@ -10,6 +9,8 @@ import { unique } from '@src/utils/helpersGeneral';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import CreateCcClass from '@src/Manager/forms/CreateCcClass';
+import FormChainWarning from '../FormChainWarning';
 
 interface ClassCardListProps {
   user: User;
@@ -19,6 +20,8 @@ interface ClassCardListProps {
 }
 
 export const colStyle = 'col-span-1 uppercase text-sm font-bold text-gray-700';
+const HowToCreate =
+  "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
 
 const ClassCardList: FC<ClassCardListProps> = ({
   setSelectedClassId,
@@ -79,7 +82,11 @@ const ClassCardList: FC<ClassCardListProps> = ({
               );
           })}
         </div>
-        <ActionsBlock userId={user.id} />
+        <div className="md:w-96 p-6 pt-3 mt-4 border-2 border-gray-400 rounded-xl">
+          <div className="my-3 text-sm">{HowToCreate}</div>
+          <CreateCcClass userId={user.id} />
+          <FormChainWarning />
+        </div>
       </Card>
     );
   }
