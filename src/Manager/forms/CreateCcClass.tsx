@@ -19,16 +19,16 @@ const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
 type CreateCcClassProps = {
   userId: string;
-  setPreventClose: any;
 };
 
-const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
+const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const { library, chainId } = useWeb3React<Web3Provider>();
   const signer = library.getSigner();
   const [addUnestablishedSmartContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
+  const [alerted, setAlerted] = useState<boolean>(false);
   const router = useRouter();
 
   /** @TODO : need to put this somewhere it wont fail when closed */
@@ -52,16 +52,10 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
     [signer, chainId, userId]
   );
 
-  if (error) {
+  if (error && !alerted) {
     console.log(error);
     alert('Oops. Looks like something went wrong');
-  }
-
-  if (data) {
-    alert(
-      `Successfully deployed ${data.addSmartContractUnestablished.smartContractUnestablished[0].id} at ${data.addSmartContractUnestablished.smartContractUnestablished[0].cryptoAddress.address}`
-    );
-    router.reload();
+    setAlerted(true);
   }
 
   return (
@@ -77,10 +71,8 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId, setPreventClose }) => {
       }}
       onSubmit={async (values, { setSubmitting }) => {
         setButtonStep('submitting');
-        setPreventClose(true);
         await deploy(values.type);
         setButtonStep('confirmed');
-        setPreventClose(false);
       }}
     >
       {({ isSubmitting }) => (

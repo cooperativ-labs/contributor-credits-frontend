@@ -96,6 +96,9 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
         id
         owner {
           id
+          unestablishedSmartContracts {
+            id
+          }
         }
         cryptoAddress {
           id

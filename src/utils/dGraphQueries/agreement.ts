@@ -138,6 +138,7 @@ export const ADD_CC_PAYMENT = gql`
       }
     ) {
       agreement {
+        id
         payments {
           ...paymentData
         }
