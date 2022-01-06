@@ -44,26 +44,10 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
   console.log(data);
-  if (error) {
+  if (error || !alerted) {
     alert('Oops. Looks like something went wrong');
+    setAlerted(true);
   }
-
-  // const memberOptions = members?.map((projectUser) => {
-  //   /** @TODO : let people choose wallet for project */
-  //   //BREAKS when a user does not have a wallet address
-  //   if (projectUser.user.walletAddresses[0]) {
-  //     const walletAddress = projectUser.user.walletAddresses[0].address;
-  //     return {
-  //       value: {
-  //         address: walletAddress,
-  //         fullName: projectUser.user.fullName,
-  //         projectUser: projectUser,
-  //       },
-  //       label: `${projectUser.user.fullName} (...${walletAddress.substr(walletAddress.length - 4)})`,
-  //     };
-  //   }
-  //   return;
-  // });
 
   const createPayment = (
     agreementId: string,
