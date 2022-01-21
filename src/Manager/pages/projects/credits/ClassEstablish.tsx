@@ -1,6 +1,6 @@
 import axios from 'axios';
 import CCEstablishForm from '@src/Manager/forms/CCEstablishForm';
-import CryptoAddress from '@src/Manager/components/CryptoAddress';
+import FormattedCryptoAddress from '@src/Manager/components/FormattedCryptoAddress';
 import FormCard from '@src/Manager/components/cards/FormCard';
 import FormChainWarning from '@src/Manager/components/FormChainWarning';
 import LoadingModal from '@src/Manager/components/ModalLoading';
@@ -120,7 +120,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
       <div className="md:mx-4">
         <h1 className="text-3xl font-bold ">Establish New Class</h1>
         <div className="mb-6">
-          <CryptoAddress label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
+          <FormattedCryptoAddress label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
         </div>
 
         <div className="my-3 text-sm">{HowToCreate}</div>

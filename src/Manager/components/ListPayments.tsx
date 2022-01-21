@@ -1,4 +1,4 @@
-import CryptoAddress from './CryptoAddress';
+import FormattedCryptoAddress from './FormattedCryptoAddress';
 import ListItemPayment from './ListItemPayment';
 import React from 'react';
 import { Payment } from 'types';
@@ -17,7 +17,7 @@ const PaymentList: React.FC<ListProps> = ({ payments }) => {
       {payments.map((payment, i) => (
         <ListItemPayment
           key={i}
-          title={<CryptoAddress address={payment.recipient} chainId={chainId} withCopy />}
+          title={<FormattedCryptoAddress address={payment.recipient} chainId={chainId} withCopy />}
           amount={payment.amount}
           currency={payment.currency.code}
           date={payment.date}

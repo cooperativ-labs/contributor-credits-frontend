@@ -3,11 +3,10 @@ import React, { FC, useContext, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-import CryptoAddress from '../components/CryptoAddress';
+import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import FormButton from '../components/buttons/FormButton';
-import ReactiveSelect from './components/ReactiveSelect';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
-import { AgreementType, CurrencyCode } from 'types';
+import { CurrencyCode } from 'types';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
@@ -24,7 +23,7 @@ const FormButtonText = (recipient, amount, chainId) => {
     'Pay a team recipient'
   ) : (
     <div className="display: inline-block">
-      <CryptoAddress label={'Pay:'} address={recipient} chainId={chainId} className="text-white" />
+      <FormattedCryptoAddress label={'Pay:'} address={recipient} chainId={chainId} className="text-white" />
       {numberWithCommas(amount, 0)} Credits
     </div>
   );

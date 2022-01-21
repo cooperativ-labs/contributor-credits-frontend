@@ -21,22 +21,25 @@ export const GET_USERS = () => {
   `;
 };
 
-export const CHECK_USER_EXIST = () => {
+export const CHECK_EMAIL_TAKEN = () => {
   return gql`
-    query ($email: String!) {
-      getUser(email: $email) {
-        email
+    query ($address: String!) {
+      getEmailAddress(address: $address) {
+        address
       }
     }
   `;
 };
 
 export const GET_USER_FROM_EMAIL = gql`
-  query GetUser($email: String!) {
-    getUser(email: $email) {
-      id
-      email
-      displayName
+  query GetUserFromEmail($emailAddress: String!) {
+    getEmailAddress(address: $address) {
+      address
+      user {
+        id
+        displayName
+        fullName
+      }
     }
   }
 `;
@@ -46,29 +49,29 @@ export const GET_USER = gql`
   query GetUser($userId: ID!) {
     getUser(id: $userId) {
       id
-      email
+      emailAddresses {
+        address
+        name
+        description
+        public
+        user {
+          id
+        }
+      }
       displayName
       fullName
       profileImage
       biography
       expertise
       interests
-      social {
-        linkedin
-        github
-        discord
-        dribbble
-        instagram
-        facebook
-        twitter
-        medium
-        substack
-        youtube
-        soundcloud
-      }
       walletAddresses {
+        id
         name
         address
+        public
+        user {
+          id
+        }
       }
       organizations {
         organization {
@@ -108,20 +111,24 @@ export const ADD_USER_WITH_WALLET = gql`
       input: [
         {
           creationDate: $currentDate
-          email: $email
+          emailAddresses: { address: $email, public: false }
+          public: false
           walletAddresses: {
             name: "Primary wallet"
             address: $walletAddress
             protocol: ETH
             chainId: $chainId
             type: WALLET
+            public: false
           }
         }
       ]
     ) {
       user {
         id
-        email
+        emailAddresses {
+          address
+        }
         profileImage
         walletAddresses {
           name
@@ -163,7 +170,6 @@ export const UPDATE_USER_INFORMATION = gql`
     ) {
       user {
         id
-        email
         fullName
         displayName
         biography
@@ -174,56 +180,58 @@ export const UPDATE_USER_INFORMATION = gql`
   }
 `;
 
-export const UPDATE_USER_SOCIAL_ACCOUNTS = gql`
-  mutation (
-    $userId: [ID!]
-    $linkedin: String
-    $github: String
-    $discord: String
-    $dribbble: String
-    $instagram: String
-    $facebook: String
-    $twitter: String
-    $medium: String
-    $substack: String
-    $youtube: String
-    $soundcloud: String
-  ) {
-    updateUser(
-      input: {
-        filter: { id: $userId }
-        set: {
-          social: {
-            linkedin: $linkedin
-            github: $github
-            discord: $discord
-            dribbble: $dribbble
-            instagram: $instagram
-            facebook: $facebook
-            twitter: $twitter
-            medium: $medium
-            substack: $substack
-            youtube: $youtube
-            soundcloud: $soundcloud
+// USER EMAIL
+
+export const ADD_USER_EMAIL = gql`
+  mutation AddUserEmail($userId: ID!, $address: String!, $name: String, $description: String, $public: Boolean) {
+    addEmailAddress(
+      input: { address: $address, user: { id: $userId }, name: $name, description: $description, public: $public }
+    ) {
+      emailAddress {
+        address
+        user {
+          id
+          emailAddresses {
+            address
           }
         }
       }
-    ) {
+    }
+  }
+`;
+
+export const REMOVE_USER_EMAIL = gql`
+  mutation RemoveUserEmail($userId: [ID!], $emailAddress: String!) {
+    updateUser(input: { filter: { id: $userId }, remove: { emailAddresses: { address: $emailAddress } } }) {
+      numUids
       user {
         id
-        displayName
-        social {
-          linkedin
-          github
-          discord
-          dribbble
-          instagram
-          facebook
-          twitter
-          medium
-          substack
-          youtube
-          soundcloud
+        emailAddresses {
+          address
+        }
+      }
+    }
+    deleteEmailAddress(filter: { address: { eq: $emailAddress } }) {
+      msg
+    }
+  }
+`;
+
+export const UPDATE_EMAIL = gql`
+  mutation UpdateUserEmail($address: String!, $name: String, $description: String, $public: Boolean) {
+    updateEmailAddress(
+      input: { filter: { address: { eq: $address } }, set: { name: $name, description: $description, public: $public } }
+    ) {
+      emailAddress {
+        address
+        public
+        name
+        description
+        user {
+          id
+          walletAddresses {
+            address
+          }
         }
       }
     }

@@ -10,21 +10,85 @@ export const liveChain = (chainId) => {
   return false;
 };
 export const SupportedChainIds = [
-  { id: 1, name: 'Ethereum', blockExplorer: 'https://etherscan.io', protocol: CryptoAddressProtocol.Eth },
+  {
+    id: 1,
+    name: 'Ethereum',
+    blockExplorer: 'https://etherscan.io',
+    protocol: CryptoAddressProtocol.Eth,
+    icon: 'assets/images/chain-icons/ethereum-eth-logo.svg',
+    contractsSupported: true,
+  },
   {
     id: 3,
     name: 'Ropsten',
     blockExplorer: 'https://ropsten.etherscan.io',
     faucet: 'https://faucet.dimensions.network/',
     protocol: CryptoAddressProtocol.Eth,
+    contractsSupported: true,
   },
-  { id: 137, name: 'Polygon', blockExplorer: 'https://polygonscan.com', protocol: CryptoAddressProtocol.Matic },
+  {
+    id: 137,
+    name: 'Polygon',
+    blockExplorer: 'https://polygonscan.com',
+    protocol: CryptoAddressProtocol.Eth,
+    icon: 'assets/images/chain-icons/polygon-matic-logo.svg',
+    contractsSupported: true,
+  },
   {
     id: 80001,
     name: 'Polygon Mumbai',
     blockExplorer: 'https://mumbai.polygonscan.com/',
     faucet: 'https://faucet.matic.network/',
-    protocol: CryptoAddressProtocol.Matic,
+    protocol: CryptoAddressProtocol.Eth,
+    contractsSupported: true,
+  },
+  {
+    id: 43114,
+    name: 'Avalanche Mainnet',
+    blockExplorer: 'https://arbiscan.com/',
+    protocol: CryptoAddressProtocol.Eth,
+    icon: 'assets/images/chain-icons/arbitrum.svg',
+    contractsSupported: false,
+  },
+  {
+    id: 56,
+    name: 'Binance Smart Chain',
+    blockExplorer: 'https://bscscan.com/',
+    protocol: CryptoAddressProtocol.Eth,
+    icon: 'assets/images/chain-icons/binance-chain.svg',
+    contractsSupported: false,
+  },
+  {
+    id: 10,
+    name: 'Optimism',
+    blockExplorer: 'https://optimistic.etherscan.io/',
+    protocol: CryptoAddressProtocol.Eth,
+    icon: 'assets/images/chain-icons/optomism.png',
+    contractsSupported: false,
+  },
+  {
+    id: 100,
+    name: 'xDAI',
+    blockExplorer: 'https://blockscout.com/xdai/mainnet/',
+    protocol: CryptoAddressProtocol.Eth,
+    icon: 'assets/images/chain-icons/xdai.svg',
+    contractsSupported: false,
+  },
+  {
+    id: 4,
+    name: 'Rinkeby',
+    blockExplorer: 'https://rinkeby.etherscan.io/',
+    protocol: CryptoAddressProtocol.Eth,
+
+    contractsSupported: false,
+  },
+  {
+    id: 5,
+    name: 'Görli',
+    blockExplorer: 'https://goerli.etherscan.io/',
+    protocol: CryptoAddressProtocol.Eth,
+
+    contractsSupported: false,
   },
 ];
 

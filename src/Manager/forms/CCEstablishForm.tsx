@@ -180,7 +180,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               labelText="Paying organization's full legal name"
               name="organizationName"
               type="text"
-              placeholder="Cooperativ Labs Inc."
+              placeholder="e.g. Cooperativ Labs Inc."
               required
             />
             <Input
@@ -188,7 +188,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               labelText="Title this class"
               name="title"
               type="text"
-              placeholder="Early Contributors"
+              placeholder="e.g. Early Contributors"
               required
             />
             <Select className={fieldDiv} required name="backingToken" labelText="You promise to pay:">
@@ -208,7 +208,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
                   labelText="Financing Trigger"
                   name="financingTriggerAmount"
                   type="number"
-                  placeholder="2000000"
+                  placeholder="e.g. 2000000"
                   required
                 />
                 <Input
@@ -216,7 +216,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
                   labelText="Revenue Trigger"
                   name="revenueTriggerAmount"
                   type="number"
-                  placeholder="700000"
+                  placeholder="e.g. 700000"
                   required
                 />
                 <Select className={fieldDiv} required name="triggerCurrency" labelText="Your Triggers described in:">
@@ -239,7 +239,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
                   fieldHeight="h-32"
                   textArea
                   name="triggerShortDescription"
-                  placeholder="Sunshine Labs must fund contract after the third full moon."
+                  placeholder="e.g. Sunshine Labs must fund contract after the third full moon."
                 />
                 <div className="text-sm mt-5">
                   You can add styling to this text using{' '}
@@ -272,7 +272,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               className={fieldDiv}
               name="signature"
               type="text"
-              placeholder="Type your full legal name to sign"
+              placeholder="e.g. Type your full legal name to sign"
               labelText="Signature"
               required
             />

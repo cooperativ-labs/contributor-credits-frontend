@@ -9,6 +9,7 @@ export const CORE_USER_FIELDS = gql`
       id
       address
       name
+      public
     }
   }
 `;
@@ -106,7 +107,7 @@ export const CORE_AGREEMENT_SIGNATORY_FIELDS = gql`
       ...agreementData
     }
     user {
-      ...user
+      ...userData
     }
   }
 `;

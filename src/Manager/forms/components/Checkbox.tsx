@@ -10,9 +10,10 @@ export interface CheckboxProps {
 }
 export interface CustomCheckboxProps extends CheckboxProps {
   labelText?: string;
-  className: string;
+  className?: string;
   fieldClass?: string;
   fieldLabelClass?: string;
+  sideLabel?: boolean;
 }
 
 const Checkbox: React.FC<CustomCheckboxProps> = ({
@@ -24,13 +25,17 @@ const Checkbox: React.FC<CustomCheckboxProps> = ({
   className,
   fieldClass,
   fieldLabelClass,
+  sideLabel,
 }) => {
   return (
-    <div className={cn(className, 'flex flex-col')}>
+    <div className={cn(className, [sideLabel ? 'flex flex-row-reverse justify-end items-center' : 'flex flex-col'])}>
       {labelText && (
         <label
           htmlFor={name}
-          className={cn(fieldLabelClass ? fieldLabelClass : 'text-sm text-blue-900 font-semibold text-opacity-80')}
+          className={cn(
+            fieldLabelClass ? fieldLabelClass : 'text-sm text-blue-900 font-semibold text-opacity-80',
+            sideLabel && 'ml-2 mt-1'
+          )}
         >
           {labelText}
           {required ? ' *' : ''}

@@ -22,6 +22,23 @@ export const GET_CRYPTO_ADDRESS = gql`
   }
 `;
 
+export const UPDATE_CRYPTO_ADDRESS = gql`
+  mutation UpdateCryptoAddress($id: [ID!], $name: String, $public: Boolean) {
+    updateCryptoAddress(input: { filter: { id: $id }, set: { name: $name, public: $public } }) {
+      cryptoAddress {
+        id
+        name
+        address
+        public
+        description
+        user {
+          id
+        }
+      }
+    }
+  }
+`;
+
 export const GET_CONTRIBUTOR_CREDITS = gql`
   ${CORE_PAYMENT_FIELDS}
   ${CORE_AGREEMENT_FIELDS}

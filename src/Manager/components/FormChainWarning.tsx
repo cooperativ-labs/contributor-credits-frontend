@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import CryptoAddress from './CryptoAddress';
+import FormattedCryptoAddress from './FormattedCryptoAddress';
 import React, { FC, useState } from 'react';
 import { BigNumber } from 'ethers';
 import { C2Type } from '@src/web3/hooks/useC2';
@@ -53,7 +53,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ c2 }) => {
             {buttonStep === 'confirmed' && (
               <>
                 <div className="text-sm mt-2">Now add this token address to your wallet:</div>
-                <CryptoAddress chainId={chainId} address={c2.bacContract.address} />
+                <FormattedCryptoAddress chainId={chainId} address={c2.bacContract.address} />
               </>
             )}
           </div>
@@ -75,7 +75,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ c2 }) => {
         {buttonStep === 'confirmed' && (
           <>
             <div className="text-sm mt-2">Now add this token address to your wallet:</div>
-            <CryptoAddress chainId={chainId} address={c2.bacContract.address} />
+            <FormattedCryptoAddress chainId={chainId} address={c2.bacContract.address} />
           </>
         )}
       </div>

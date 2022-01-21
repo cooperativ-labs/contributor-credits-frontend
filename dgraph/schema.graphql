@@ -98,7 +98,6 @@ enum CryptoAddressProtocol {
 	ETH
 	BTC
 	ADA
-	MATIC
 }
 
 enum CryptoAddressType {
@@ -110,11 +109,14 @@ type CryptoAddress  {
 	id: ID!
 	name: String 
 	address: String! @id
+	description: String
 	protocol: CryptoAddressProtocol 
-	chainId: Int 
+	chainId: Int
 	type: CryptoAddressType 
+	public: Boolean @search
 	user: User @hasInverse(field:walletAddresses) 
 }
+
 
 """
 ORGANIZATION MODEL 
@@ -158,48 +160,24 @@ type OrganizationUser  {
 USER MODEL 
 """
 
-type UserLinkedCustomAccounts  {
-	name: String 
-	value: String 
-}
-
-type UserLinkedAccounts  {
-	linkedin: String 
-	github: String 
-	discord: String 
-	dribbble: String 
-	instagram: String 
-	facebook: String 
-	medium: String 
-	youtube: String 
-	customAccounts: [UserLinkedCustomAccounts] 
-}
-
-type UserSocial  {
-	linkedin: String 
-	github: String 
-	discord: String 
-	dribbble: String 
-	instagram: String 
-	facebook: String 
- twitter: String 
- medium: String 
- substack: String 
- youtube: String
- soundcloud: String
+type EmailAddress {
+	address: String! @id
+	name: String
+	description: String
+	public: Boolean @search
+	user: User @hasInverse(field:emailAddresses)
 }
 
 type User  {
 	id: ID! 
-	email: String! @id
+	emailAddresses: [EmailAddress!] @hasInverse(field:user)
 	displayName: String
 	fullName: String
 	profileImage: String 
 	biography: String 
-	social: UserSocial 
-	linkedAccounts: UserLinkedAccounts 
 	expertise: [String] 
 	interests: [String] 
+	public: Boolean @search
 	walletAddresses: [CryptoAddress] 
 	organizations: [OrganizationUser]
 	unestablishedSmartContracts: [SmartContractUnestablished] @hasInverse(field:owner)

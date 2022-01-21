@@ -1,6 +1,6 @@
 import BaseCard from './BaseCard';
 import cn from 'classnames';
-import CryptoAddress from '../CryptoAddress';
+import FormattedCryptoAddress from '../FormattedCryptoAddress';
 import Link from 'next/link';
 import React from 'react';
 import { SmartContractUnestablished } from 'types';
@@ -35,7 +35,7 @@ const UnestablishedContractCard: React.FC<UnestablishedContractCardProps> = ({ u
           {cryptoAddress.protocol}
         </div>
       </div>
-      <CryptoAddress address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
+      <FormattedCryptoAddress address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
       <Link href={`/app/establish/${id}`}>
         <div className="text-sm font-bold text-blue-800 uppercase mt-4 cursor-pointer">Click to establish</div>
       </Link>

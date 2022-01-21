@@ -1,9 +1,9 @@
 import ChooseConnectorButton from '../ChooseConnectorButton';
-import CryptoAddress from '../components/CryptoAddress';
+import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import MajorActionButton from '../components/buttons/MajorActionButton';
 import React from 'react';
 import { ADD_USER_WITH_WALLET } from '@src/utils/dGraphQueries/user';
-import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
+import { checkEmailTaken, currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { Form, Formik } from 'formik';
 import { Input } from './components/Inputs';
 import { useMutation } from '@apollo/client';
@@ -33,7 +33,7 @@ const CreateAccount = () => {
       initialValues={{
         email: '',
       }}
-      validate={(values) => {
+      validate={async (values) => {
         const errors: any = {}; /** @TODO : Shape */
         if (!walletAddress) {
           alert('Use of Contributor Credits requires a wallet');
@@ -42,6 +42,9 @@ const CreateAccount = () => {
           errors.email = 'Please include an email address';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
           errors.email = 'Invalid email address';
+        }
+        if (await checkEmailTaken(values.email)) {
+          errors.email = 'That email is taken';
         }
         return errors;
       }}
@@ -52,7 +55,7 @@ const CreateAccount = () => {
           addUser({
             variables: {
               currentDate: currentDate,
-              email: values.email,
+              email: values.email.toLowerCase(),
               walletAddress: walletAddress,
               chainId: chainId,
             },
@@ -72,7 +75,7 @@ const CreateAccount = () => {
                 <div className="text-sm">Linked wallet address:</div>
                 <div className="hidden md:flex md:text-lg font-bold text-gray-600">{walletAddress} </div>
                 <div className="md:hidden">
-                  <CryptoAddress chainId={chainId} address={walletAddress} className="text-large font-bold" />
+                  <FormattedCryptoAddress chainId={chainId} address={walletAddress} className="text-large font-bold" />
                 </div>
               </div>
             ) : (
