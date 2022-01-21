@@ -17,7 +17,6 @@ type WalletAddressListItemProps = {
 };
 
 const WalletAddressListItem: FC<WalletAddressListItemProps> = ({ wallet, withEdit }) => {
-  console.log(wallet);
   const { id, name, type, chainId, address, description, public: isPublic } = wallet;
   const [editOn, setEditOn] = useState<boolean>(false);
   const [alerted, setAlerted] = useState<boolean>(false);
