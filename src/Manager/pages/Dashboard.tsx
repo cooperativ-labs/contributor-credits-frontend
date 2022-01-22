@@ -22,13 +22,15 @@ const Dashboard: FC = () => {
   const { userId } = useContext(UserContext);
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
-  const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
+
+  const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
+
   if (!user) {
     return <></>;
   }
 
-  ///FOR CONVERTING TO NEW EMAIL ADDRESSES
+  ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
 
   if (!emailData && !error && user.emailAddresses.length < 1) {
     console.log(user.email);

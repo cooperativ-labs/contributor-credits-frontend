@@ -170,6 +170,7 @@ type EmailAddress {
 
 type User  {
 	id: ID! 
+	email: String
 	emailAddresses: [EmailAddress!] @hasInverse(field:user)
 	displayName: String
 	fullName: String
