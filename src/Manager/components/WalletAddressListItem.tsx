@@ -1,15 +1,15 @@
+import Checkbox from '../forms/components/Checkbox';
+import cn from 'classnames';
+import FormattedCryptoAddress from './FormattedCryptoAddress';
+import Input from '../forms/components/Inputs';
 import React, { FC, useState } from 'react';
 import { CryptoAddress, CryptoAddressType } from 'types';
-import { MatchSupportedChains } from '@src/web3/connectors';
-import cn from 'classnames';
-import { useMutation } from '@apollo/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Formik, Form } from 'formik';
-import Checkbox from '../forms/components/Checkbox';
-import Input from '../forms/components/Inputs';
+import { Form, Formik } from 'formik';
 import { MarkPublic } from '../forms/components/ListItemButtons';
+import { MatchSupportedChains } from '@src/web3/connectors';
 import { UPDATE_CRYPTO_ADDRESS } from '@src/utils/dGraphQueries/crypto';
-import FormattedCryptoAddress from './FormattedCryptoAddress';
+import { useMutation } from '@apollo/client';
 
 type WalletAddressListItemProps = {
   wallet: CryptoAddress;

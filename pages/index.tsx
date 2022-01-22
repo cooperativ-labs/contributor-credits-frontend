@@ -1,10 +1,10 @@
+import ContributorCreditsSection from '@src/landing/ContributorCreditsSection';
 import Footer from '@src/Footer/Footer';
 import Head from 'next/head';
 import LandingHeader from '@src/landing/LandingHeader';
 import React from 'react';
 import { NextPage } from 'next';
 import { ResultProps } from '@interfaces/types';
-import ContributorCreditsSection from '@src/landing/ContributorCreditsSection';
 const Application: NextPage<ResultProps> = () => {
   return (
     <div data-test="component-landing" className="bg-white flex flex-col w-full h-full">

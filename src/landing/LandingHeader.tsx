@@ -1,7 +1,7 @@
 import AlertBanner from '@src/components/Alerts/AlertBanner';
-import MarketingButton from '@src/components/Buttons/MarketingButton';
 import cn from 'classnames';
 import Link from 'next/link';
+import MarketingButton from '@src/components/Buttons/MarketingButton';
 import React, { FC } from 'react';
 import { useWindowSize } from 'react-use';
 

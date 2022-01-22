@@ -7,6 +7,7 @@ import PresentLegalText from '../components/PresentLegalText';
 import React, { FC, useContext, useState } from 'react';
 import Select from './components/Select';
 import { ADD_CC_AGREEMENT } from '@src/utils/dGraphQueries/agreement';
+import { ApplicationStoreProps, store } from '@context/store';
 import { arrayify } from 'ethers/lib/utils';
 import { bacOptions, currencyOptionsExcludeCredits } from '@src/utils/enumConverters';
 import { C2__factory, C3__factory } from 'types/web3';
@@ -17,11 +18,9 @@ import { sha256 } from 'js-sha256';
 import { SmartContractType, User } from 'types';
 import { SmartContractUnestablished } from 'types';
 import { TransactionResponse, Web3Provider } from '@ethersproject/providers';
-import { useMutation, useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useWeb3React } from '@web3-react/core';
-import { ApplicationStoreProps, store } from '@context/store';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -54,6 +53,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
 
   const agreementHash = sha256(agreement);
 
+  console.log(availableContract);
+
   const contract =
     type == SmartContractType.C2
       ? C2__factory.connect(cryptoAddress.address, signer)
@@ -71,8 +72,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   }
 
   const router = useRouter();
-  if (agreementData && !alerted) {
-    setAlerted(true);
+  if (agreementData) {
     router.push(`/app`);
   }
 
@@ -120,12 +120,12 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
             if (!values.backingToken || values.backingToken === '') {
               errors.member = 'Please select a Backing Currency';
             }
-            if (!values.financingTriggerAmount) {
-              errors.financingTriggerAmount = 'Please give your class a Financing Trigger';
+            if (!values.financingTriggerAmount || values.financingTriggerAmount < 0) {
+              errors.financingTriggerAmount = 'Please give your class a positive Financing Trigger';
             }
 
-            if (!values.revenueTriggerAmount) {
-              errors.revenueTriggerAmount = 'Please give your class a Revenue Trigger';
+            if (!values.revenueTriggerAmount || values.revenueTriggerAmount < 0) {
+              errors.revenueTriggerAmount = 'Please give your class a positive Revenue Trigger';
             }
           }
           if (!values.email) {

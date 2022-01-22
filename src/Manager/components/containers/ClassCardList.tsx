@@ -1,6 +1,8 @@
 import Card from '@src/containers/Card';
 import CCClassCard from '../cards/CCClassCard';
 import ChooseConnectorButton from '@src/Manager/ChooseConnectorButton';
+import CreateCcClass from '@src/Manager/forms/CreateCcClass';
+import FormChainWarning from '../FormChainWarning';
 import React, { FC } from 'react';
 import UnestablishedContractCard from '../cards/UnestablishedContractCard';
 import { ContributorCreditClass, User } from 'types';
@@ -9,8 +11,6 @@ import { unique } from '@src/utils/helpersGeneral';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import CreateCcClass from '@src/Manager/forms/CreateCcClass';
-import FormChainWarning from '../FormChainWarning';
 
 interface ClassCardListProps {
   user: User;

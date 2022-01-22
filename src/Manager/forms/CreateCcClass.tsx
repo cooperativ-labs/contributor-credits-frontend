@@ -1,6 +1,8 @@
 import FormButton from '../components/buttons/FormButton';
 import React, { FC, useContext, useState } from 'react';
+import Router, { useRouter } from 'next/router';
 import Select from './components/Select';
+import { ApplicationStoreProps, store } from '@context/store';
 import { CREATE_UNESTABLISHED_SMART_CONTRACT } from '@src/utils/dGraphQueries/crypto';
 import { deploy_c2_v0_1_3 } from '@web3/deploy/deployC2';
 import { deploy_c3_v1_0_0 } from '@web3/deploy/deployC3';
@@ -11,10 +13,8 @@ import { SmartContractType } from 'types';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
-import { ApplicationStoreProps, store } from '@context/store';
-import Router, { useRouter } from 'next/router';
 import { WalletErrorCodes } from '@src/web3/helpersChain';
+import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 

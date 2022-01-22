@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
 import EmailAddressListItem from './EmailAddressListItem';
+import React, { FC } from 'react';
 import { EmailAddress } from 'types';
 
 type EmailAddressListProps = {

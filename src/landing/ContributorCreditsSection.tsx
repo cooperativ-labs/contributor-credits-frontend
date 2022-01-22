@@ -1,8 +1,8 @@
 import Button from '@src/components/Buttons/Button';
+import ContractCard from '@src/components/SmartContractCard';
 import React, { FC, useState } from 'react';
 import TwoColumnLayout from '@src/Layouts/TwoColumnLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ContractCard from '@src/components/SmartContractCard';
 
 const contributorCreditsExplainer = (
   <div className="mt-5">

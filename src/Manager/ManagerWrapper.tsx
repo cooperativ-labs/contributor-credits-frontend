@@ -9,8 +9,8 @@ import NeedAccount from './components/ModalNeedAccount';
 import React, { FC, useContext } from 'react';
 import SetUserContext, { UserContext } from '@src/utils/SetUserContext';
 import SetWalletContext from '@src/web3/SetWalletContext';
-import WalletChooserModal from './WalletChooserModal';
 import WalletActionLockModel from './WalletActionLockModel';
+import WalletChooserModal from './WalletChooserModal';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 

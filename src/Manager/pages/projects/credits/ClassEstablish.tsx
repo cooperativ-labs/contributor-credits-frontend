@@ -129,31 +129,35 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
         </div>
 
         <div className="my-3 text-sm">{HowToCreate}</div>
-        {cryptoAddress.chainId === chainId ? (
-          <div className="md:mt-10 lg:grid grid-cols-5 gap-6">
-            <div className="col-span-2">
-              <div className="lg:sticky top-6">
-                <CCEstablishForm
-                  setAgreementContent={setAgreementContent}
-                  setCustomText={setCustomText}
-                  bacAddress={bacAddress}
-                  availableContract={availableContract}
-                  agreement={agreement}
-                  user={user}
-                />
-                <FormChainWarning />
+        {!availableContract.used ? (
+          cryptoAddress.chainId === chainId ? (
+            <div className="md:mt-10 lg:grid grid-cols-5 gap-6">
+              <div className="col-span-2">
+                <div className="lg:sticky top-6">
+                  <CCEstablishForm
+                    setAgreementContent={setAgreementContent}
+                    setCustomText={setCustomText}
+                    bacAddress={bacAddress}
+                    availableContract={availableContract}
+                    agreement={agreement}
+                    user={user}
+                  />
+                  <FormChainWarning />
+                </div>
+              </div>
+              <div className="hidden md:flex border-t-1 lg:border-0 flex col-span-3 md:max-w-max">
+                <PresentLegalText agreement={agreement} />
               </div>
             </div>
-            <div className="hidden md:flex border-t-1 lg:border-0 flex col-span-3 md:max-w-max">
-              <PresentLegalText agreement={agreement} />
+          ) : (
+            <div className="font-bold text-center">
+              Please switch to the{' '}
+              <span className="text-yellow-600">{MatchSupportedChains(cryptoAddress.chainId).name} </span> network to
+              establish this class.
             </div>
-          </div>
+          )
         ) : (
-          <div className="font-bold text-center">
-            Please switch to the{' '}
-            <span className="text-yellow-600">{MatchSupportedChains(cryptoAddress.chainId).name} </span> network to
-            establish this class.
-          </div>
+          <div className="font-bold text-center">The smart contract at this address has already been established.</div>
         )}
       </div>
     </div>

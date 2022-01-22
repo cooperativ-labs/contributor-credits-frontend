@@ -1,15 +1,16 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import { useMutation } from '@apollo/client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { REMOVE_USER_EMAIL, UPDATE_EMAIL } from '@src/utils/dGraphQueries/user';
-import { EmailAddress } from 'types';
-import { EditButton, MarkPublic } from '../forms/components/ListItemButtons';
+
 import Checkbox from '../forms/components/Checkbox';
 import Input from '../forms/components/Inputs';
+import { EditButton, MarkPublic } from '../forms/components/ListItemButtons';
+import { EmailAddress } from 'types';
 
 type EmailAddressListItemProps = {
   email: EmailAddress;

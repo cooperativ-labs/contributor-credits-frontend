@@ -2,6 +2,7 @@ import cn from 'classnames';
 import Input from './components/Inputs';
 import React, { FC, useContext, useState } from 'react';
 import Select from './components/Select';
+import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { Form, Formik } from 'formik';
@@ -9,7 +10,6 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
-import { ApplicationStoreProps, store } from '@context/store';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 

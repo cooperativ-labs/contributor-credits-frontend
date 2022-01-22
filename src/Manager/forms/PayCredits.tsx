@@ -6,15 +6,15 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import FormButton from '../components/buttons/FormButton';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
-import { CurrencyCode } from 'types';
+import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
+import { CurrencyCode } from 'types';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
-import { ApplicationStoreProps, store } from '@context/store';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -42,8 +42,8 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
-  console.log(data);
-  if (error || !alerted) {
+
+  if (error && !alerted) {
     alert('Oops. Looks like something went wrong');
     setAlerted(true);
   }
@@ -103,6 +103,8 @@ const PayCredits: FC<PayCreditsProps> = ({ c2, ccId, chainId, agreementId }) => 
           errors.amount = 'Please include an amount';
         } else if (typeof values.amount !== 'number') {
           errors.amount = 'Amount must be a number';
+        } else if (values.amount < 0) {
+          errors.amount = 'Amount must be a positive number';
         }
         if (values.note.length > 160) {
           errors.note = 'This note can only be 160 characters long.';

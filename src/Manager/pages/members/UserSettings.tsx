@@ -1,14 +1,14 @@
-import { useQuery } from '@apollo/client';
-import FormCard from '@src/Manager/components/cards/FormCard';
 import EmailAddressList from '@src/Manager/components/EmailAddressList';
+import FormCard from '@src/Manager/components/cards/FormCard';
 import Loading from '@src/Manager/components/Loading';
-import WalletAddressList from '@src/Manager/components/WalletAddressList';
+import React, { FC, useContext } from 'react';
 import SettingsUserEmails from '@src/Manager/forms/SettingsUserEmails';
 import SettingsUserPersonalInfo from '@src/Manager/forms/SettingsUserPersonalInfo';
 import SettingsUserWallets from '@src/Manager/forms/SettingsUserWallets';
+import WalletAddressList from '@src/Manager/components/WalletAddressList';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
+import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
-import React, { FC, useContext } from 'react';
 
 const UserSettings: FC = () => {
   const { userId } = useContext(UserContext);

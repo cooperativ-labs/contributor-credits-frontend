@@ -69,9 +69,11 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
       </div>
       <ClassStatusBlock cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
 
-      <SectionBlock sectionTitle="Payments" className="mt-6">
-        {allPayments.length > 0 ? displayPayments() : 'No payments have yet been made from this class'}
-      </SectionBlock>
+      {allPayments.length > 0 && (
+        <SectionBlock sectionTitle="Payments" className="mt-6">
+          {displayPayments()}
+        </SectionBlock>
+      )}
 
       <ClassActions name={name} chainId={cryptoAddress.chainId} c2={c2} ccId={id} agreementId={agreement.id} />
       <div className="mt-5">

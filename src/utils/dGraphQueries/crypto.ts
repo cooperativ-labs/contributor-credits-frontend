@@ -78,6 +78,7 @@ export const GET_AVAILABLE_CONTRACT = gql`
     getSmartContractUnestablished(id: $id) {
       id
       type
+      used
       cryptoAddress {
         address
         protocol
