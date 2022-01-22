@@ -1,4 +1,3 @@
-//access to user's settings
 import Card from '@src/containers/Card';
 import CCClassDetails from '../components/containers/ClassDetails';
 import ClassCardList from '../components/containers/ClassCardList';
@@ -7,8 +6,8 @@ import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import React, { FC, useContext, useState } from 'react';
 import { Agreement } from 'types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
-import { useQuery } from '@apollo/client';
+import { ADD_USER_EMAIL, GET_USER } from '@src/utils/dGraphQueries/user';
+import { useMutation, useQuery } from '@apollo/client';
 import { User } from 'types';
 import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
@@ -23,10 +22,27 @@ const Dashboard: FC = () => {
   const { userId } = useContext(UserContext);
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
+  const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
   if (!user) {
     return <></>;
   }
+
+  ///FOR CONVERTING TO NEW EMAIL ADDRESSES
+
+  if (!emailData && !error && user.emailAddresses.length < 1) {
+    try {
+      addUserEmails({
+        variables: {
+          userId: user.id,
+          address: user.email,
+          public: false,
+        },
+      });
+    } catch (err) {}
+  }
+
+  ///-------------------------
 
   const { unestablishedSmartContracts, agreements } = user;
 
