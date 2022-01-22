@@ -24,6 +24,7 @@ const Dashboard: FC = () => {
   const user = userData?.getUser;
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
 
+  ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
   const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
 
   if (!user) {
@@ -33,7 +34,6 @@ const Dashboard: FC = () => {
   ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
 
   if (!emailData && !error && user.emailAddresses.length < 1) {
-    console.log(user.email);
     try {
       addUserEmails({
         variables: {
@@ -44,8 +44,6 @@ const Dashboard: FC = () => {
       });
     } catch (err) {}
   }
-
-  console.log({ emailData, error });
 
   ///-------------------------
 
