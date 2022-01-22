@@ -8,6 +8,10 @@ export const GET_USERS = () => {
         id
         fullName
         email
+        emailAddresses {
+          address
+          public
+        }
         agreements {
           agreement {
             organizationName
