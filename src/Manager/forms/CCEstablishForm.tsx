@@ -14,7 +14,7 @@ import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { Form, Formik } from 'formik';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { sha256 } from 'js-sha256';
-import { SmartContractType } from 'types';
+import { SmartContractType, User } from 'types';
 import { SmartContractUnestablished } from 'types';
 import { TransactionResponse, Web3Provider } from '@ethersproject/providers';
 import { useMutation, useQuery } from '@apollo/client';
@@ -25,13 +25,14 @@ import { ApplicationStoreProps, store } from '@context/store';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
-interface CCEstablishFormProps {
+type CCEstablishFormProps = {
   setAgreementContent: any;
   availableContract: SmartContractUnestablished;
   bacAddress?: string;
   agreement: string;
   setCustomText: any;
-}
+  user: User;
+};
 
 const CCEstablishForm: FC<CCEstablishFormProps> = ({
   setAgreementContent,
@@ -39,13 +40,13 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   bacAddress,
   agreement,
   setCustomText,
+  user,
 }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const { chainId, library } = useWeb3React<Web3Provider>();
   const [alerted, setAlerted] = useState<boolean>(false);
   const signer = library.getSigner();
-  const { userId } = useContext(UserContext);
   const { cryptoAddress, type, id } = availableContract;
   //Feels a bit sketchy getting project from the unestablished contract here
 
@@ -91,6 +92,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           revenueTriggerAmount: undefined,
           triggerShortDescription: '',
           triggerText: '',
+          email: user.walletAddresses[0],
           signature: '',
         }}
         validate={(values) => {
@@ -126,6 +128,9 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
               errors.revenueTriggerAmount = 'Please give your class a Revenue Trigger';
             }
           }
+          if (!values.email) {
+            errors.email = 'You must select an email address';
+          }
           if (!values.signature) {
             errors.signature = 'You must sign this class to establish it';
           }
@@ -140,7 +145,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
             await establishContract();
             await addCcAgreement({
               variables: {
-                userId: userId,
+                userId: user.id,
                 currentDate: currentDate,
                 organizationName: values.organizationName,
                 ccName: values.title,
@@ -268,6 +273,16 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
             <div className="md:hidden">
               <PresentLegalText agreement={agreement} />
             </div>
+            <Select className={fieldDiv} required name="email" labelText="Email Address">
+              <option value="">Select an email to associate</option>;
+              {user.emailAddresses.map((email, i) => {
+                return (
+                  <option key={i} value={email.address}>
+                    {email.address}
+                  </option>
+                );
+              })}
+            </Select>
             <Input
               className={fieldDiv}
               name="signature"

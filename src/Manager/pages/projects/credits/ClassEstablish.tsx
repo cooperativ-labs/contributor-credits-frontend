@@ -3,7 +3,6 @@ import CCEstablishForm from '@src/Manager/forms/CCEstablishForm';
 import FormattedCryptoAddress from '@src/Manager/components/FormattedCryptoAddress';
 import FormCard from '@src/Manager/components/cards/FormCard';
 import FormChainWarning from '@src/Manager/components/FormChainWarning';
-import LoadingModal from '@src/Manager/components/ModalLoading';
 import PresentLegalText from '@src/Manager/components/PresentLegalText';
 import React, { useContext, useState } from 'react';
 import { currencyOptions } from '@src/utils/enumConverters';
@@ -17,7 +16,6 @@ import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { ApplicationStoreProps, store } from '@context/store';
 
 const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
@@ -30,6 +28,7 @@ export type AgreementContentType = {
   revenueTriggerAmount: number;
   triggerText: string;
   signature: string;
+  email: string;
 };
 
 type AgreementText = {
@@ -48,6 +47,10 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
   const user = userData?.getUser;
 
+  // if (!user) {
+  //   return <Loading />;
+  // }
+
   const [agreementContent, setAgreementContent] = useState<AgreementContentType>({
     organizationName: '',
     backingToken: '',
@@ -55,6 +58,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
     financingTriggerAmount: null,
     revenueTriggerAmount: null,
     triggerText: '',
+    email: '',
     signature: '',
   });
 
@@ -81,6 +85,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
     triggerCurrency,
     financingTriggerAmount,
     revenueTriggerAmount,
+    email,
     signature,
   } = agreementContent;
 
@@ -109,7 +114,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
       triggerText: triggerText,
       signature: signature,
       signerAddress: account,
-      signerEmail: user.email,
+      signerEmail: email,
       isNotMainnet: !isMainNet,
     },
     setText ?? ''
@@ -134,6 +139,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
                   bacAddress={bacAddress}
                   availableContract={availableContract}
                   agreement={agreement}
+                  user={user}
                 />
                 <FormChainWarning />
               </div>
