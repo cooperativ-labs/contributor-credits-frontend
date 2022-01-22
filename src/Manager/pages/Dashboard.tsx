@@ -30,7 +30,7 @@ const Dashboard: FC = () => {
 
   ///FOR CONVERTING TO NEW EMAIL ADDRESSES
 
-  if (user.emailAddresses.length < 1) {
+  if (!emailData && !error && user.emailAddresses.length < 1) {
     console.log(user.email);
     try {
       addUserEmails({
