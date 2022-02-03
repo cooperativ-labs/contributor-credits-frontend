@@ -50,8 +50,8 @@ export const GET_USER_FROM_EMAIL = gql`
 
 export const GET_USER = gql`
   ${CORE_AGREEMENT_FIELDS}
-  query GetUser($userId: ID!) {
-    getUser(id: $userId) {
+  query queryUser($userId: [ID!]) {
+    queryUser(filter: { id: $userId }) {
       id
       ##this email is legacy and can removed after everyone has an email under the new structure
       email
@@ -112,11 +112,12 @@ export const GET_USER = gql`
 `;
 
 export const ADD_USER_WITH_WALLET = gql`
-  mutation AddUser($currentDate: DateTime!, $email: String!, $walletAddress: String!, $chainId: Int!) {
+  mutation AddUser($currentDate: DateTime!, $email: String!, $walletAddress: String!, $chainId: Int!, $uuid: String!) {
     addUser(
       input: [
         {
           creationDate: $currentDate
+          uuid: $uuid
           emailAddresses: { address: $email, public: false }
           public: false
           walletAddresses: {

@@ -38,9 +38,9 @@ export const NetworkIndicatorDot: FC<NetworkIndicatorDotProps> = ({ chainId, wal
 
 const NetworkIndicator: FC = () => {
   const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
-  const { userId, loading: loadingUser } = useContext(UserContext);
-  const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
+  const { uuid, loading: loadingUser } = useContext(UserContext);
+  const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { userId: uuid } });
+  const user = userData?.queryUser[0];
 
   const whichWallet = `with ${user?.walletAddresses.find((userWallet) => userWallet.address === walletAddress)?.name}`;
 

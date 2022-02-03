@@ -20,3 +20,5 @@ yarn-error.log*
 
 types/
 node_modules
+
+FirebaseSettingsLocal.ts

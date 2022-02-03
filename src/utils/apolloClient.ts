@@ -1,37 +1,56 @@
+import { useMemo } from 'react';
+import fireApp from 'firebaseConfig/firebaseConfig';
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { useMemo } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
 
-// using setup from: https://www.apollographql.com/blog/apollo-client/next-js/building-a-next-js-app-with-slash-graphql/
-
-let apolloClient;
+// // const analytics = getAnalytics(app);
 
 const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
   credentials: 'same-origin',
 });
 
-const authLink = setContext((_, { headers }) => {
-  // const token = localStorage.getItem('token');
-  const key = process.env.NEXT_PUBLIC_NETLIFY_CLIENT_CC;
-  return {
-    headers: {
-      ...headers,
-      'DG-Auth': key ?? undefined,
-    },
-  };
+const auth = getAuth();
+
+const authLink = setContext(() => {
+  auth.onAuthStateChanged(async (user) => {
+    console.log(user);
+    if (user) {
+      user.getIdToken().then((token) => {
+        console.log(token);
+        return {
+          headers: {
+            'X-Auth-Token': token,
+            // 'DG-Auth': key ?? undefined,
+          },
+        };
+      });
+    }
+    return {
+      headers: {
+        'X-Auth-Token': undefined,
+        // 'DG-Auth': key ?? undefined,
+      },
+    };
+  });
 });
 
-function createApolloClient() {
-  return new ApolloClient({
-    link: process.env.NODE_ENV === 'production' ? authLink.concat(httpLink) : httpLink,
-    cache: new InMemoryCache(),
-    ssrMode: typeof window === 'undefined',
-  });
-}
+const createApolloClient = new ApolloClient({
+  // link: token ? authLink.concat(httpLink) : httpLink,
+  link: authLink.concat(httpLink),
+  // link: httpLink,
+  // link: process.env.NODE_ENV === 'production' ? authLink.concat(httpLink) : httpLink,
+  cache: new InMemoryCache(),
+  ssrMode: typeof window === 'undefined',
+});
 
 export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient();
+  let apolloClient;
+
+  const _apolloClient = apolloClient ?? createApolloClient;
 
   // If your page has Next.js data fetching methods that use Apollo Client,
   // the initial state gets hydrated here

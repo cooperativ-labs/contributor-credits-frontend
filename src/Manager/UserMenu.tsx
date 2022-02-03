@@ -17,7 +17,7 @@ type UserMenuProps = {};
 const UserMenu: FC<UserMenuProps> = ({}) => {
   const { userId } = useContext(UserContext);
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
+  const user = userData?.queryUser[0];
 
   const { account: walletAddress, chainId, active } = useWeb3React<Web3Provider>();
   const [open, setOpen] = useState<boolean>(false);

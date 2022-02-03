@@ -11,9 +11,9 @@ import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 
 const UserSettings: FC = () => {
-  const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
+  const { uuid } = useContext(UserContext);
+  const { data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
+  const user = userData?.queryUser[0];
 
   if (!user) {
     return <Loading />;

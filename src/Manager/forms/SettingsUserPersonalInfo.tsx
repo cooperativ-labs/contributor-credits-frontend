@@ -28,7 +28,6 @@ const SettingUserPersonalInfo = ({ user }) => {
   return (
     <Formik
       initialValues={{
-        email: user.email,
         fullName: user.fullName,
         displayName: user.displayName,
         profileImage: user.profileImage,
@@ -38,11 +37,7 @@ const SettingUserPersonalInfo = ({ user }) => {
       }}
       validate={(values) => {
         const errors: any = {}; /** @TODO : Shape */
-        if (!values.email) {
-          errors.email = 'Please include an email address.';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-          errors.email = 'Invalid email address';
-        }
+
         // @ts-ignore - we turn these into strings, then turn them back into arrays before submission
         if (/[^a-z A-Z 0-9,.'-]/.test(values?.expertise)) {
           errors.expertise = 'Please only use letters, numbers, spaces, and commas.';
@@ -65,7 +60,6 @@ const SettingUserPersonalInfo = ({ user }) => {
             userId: userId,
             //email is used as an @id field, which is not currently mutable in dGraph
             //They will be updating this in July 21, so we should allow change of email after that update
-            email: values.email,
             fullName: values.fullName,
             displayName: values.displayName,
             profileImage: values.profileImage,
@@ -90,14 +84,6 @@ const SettingUserPersonalInfo = ({ user }) => {
             type="text"
             placeholder="Moritz Zimmermann"
           />
-          {/* <Input
-            className={fieldDiv}
-            required
-            labelText="Email address"
-            name="email"
-            type="email"
-            placeholder="moritz@bonuslife.com"
-          /> */}
           <Input
             className={fieldDiv}
             labelText="Profile image"

@@ -13,10 +13,10 @@ const ManagerSideBar: FC = () => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchSidebar, ManagerSidebarOpen } = applicationStore;
 
-  const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { uuid } = useContext(UserContext);
+  const { data: userData } = useQuery(GET_USER, { variables: { uid: uuid } });
 
-  const user = userData?.getUser;
+  const user = userData?.queryUser[0];
 
   if (!user) {
     return <></>;

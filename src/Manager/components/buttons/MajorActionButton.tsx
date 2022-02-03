@@ -26,7 +26,7 @@ export const MajorActionButton: FC<MajorActionButtonProps> = ({
       className={cn(
         !disabled ? buttonGradient : 'bg-gray-300',
         className,
-        'text-white font-bold uppercase my-8 rounded p-4'
+        'text-white font-bold uppercase my-8 rounded p-4 w-full'
       )}
       {...rest}
     >

@@ -53,8 +53,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
 
   const agreementHash = sha256(agreement);
 
-  console.log(availableContract);
-
   const contract =
     type == SmartContractType.C2
       ? C2__factory.connect(cryptoAddress.address, signer)

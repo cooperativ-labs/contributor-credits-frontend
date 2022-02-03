@@ -77,7 +77,8 @@ export async function checkEmailTaken(emailAddress: string) {
       },
       query: CHECK_EMAIL_TAKEN(),
     });
-    return result.data.getUser ? true : false;
+    console.log(result.data.getEmailAddress);
+    return result.data.getEmailAddress ? true : false;
   } catch (err) {
     console.log('checkemail', err);
   }

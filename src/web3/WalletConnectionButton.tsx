@@ -1,11 +1,13 @@
 import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { GetConnector, MatchSupportedChains } from './connectors';
 import { useRouter } from 'next/router';
 import { useWeb3React } from '@web3-react/core';
 import { WalletErrorCodes, WalletErrorMessages } from './helpersChain';
 import { Web3Provider } from '@ethersproject/providers';
+import { WalletOwnerContext } from '@src/SetAppContext';
+import { AuthService } from 'firebaseConfig/firebaseConfig';
 declare let window: any;
 
 interface WalletConnectButtonProps {
@@ -22,19 +24,24 @@ export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, cl
     setSelectedConnector(GetConnector(selection));
   }, [setSelectedConnector]);
   const router = useRouter();
-  const { activate, error, chainId } = useWeb3React<Web3Provider>();
+  const { account: walletAddress, library, activate, error, chainId } = useWeb3React<Web3Provider>();
 
   useEffect(() => {
     const ethereum = window.ethereum;
     setWalletExists(ethereum !== undefined);
   }, [setWalletExists]);
 
-  function TestAndActivateWallet() {
+  async function TestAndActivateWallet() {
+    const signer = library.getSigner();
     if (walletExists) {
       if (MatchSupportedChains(chainId)) {
-        activate(selectedConnector).catch((err) => {
+        try {
+          await activate(selectedConnector);
+          await AuthService(signer, walletAddress);
+        } catch (err) {
+          console.log(err);
           alert(WalletErrorCodes(err));
-        });
+        }
       } else {
         alert(
           chainId === undefined ? WalletErrorMessages.NeedToApproveConnection : WalletErrorMessages.OnIncompatibleChain

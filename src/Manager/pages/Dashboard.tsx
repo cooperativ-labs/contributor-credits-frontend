@@ -19,10 +19,12 @@ export const ContractManager = (agreement: Agreement, user: User) => {
 
 const Dashboard: FC = () => {
   const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
-  const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
+  const { uuid } = useContext(UserContext);
+  const { data: userData, error: userError } = useQuery(GET_USER, { variables: { uuid: uuid } });
+  const user = userData?.queryUser[0];
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
+
+  console.log('hi', uuid, userError);
 
   ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
   const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
@@ -37,7 +39,7 @@ const Dashboard: FC = () => {
     try {
       addUserEmails({
         variables: {
-          userId: userId,
+          userId: uuid,
           address: user.email,
           public: false,
         },

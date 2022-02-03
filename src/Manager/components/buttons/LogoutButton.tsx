@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 import router from 'next/router';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { getAuth, signOut } from 'firebase/auth';
 
 const LogoutButton: FC = () => {
   const { deactivate, connector } = useWeb3React<Web3Provider>();
@@ -15,13 +16,20 @@ const LogoutButton: FC = () => {
   }, []);
 
   const outlinedClass = `text-cLightBlue hover:text-white bg-opacity-100 hover:bg-opacity-1 hover:bg-cDarkBlue border-2 border-cLightBlue hover:border-white`;
-
+  const auth = getAuth();
   function handleDisconnect() {
     connector && selectionStorage.CHOSEN_CONNECTOR !== 'injected' && (connector as any).close();
     deactivate();
     selectionStorage?.removeItem('CHOSEN_CONNECTOR');
     selectionStorage?.removeItem('USER_ID');
-    router.reload();
+
+    signOut(auth)
+      .then(() => {
+        router.reload();
+      })
+      .catch((error) => {
+        console.log('// An error happened.');
+      });
   }
   return (
     <Button

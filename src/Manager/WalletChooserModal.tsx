@@ -13,6 +13,7 @@ type WalletChooserModalProps = {
 const WalletChooserModal: FC<WalletChooserModalProps> = ({ noModal }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletModal, WalletModalOpen } = applicationStore;
+
   const windowSize = useWindowSize();
   useEffect(() => {
     if (WalletModalOpen && windowSize.width > 768) {

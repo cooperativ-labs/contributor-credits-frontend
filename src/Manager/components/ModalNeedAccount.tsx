@@ -10,10 +10,7 @@ const NeedAccount: FC<NeedAccountProps> = ({}) => {
         <div className="mx-auto min-h-full">
           <div className="flex flex-grow justify-center h-full z-10">
             <div className="md:flex flex-col h-full w-full items-center pt-20">
-              <div
-                className="flex-col px-4 pb-10 md:py-10 md:bg-white md:rounded-lg md:shadow-xl w-full"
-                style={{ maxWidth: '600px' }}
-              >
+              <div className="flex-col px-4 pb-10  w-full" style={{ maxWidth: '600px' }}>
                 <div className="px-3  md:mx-2">
                   <CreateAccount />
                 </div>

@@ -7,7 +7,7 @@ declare let window: any;
 
 const SetWalletContext: React.FC<React.ReactNode> = ({ children }) => {
   const [tried, setTried] = useState(false);
-  const { activate, active } = useWeb3React<Web3Provider>();
+  const { activate, active, library } = useWeb3React<Web3Provider>();
   const [selectedConnector, setSelectedConnector] = useState(undefined);
 
   useEffect(() => {
@@ -23,25 +23,23 @@ const SetWalletContext: React.FC<React.ReactNode> = ({ children }) => {
       .then((res) => setTried(true));
   }
 
-  // Managing chain and address changes
-  useEffect(() => {
-    const ethereum = window.ethereum;
-    if (ethereum) {
-      // ethereum.send('eth_requestAccounts').then((accounts: string[]) => {
-      //   console.log(`User's address is ${accounts[0]}`);
-      // });
-      // ethereum.on('accountsChanged', (accounts: Array<string>) => {
-      //   console.log('Changed Account', accounts);
-      //   router.reload();
-      // });
-      // ethereum.on('chainChanged', (chainId: Array<string>) => {
-      //   console.log('Changed Chain', chainId);
-      // });
-      // ethereum.on('disconnect', (code: number, reason: string) => {
-      //   console.log(code, reason);
-      // });
-    }
-  });
+  // const [, GetWalletSignature] = useAsyncFn(async () => {
+  //   const signer = library.getSigner();
+  //   try {
+  //     const signed = await signer.signMessage(
+  //       'Clicking confirm below logs you in by proving you own this wallet address'
+  //     );
+  //     setSignedInfo(signed);
+  //     return signed;
+  //   } catch (err) {}
+  //   return;
+  // }, [hasAuth, setHasAuth]);
+
+  // useEffect(() => {
+  //   if (active && !signedInfo) {
+  //     GetWalletSignature();
+  //   }
+  // }, [active, signedInfo]);
 
   return <>{children}</>;
 };

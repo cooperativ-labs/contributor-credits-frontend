@@ -7,13 +7,6 @@ import { useQuery } from '@apollo/client';
 import { UserContext } from '@src/utils/SetUserContext';
 
 const Flows: FC = () => {
-  const { userId, loading: loadingUser } = useContext(UserContext);
-  const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
-  if (!user) {
-    return <LoadingModal />;
-  }
-
   return (
     <div>
       <div className="uppercase font-bold text-cLightBlue text-sm mb-4">Payment flows</div>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import CCEstablishForm from '@src/Manager/forms/CCEstablishForm';
 import FormattedCryptoAddress from '@src/Manager/components/FormattedCryptoAddress';
-import FormCard from '@src/Manager/components/cards/FormCard';
 import FormChainWarning from '@src/Manager/components/FormChainWarning';
 import PresentLegalText from '@src/Manager/components/PresentLegalText';
 import React, { useContext, useState } from 'react';
@@ -45,7 +44,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
   const { userId } = useContext(UserContext);
   const [customText, setCustomText] = useState<boolean>();
   const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
-  const user = userData?.getUser;
+  const user = userData?.queryUser[0];
 
   // if (!user) {
   //   return <Loading />;

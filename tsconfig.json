@@ -64,7 +64,7 @@
     "__mocks__/styleMock.js",
     "data/devServer.js",
     "context/store.tsx"
-  ],
+, "functions/src/index.js", "functions/index.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -6,7 +6,7 @@ import { Web3Provider } from '@ethersproject/providers';
 
 const EnsureCompatibleNetwork = ({ children }: { children: any }) => {
   const { active, chainId } = useWeb3React<Web3Provider>();
-  if (!active || MatchSupportedChains(chainId)) {
+  if (!active || MatchSupportedChains(chainId)?.contractsSupported) {
     return children;
   } else {
     return (

@@ -3,10 +3,11 @@
 # Dgraph.Allow-Origin "https://www.contributorcredits.com"
 # Dgraph.Allow-Origin "https://cloud.dgraph.io"
 # Dgraph.Allow-Origin "http://localhost:3000"
+
 """
 AGREEMENT MODEL 
 """
-type AgreementSignatory  {
+type AgreementSignatory {
 	id: ID!
 	agreement: Agreement! @hasInverse(field:signatories) 
 	user: User @hasInverse(field:agreements) 
@@ -105,10 +106,29 @@ enum CryptoAddressType {
 	CONTRACT
 }
 
-type CryptoAddress  {
+type CryptoAddress  @auth (
+			add: { rule: """
+						query($UUID: String!) {
+								queryCryptoAddress { 
+									user ( filter: {uuid: { eq: $UUID }}) {
+																__typename
+												}
+									}
+							}""" 
+					} 
+				update: { rule: """
+				query($UUID: String!) {
+						queryCryptoAddress { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}""" 
+		 } 
+ ) {
 	id: ID!
-	name: String 
 	address: String! @id
+	name: String 
 	description: String
 	protocol: CryptoAddressProtocol 
 	chainId: Int
@@ -160,19 +180,49 @@ type OrganizationUser  {
 USER MODEL 
 """
 
-type EmailAddress {
+type EmailAddress 
+# @auth (
+  # add: { rule: """
+		# 		query($user_id: String!) {
+		# 			queryEmailAddress { 
+		# 				user ( filter: {uuid: { eq: $user_id }}) {
+		# 											__typename
+		# 							}
+		# 					}
+		# 			}""" 
+		#  } 
+		# delete: { rule: """
+		# 		query($user_id: String!) {
+		# 				queryEmailAddress { 
+		# 					user ( filter: {uuid: { eq: $user_id }}) {
+		# 												__typename
+		# 								}
+		# 					}
+		# 			}""" 
+		#  } 
+#) 
+{
 	address: String! @id
 	name: String
 	description: String
 	public: Boolean @search
-	user: User @hasInverse(field:emailAddresses)
+	user: User @hasInverse(field:emailAddresses) 
 }
 
-type User  {
+type User  @auth (
+	 query: { rule: """
+				query($UUID: String!) { 
+						queryUser(filter: { uuid: { eq: $UUID } }) { 
+							uuid 
+						}
+					}"""
+				}
+) {
 	id: ID! 
+	uuid: String! @id
 	email: String
 	emailAddresses: [EmailAddress!] @hasInverse(field:user)
-	displayName: String
+	displayName: String @search(by: [term])
 	fullName: String
 	profileImage: String 
 	biography: String 
@@ -210,3 +260,5 @@ enum CurrencyCode {
 	DAI_MATIC_TEST_
 }
 
+
+# Dgraph.Authorization {"Header":"X-Auth-Token","Namespace":"https://dgraph.io/jwt/claims","JWKURL":"https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com","Audience":["contributor-credits"]}

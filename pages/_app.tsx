@@ -5,7 +5,6 @@ import 'tailwindcss/tailwind.css';
 import AnalyticsContext from '@context/analytics';
 import React, { ReactElement } from 'react';
 
-import { ApolloProvider } from '@apollo/client';
 import {
   faArrowRight,
   faBrain,
@@ -38,9 +37,10 @@ import { fab, faGithub, faLinkedin, faPython, faReact, faSlackHash } from '@fort
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { StateProvider } from '@context/store';
 import { useAnalytics } from 'hooks/analytics';
-import { useApollo } from '@src/utils/apolloClient';
 import { Web3Provider } from '@ethersproject/providers';
-import { Web3ReactProvider } from '@web3-react/core';
+import SetAppContext from '@src/SetAppContext';
+import { ApolloProvider } from '@apollo/client';
+import useApollo from '@src/utils/apolloClient';
 
 library.add(fas, faCog);
 library.add(fas, faCommentDots);
@@ -73,30 +73,21 @@ library.add(fab, faLinkedin);
 library.add(fab, faSlackHash);
 library.add(fab, faGithub);
 
-function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = 12000;
-  return library;
-}
-
 export default function MyApp({ Component, pageProps }): ReactElement {
   const [dynamicDimensions, setDynamicDimensions] = useAnalytics();
   const analyticsContext = { dynamicDimensions, setDynamicDimensions };
-  const apolloClient = useApollo(pageProps.initialApolloState);
 
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <ApolloProvider client={apolloClient}>
-        <StateProvider>
-          <AnalyticsContext.Provider value={analyticsContext}>
-            <div id="outer-container" className="bg-gray-200 flex flex-col">
-              <main id="page-wrap flex-grow h-full">
-                <Component {...pageProps} />
-              </main>
-            </div>
-          </AnalyticsContext.Provider>
-        </StateProvider>
-      </ApolloProvider>
-    </Web3ReactProvider>
+    <SetAppContext pageProps={pageProps}>
+      <StateProvider>
+        <AnalyticsContext.Provider value={analyticsContext}>
+          <div id="outer-container" className="bg-gray-200 flex flex-col">
+            <main id="page-wrap flex-grow h-full">
+              <Component {...pageProps} />
+            </main>
+          </div>
+        </AnalyticsContext.Provider>
+      </StateProvider>
+    </SetAppContext>
   );
 }

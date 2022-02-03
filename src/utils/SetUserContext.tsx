@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GET_CRYPTO_ADDRESS } from './dGraphQueries/crypto';
 import { useQuery } from '@apollo/client';
+import { WalletOwnerContext } from '@src/SetAppContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
@@ -11,11 +12,16 @@ export const UserContext = React.createContext<{ userId: string | undefined; loa
 
 const SetUserContext: React.FC<React.ReactNode> = ({ children }) => {
   const { account: walletAddress } = useWeb3React<Web3Provider>();
+  // const { OwnerWallet: walletAddress } = useContext(WalletOwnerContext);
   const [userId, setUserId] = useState<string | undefined>(null);
-  const { loading, data } = useQuery(GET_CRYPTO_ADDRESS, {
+  const {
+    data,
+    loading: walletLoading,
+    error,
+  } = useQuery(GET_CRYPTO_ADDRESS, {
     variables: { walletAddress: walletAddress },
   });
-
+  console.log(error);
   const [selection, setSelection] = useState(undefined);
   useEffect(() => {
     setSelection(window.sessionStorage);
@@ -28,11 +34,12 @@ const SetUserContext: React.FC<React.ReactNode> = ({ children }) => {
       setUserId(storedUserId);
     }
     if (walletAddress && data) {
+      console.log(data.getCryptoAddress?.user.id);
       setUserId(data.getCryptoAddress?.user.id);
     }
   });
 
-  return <UserContext.Provider value={{ userId: userId, loading: loading }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ userId: userId, loading: walletLoading }}>{children}</UserContext.Provider>;
 };
 
 export default SetUserContext;

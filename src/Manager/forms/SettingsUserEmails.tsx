@@ -24,15 +24,16 @@ const SettingsUserEmails = ({ user }) => {
         public: false,
       }}
       validate={async (values) => {
+        // console.log(await checkEmailTaken(values.address));
         const errors: any = {}; /** @TODO : Shape */
         if (!values.address) {
           errors.address = 'Please include an email address.';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.address)) {
           errors.address = 'Invalid email address';
         }
-        if (values.address && (await checkEmailTaken(values.address))) {
-          errors.address = 'That email address is already taken';
-        }
+        // if (values.address && (await checkEmailTaken(values.address))) {
+        //   errors.address = 'That email address is already taken';
+        // }
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
