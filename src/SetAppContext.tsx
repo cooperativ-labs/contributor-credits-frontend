@@ -4,22 +4,16 @@ import { Web3Provider } from '@ethersproject/providers';
 import { getAuth } from 'firebase/auth';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
-import useApollo from './utils/apolloClient';
 import { CustomTokenService } from 'firebaseConfig/firebaseConfig';
 import { GetConnector } from './web3/connectors';
 import { WalletErrorCodes } from './web3/helpersChain';
-
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { ContributorCreditClassOrderable } from 'types/';
 
 declare let window: any;
 
 export const WalletOwnerContext = React.createContext<{
   OwnerWallet: string | undefined;
-  // loading: boolean;
 }>({
   OwnerWallet: undefined,
-  // loading: false,
 });
 
 type SetAppContextProps = {
@@ -29,11 +23,11 @@ type SetAppContextProps = {
 
 const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) => {
   const { activate, active, account: walletAddress, library } = useWeb3React<Web3Provider>();
-  // const [token, setToken] = useState<string | undefined>(undefined);
   const [tried, setTried] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [userLoading, setUserLoading] = useState(true);
   const [selectedConnector, setSelectedConnector] = useState(undefined);
   const auth = getAuth();
-  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     const selection = window.sessionStorage?.getItem('CHOSEN_CONNECTOR');
@@ -47,18 +41,28 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
       })
       .then((res) => setTried(true));
   }
-  console.log(walletAddress);
-  const signer = library?.getSigner();
-  const getToken = async (): Promise<any> => {
-    if (user) {
-      const token = await user.getIdToken();
-      // setToken(token);
-      return token;
-    }
 
-    const token = await CustomTokenService(signer, walletAddress);
-    // setToken(token);
-    return token;
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      setCurrentUser(user);
+    } else if (library) {
+      const signer = library.getSigner();
+      const newUser = await CustomTokenService(signer, walletAddress);
+      setCurrentUser(newUser);
+    }
+    setUserLoading(false);
+    return;
+  });
+
+  if (userLoading) {
+    return <></>;
+  }
+
+  const getToken = async (): Promise<any> => {
+    if (currentUser) {
+      return await currentUser.getIdToken(true);
+    }
+    return Promise.resolve();
   };
 
   const httpLink = createHttpLink({
@@ -66,36 +70,33 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
     credentials: 'same-origin',
   });
 
-  const authLink = setContext(() => {
-    getToken().then((token) => {
-      console.log(token);
-      return {
-        headers: {
-          'X-Auth-Token': token ?? undefined,
-          // 'DG-Auth': key ?? undefined,
-        },
-      };
-    });
-    return {
+  const asyncMiddleware = setContext((_, { headers }) =>
+    getToken().then((token) => ({
       headers: {
-        'X-Auth-Token': undefined,
+        ...headers,
+        'X-Auth-Token': token,
         // 'DG-Auth': key ?? undefined,
       },
-    };
-  });
+    }))
+  );
 
   const createApolloClient = new ApolloClient({
-    // link: token ? authLink.concat(httpLink) : httpLink,
-    link: authLink.concat(httpLink),
+    // link: token ? asyncMiddleware.concat(httpLink) : httpLink,
+    link: asyncMiddleware.concat(httpLink),
+
     // link: httpLink,
-    // link: process.env.NODE_ENV === 'production' ? authLink.concat(httpLink) : httpLink,
+    // link: process.env.NODE_ENV === 'production' ? asyncMiddleware.concat(httpLink) : httpLink,
     cache: new InMemoryCache(),
     ssrMode: typeof window === 'undefined',
   });
 
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  // const apolloClient = useApollo(pageProps.initialApolloState, createApolloClient);
 
-  return <ApolloProvider client={apolloClient}>{children} </ApolloProvider>;
+  return (
+    <ApolloProvider client={createApolloClient}>
+      <WalletOwnerContext.Provider value={{ OwnerWallet: currentUser?.id }}>{children} </WalletOwnerContext.Provider>
+    </ApolloProvider>
+  );
 };
 
 function getLibrary(provider: any): Web3Provider {

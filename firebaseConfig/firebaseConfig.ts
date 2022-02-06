@@ -11,7 +11,6 @@ import {
   NEXT_PUBLIC_FIREBASE_APP_ID,
   NEXT_PUBLIC_FIREBASE_MEASURMENT_ID,
 } from 'FirebaseSettingsLocal';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 const firebaseConfig = {
   apiKey: NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -48,23 +47,11 @@ export const CustomTokenService = async (signer, walletAddress) => {
     const getCustomToken = await (await verifySignedMessage({ address: walletAddress, signature: sig })).data.token;
     try {
       const response = await signInWithCustomToken(auth, getCustomToken);
-      return response.user.getIdToken();
+      return response.user;
     } catch (err) {}
   } catch (err) {
     console.log(err);
   }
-};
-
-const getToken = async (): Promise<any> => {
-  if (user) {
-    const token = await user.getIdToken();
-    // setToken(token);
-    return token;
-  }
-
-  const token = await CustomTokenService(signer, walletAddress);
-  // setToken(token);
-  return token;
 };
 
 export default fireApp;

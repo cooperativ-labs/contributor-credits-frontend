@@ -106,7 +106,7 @@ enum CryptoAddressType {
 	CONTRACT
 }
 
-type CryptoAddress  @auth (
+type CryptoAddress @auth (
 			add: { rule: """
 						query($UUID: String!) {
 								queryCryptoAddress { 
@@ -180,36 +180,35 @@ type OrganizationUser  {
 USER MODEL 
 """
 
-type EmailAddress 
-# @auth (
-  # add: { rule: """
-		# 		query($user_id: String!) {
-		# 			queryEmailAddress { 
-		# 				user ( filter: {uuid: { eq: $user_id }}) {
-		# 											__typename
-		# 							}
-		# 					}
-		# 			}""" 
-		#  } 
-		# delete: { rule: """
-		# 		query($user_id: String!) {
-		# 				queryEmailAddress { 
-		# 					user ( filter: {uuid: { eq: $user_id }}) {
-		# 												__typename
-		# 								}
-		# 					}
-		# 			}""" 
-		#  } 
-#) 
+type EmailAddress @auth (
+  add: { rule:"""
+				query($UUID: String!) {
+					queryEmailAddress { 
+						user(filter: { uuid: { eq: $UUID }}) {
+													__typename
+													id
+									}
+							}
+					}"""} 
+		delete: { rule: """
+				query($UUID: String!) {
+						queryEmailAddress { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}""" 
+		 } 
+) 
 {
 	address: String! @id
 	name: String
 	description: String
 	public: Boolean @search
-	user: User @hasInverse(field:emailAddresses) 
+	user: User! @hasInverse(field:emailAddresses) 
 }
 
-type User  @auth (
+type User @auth (
 	 query: { rule: """
 				query($UUID: String!) { 
 						queryUser(filter: { uuid: { eq: $UUID } }) { 

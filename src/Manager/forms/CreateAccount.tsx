@@ -23,11 +23,12 @@ const CreateAccount: FC = () => {
   const getUserAccountUuid = httpsCallable(functions, 'getUserAccountUuid');
   const router = useRouter();
   const [addUser, { data, error }] = useMutation(ADD_USER_WITH_WALLET);
+
   if (error) {
     console.log(error);
     alert('Oops. Looks like something went wrong');
   }
-  if (data) {
+  if (data && data.addUser !== null) {
     router.reload();
   }
 
@@ -58,9 +59,7 @@ const CreateAccount: FC = () => {
           const ownerUuid = await getUserAccountUuid({
             address: walletAddress,
           });
-
           const uuid = ownerUuid.data;
-          console.log(typeof uuid);
           addUser({
             variables: {
               currentDate: currentDate,

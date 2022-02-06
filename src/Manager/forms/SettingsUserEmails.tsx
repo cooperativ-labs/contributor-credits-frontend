@@ -9,7 +9,7 @@ const fieldDiv = 'md:pt-3 md:my-2 bg-opacity-0';
 
 const SettingsUserEmails = ({ user }) => {
   const [alerted, setAlerted] = useState<boolean>(false);
-  const [addUserEmails, { error }] = useMutation(ADD_USER_EMAIL);
+  const [addUserEmails, { data, error }] = useMutation(ADD_USER_EMAIL);
 
   if (error && !alerted) {
     alert('Oops. Looks like something went wrong');

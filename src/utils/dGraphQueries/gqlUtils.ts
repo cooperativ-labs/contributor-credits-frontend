@@ -1,8 +1,8 @@
-import { initializeApollo } from '../apolloClient';
+// import { initializeApollo } from '../apolloClient';
 import { CHECK_WALLET_EXIST } from './crypto';
 import { CHECK_EMAIL_TAKEN } from './user';
 
-const apolloClient = initializeApollo();
+// const apolloClient = initializeApollo();
 
 export const makeSubmissionList = (list) => {
   if (typeof list === 'string') {
@@ -69,29 +69,29 @@ export function formatSlug(text: string) {
     .replace(/[^\w-]+/g, '');
 }
 
-export async function checkEmailTaken(emailAddress: string) {
-  try {
-    const result = await apolloClient.query({
-      variables: {
-        address: emailAddress.toLowerCase(),
-      },
-      query: CHECK_EMAIL_TAKEN(),
-    });
-    console.log(result.data.getEmailAddress);
-    return result.data.getEmailAddress ? true : false;
-  } catch (err) {
-    console.log('checkemail', err);
-  }
-}
+// export async function checkEmailTaken(emailAddress: string) {
+//   try {
+//     const result = await apolloClient.query({
+//       variables: {
+//         address: emailAddress.toLowerCase(),
+//       },
+//       query: CHECK_EMAIL_TAKEN(),
+//     });
+//     console.log(result.data.getEmailAddress);
+//     return result.data.getEmailAddress ? true : false;
+//   } catch (err) {
+//     console.log('checkemail', err);
+//   }
+// }
 
-export async function checkWalletTaken(walletAddress: string) {
-  try {
-    const result = await apolloClient.query({
-      variables: {
-        address: walletAddress,
-      },
-      query: CHECK_WALLET_EXIST(),
-    });
-    return result.data.getCryptoAddress ? true : false;
-  } catch (err) {}
-}
+// export async function checkWalletTaken(walletAddress: string) {
+//   try {
+//     const result = await apolloClient.query({
+//       variables: {
+//         address: walletAddress,
+//       },
+//       query: CHECK_WALLET_EXIST(),
+//     });
+//     return result.data.getCryptoAddress ? true : false;
+//   } catch (err) {}
+// }
