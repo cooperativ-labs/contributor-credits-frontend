@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import Checkbox from './components/Checkbox';
 import Input from './components/Inputs';
 import Select from './components/Select';
 import { checkWalletTaken } from '@src/utils/dGraphQueries/gqlUtils';
-import { CryptoAddressProtocol, CryptoAddressType } from 'types';
+import { CryptoAddressProtocol, CryptoAddressType, User } from 'types';
 import { Form, Formik } from 'formik';
 import { UPDATE_USER_WALLETS } from '@src/utils/dGraphQueries/user';
 import { useMutation } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import fireApp, { CustomTokenService } from 'firebaseConfig/firebaseConfig';
+import { getAuth } from 'firebase/auth';
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 const fieldDiv = 'md:pt-3 md:my-2 bg-opacity-0';
 
-const SettingsUserWallets = ({ user }) => {
+type SettingsUserWalletsProps = {
+  user: User;
+};
+
+const SettingsUserWallets: FC<SettingsUserWalletsProps> = ({ user }) => {
   const { chainId } = useWeb3React<Web3Provider>();
   const [alerted, setAlerted] = useState<boolean>(false);
   const [updateUserWallets, { error }] = useMutation(UPDATE_USER_WALLETS);
+  const functions = getFunctions(fireApp);
+  const createWalletUserforExistingUser = httpsCallable(functions, 'createWalletUserforExistingUser');
 
   if (error && !alerted) {
     alert('Oops. Looks like something went wrong');
@@ -40,16 +49,21 @@ const SettingsUserWallets = ({ user }) => {
           errors.address = 'Please include an address';
         }
 
-        if (values.address && (await checkWalletTaken(values.address))) {
-          errors.address = 'That wallet address is already taken';
-        }
+        // if (values.address && (await checkWalletTaken(values.address))) {
+        //   errors.address = 'That wallet address is already taken';
+        // }
         return errors;
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
+        try {
+          await createWalletUserforExistingUser({ address: values.address, uuid: user.uuid });
+        } catch (err) {
+          console.log(err);
+        }
         updateUserWallets({
           variables: {
-            userId: user.id,
+            uuid: user.uuid,
             name: values.name,
             walletAddress: values.address,
             protocol: CryptoAddressProtocol.Eth,

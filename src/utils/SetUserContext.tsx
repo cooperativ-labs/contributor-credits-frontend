@@ -11,8 +11,7 @@ export const UserContext = React.createContext<{ userId: string | undefined; loa
 });
 
 const SetUserContext: React.FC<React.ReactNode> = ({ children }) => {
-  const { account: walletAddress } = useWeb3React<Web3Provider>();
-  const { OwnerWallet } = useContext(WalletOwnerContext);
+  const { OwnerWallet: walletAddress } = useContext(WalletOwnerContext);
   const [userId, setUserId] = useState<string | undefined>(null);
   const { data, loading: walletLoading } = useQuery(GET_CRYPTO_ADDRESS, {
     variables: { walletAddress: walletAddress },

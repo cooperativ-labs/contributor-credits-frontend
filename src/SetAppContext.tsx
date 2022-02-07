@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { getAuth } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { CustomTokenService } from 'firebaseConfig/firebaseConfig';
@@ -42,6 +42,20 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
       .then((res) => setTried(true));
   }
 
+  useEffect(() => {
+    const ethereum = window.ethereum;
+    if (ethereum) {
+      ethereum.on('accountsChanged', (accounts: Array<string>) => {
+        console.log('Changed Account', accounts);
+        signOut(auth)
+          .then(() => {})
+          .catch((error) => {
+            console.log('// An error happened.');
+          });
+      });
+    }
+  });
+
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       setCurrentUser(user);
@@ -81,20 +95,14 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
   );
 
   const createApolloClient = new ApolloClient({
-    // link: token ? asyncMiddleware.concat(httpLink) : httpLink,
     link: asyncMiddleware.concat(httpLink),
-
-    // link: httpLink,
-    // link: process.env.NODE_ENV === 'production' ? asyncMiddleware.concat(httpLink) : httpLink,
     cache: new InMemoryCache(),
     ssrMode: typeof window === 'undefined',
   });
 
-  // const apolloClient = useApollo(pageProps.initialApolloState, createApolloClient);
-
   return (
     <ApolloProvider client={createApolloClient}>
-      <WalletOwnerContext.Provider value={{ OwnerWallet: currentUser?.id }}>{children} </WalletOwnerContext.Provider>
+      <WalletOwnerContext.Provider value={{ OwnerWallet: currentUser?.uid }}>{children} </WalletOwnerContext.Provider>
     </ApolloProvider>
   );
 };

@@ -116,7 +116,7 @@ type CryptoAddress @auth (
 									}
 							}""" 
 					} 
-				update: { rule: """
+				delete: { rule: """
 				query($UUID: String!) {
 						queryCryptoAddress { 
 							user ( filter: {uuid: { eq: $UUID }}) {

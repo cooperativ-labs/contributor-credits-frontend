@@ -53,6 +53,7 @@ export const GET_USER = gql`
   query queryUser($userId: [ID!]) {
     queryUser(filter: { id: $userId }) {
       id
+      uuid
       ##this email is legacy and can removed after everyone has an email under the new structure
       email
       emailAddresses {
@@ -246,15 +247,25 @@ export const UPDATE_EMAIL = gql`
 `;
 
 export const UPDATE_USER_WALLETS = gql`
-  mutation UpdateUserWallets($userId: [ID!], $name: String, $walletAddress: String!) {
+  mutation UpdateUserWallets(
+    $uuid: String!
+    $name: String
+    $walletAddress: String!
+    $protocol: CryptoAddressProtocol
+    $type: CryptoAddressType
+    $chainId: Int
+  ) {
     updateUser(
       input: {
-        filter: { id: $userId }
-        set: { walletAddresses: { name: $name, address: $walletAddress, protocol: ETH, type: WALLET } }
+        filter: { uuid: { eq: $uuid } }
+        set: {
+          walletAddresses: { name: $name, address: $walletAddress, protocol: $protocol, type: $type, chainId: $chainId }
+        }
       }
     ) {
       user {
         id
+        uuid
         displayName
         walletAddresses {
           name
