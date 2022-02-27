@@ -4,13 +4,13 @@ import ClassCardList from '../components/containers/ClassCardList';
 import cn from 'classnames';
 import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import React, { FC, useContext, useState } from 'react';
+import { ADD_USER_EMAIL, GET_USER } from '@src/utils/dGraphQueries/user';
 import { Agreement } from 'types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ADD_USER_EMAIL, GET_USER } from '@src/utils/dGraphQueries/user';
 import { useMutation, useQuery } from '@apollo/client';
 import { User } from 'types';
-import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
+import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
 
 export const ContractManager = (agreement: Agreement, user: User) => {
@@ -19,11 +19,12 @@ export const ContractManager = (agreement: Agreement, user: User) => {
 
 const Dashboard: FC = () => {
   const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
-  const { userId } = useContext(UserContext);
-  const { data: userData, error: userError } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { uuid } = useContext(WalletOwnerContext);
+  const { data: userData, error: userError } = useQuery(GET_USER, {
+    variables: { uuid: uuid },
+  });
   const user = userData?.queryUser[0];
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
-
   ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
   const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
 
@@ -33,11 +34,11 @@ const Dashboard: FC = () => {
 
   ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
 
-  if (!emailData && !error && user.emailAddresses.length < 1) {
+  if (user.email && !emailData && !error && user.emailAddresses.length < 1) {
     try {
       addUserEmails({
         variables: {
-          userId: userId,
+          userId: user.id,
           address: user.email,
           public: false,
         },

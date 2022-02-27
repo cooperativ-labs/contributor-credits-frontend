@@ -1,7 +1,7 @@
 // auth.tsx
+import cn from 'classnames';
 import CreateAccount from '@src/Manager/forms/CreateAccount';
 import { NextPage } from 'next';
-import cn from 'classnames';
 
 import React, { useState } from 'react';
 import SetWalletContext from '@src/web3/SetWalletContext';

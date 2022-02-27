@@ -12,8 +12,8 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 import { SmartContractUnestablished } from 'types';
 import { useAsync } from 'react-use';
 import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
+import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
 
 const HowToCreate =
@@ -41,9 +41,9 @@ type ClassEstablishProps = {
 
 const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) => {
   const { chainId, account } = useWeb3React<Web3Provider>();
-  const { userId } = useContext(UserContext);
+  const { uuid } = useContext(WalletOwnerContext);
   const [customText, setCustomText] = useState<boolean>();
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
   const user = userData?.queryUser[0];
 
   // if (!user) {

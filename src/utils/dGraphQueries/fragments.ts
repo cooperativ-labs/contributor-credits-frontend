@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 export const CORE_USER_FIELDS = gql`
   fragment userData on User {
     id
+    uuid
     fullName
     profileImage
     walletAddresses {
@@ -65,6 +66,7 @@ export const CORE_CC_FIELDS = gql`
       signatories {
         user {
           id
+          uuid
         }
       }
       payments {
@@ -90,6 +92,7 @@ export const CORE_AGREEMENT_FIELDS = gql`
       id
       user {
         id
+        uuid
       }
     }
     payments {

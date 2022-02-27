@@ -7,14 +7,14 @@ import { ApplicationStoreProps, store } from '@context/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
+import { WalletOwnerContext } from '@src/SetAppContext';
 
 const ManagerSideBar: FC = () => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchSidebar, ManagerSidebarOpen } = applicationStore;
 
-  const { uuid } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { uid: uuid } });
+  const { uuid } = useContext(WalletOwnerContext);
+  const { data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
 
   const user = userData?.queryUser[0];
 

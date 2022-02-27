@@ -1,13 +1,13 @@
 import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
 import React, { FC, useContext, useEffect, useState } from 'react';
+import { CustomTokenService } from 'firebaseConfig/firebaseConfig';
 import { GetConnector, MatchSupportedChains } from './connectors';
 import { useRouter } from 'next/router';
 import { useWeb3React } from '@web3-react/core';
 import { WalletErrorCodes, WalletErrorMessages } from './helpersChain';
-import { Web3Provider } from '@ethersproject/providers';
 import { WalletOwnerContext } from '@src/SetAppContext';
-import { AuthService } from 'firebaseConfig/firebaseConfig';
+import { Web3Provider } from '@ethersproject/providers';
 declare let window: any;
 
 interface WalletConnectButtonProps {
@@ -37,7 +37,7 @@ export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, cl
       if (MatchSupportedChains(chainId)) {
         try {
           await activate(selectedConnector);
-          await AuthService(signer, walletAddress);
+          await CustomTokenService(signer, walletAddress);
         } catch (err) {
           console.log(err);
           alert(WalletErrorCodes(err));

@@ -3,8 +3,8 @@ import React, { FC, useContext } from 'react';
 import WalletConnectButton from '@src/web3/WalletConnectionButton';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
+import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
 
 const networkColor = (chainId, walletAddress) => {
@@ -38,8 +38,8 @@ export const NetworkIndicatorDot: FC<NetworkIndicatorDotProps> = ({ chainId, wal
 
 const NetworkIndicator: FC = () => {
   const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
-  const { uuid, loading: loadingUser } = useContext(UserContext);
-  const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { userId: uuid } });
+  const { uuid } = useContext(WalletOwnerContext);
+  const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
   const user = userData?.queryUser[0];
 
   const whichWallet = `with ${user?.walletAddresses.find((userWallet) => userWallet.address === walletAddress)?.name}`;

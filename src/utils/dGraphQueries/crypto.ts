@@ -1,15 +1,16 @@
 import gql from 'graphql-tag';
 import { CORE_AGREEMENT_FIELDS, CORE_PAYMENT_FIELDS, CORE_USER_FIELDS } from './fragments';
 
-export const CHECK_WALLET_EXIST = () => {
-  return gql`
-    query ($address: String!) {
-      getCryptoAddress(address: $address) {
-        address
+export const CHECK_WALLET_EXIST = gql`
+  query ($walletAddress: String!) {
+    getCryptoAddress(address: $walletAddress) {
+      address
+      user {
+        uuid
       }
     }
-  `;
-};
+  }
+`;
 
 export const GET_CRYPTO_ADDRESS = gql`
   query GetCryptoAddress($walletAddress: String!) {
@@ -17,6 +18,7 @@ export const GET_CRYPTO_ADDRESS = gql`
       id
       user {
         id
+        uuid
       }
     }
   }

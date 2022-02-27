@@ -1,10 +1,6 @@
-import LoadingModal from '@src/Manager/components/ModalLoading';
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 
 import Card from '@src/containers/Card';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
-import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
 
 const Flows: FC = () => {
   return (

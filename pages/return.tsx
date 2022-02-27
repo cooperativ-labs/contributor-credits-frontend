@@ -13,28 +13,3 @@ export default function Home() {
 
   return <div>Hello!</div>;
 }
-
-// @auth(
-//  query: { rule: "query($id: String!) {
-//            queryUser {
-//                User(filter: { id: $id } ) {
-//                    __typename
-//                }
-//            }
-//        }" }
-//   add: { rule: "query($userId: String!) {
-//          queryEmail {
-//              user(filter: { id: $userId } ) {
-//                  __typename
-//              }
-//          }
-//      }" }
-//  update: { rule: "query($id: String!) {
-//          queryUser {
-//              User(filter: { id: $id } ) {
-//                  __typename
-//              }
-//          }
-//      }" }
-//   query: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
-// )

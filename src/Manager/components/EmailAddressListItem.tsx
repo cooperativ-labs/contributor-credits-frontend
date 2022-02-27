@@ -1,16 +1,13 @@
 import React, { FC, useState } from 'react';
 
 import cn from 'classnames';
+import Input from '../forms/components/Inputs';
+import { EditButton } from '../forms/components/ListItemButtons';
+import { EmailAddress } from 'types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
-import { useMutation } from '@apollo/client';
-
 import { REMOVE_USER_EMAIL, UPDATE_EMAIL } from '@src/utils/dGraphQueries/user';
-
-import Checkbox from '../forms/components/Checkbox';
-import Input from '../forms/components/Inputs';
-import { EditButton, MarkPublic } from '../forms/components/ListItemButtons';
-import { EmailAddress } from 'types';
+import { useMutation } from '@apollo/client';
 
 type EmailAddressListItemProps = {
   email: EmailAddress;
@@ -37,9 +34,6 @@ const EmailAddressListItem: FC<EmailAddressListItemProps> = ({ email, withEdit }
             {address}
             {withEdit && (
               <div className="flex justify-between">
-                {/* <div className="hidden md:flex">
-                  <MarkPublic isPublic={isPublic} />
-                </div> */}
                 <div className="ml-6 w-5">
                   <EditButton toggle={editOn} setToggle={setEditOn} />
                 </div>
@@ -47,11 +41,6 @@ const EmailAddressListItem: FC<EmailAddressListItemProps> = ({ email, withEdit }
             )}
           </div>
           {name && <div className="flex justify-between">{name}</div>}
-          {/* {withEdit && (
-            <div className="md:hidden">
-              <MarkPublic isPublic={isPublic} />{' '}
-            </div>
-          )} */}
         </div>
         {description && <div className="mt-1 text-sm text-gray-700">{description}</div>}
 
@@ -84,14 +73,6 @@ const EmailAddressListItem: FC<EmailAddressListItemProps> = ({ email, withEdit }
                       name="name"
                       placeholder="e.g. Personal"
                     />
-
-                    {/* <Checkbox
-                      className="col-span-1"
-                      fieldClass="text-sm bg-opacity-0 my-1 p-3 border-2 border-gray-200 rounded-md focus:border-blue-900 mt-3 focus:outline-non"
-                      name="public"
-                      checked={values.public}
-                      labelText="Public"
-                    /> */}
                   </div>
                   <button
                     type="submit"

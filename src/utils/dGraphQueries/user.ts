@@ -25,15 +25,13 @@ export const GET_USERS = () => {
   `;
 };
 
-export const CHECK_EMAIL_TAKEN = () => {
-  return gql`
-    query ($address: String!) {
-      getEmailAddress(address: $address) {
-        address
-      }
+export const CHECK_EMAIL_TAKEN = gql`
+  query CheckEmailTaken($address: String!) {
+    getEmailAddress(address: $address) {
+      address
     }
-  `;
-};
+  }
+`;
 
 export const GET_USER_FROM_EMAIL = gql`
   query GetUserFromEmail($emailAddress: String!) {
@@ -41,6 +39,7 @@ export const GET_USER_FROM_EMAIL = gql`
       address
       user {
         id
+        uuid
         displayName
         fullName
       }
@@ -50,8 +49,8 @@ export const GET_USER_FROM_EMAIL = gql`
 
 export const GET_USER = gql`
   ${CORE_AGREEMENT_FIELDS}
-  query queryUser($userId: [ID!]) {
-    queryUser(filter: { id: $userId }) {
+  query queryUser($uuid: String!) {
+    queryUser(filter: { uuid: { eq: $uuid } }) {
       id
       uuid
       ##this email is legacy and can removed after everyone has an email under the new structure
@@ -113,13 +112,12 @@ export const GET_USER = gql`
 `;
 
 export const ADD_USER_WITH_WALLET = gql`
-  mutation AddUser($currentDate: DateTime!, $email: String!, $walletAddress: String!, $chainId: Int!, $uuid: String!) {
+  mutation AddUser($currentDate: DateTime!, $walletAddress: String!, $chainId: Int!, $uuid: String!) {
     addUser(
       input: [
         {
           creationDate: $currentDate
           uuid: $uuid
-          emailAddresses: { address: $email, public: false }
           public: false
           walletAddresses: {
             name: "Primary wallet"
@@ -134,6 +132,7 @@ export const ADD_USER_WITH_WALLET = gql`
     ) {
       user {
         id
+        uuid
         emailAddresses {
           address
         }
@@ -248,7 +247,7 @@ export const UPDATE_EMAIL = gql`
 
 export const UPDATE_USER_WALLETS = gql`
   mutation UpdateUserWallets(
-    $uuid: String!
+    $userId: [ID!]
     $name: String
     $walletAddress: String!
     $protocol: CryptoAddressProtocol
@@ -257,7 +256,7 @@ export const UPDATE_USER_WALLETS = gql`
   ) {
     updateUser(
       input: {
-        filter: { uuid: { eq: $uuid } }
+        filter: { id: $userId }
         set: {
           walletAddresses: { name: $name, address: $walletAddress, protocol: $protocol, type: $type, chainId: $chainId }
         }
@@ -271,6 +270,23 @@ export const UPDATE_USER_WALLETS = gql`
           name
         }
       }
+    }
+  }
+`;
+
+export const REMOVE_USER_WALLET = gql`
+  mutation RemoveUserEmail($userId: [ID!], $walletAddress: String!) {
+    updateUser(input: { filter: { id: $userId }, remove: { walletAddresses: { address: $walletAddress } } }) {
+      numUids
+      user {
+        id
+        walletAddresses {
+          address
+        }
+      }
+    }
+    deleteCryptoAddress(filter: { address: { eq: $walletAddress } }) {
+      msg
     }
   }
 `;

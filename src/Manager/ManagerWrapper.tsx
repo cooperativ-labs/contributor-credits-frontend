@@ -1,17 +1,16 @@
-import AlertBanner from '@src/components/Alerts/AlertBanner';
 import AlertPopup from '@src/components/Alerts/AlertPopup';
 import cn from 'classnames';
 import EnsureCompatibleNetwork from '@src/web3/ensureCompatibleNetwork';
 import LoadingModal from './components/ModalLoading';
 import ManagerSideBar from './ManagerSideBar';
 import NavBar from './NavigationBar';
+import NeedAccount from './components/ModalNeedAccount';
 import React, { FC, useContext } from 'react';
-import SetUserContext, { UserContext } from '@src/utils/SetUserContext';
-import SetWalletContext from '@src/web3/SetWalletContext';
+import router from 'next/router';
 import WalletActionLockModel from './WalletActionLockModel';
 import WalletChooserModal from './WalletChooserModal';
-import { useRouter } from 'next/router';
-import NeedAccount from './components/ModalNeedAccount';
+import { ADD_USER_WITH_WALLET, GET_USER } from '@src/utils/dGraphQueries/user';
+import { useMutation, useQuery } from '@apollo/client';
 import { WalletOwnerContext } from '@src/SetAppContext';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
@@ -22,7 +21,7 @@ type ManagerProps = {
 
 const Manager: FC<ManagerProps> = ({ children }) => {
   return (
-    <div>
+    <div className="mx-auto" style={{ maxWidth: '1580px' }}>
       <div className="md:mx-8">
         <NavBar />
       </div>
@@ -52,12 +51,22 @@ type ManagerWrapperProps = {
 };
 
 const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {
-  const { userId, loading } = useContext(UserContext);
+  const { uuid } = useContext(WalletOwnerContext);
+  const [addUser, { data, error }] = useMutation(ADD_USER_WITH_WALLET);
 
-  if (loadingComponent || loading) {
+  if (error) {
+    console.log(error);
+    alert('Oops. Looks like something went wrong');
+  }
+
+  if (data && data.addUser !== null) {
+    router.reload();
+  }
+
+  if (loadingComponent) {
     return <LoadingModal />;
-  } else if (!userId) {
-    return <NeedAccount />;
+  } else if (!uuid) {
+    return <NeedAccount addUser={addUser} />;
   }
 
   return <Manager>{children}</Manager>;
@@ -65,20 +74,16 @@ const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComp
 
 const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {
   return (
-    // <SetWalletContext>
-    <SetUserContext>
-      <div className="h-full">
-        <div className={cn(BackgroundGradient, 'min-h-full w-screen min-h-screen')}>
-          <AlertPopup />
-          <EnsureCompatibleNetwork>
-            <WalletChooserModal />
-            <WalletActionLockModel />
-            <ManagerNavigationFrame loadingComponent={loadingComponent}>{children}</ManagerNavigationFrame>
-          </EnsureCompatibleNetwork>
-        </div>
+    <div className="h-full">
+      <div className={cn(BackgroundGradient, 'min-h-full w-screen min-h-screen')}>
+        <AlertPopup />
+        <EnsureCompatibleNetwork>
+          <WalletChooserModal />
+          <WalletActionLockModel />
+          <ManagerNavigationFrame loadingComponent={loadingComponent}>{children}</ManagerNavigationFrame>
+        </EnsureCompatibleNetwork>
       </div>
-    </SetUserContext>
-    // </SetWalletContext>
+    </div>
   );
 };
 

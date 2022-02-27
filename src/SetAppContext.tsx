@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
-import { getAuth, signOut } from 'firebase/auth';
-import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
-import { CustomTokenService } from 'firebaseConfig/firebaseConfig';
+import { auth, CustomTokenService } from 'firebaseConfig/firebaseConfig';
+import { getAuth, signOut } from 'firebase/auth';
 import { GetConnector } from './web3/connectors';
+import { setContext } from '@apollo/client/link/context';
+import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { WalletErrorCodes } from './web3/helpersChain';
+import { Web3Provider } from '@ethersproject/providers';
 
 declare let window: any;
 
 export const WalletOwnerContext = React.createContext<{
-  OwnerWallet: string | undefined;
+  uuid: string | undefined;
 }>({
-  OwnerWallet: undefined,
+  uuid: undefined,
 });
 
 type SetAppContextProps = {
@@ -21,13 +21,12 @@ type SetAppContextProps = {
   pageProps: any;
 };
 
-const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) => {
+const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) => {
   const { activate, active, account: walletAddress, library } = useWeb3React<Web3Provider>();
   const [tried, setTried] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [userLoading, setUserLoading] = useState(true);
   const [selectedConnector, setSelectedConnector] = useState(undefined);
-  const auth = getAuth();
 
   useEffect(() => {
     const selection = window.sessionStorage?.getItem('CHOSEN_CONNECTOR');
@@ -42,31 +41,29 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
       .then((res) => setTried(true));
   }
 
-  useEffect(() => {
-    const ethereum = window.ethereum;
-    if (ethereum) {
-      ethereum.on('accountsChanged', (accounts: Array<string>) => {
-        console.log('Changed Account', accounts);
-        signOut(auth)
-          .then(() => {})
-          .catch((error) => {
-            console.log('// An error happened.');
-          });
-      });
-    }
-  });
+  // useEffect(() => {
+  //   const ethereum = window.ethereum;
+  //   if (ethereum) {
+  //     ethereum.on('accountsChanged', (accounts: Array<string>) => {
+  //       console.log('Changed Account', accounts);
+  //       signOut(auth)
+  //         .then(() => {})
+  //         .catch((error) => {
+  //           console.log('// An error happened.');
+  //         });
+  //     });
+  //   }
+  // });
 
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      setCurrentUser(user);
-    } else if (library) {
-      const signer = library.getSigner();
-      const newUser = await CustomTokenService(signer, walletAddress);
-      setCurrentUser(newUser);
-    }
-    setUserLoading(false);
-    return;
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+      setUserLoading(false);
+      return;
+    });
+  }, [currentUser]);
 
   if (userLoading) {
     return <></>;
@@ -74,7 +71,8 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
 
   const getToken = async (): Promise<any> => {
     if (currentUser) {
-      return await currentUser.getIdToken(true);
+      const token = await currentUser.getIdToken(true);
+      return token;
     }
     return Promise.resolve();
   };
@@ -88,7 +86,7 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
     getToken().then((token) => ({
       headers: {
         ...headers,
-        'X-Auth-Token': token,
+        'X-Auth-Token': token ? token : '',
         // 'DG-Auth': key ?? undefined,
       },
     }))
@@ -102,22 +100,8 @@ const SetAuthContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =
 
   return (
     <ApolloProvider client={createApolloClient}>
-      <WalletOwnerContext.Provider value={{ OwnerWallet: currentUser?.uid }}>{children} </WalletOwnerContext.Provider>
+      <WalletOwnerContext.Provider value={{ uuid: currentUser?.uid }}>{children} </WalletOwnerContext.Provider>
     </ApolloProvider>
-  );
-};
-
-function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = 12000;
-  return library;
-}
-
-const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) => {
-  return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <SetAuthContext pageProps={pageProps}>{children}</SetAuthContext>
-    </Web3ReactProvider>
   );
 };
 

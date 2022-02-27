@@ -24,7 +24,7 @@ const firebaseConfig = {
 };
 
 const fireApp = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth();
 
 export const CustomTokenService = async (signer, walletAddress) => {
   const functions = getFunctions(fireApp);

@@ -14,7 +14,6 @@ import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { useC2 } from '@src/web3/hooks/useC2';
 import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 

@@ -7,7 +7,33 @@
 """
 AGREEMENT MODEL 
 """
-type AgreementSignatory {
+type AgreementSignatory @auth (
+  add: { rule:"""
+				query($UUID: String!) {
+					queryAgreementSignatory { 
+						user(filter: { uuid: { eq: $UUID }}) {
+													__typename
+													id
+									}
+							}
+					}"""} 
+		update: { rule: """
+				query($UUID: String!) {
+						queryAgreementSignatory { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""} 
+		delete: { rule: """
+				query($UUID: String!) {
+						queryAgreementSignatory { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""}
+) {
 	id: ID!
 	agreement: Agreement! @hasInverse(field:signatories) 
 	user: User @hasInverse(field:agreements) 
@@ -16,7 +42,7 @@ type AgreementSignatory {
 	date: DateTime
 }
 
-type Agreement  {
+type Agreement {
 	id: ID! 
 	signatories: [AgreementSignatory] 
 	organizationName: String
@@ -107,25 +133,32 @@ enum CryptoAddressType {
 }
 
 type CryptoAddress @auth (
-			add: { rule: """
-						query($UUID: String!) {
-								queryCryptoAddress { 
-									user ( filter: {uuid: { eq: $UUID }}) {
-																__typename
-												}
+  add: { rule:"""
+				query($UUID: String!) {
+					queryCryptoAddress { 
+						user(filter: { uuid: { eq: $UUID }}) {
+													__typename
+													id
 									}
-							}""" 
-					} 
-				delete: { rule: """
+							}
+					}"""} 
+		update: { rule: """
 				query($UUID: String!) {
 						queryCryptoAddress { 
 							user ( filter: {uuid: { eq: $UUID }}) {
 														__typename
 										}
 							}
-					}""" 
-		 } 
- ) {
+					}"""} 
+		delete: { rule: """
+				query($UUID: String!) {
+						queryCryptoAddress { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""}
+) {
 	id: ID!
 	address: String! @id
 	name: String 
@@ -181,15 +214,15 @@ USER MODEL
 """
 
 type EmailAddress @auth (
-  add: { rule:"""
-				query($UUID: String!) {
-					queryEmailAddress { 
-						user(filter: { uuid: { eq: $UUID }}) {
-													__typename
-													id
-									}
-							}
-					}"""} 
+  # add: { rule:"""
+		# 		query($UUID: String!) {
+		# 			queryEmailAddress { 
+		# 				user(filter: { uuid: { eq: $UUID }}) {
+		# 											__typename
+		# 											id
+		# 							}
+		# 					}
+		# 			}"""} 
 		delete: { rule: """
 				query($UUID: String!) {
 						queryEmailAddress { 
@@ -209,7 +242,14 @@ type EmailAddress @auth (
 }
 
 type User @auth (
-	 query: { rule: """
+	 update: { rule: """
+				query($UUID: String!) { 
+						queryUser(filter: { uuid: { eq: $UUID } }) { 
+							uuid 
+						}
+					}"""
+				}
+			delete: { rule: """
 				query($UUID: String!) { 
 						queryUser(filter: { uuid: { eq: $UUID } }) { 
 							uuid 

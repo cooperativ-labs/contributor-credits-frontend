@@ -8,11 +8,11 @@ import SettingsUserWallets from '@src/Manager/forms/SettingsUserWallets';
 import WalletAddressList from '@src/Manager/components/WalletAddressList';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { useQuery } from '@apollo/client';
-import { UserContext } from '@src/utils/SetUserContext';
+import { WalletOwnerContext } from '@src/SetAppContext';
 
 const UserSettings: FC = () => {
-  const { userId } = useContext(UserContext);
-  const { data: userData } = useQuery(GET_USER, { variables: { userId: userId } });
+  const { uuid } = useContext(WalletOwnerContext);
+  const { data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
   const user = userData?.queryUser[0];
 
   if (!user) {

@@ -1,8 +1,7 @@
-import CreateAccount from '../forms/CreateAccount';
+import CreateAccount, { CreateAccountProps } from '../forms/CreateAccount';
 import React, { FC, useState } from 'react';
 
-interface NeedAccountProps {}
-const NeedAccount: FC<NeedAccountProps> = ({}) => {
+const NeedAccount: FC<CreateAccountProps> = ({ addUser }) => {
   const [showAccountCreation, setShowAccountCreation] = useState<boolean>(true);
   return (
     <div className="flex-grow z-10">
@@ -12,7 +11,7 @@ const NeedAccount: FC<NeedAccountProps> = ({}) => {
             <div className="md:flex flex-col h-full w-full items-center pt-20">
               <div className="flex-col px-4 pb-10  w-full" style={{ maxWidth: '600px' }}>
                 <div className="px-3  md:mx-2">
-                  <CreateAccount />
+                  <CreateAccount addUser={addUser} />
                 </div>
               </div>
             </div>

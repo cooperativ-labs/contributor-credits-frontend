@@ -1,9 +1,8 @@
 import Input from './components/Inputs';
 import React, { useState } from 'react';
 import { ADD_USER_EMAIL } from '../../utils/dGraphQueries/user';
-import { checkEmailTaken } from '../../../src/utils/dGraphQueries/gqlUtils';
 import { Form, Formik } from 'formik';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 const fieldDiv = 'md:pt-3 md:my-2 bg-opacity-0';
 
