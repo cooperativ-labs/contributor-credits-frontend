@@ -22,7 +22,7 @@ type SetAppContextProps = {
 };
 
 const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) => {
-  const { activate, active, account: walletAddress, library } = useWeb3React<Web3Provider>();
+  const { activate, active } = useWeb3React<Web3Provider>();
   const [tried, setTried] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [userLoading, setUserLoading] = useState(true);

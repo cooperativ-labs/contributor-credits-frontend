@@ -81,7 +81,7 @@ const SettingsUserWallets: FC<SettingsUserWalletsProps> = ({ user }) => {
       {({ values, isSubmitting }) => (
         <Form className="flex flex-col">
           <hr className="mt-6 mb-8 md:mb-4" />
-          {newWalletAddress || existingWallet ? (
+          {newWalletAddress || !existingWallet ? (
             <>
               <div className="grid md:grid-cols-4 gap-4">
                 <Input

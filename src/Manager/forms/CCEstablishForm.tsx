@@ -2,6 +2,7 @@ import Checkbox from './components/Checkbox';
 import FormButton from '../components/buttons/FormButton';
 import FormCard from '../components/cards/FormCard';
 import Input from './components/Inputs';
+import Link from 'next/link';
 import LoadingModal from '../components/ModalLoading';
 import PresentLegalText from '../components/PresentLegalText';
 import React, { FC, useContext, useState } from 'react';
@@ -60,7 +61,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   const establishContract = async (): Promise<void> => {
     const txResp: TransactionResponse = await contract.establish(bacAddress, arrayify('0x' + agreementHash));
     await txResp.wait();
-    console.log({ established: await contract.isEstablished() });
     return;
   };
 
@@ -73,6 +73,15 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   if (agreementData) {
     router.push(`/app`);
   }
+
+  const emailRequiredNotice = user.emailAddresses.length < 1 && (
+    <div className="text-sm text-cRed ">
+      An email address is required to establish a new class.{' '}
+      <div className="underline">
+        <Link href="/app/account">Click here to add one to your account.</Link>
+      </div>
+    </div>
+  );
 
   const chainBacs = bacOptions.filter((bac) => bac.chainId === chainId);
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
@@ -174,6 +183,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
       >
         {({ isSubmitting, values }) => (
           <Form className="flex flex-col">
+            {emailRequiredNotice}
             <div className="flex items-end">
               <Checkbox className={fieldDiv} checked={values.customToggle} name="customToggle" />
               <p className="mb-4 ml-2 text-sm text-blue-900 font-semibold text-opacity-80 ">Use custom text</p>
@@ -281,6 +291,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
                 );
               })}
             </Select>
+            {emailRequiredNotice}
             <Input
               className={fieldDiv}
               name="signature"

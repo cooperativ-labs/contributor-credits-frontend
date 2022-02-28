@@ -8,6 +8,7 @@ import { C2Type } from '@src/web3/hooks/useC2';
 import { Form, Formik } from 'formik';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+import { proportionFunded } from '@src/utils/classStatus';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 
@@ -26,6 +27,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
+  const fundRatio = proportionFunded(c2);
 
   const [, cashOut] = useAsyncFn(
     async (amount: number) => {
@@ -78,7 +80,13 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setButtonStep('submitting');
-        if (window.confirm(`Are you sure you want to ${values.action} ${values.amount} credits?`)) {
+        if (
+          window.confirm(
+            `CURRENT VALUE: $${values.amount * fundRatio} - Are you sure you want to ${values.action} ${
+              values.amount
+            } credits? `
+          )
+        ) {
           values.action === 'relinquish' ? burnCredits(values.amount) : cashOut(values.amount);
         } else {
           setButtonStep('rejected');

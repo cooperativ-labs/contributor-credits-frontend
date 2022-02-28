@@ -42,7 +42,9 @@ type AgreementSignatory @auth (
 	date: DateTime
 }
 
-type Agreement {
+type Agreement  @auth (
+		delete: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+) {
 	id: ID! 
 	signatories: [AgreementSignatory] 
 	organizationName: String
@@ -61,7 +63,10 @@ enum AgreementType {
 		CONTRIBUTOR_CREDIT
 }
 
-type Payment  {
+type Payment @auth (
+		update: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+		delete: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+) {
 	id: ID! 
 	amount: Int64! 
 	currency: Currency! 
@@ -86,7 +91,10 @@ enum ContributorCreditClassTriggerType {
 	SALE
 }
 
-type ContributorCreditClassTrigger  {
+type ContributorCreditClassTrigger @auth (
+		update: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+		delete: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+) {
 	name: String 
 	type: ContributorCreditClassTriggerType! 
 	amount: Int64 
@@ -94,7 +102,10 @@ type ContributorCreditClassTrigger  {
 	primary: Boolean 
 }
 
-type ContributorCreditClass {
+type ContributorCreditClass @auth (
+		update: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+		delete: { rule: "{ $NeverHere: { eq: \"anything\" } }" }
+) {
 	id: ID! 
 	name: String! 
 	cryptoAddress: CryptoAddress!
@@ -108,7 +119,24 @@ type ContributorCreditClass {
 
 }
 
-type SmartContractUnestablished {
+type SmartContractUnestablished @auth (
+		update: { rule: """
+				query($UUID: String!) {
+						querySmartContractUnestablished { 
+							owner ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""} 
+		delete: { rule: """
+				query($UUID: String!) {
+						querySmartContractUnestablished { 
+							owner ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""}
+) {
 	id: ID!
 	cryptoAddress: CryptoAddress!
 	type: SmartContractType!
@@ -133,15 +161,15 @@ enum CryptoAddressType {
 }
 
 type CryptoAddress @auth (
-  add: { rule:"""
-				query($UUID: String!) {
-					queryCryptoAddress { 
-						user(filter: { uuid: { eq: $UUID }}) {
-													__typename
-													id
-									}
-							}
-					}"""} 
+  # add: { rule:"""
+		# 		query($UUID: String!) {
+		# 			queryCryptoAddress { 
+		# 				user(filter: { uuid: { eq: $UUID }}) {
+		# 											__typename
+		# 											id
+		# 							}
+		# 					}
+		# 			}"""} 
 		update: { rule: """
 				query($UUID: String!) {
 						queryCryptoAddress { 
@@ -187,22 +215,37 @@ type Organization  {
 	users: [OrganizationUser] @hasInverse(field:organization) 
 }
 
-type GeoAddress {
-	id: ID!
-	line1: String!
-	line2: String
-	line3: String
-	city: String!
-	stateProvence: String
-	postalCode: String
-	country: String
-}
-
 enum OrganizationPermissionType {
 	ADMIN
 }
 
-type OrganizationUser  {
+type OrganizationUser @auth (
+  add: { rule:"""
+				query($UUID: String!) {
+					queryOrganizationUser { 
+						user(filter: { uuid: { eq: $UUID }}) {
+													__typename
+													id
+									}
+							}
+					}"""} 
+		update: { rule: """
+				query($UUID: String!) {
+						queryOrganizationUser { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""} 
+		delete: { rule: """
+				query($UUID: String!) {
+						queryOrganizationUser { 
+							user ( filter: {uuid: { eq: $UUID }}) {
+														__typename
+										}
+							}
+					}"""}
+)  {
 	organization: Organization! @hasInverse(field:users)
 	user: User! @hasInverse(field:organizations) 
 	permission: OrganizationPermissionType 
@@ -214,15 +257,24 @@ USER MODEL
 """
 
 type EmailAddress @auth (
-  # add: { rule:"""
-		# 		query($UUID: String!) {
-		# 			queryEmailAddress { 
-		# 				user(filter: { uuid: { eq: $UUID }}) {
-		# 											__typename
-		# 											id
-		# 							}
-		# 					}
-		# 			}"""} 
+  add: { rule:"""
+				query($UUID: String!) {
+					queryEmailAddress { 
+						user(filter: { uuid: { eq: $UUID }}) {
+													__typename
+													id
+									}
+							}
+					}"""} 
+		update: { rule:"""
+				query($UUID: String!) {
+					queryEmailAddress { 
+						user(filter: { uuid: { eq: $UUID }}) {
+													__typename
+													id
+									}
+							}
+					}"""} 
 		delete: { rule: """
 				query($UUID: String!) {
 						queryEmailAddress { 
@@ -259,7 +311,6 @@ type User @auth (
 ) {
 	id: ID! 
 	uuid: String! @id
-	email: String
 	emailAddresses: [EmailAddress!] @hasInverse(field:user)
 	displayName: String @search(by: [term])
 	fullName: String

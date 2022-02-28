@@ -7,6 +7,7 @@ import Loading from '../Loading';
 import PaymentList from '@src/Manager/components/ListPayments';
 import React, { FC } from 'react';
 import SectionBlock from '@src/Manager/components/containers/SectionBlock';
+import { ClassStatus } from '@src/utils/classStatus';
 import { ContractManager } from '@src/Manager/pages/Dashboard';
 import { ContributorCreditClass, Payment, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
@@ -54,7 +55,12 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         {name} {type}
       </h1>
       <div className="mb-6">
-        <FormattedCryptoAddress label={'Address:'} address={cryptoAddress.address} chainId={cryptoAddress.chainId} />
+        <FormattedCryptoAddress
+          label={'Address:'}
+          address={cryptoAddress.address}
+          chainId={cryptoAddress.chainId}
+          withCopy
+        />
         <ClassFundingRatio cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
       </div>
 

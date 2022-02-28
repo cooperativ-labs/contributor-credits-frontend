@@ -9,9 +9,12 @@ import React, { FC, useContext } from 'react';
 import router from 'next/router';
 import WalletActionLockModel from './WalletActionLockModel';
 import WalletChooserModal from './WalletChooserModal';
+import WarningBanner from '@src/components/Alerts/WarningBanner';
 import { ADD_USER_WITH_WALLET, GET_USER } from '@src/utils/dGraphQueries/user';
 import { useMutation, useQuery } from '@apollo/client';
+import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
+import { Web3Provider } from '@ethersproject/providers';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
@@ -52,6 +55,7 @@ type ManagerWrapperProps = {
 
 const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {
   const { uuid } = useContext(WalletOwnerContext);
+  const { account: walletAddress } = useWeb3React<Web3Provider>();
   const [addUser, { data, error }] = useMutation(ADD_USER_WITH_WALLET);
 
   if (error) {
@@ -69,7 +73,18 @@ const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComp
     return <NeedAccount addUser={addUser} />;
   }
 
-  return <Manager>{children}</Manager>;
+  return (
+    <>
+      {walletAddress !== uuid && (
+        <WarningBanner
+          color="cYellow"
+          textClass="font-medium text-white text-xs md:text-sm"
+          text={`You are currently using a wallet that does not match your account: ${walletAddress}`}
+        />
+      )}
+      <Manager>{children}</Manager>
+    </>
+  );
 };
 
 const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {

@@ -76,20 +76,26 @@ const SettingUserPersonalInfo = ({ user }) => {
       {({ isSubmitting }) => (
         <Form className="flex flex-col relative">
           <h2 className="text-xl mt-8 text-blue-900 font-semibold">Personal Information</h2>
-          <Input className={fieldDiv} labelText="Display name" name="displayName" type="text" placeholder="Moritz" />
+          <Input
+            className={fieldDiv}
+            labelText="Display name"
+            name="displayName"
+            type="text"
+            placeholder="e.g. Moritz"
+          />
           <Input
             className={fieldDiv}
             labelText="Full name"
             name="fullName"
             type="text"
-            placeholder="Moritz Zimmermann"
+            placeholder="e.g. Moritz Zimmermann"
           />
           <Input
             className={fieldDiv}
             labelText="Profile image"
             name="profileImage"
             type="text"
-            placeholder="https://source.com/your-picture"
+            placeholder="e.g. https://source.com/your-picture"
           />
           <Input
             className={fieldDiv}
@@ -104,14 +110,14 @@ const SettingUserPersonalInfo = ({ user }) => {
             textArea
             labelText="Expertise (comma-separated tags)"
             name="expertise"
-            placeholder="UX Design, React, Government Regulation, Early 20th Century Russian History"
+            placeholder="e.g. UX Design, React, Government Regulation, Early 20th Century Russian History"
           />
           <Input
             className={fieldDiv}
             textArea
             labelText="Interests (comma-separated tags)"
             name="interests"
-            placeholder="UX Design, React, Government Regulation, Early 20th Century Russian History"
+            placeholder="e.g. UX Design, React, Government Regulation, Early 20th Century Russian History"
           />
           <button
             type="submit"

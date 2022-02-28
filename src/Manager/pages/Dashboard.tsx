@@ -25,28 +25,10 @@ const Dashboard: FC = () => {
   });
   const user = userData?.queryUser[0];
   const [selectedClassId, setSelectedClassId] = useState<string | undefined>(undefined);
-  ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
-  const [addUserEmails, { data: emailData, error }] = useMutation(ADD_USER_EMAIL);
 
   if (!user) {
     return <></>;
   }
-
-  ///FOR CONVERTING TO NEW EMAIL ADDRESS STRUCTURE
-
-  if (user.email && !emailData && !error && user.emailAddresses.length < 1) {
-    try {
-      addUserEmails({
-        variables: {
-          userId: user.id,
-          address: user.email,
-          public: false,
-        },
-      });
-    } catch (err) {}
-  }
-
-  ///-------------------------
 
   const { unestablishedSmartContracts, agreements } = user;
 
@@ -61,6 +43,7 @@ const Dashboard: FC = () => {
             className="text-base text-gray-700"
             withCopy
             label="Wallet:"
+            showFull
           />
         </div>
       )}
