@@ -41,7 +41,7 @@ import { useAnalytics } from 'hooks/analytics';
 import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
 
-library.add(fas, fab);
+// library.add(fas, fab);
 // library.add(fas, faCommentDots);
 // library.add(fas, faHome);
 // library.add(fas, faChartBar);
