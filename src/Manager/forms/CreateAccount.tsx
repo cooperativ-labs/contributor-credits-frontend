@@ -56,7 +56,14 @@ const CreateAccount: FC<CreateAccountProps> = ({ addUser }) => {
             }
         }}
       >
-        {loading ? 'Loading your account' : 'Sign in with this wallet'}
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <img src="/assets/images/loading-circle.jpeg" aria-label="loading" className="h-6 mr-1 animate-spin" />
+            <span>Loading your account</span>
+          </div>
+        ) : (
+          'Sign in with this wallet'
+        )}
       </Button>
     );
   };

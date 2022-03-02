@@ -1,23 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { GET_USERS } from '@src/utils/dGraphQueries/user';
-import { initializeApollo } from '@src/utils/apolloClient';
+import { useQuery } from '@apollo/client';
 
 const ShowCurrentUsers: FC = () => {
-  const apolloClient = initializeApollo();
-  const [users, setUsers] = useState(undefined);
-  async function getUserList() {
-    await apolloClient
-      .query({
-        query: GET_USERS(),
-      })
-      .then((result) => {
-        setUsers(result.data.queryUser);
-      });
-  }
+  const { data } = useQuery(GET_USERS);
 
-  getUserList();
-
-  return <> {console.log(users)} </>;
+  return <> {console.log(data.queryUser.user)} </>;
 };
 
 export default ShowCurrentUsers;

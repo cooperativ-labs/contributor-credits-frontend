@@ -20,7 +20,7 @@ type WalletAddressListItemProps = {
 
 const WalletAddressListItem: FC<WalletAddressListItemProps> = ({ wallet, withEdit }) => {
   const { user, id, name, type, chainId, address, description, public: isPublic } = wallet;
-  const { OwnerWallet } = useContext(WalletOwnerContext);
+  const { uuid } = useContext(WalletOwnerContext);
   const [editOn, setEditOn] = useState<boolean>(false);
   const [alerted, setAlerted] = useState<boolean>(false);
   const [updateCryptoAddress, { error }] = useMutation(UPDATE_CRYPTO_ADDRESS);
@@ -105,16 +105,16 @@ const WalletAddressListItem: FC<WalletAddressListItemProps> = ({ wallet, withEdi
               <div>
                 <button
                   className={cn(
-                    OwnerWallet === wallet.address
+                    uuid === wallet.address
                       ? 'bg-gray-300 hover:bg-gray-300 text-gray-700'
                       : 'bg-red-900 hover:bg-red-800 text-white',
                     'font-bold uppercase mt-4 rounded p-2 w-full'
                   )}
-                  disabled={OwnerWallet === wallet.address}
+                  disabled={uuid === wallet.address}
                   aria-label="remove wallet from account"
                   onClick={() => deleteWallet({ variables: { userId: user.id, walletAddress: wallet.address } })}
                 >
-                  {OwnerWallet === wallet.address
+                  {uuid === wallet.address
                     ? 'You cannot remove your login wallet'
                     : 'Remove this wallet from my account'}
                 </button>

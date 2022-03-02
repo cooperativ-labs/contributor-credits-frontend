@@ -82,6 +82,7 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =>
     credentials: 'same-origin',
   });
 
+  // const key = process.env.NEXT_PUBLIC_NETLIFY_CLIENT_CC;
   const asyncMiddleware = setContext((_, { headers }) =>
     getToken().then((token) => ({
       headers: {

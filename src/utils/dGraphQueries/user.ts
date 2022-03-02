@@ -1,29 +1,28 @@
 import gql from 'graphql-tag';
 import { CORE_AGREEMENT_FIELDS } from './fragments';
 
-export const GET_USERS = () => {
-  return gql`
-    query {
-      queryUser {
-        id
-        fullName
-        email
-        emailAddresses {
-          address
-          public
-        }
-        agreements {
-          agreement {
-            organizationName
-            contributorCreditClass {
-              name
-            }
+export const GET_USERS = gql`
+  query {
+    queryUser {
+      id
+      fullName
+      email
+      emailAddresses {
+        address
+        public
+      }
+      agreements {
+        agreement {
+          organizationName
+          contributorCreditClass {
+            name
+            chainId
           }
         }
       }
     }
-  `;
-};
+  }
+`;
 
 export const CHECK_EMAIL_TAKEN = gql`
   query CheckEmailTaken($address: String!) {
