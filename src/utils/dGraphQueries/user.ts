@@ -52,8 +52,6 @@ export const GET_USER = gql`
     queryUser(filter: { uuid: { eq: $uuid } }) {
       id
       uuid
-      ##this email is legacy and can removed after everyone has an email under the new structure
-      email
       emailAddresses {
         address
         name
