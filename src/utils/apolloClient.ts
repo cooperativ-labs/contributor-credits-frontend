@@ -1,10 +1,4 @@
 import { useMemo } from 'react';
-import fireApp from 'firebaseConfig/firebaseConfig';
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
 
 // // const analytics = getAnalytics(app);
 
