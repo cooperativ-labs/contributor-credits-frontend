@@ -12,3 +12,8 @@ export function setHttp(link) {
   }
   return link;
 }
+
+export function getHumanDate(date) {
+  const dateObj = new Date(date);
+  return dateObj?.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
