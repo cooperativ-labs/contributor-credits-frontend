@@ -83,15 +83,24 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =>
   });
 
   const key = process.env.NEXT_PUBLIC_NETLIFY_CLIENT_CC;
-  const asyncMiddleware = setContext((_, { headers }) =>
-    getToken().then((token) => ({
+  const setHeaders = (headers, token) => {
+    if (process.env.NODE_ENV === 'production')
+      return {
+        headers: {
+          ...headers,
+          'X-Auth-Token': token ? token : '',
+          'DG-Auth': key,
+        },
+      };
+    return {
       headers: {
         ...headers,
         'X-Auth-Token': token ? token : '',
-        'DG-Auth': key ?? undefined,
       },
-    }))
-  );
+    };
+  };
+
+  const asyncMiddleware = setContext((_, { headers }) => getToken().then((token) => setHeaders(headers, token)));
 
   const createApolloClient = new ApolloClient({
     link: asyncMiddleware.concat(httpLink),
