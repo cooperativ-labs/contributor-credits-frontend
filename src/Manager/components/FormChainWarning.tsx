@@ -53,7 +53,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ c2 }) => {
             {buttonStep === 'confirmed' && (
               <>
                 <div className="text-sm mt-2">Now add this token address to your wallet:</div>
-                <FormattedCryptoAddress chainId={chainId} address={c2.bacContract.address} />
+                <FormattedCryptoAddress chainId={chainId} address={c2.bacContract.address} withCopy />
               </>
             )}
           </div>
