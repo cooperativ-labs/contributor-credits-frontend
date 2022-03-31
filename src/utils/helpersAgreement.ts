@@ -1,6 +1,6 @@
 export type GenerateAgreementType = {
   organizationName: string;
-  c2Address: string;
+  smartContractAddress: string;
   bacName: string;
   bacAddress: string;
   triggerText: string;

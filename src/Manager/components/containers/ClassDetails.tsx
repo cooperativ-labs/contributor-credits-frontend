@@ -7,16 +7,15 @@ import Loading from '../Loading';
 import PaymentList from '@src/Manager/components/ListPayments';
 import React, { FC } from 'react';
 import SectionBlock from '@src/Manager/components/containers/SectionBlock';
-import { ClassStatus } from '@src/utils/classStatus';
 import { ContractManager } from '@src/Manager/pages/Dashboard';
-import { ContributorCreditClass, Payment, User } from 'types';
+import { ContributorCreditClass, SmartContractType, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { useC2 } from '@src/web3/hooks/useC2';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { useC3 } from '@src/web3/hooks/useC3';
 
 type BaseProps = {
   user: User;
@@ -32,7 +31,10 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
 
-  const c2 = useC2(cryptoAddress.address, memberAddresses);
+  const cc =
+    CCClass.type === SmartContractType.C2
+      ? useC2(cryptoAddress.address, memberAddresses)
+      : useC3(cryptoAddress.address, memberAddresses);
 
   const isContractManager = ContractManager(agreement, user);
 
@@ -61,7 +63,11 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
           chainId={cryptoAddress.chainId}
           withCopy
         />
-        <ClassFundingRatio cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+        <ClassFundingRatio
+          cryptoAddress={cryptoAddress.address}
+          memberAddresses={memberAddresses}
+          contractType={CCClass.type}
+        />
       </div>
 
       <div className="my-3 mb-6">
@@ -72,7 +78,11 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
           triggerRevenue={triggerRevenue}
         />
       </div>
-      <ClassStatusBlock cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+      <ClassStatusBlock
+        cryptoAddress={cryptoAddress.address}
+        memberAddresses={memberAddresses}
+        contractType={CCClass.type}
+      />
 
       {allPayments.length > 0 && (
         <SectionBlock sectionTitle="Payments" className="mt-6">
@@ -80,9 +90,16 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         </SectionBlock>
       )}
 
-      <ClassActions name={name} chainId={cryptoAddress.chainId} c2={c2} ccId={id} agreementId={agreement.id} />
+      <ClassActions
+        name={name}
+        chainId={cryptoAddress.chainId}
+        cc={cc}
+        ccId={id}
+        agreementId={agreement.id}
+        contractType={CCClass.type}
+      />
       <div className="mt-5">
-        <HashInstructions hash={c2?.info.agreementHash} agreementText={agreement.text} />
+        <HashInstructions hash={cc?.info.agreementHash} agreementText={agreement.text} />
       </div>
     </div>
   );

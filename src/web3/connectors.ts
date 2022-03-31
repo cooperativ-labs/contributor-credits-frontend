@@ -22,7 +22,15 @@ export const SupportedChainIds = [
     id: 3,
     name: 'Ropsten',
     blockExplorer: 'https://ropsten.etherscan.io',
-    faucet: 'https://faucet.dimensions.network/',
+    faucet: 'https://faucet.egorfine.com/',
+    protocol: CryptoAddressProtocol.Eth,
+    contractsSupported: true,
+  },
+  {
+    id: 5,
+    name: 'Görli',
+    blockExplorer: 'https://goerli.etherscan.io/',
+    faucet: 'https://fauceth.komputing.org/?chain=5',
     protocol: CryptoAddressProtocol.Eth,
     contractsSupported: true,
   },
@@ -82,14 +90,6 @@ export const SupportedChainIds = [
 
     contractsSupported: false,
   },
-  {
-    id: 5,
-    name: 'Görli',
-    blockExplorer: 'https://goerli.etherscan.io/',
-    protocol: CryptoAddressProtocol.Eth,
-
-    contractsSupported: false,
-  },
 ];
 
 export const MatchSupportedChains = (chainId) => {
@@ -99,6 +99,7 @@ export const MatchSupportedChains = (chainId) => {
 const RPC_URLS: { [chainId: number]: string } = {
   1: 'https://mainnet.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
   3: 'https://ropsten.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
+  5: 'https://ropsten.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
   137: 'https://polygon-mainnet.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
   80001: 'https://polygon-mumbai.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
 };
@@ -109,6 +110,7 @@ const walletconnect = new WalletConnectConnector({
   rpc: {
     1: RPC_URLS[1],
     3: RPC_URLS[3],
+    5: RPC_URLS[5],
     137: RPC_URLS[137],
     80001: RPC_URLS[80001],
   },

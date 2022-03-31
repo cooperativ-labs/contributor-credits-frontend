@@ -2,14 +2,20 @@ import Loading from './Loading';
 import React from 'react';
 import { ClassStatus } from '@src/utils/classStatus';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+import { SmartContractType } from 'types';
 
 interface ClassStatusBlockProps {
   cryptoAddress: string;
   memberAddresses: string[];
+  contractType: SmartContractType;
 }
 
-export const ClassFundingRatio: React.FC<ClassStatusBlockProps> = ({ cryptoAddress, memberAddresses }) => {
-  const { creditsAuthorized, fundRatio, loading } = ClassStatus(cryptoAddress, memberAddresses);
+export const ClassFundingRatio: React.FC<ClassStatusBlockProps> = ({
+  cryptoAddress,
+  memberAddresses,
+  contractType,
+}) => {
+  const { creditsAuthorized, fundRatio, loading } = ClassStatus(cryptoAddress, memberAddresses, contractType);
   if (loading) {
     return (
       <>
@@ -24,8 +30,12 @@ export const ClassFundingRatio: React.FC<ClassStatusBlockProps> = ({ cryptoAddre
   );
 };
 
-export const ClassCreditsStats: React.FC<ClassStatusBlockProps> = ({ cryptoAddress, memberAddresses }) => {
-  const { creditsAuthorized, creditsEarned, loading } = ClassStatus(cryptoAddress, memberAddresses);
+export const ClassCreditsStats: React.FC<ClassStatusBlockProps> = ({
+  cryptoAddress,
+  memberAddresses,
+  contractType,
+}) => {
+  const { creditsAuthorized, creditsEarned, loading } = ClassStatus(cryptoAddress, memberAddresses, contractType);
   if (loading) {
     return <></>;
   }
@@ -37,10 +47,15 @@ export const ClassCreditsStats: React.FC<ClassStatusBlockProps> = ({ cryptoAddre
     </>
   );
 };
-export const ClassFundingStats: React.FC<ClassStatusBlockProps> = ({ cryptoAddress, memberAddresses }) => {
+export const ClassFundingStats: React.FC<ClassStatusBlockProps> = ({
+  cryptoAddress,
+  memberAddresses,
+  contractType,
+}) => {
   const { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading } = ClassStatus(
     cryptoAddress,
-    memberAddresses
+    memberAddresses,
+    contractType
   );
   if (loading) {
     return <></>;
@@ -53,11 +68,11 @@ export const ClassFundingStats: React.FC<ClassStatusBlockProps> = ({ cryptoAddre
   );
 };
 
-const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({ cryptoAddress, memberAddresses }) => {
+const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
   return (
     <div>
-      <ClassCreditsStats cryptoAddress={cryptoAddress} memberAddresses={memberAddresses} />
-      <ClassFundingStats cryptoAddress={cryptoAddress} memberAddresses={memberAddresses} />
+      <ClassCreditsStats cryptoAddress={cryptoAddress} memberAddresses={memberAddresses} contractType={contractType} />
+      <ClassFundingStats cryptoAddress={cryptoAddress} memberAddresses={memberAddresses} contractType={contractType} />
     </div>
   );
 };

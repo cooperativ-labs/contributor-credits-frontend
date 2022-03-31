@@ -16,6 +16,8 @@ const networkColor = (chainId, walletAddress) => {
       return 'bg-green-600 hover:text-white';
     case 3:
       return 'bg-cYellow hover:text-white';
+    case 5:
+      return 'bg-purple-600 hover:text-white';
     case 137:
       return 'bg-blue-600 hover:text-white';
     case 80001:
@@ -53,6 +55,8 @@ const NetworkIndicator: FC = () => {
       case 1:
         return `Ethereum`;
       case 3:
+        return 'Test Transactions Only';
+      case 5:
         return 'Test Transactions Only';
       case 137:
         return `Polygon`;

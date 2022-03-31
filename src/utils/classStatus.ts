@@ -1,15 +1,17 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { C2Type, useC2 } from '@src/web3/hooks/useC2';
+import { C3Type, useC3 } from '@src/web3/hooks/useC3';
 import { toHumanNumber } from '@src/web3/util';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
+import { SmartContractType } from 'types';
 
-export const proportionFunded = (c2: C2Type): number => {
-  const { totalSupply, bacStaked, decimals: c2Decimals } = c2.info;
-  if (!c2.bacContract || !c2.bacInfo) {
+export const proportionFunded = (cc: C2Type | C3Type): number => {
+  const { totalSupply, bacStaked, decimals: c2Decimals } = cc.info;
+  if (!cc.bacContract || !cc.bacInfo) {
     return 0;
   }
-  const { decimals: bacDecimals } = c2.bacInfo;
+  const { decimals: bacDecimals } = cc.bacInfo;
   if (totalSupply.eq(0)) {
     return 1;
   }
@@ -20,13 +22,17 @@ export const proportionFunded = (c2: C2Type): number => {
   return stakedBac / totalC2;
 };
 
-export const ClassStatus = (cryptoAddress: string, memberAddresses: string[]) => {
+export const ClassStatus = (cryptoAddress: string, memberAddresses: string[], contractType: SmartContractType) => {
   const { account: walletAddress } = useWeb3React<Web3Provider>();
-  const c2 = useC2(cryptoAddress, memberAddresses);
-  if (c2) {
-    const { totalSupply, addrBalances, decimals: c2Decimals } = c2.info;
+  const cc =
+    contractType === SmartContractType.C2
+      ? useC2(cryptoAddress, memberAddresses)
+      : useC3(cryptoAddress, memberAddresses);
+
+  if (cc) {
+    const { totalSupply, addrBalances, decimals: c2Decimals } = cc.info;
     const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
-    const backingCurrency = c2.bacInfo.symbol;
+    const backingCurrency = cc.bacInfo.symbol;
     const getEarnedCredits = (): BigNumber => {
       const claim = addrBalances.get(walletAddress);
       if (claim) {
@@ -40,9 +46,9 @@ export const ClassStatus = (cryptoAddress: string, memberAddresses: string[]) =>
 
     const creditsEarned = parseInt(getEarnedCredits()._hex);
 
-    const fundRatio = proportionFunded(c2);
+    const fundRatio = proportionFunded(cc);
     const loading = false;
-    const isOwner = c2.info.isOwner;
+    const isOwner = cc.info.isOwner;
 
     return { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading, isOwner };
   } else {

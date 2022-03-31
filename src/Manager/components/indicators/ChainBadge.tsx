@@ -12,6 +12,8 @@ const ChainBadge: FC<ChainBadgeProps> = ({ chainId }) => {
         return { color: 'border-green-500 text-green-500', chain: 'ETH' };
       case 3:
         return { color: 'border-cYellow text-cYellow', chain: 'ROP' };
+      case 5:
+        return { color: 'border-cYellow text-cYellow', chain: 'GOR' };
       case 137:
         return { color: 'border-blue-600 text-blue-600', chain: 'MATIC' };
       case 80001:

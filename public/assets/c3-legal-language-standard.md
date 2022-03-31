@@ -8,6 +8,7 @@ Agreement goes into effect and {{ organizationName }} agrees to the following:
 
 ### Definitions:
 
+
 - **"{{ organizationName }}"** means {{ organizationLegalName }}.
 
 - **"Contributor Credit Contract"** means the smart contract located at

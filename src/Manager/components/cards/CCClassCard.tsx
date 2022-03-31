@@ -9,15 +9,14 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 
 type ClassCardProps = {
   cClass: ContributorCreditClass;
-  user: User;
   setSelectedClassId: any;
 };
 
-const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, user }) => {
+const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId }) => {
   const { id, name, triggers, cryptoAddress, triggerShortDescription, type, agreement } = cClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const { isOwner } = ClassStatus(cryptoAddress.address, memberAddresses);
+  const { isOwner } = ClassStatus(cryptoAddress.address, memberAddresses, cClass.type);
 
   const isContractManager = isOwner;
 
@@ -36,7 +35,11 @@ const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, use
       >
         <div className="font-bold md:font-base col-span-1 self-center">
           {name} {type}
-          <ClassFundingRatio cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+          <ClassFundingRatio
+            cryptoAddress={cryptoAddress.address}
+            memberAddresses={memberAddresses}
+            contractType={cClass.type}
+          />
         </div>
         <div className="col-span-1">
           {triggerFundraising.amount ? (
@@ -51,10 +54,18 @@ const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, use
           )}
         </div>
         <div className="col-span-1">
-          <ClassCreditsStats cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+          <ClassCreditsStats
+            cryptoAddress={cryptoAddress.address}
+            memberAddresses={memberAddresses}
+            contractType={cClass.type}
+          />
         </div>
         <div className="col-span-1">
-          <ClassFundingStats cryptoAddress={cryptoAddress.address} memberAddresses={memberAddresses} />
+          <ClassFundingStats
+            cryptoAddress={cryptoAddress.address}
+            memberAddresses={memberAddresses}
+            contractType={cClass.type}
+          />
         </div>
       </div>
     </div>

@@ -8,32 +8,33 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { toContractInteger, toHumanNumber } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
+import { C3Type } from '@src/web3/hooks/useC3';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
 interface FundClassProps {
-  c2: C2Type;
+  cc: C2Type | C3Type;
 }
 
-const FundClass: React.FC<FundClassProps> = ({ c2 }) => {
+const FundClass: React.FC<FundClassProps> = ({ cc }) => {
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
   // --- create service ---
-  const { totalSupply, bacStaked, decimals: c2Decimals, address } = c2.info;
+  const { totalSupply, bacStaked, decimals: c2Decimals, address } = cc.info;
   const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
-  const backingCurrency = c2.bacInfo.symbol;
-  const getAmountStaked = (c2: C2Type): BigNumber => {
-    if (!c2.bacContract || !c2.bacInfo) {
+  const backingCurrency = cc.bacInfo.symbol;
+  const getAmountStaked = (cc: C2Type | C3Type): BigNumber => {
+    if (!cc.bacContract || !cc.bacInfo) {
       return BigNumber.from([0]);
     }
-    const { decimals: bacDecimals } = c2.bacInfo;
+    const { decimals: bacDecimals } = cc.bacInfo;
     if (totalSupply.eq(0)) {
       return BigNumber.from([1]);
     }
     return toHumanNumber(bacStaked, bacDecimals);
   };
 
-  const currentAmountStaked = parseInt(getAmountStaked(c2)._hex);
+  const currentAmountStaked = parseInt(getAmountStaked(cc)._hex);
   const maxFund = creditsAuthorized - currentAmountStaked;
   //----------
 
@@ -44,10 +45,14 @@ const FundClass: React.FC<FundClassProps> = ({ c2 }) => {
 
   const [, fundCredits] = useAsyncFn(
     async (amount: number) => {
-      await c2.bacContract.transfer(address, toContractInteger(BigNumber.from(amount), c2.bacInfo.decimals));
-      setButtonStep('confirmed');
+      const txResp = await cc.bacContract.transfer(
+        address,
+        toContractInteger(BigNumber.from(amount), cc.bacInfo.decimals)
+      );
+      await txResp.wait();
+      await setButtonStep('confirmed');
     },
-    [c2]
+    [cc]
   );
 
   return (

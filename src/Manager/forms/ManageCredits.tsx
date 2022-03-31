@@ -11,6 +11,10 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 import { proportionFunded } from '@src/utils/classStatus';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
+import { C3Type } from '@src/web3/hooks/useC3';
+import { SmartContractType } from 'types';
+import { useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -19,38 +23,46 @@ const FormButtonText = (action, amount) => {
 };
 
 export type ManageCreditsProps = {
-  c2: C2Type;
+  cc: C2Type | C3Type;
+  // cc: C3Type;
   chainId: number;
+  contractType: SmartContractType;
 };
 
-const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
+const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
+  const { account } = useWeb3React<Web3Provider>();
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
-  const fundRatio = proportionFunded(c2);
-
+  const fundRatio = proportionFunded(cc);
+  cc.contract.version().then((res) => console.log(res));
   const [, cashOut] = useAsyncFn(
     async (amount: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+
       try {
-        const txResp = await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+        const txResp =
+          contractType === SmartContractType.C2
+            ? await cc.contract.cashout(toContractInteger(BigNumber.from(amount), cc.info.decimals))
+            : await cc.contract.cashout();
         await txResp.wait();
         setButtonStep('submitted');
       } catch (error) {
+        console.log(error);
         if (error.code === 4001) {
           setButtonStep('rejected');
         }
       }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
-    [c2]
+    [cc]
   );
 
   const [, burnCredits] = useAsyncFn(
     async (amount: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       try {
-        const txResp = await c2.contract.burn(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+        const txResp = await cc.contract.burn(toContractInteger(BigNumber.from(amount), cc.info.decimals));
         await txResp.wait();
         setButtonStep('submitted');
       } catch (error) {
@@ -60,8 +72,15 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
       }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
-    [c2]
+    [cc]
   );
+
+  //maybe just tell them the number of credits
+  const alertMath = (amount, action) => {
+    return contractType === SmartContractType.C2
+      ? `CURRENT VALUE: $${amount * fundRatio} - Are you sure you want to ${action} ${amount} credits? `
+      : `Are you sure you want to ${action} ${amount} credits?`;
+  };
 
   return (
     <Formik
@@ -80,13 +99,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ c2, chainId }) => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setButtonStep('submitting');
-        if (
-          window.confirm(
-            `CURRENT VALUE: $${values.amount * fundRatio} - Are you sure you want to ${values.action} ${
-              values.amount
-            } credits? `
-          )
-        ) {
+        if (window.confirm(alertMath(values.amount, values.action))) {
           values.action === 'relinquish' ? burnCredits(values.amount) : cashOut(values.amount);
         } else {
           setButtonStep('rejected');

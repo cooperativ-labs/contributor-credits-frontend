@@ -9,7 +9,7 @@ import { generateAgreement } from '@src/utils/helpersAgreement';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-import { SmartContractUnestablished } from 'types';
+import { SmartContractType, SmartContractUnestablished } from 'types';
 import { useAsync } from 'react-use';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
@@ -49,6 +49,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
   // if (!user) {
   //   return <Loading />;
   // }
+  const { cryptoAddress, type: contractType } = availableContract;
 
   const [agreementContent, setAgreementContent] = useState<AgreementContentType>({
     organizationName: '',
@@ -61,12 +62,21 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
     signature: '',
   });
 
-  const standardAgreement = `/assets/cc-legal-language-standard.md`;
+  const setStandardAgreementText =
+    contractType === SmartContractType.C2
+      ? `/assets/cc-legal-language-standard.md`
+      : `/assets/c3-legal-language-standard.md`;
+  const setcCustomAgreementText =
+    contractType === SmartContractType.C2
+      ? `/assets/cc-legal-language-custom.md`
+      : `/assets/c3-legal-language-custom.md`;
+
+  const standardAgreement = setStandardAgreementText;
   const getStandardAgreementText = async (): Promise<AgreementText['standard']> =>
     axios.get(standardAgreement).then((resp) => resp.data);
   const { value: standardAgreementText } = useAsync(getStandardAgreementText, []);
 
-  const customAgreement = `/assets/cc-legal-language-custom.md`;
+  const customAgreement = setcCustomAgreementText;
   const getCustomAgreementText = async (): Promise<AgreementText['custom']> =>
     axios.get(customAgreement).then((resp) => resp.data);
   const { value: customAgreementText } = useAsync(getCustomAgreementText, []);
@@ -75,7 +85,6 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
     return <></>;
   }
 
-  const { cryptoAddress } = availableContract;
   const contractAddress = cryptoAddress.address;
   const {
     organizationName,
@@ -103,7 +112,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
   const agreement = generateAgreement(
     {
       organizationName: organizationName,
-      c2Address: contractAddress,
+      smartContractAddress: contractAddress,
       bacName: bacName,
       chainName: MatchSupportedChains(chainId).name,
       bacAddress: bacAddress,

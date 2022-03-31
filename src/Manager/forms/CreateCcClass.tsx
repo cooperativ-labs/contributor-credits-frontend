@@ -85,7 +85,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
         <Form className="flex flex-col gap relative">
           <Select className={fieldDiv} required name="type" labelText="Select the type of credits">
             <option value={SmartContractType.C2}>Original Contributor Credits (C2)</option>
-            {/* <option value={SmartContractType.C3}>Continuous Contributor Credits (C3)</option> */}
+            <option value={SmartContractType.C3}>Continuous Contributor Credits (C3)</option>
           </Select>
           <FormButton type="submit" disabled={isSubmitting || buttonStep === 'submitting'}>
             <LoadingButtonText
