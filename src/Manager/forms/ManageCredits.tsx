@@ -31,11 +31,10 @@ export type ManageCreditsProps = {
 
 const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
-  const { account } = useWeb3React<Web3Provider>();
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const fundRatio = proportionFunded(cc);
-  cc.contract.version().then((res) => console.log(res));
+
   const [, cashOut] = useAsyncFn(
     async (amount: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
