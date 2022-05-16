@@ -23,8 +23,8 @@ const FormButtonText = (action, amount) => {
 };
 
 export type ManageCreditsProps = {
-  cc: C2Type | C3Type;
-  // cc: C3Type;
+  // cc: C2Type | C3Type;
+  cc: C3Type;
   chainId: number;
   contractType: SmartContractType;
 };
@@ -41,9 +41,10 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
 
       try {
         const txResp =
-          contractType === SmartContractType.C2
-            ? await cc.contract.cashout(toContractInteger(BigNumber.from(amount), cc.info.decimals))
-            : await cc.contract.cashout();
+          // contractType === SmartContractType.C2
+          //   ? await cc.contract.cashout(toContractInteger(BigNumber.from(amount), cc.info.decimals))
+          // :
+          await cc.contract.cashout();
         await txResp.wait();
         setButtonStep('submitted');
       } catch (error) {

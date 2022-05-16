@@ -56,6 +56,7 @@ export const Input: React.FC<CustomInputProps> = ({
         )}
         required={required}
         onBlur={onBlur}
+        onWheel={(e) => type === 'number' && e.target.blur()}
       />
       <ErrorMessage name={name} component="div" className="text-sm text-red-500" />
     </div>

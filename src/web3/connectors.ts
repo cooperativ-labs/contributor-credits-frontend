@@ -99,7 +99,7 @@ export const MatchSupportedChains = (chainId) => {
 const RPC_URLS: { [chainId: number]: string } = {
   1: 'https://mainnet.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
   3: 'https://ropsten.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
-  5: 'https://ropsten.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
+  5: 'https://ropsten.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2', // remove this
   137: 'https://polygon-mainnet.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
   80001: 'https://polygon-mumbai.infura.io/v3/acfb1610d5514a998fb6c0baf20682c2',
 };

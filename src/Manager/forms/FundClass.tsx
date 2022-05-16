@@ -6,7 +6,7 @@ import { C2Type } from '@src/web3/hooks/useC2';
 import { Form, Formik } from 'formik';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-import { toContractInteger, toHumanNumber } from '@src/web3/util';
+import { isC3, toContractInteger, toHumanNumber } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { C3Type } from '@src/web3/hooks/useC3';
 
@@ -45,12 +45,18 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
 
   const [, fundCredits] = useAsyncFn(
     async (amount: number) => {
-      const txResp = await cc.bacContract.transfer(
-        address,
-        toContractInteger(BigNumber.from(amount), cc.bacInfo.decimals)
-      );
-      await txResp.wait();
-      await setButtonStep('confirmed');
+      const fundAmount = toContractInteger(BigNumber.from(amount), cc.bacInfo.decimals);
+      if (isC3(cc)) {
+        const allowance = await cc.bacContract.approve(cc.contract.address, fundAmount);
+        await allowance.wait();
+        const txResp = await cc.contract.fund(fundAmount);
+        await txResp.wait();
+        setButtonStep('confirmed');
+      } else {
+        const txResp = await cc.bacContract.transfer(address, fundAmount);
+        await txResp.wait();
+        setButtonStep('confirmed');
+      }
     },
     [cc]
   );

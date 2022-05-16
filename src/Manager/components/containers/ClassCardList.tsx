@@ -69,7 +69,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
-                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} user={user} />
+                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} />
                 </div>
               );
           })}
