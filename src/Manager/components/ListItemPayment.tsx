@@ -1,6 +1,6 @@
 import React from 'react';
-import { numberWithCommas } from '@src/utils/helpersMoney';
 import { getHumanDate } from '@src/utils/helpersGeneral';
+import { numberWithCommas } from '@src/utils/helpersMoney';
 
 export interface ListItemPaymentProps {
   title: any;

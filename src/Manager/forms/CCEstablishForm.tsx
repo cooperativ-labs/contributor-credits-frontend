@@ -99,7 +99,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           revenueTriggerAmount: undefined,
           triggerShortDescription: '',
           triggerText: '',
-          email: user.walletAddresses[0],
+          email: '',
           signature: '',
         }}
         validate={(values) => {
@@ -112,6 +112,9 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
           }
           if (!values.title) {
             errors.title = 'Please title this class';
+          }
+          if (!values.email) {
+            errors.email = 'Please include an email address';
           }
           if (values.customToggle) {
             if (!values.triggerShortDescription || values.triggerShortDescription.length > 250) {
@@ -281,7 +284,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
             <div className="md:hidden">
               <PresentLegalText agreement={agreement} />
             </div>
-            <Select className={fieldDiv} required name="email" labelText="Email Address">
+            <Input className={fieldDiv} required name="email" labelText="Email Address" placeholder="you@example.com" />
+            {/* <Select className={fieldDiv} required name="email" labelText="Email Address">
               <option value="">Select an email to associate</option>;
               {user.emailAddresses.map((email, i) => {
                 return (
@@ -290,8 +294,8 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
                   </option>
                 );
               })}
-            </Select>
-            {emailRequiredNotice}
+            </Select> 
+            {emailRequiredNotice}*/}
             <Input
               className={fieldDiv}
               name="signature"

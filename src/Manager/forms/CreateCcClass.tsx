@@ -1,6 +1,5 @@
 import FormButton from '../components/buttons/FormButton';
 import React, { FC, useContext, useState } from 'react';
-import Router, { useRouter } from 'next/router';
 import Select from './components/Select';
 import { ApplicationStoreProps, store } from '@context/store';
 import { CREATE_UNESTABLISHED_SMART_CONTRACT } from '@src/utils/dGraphQueries/crypto';
@@ -13,7 +12,6 @@ import { SmartContractType } from 'types';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
-import { WalletErrorCodes } from '@src/web3/helpersChain';
 import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
@@ -32,7 +30,7 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
   const [alerted, setAlerted] = useState<boolean>(false);
 
   /** @TODO : need to put this somewhere it wont fail when closed */
-  const [deployState, deploy] = useAsyncFn(
+  const [, deploy] = useAsyncFn(
     async (ccType: SmartContractType) => {
       const protocol = MatchSupportedChains(chainId).protocol;
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
@@ -60,7 +58,6 @@ const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
   );
 
   if (error && !alerted) {
-    console.log(error);
     alert('Oops. Looks like something went wrong');
     setAlerted(true);
   }

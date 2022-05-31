@@ -12,10 +12,10 @@ import { ContributorCreditClass, SmartContractType, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { useC2 } from '@src/web3/hooks/useC2';
+import { useC3 } from '@src/web3/hooks/useC3';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { useC3 } from '@src/web3/hooks/useC3';
 
 type BaseProps = {
   user: User;
@@ -31,10 +31,9 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
 
-  const cc =
-    CCClass.type === SmartContractType.C2
-      ? useC2(cryptoAddress.address, memberAddresses)
-      : useC3(cryptoAddress.address, memberAddresses);
+  const c2 = useC2(cryptoAddress.address, memberAddresses);
+  const c3 = useC3(cryptoAddress.address, memberAddresses);
+  const cc = { c2: c2, c3: c3 };
 
   const isContractManager = ContractManager(agreement, user);
 
@@ -99,7 +98,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         contractType={CCClass.type}
       />
       <div className="mt-5">
-        <HashInstructions hash={cc?.info.agreementHash} agreementText={agreement.text} />
+        <HashInstructions cc={cc} agreementText={agreement.text} />
       </div>
     </div>
   );

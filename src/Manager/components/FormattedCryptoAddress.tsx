@@ -33,7 +33,7 @@ const FormattedCryptoAddress: FC<FormattedCryptoAddressProps> = ({
           address
         ) : (
           <span className="hover:underline">
-            {address.slice(0, 7)}...{address.slice(-4)}
+            {address?.slice(0, 7)}...{address?.slice(-4)}
           </span>
         )}
       </a>

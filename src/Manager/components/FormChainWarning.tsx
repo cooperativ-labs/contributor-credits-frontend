@@ -3,26 +3,31 @@ import FormattedCryptoAddress from './FormattedCryptoAddress';
 import React, { FC, useState } from 'react';
 import { BigNumber } from 'ethers';
 import { C2Type } from '@src/web3/hooks/useC2';
+import { C3Type } from '@src/web3/hooks/useC3';
 import { isMintableERC20 } from '@src/web3/info/erc20Info';
 import { LoadingButtonStateType, LoadingButtonText } from './buttons/Button';
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { toContractInteger } from '@src/web3/util';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
-import { C3Type } from '@src/web3/hooks/useC3';
 
 type FormChainWarningProps = {
-  cc?: C2Type | C3Type;
+  cc?: { c2: C2Type; c3: C3Type };
 };
 
 const FormChainWarning: FC<FormChainWarningProps> = ({ cc }) => {
   const { chainId } = useWeb3React<Web3Provider>();
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
+  const c2 = cc?.c2;
+  const c3 = cc?.c3;
+
+  const activeCC = c2 ? c2 : c3;
+
   const mintBac = async (amount: BigNumber) => {
-    if (isMintableERC20(cc.bacContract)) {
+    if (isMintableERC20(activeCC.bacContract)) {
       setButtonStep('submitting');
-      await cc.bacContract.mint(amount);
+      await activeCC.bacContract.mint(amount);
       setButtonStep('confirmed');
     }
   };
@@ -38,11 +43,11 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ cc }) => {
           </div>
           <div className="text-sm">Please note that it may take some time for the token to arrive in your wallet.</div>
         </div>
-        {cc && (
+        {activeCC && (
           <div>
             <button
               className="p-2 mt-3 border-2 border-yellow-600 bg-cYellow bg-opacity-50 font-bold text-yellow-900 rounded-md w-full"
-              onClick={async () => await mintBac(toContractInteger(BigNumber.from(1000000), cc.bacInfo.decimals))}
+              onClick={async () => await mintBac(toContractInteger(BigNumber.from(1000000), activeCC.bacInfo.decimals))}
             >
               <LoadingButtonText
                 state={buttonStep}
@@ -54,7 +59,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ cc }) => {
             {buttonStep === 'confirmed' && (
               <>
                 <div className="text-sm mt-2">Now add this token address to your wallet:</div>
-                <FormattedCryptoAddress chainId={chainId} address={cc.bacContract.address} withCopy />
+                <FormattedCryptoAddress chainId={chainId} address={activeCC.bacContract.address} withCopy />
               </>
             )}
           </div>
@@ -76,7 +81,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ cc }) => {
         {buttonStep === 'confirmed' && (
           <>
             <div className="text-sm mt-2">Now add this token address to your wallet:</div>
-            <FormattedCryptoAddress chainId={chainId} address={cc.bacContract.address} />
+            <FormattedCryptoAddress chainId={chainId} address={activeCC.bacContract.address} />
           </>
         )}
       </div>

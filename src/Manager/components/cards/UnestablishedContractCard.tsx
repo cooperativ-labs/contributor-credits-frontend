@@ -1,12 +1,12 @@
 import BaseCard from './BaseCard';
 
+import Card from '@src/containers/Card';
+import ChainBadge from '../indicators/ChainBadge';
 import FormattedCryptoAddress from '../FormattedCryptoAddress';
 import Link from 'next/link';
 import React from 'react';
-import { SmartContractUnestablished } from 'types';
-import ChainBadge from '../indicators/ChainBadge';
-import Card from '@src/containers/Card';
 import router from 'next/router';
+import { SmartContractUnestablished } from 'types';
 
 interface UnestablishedContractCardProps {
   unestablishedContract: SmartContractUnestablished;

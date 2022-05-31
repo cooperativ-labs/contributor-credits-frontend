@@ -5,26 +5,19 @@ import Select from './components/Select';
 import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
+import { C3Type } from '@src/web3/hooks/useC3';
 import { Form, Formik } from 'formik';
+import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { proportionFunded } from '@src/utils/classStatus';
-import { toContractInteger } from '@src/web3/util';
-import { useAsyncFn } from 'react-use';
-import { C3Type } from '@src/web3/hooks/useC3';
 import { SmartContractType } from 'types';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
+import { useAsyncFn } from 'react-use';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
-const FormButtonText = (action, amount) => {
-  return !action ? 'choose action' : `${action} ${numberWithCommas(amount)} Credits`;
-};
-
 export type ManageCreditsProps = {
-  // cc: C2Type | C3Type;
-  cc: C3Type;
+  cc: { c2: C2Type; c3: C3Type };
   chainId: number;
   contractType: SmartContractType;
 };
@@ -33,20 +26,27 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
-  const fundRatio = proportionFunded(cc);
+  const [buttonAmount, setButtonAmount] = useState<string>('');
+
+  const c2 = cc.c2;
+  const c3 = cc.c3;
+  const activeCC = c2 ? c2 : c3;
+
+  const fundRatio = proportionFunded(c2);
 
   const [, cashOut] = useAsyncFn(
-    async (amount: number) => {
+    async (amount?: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
 
       try {
-        const txResp =
-          // contractType === SmartContractType.C2
-          //   ? await cc.contract.cashout(toContractInteger(BigNumber.from(amount), cc.info.decimals))
-          // :
-          await cc.contract.cashout();
-        await txResp.wait();
-        setButtonStep('submitted');
+        if (isC3(activeCC)) {
+          const txResp = await c3.contract.cashout();
+          await txResp.wait();
+          setButtonStep('submitted');
+        } else {
+          const txResp = await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+          await txResp.wait();
+        }
       } catch (error) {
         console.log(error);
         if (error.code === 4001) {
@@ -62,7 +62,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
     async (amount: number) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       try {
-        const txResp = await cc.contract.burn(toContractInteger(BigNumber.from(amount), cc.info.decimals));
+        const txResp = await activeCC.contract.burn(toContractInteger(BigNumber.from(amount), activeCC.info.decimals));
         await txResp.wait();
         setButtonStep('submitted');
       } catch (error) {
@@ -79,7 +79,14 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
   const alertMath = (amount, action) => {
     return contractType === SmartContractType.C2
       ? `CURRENT VALUE: $${amount * fundRatio} - Are you sure you want to ${action} ${amount} credits? `
-      : `Are you sure you want to ${action} ${amount} credits?`;
+      : `Are you sure you want to ${action} all funded credits?`;
+  };
+
+  const FormButtonText = (action, amount) => {
+    const actionDetails = isC3(activeCC)
+      ? `${action} all funded Credits`
+      : `${action} ${numberWithCommas(amount)} Credits`;
+    return !action ? 'choose action' : `${actionDetails}`;
   };
 
   return (
@@ -93,9 +100,14 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
         if (!values.action) {
           errors.action = 'Please select a action';
         }
-        if (!values.amount) {
-          errors.amount = 'Please include an amount';
-        } else if (typeof values.amount !== 'number') return errors;
+        if (!isC3(activeCC)) {
+          if (values.amount) {
+          } else {
+            errors.amount = 'Please include an amount';
+            if (typeof values.amount !== 'number') errors.amount = 'Amount must be a number';
+          }
+          return errors;
+        }
       }}
       onSubmit={(values, { setSubmitting }) => {
         setButtonStep('submitting');
@@ -113,15 +125,16 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
             <option value="cash out">Cash Out</option>
             <option value="relinquish">Relinquish</option>
           </Select>
-          <Input
-            className={fieldDiv}
-            labelText="Number of credits"
-            name="amount"
-            type="number"
-            placeholder="344"
-            required
-          />
-
+          {!isC3(activeCC) && (
+            <Input
+              className={fieldDiv}
+              labelText="Number of credits"
+              name="amount"
+              type="number"
+              placeholder="344"
+              required
+            />
+          )}
           <button
             type="submit"
             disabled={isSubmitting || !values.action}

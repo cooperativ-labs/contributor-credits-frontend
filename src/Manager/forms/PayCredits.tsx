@@ -9,13 +9,13 @@ import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
 import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
+import { C3Type } from '@src/web3/hooks/useC3';
 import { CurrencyCode, SmartContractType } from 'types';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { toContractInteger } from '@src/web3/util';
 import { useAsyncFn } from 'react-use';
 import { useMutation } from '@apollo/client';
-import { C3Type } from '@src/web3/hooks/useC3';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -31,7 +31,7 @@ const FormButtonText = (recipient, amount, chainId) => {
 };
 
 export type PayCreditsProps = {
-  cc: C2Type | C3Type;
+  cc: { c2: C2Type; c3: C3Type };
   ccId: string;
   chainId: number;
   agreementId: string;
@@ -43,6 +43,10 @@ const PayCredits: FC<PayCreditsProps> = ({ cc, ccId, chainId, agreementId }) => 
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
+
+  const c2 = cc.c2;
+  const c3 = cc.c3;
+  const activeCC = c2 ? c2 : c3;
 
   if (error && !alerted) {
     alert('Oops. Looks like something went wrong');
@@ -73,11 +77,14 @@ const PayCredits: FC<PayCreditsProps> = ({ cc, ccId, chainId, agreementId }) => 
     async (agreementId: string, amount: number, recipient: string, note: string) => {
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       try {
-        const txResp = await cc.contract.issue(recipient, toContractInteger(BigNumber.from(amount), cc.info.decimals));
+        const txResp = await activeCC.contract.issue(
+          recipient,
+          toContractInteger(BigNumber.from(amount), activeCC.info.decimals)
+        );
         await txResp.wait();
         createPayment(agreementId, amount, recipient, note, CurrencyCode.Cc);
         setButtonStep('confirmed');
-        cc.refresh();
+        activeCC.refresh();
       } catch (error) {
         if (error.code === 4001) {
           setButtonStep('rejected');
@@ -85,7 +92,7 @@ const PayCredits: FC<PayCreditsProps> = ({ cc, ccId, chainId, agreementId }) => 
       }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
-    [cc]
+    [activeCC]
   );
 
   return (

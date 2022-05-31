@@ -1,12 +1,13 @@
 import '../styles/hamburgers.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@styles/main.css';
 import '@styles/tailwind.css';
 import 'tailwindcss/tailwind.css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import AnalyticsContext from '@context/analytics';
 import React, { ReactElement } from 'react';
 
 import SetAppContext from '@src/SetAppContext';
+import { config, library } from '@fortawesome/fontawesome-svg-core';
 import {
   faArrowRight,
   faBrain,
@@ -36,7 +37,6 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGithub, faLinkedin, faPython, faReact, faSlackHash } from '@fortawesome/free-brands-svg-icons';
-import { library, config } from '@fortawesome/fontawesome-svg-core';
 
 config.autoAddCss = false;
 import { StateProvider } from '@context/store';

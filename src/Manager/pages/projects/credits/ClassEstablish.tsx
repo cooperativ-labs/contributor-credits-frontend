@@ -114,7 +114,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
       organizationName: organizationName,
       smartContractAddress: contractAddress,
       bacName: bacName,
-      chainName: MatchSupportedChains(chainId).name,
+      chainName: MatchSupportedChains(chainId)?.name,
       bacAddress: bacAddress,
       triggerCurrency: triggerCurrency,
       financingTriggerAmount: financingTriggerAmount && numberWithCommas(financingTriggerAmount),

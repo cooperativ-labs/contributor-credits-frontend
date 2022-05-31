@@ -44,9 +44,6 @@ export const NavBar: FC<NavBarProps> = () => {
         </Link>
       </div>
       <div className="flex justify-end">
-        <span className="hidden md:flex items-center mr-3">
-          <LogoutButton />
-        </span>
         <UserMenu />
       </div>
     </div>

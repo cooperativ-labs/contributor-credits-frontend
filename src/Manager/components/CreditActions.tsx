@@ -19,6 +19,16 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, name, ccId, chainId, agreemen
   const [paymentSendVisible, setPaymentSendVisible] = useState(false);
   const [manageCreditsVisible, setManageCreditsVisible] = useState(false);
 
+  const c2 = cc.c2;
+  const c3 = cc.c3;
+
+  if (!c2 && !c3) {
+    return <></>;
+  }
+
+  const isFunded = c2 ? c2.info.isFunded : c3.info.isFunded;
+  const isOwner = c2 ? c2.info.isOwner : c3.info.isOwner;
+
   const CreditManagerActions = (
     <>
       {fundVisible && (
@@ -28,7 +38,7 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, name, ccId, chainId, agreemen
           <FormChainWarning cc={cc} />
         </div>
       )}
-      {!cc?.info.isFunded && (
+      {!isFunded && (
         <StandardButton
           className="mt-2 mb-4"
           outlined
@@ -75,7 +85,7 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, name, ccId, chainId, agreemen
       />
     </>
   );
-  return <div className="mt-10">{cc ? cc.info.isOwner ? CreditManagerActions : CreditRecipientActions : <></>}</div>;
+  return <div className="mt-10">{cc ? isOwner ? CreditManagerActions : CreditRecipientActions : <></>}</div>;
 };
 
 export default ClassActions;

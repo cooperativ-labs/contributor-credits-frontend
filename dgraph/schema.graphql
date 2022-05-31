@@ -153,6 +153,7 @@ enum CryptoAddressProtocol {
 	ETH
 	BTC
 	ADA
+	ALGO
 }
 
 enum CryptoAddressType {

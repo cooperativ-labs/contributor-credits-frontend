@@ -2,33 +2,40 @@ import cn from 'classnames';
 import React, { FC, useContext } from 'react';
 import WalletConnectButton from '@src/web3/WalletConnectionButton';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
+import { MatchSupportedChains } from '@src/web3/connectors';
 import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
 
-const networkColor = (chainId, walletAddress) => {
+export const networkIcon = (chainId, walletAddress) => {
+  if (!walletAddress) {
+    return 'bg-white border-2 border-gray-300';
+  }
+
+  return MatchSupportedChains(chainId)?.icon;
+};
+
+export const networkColor = (chainId, walletAddress) => {
+  const color = MatchSupportedChains(chainId)?.color;
   if (!walletAddress) {
     return 'bg-white border-2 border-gray-300';
   }
   switch (chainId) {
     case 1:
-      return 'bg-green-600 hover:text-white';
+      return `bg-${color} hover:text-black`;
     case 3:
-      return 'bg-cYellow hover:text-white';
-    case 5:
-      return 'bg-purple-600 hover:text-white';
+      return `bg-${color} hover:text-black`;
     case 137:
-      return 'bg-blue-600 hover:text-white';
+      return `bg-${color} hover:text-black`;
     case 80001:
-      return 'bg-blue-300 hover:text-white';
+      return `bg-${color} hover:text-black`;
     case undefined:
-      return 'bg-white border-2 border-gray-300';
+      return 'bg-gray-300 border-2 border-gray-300';
     default:
-      return 'bg-cRed hover:text-white';
+      return 'bg-cRed hover:text-black';
   }
 };
-
 type NetworkIndicatorDotProps = {
   chainId: number | undefined;
   walletAddress: string;
