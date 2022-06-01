@@ -7,10 +7,10 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { C3Type } from '@src/web3/hooks/useC3';
 import { Form, Formik } from 'formik';
+import { getEarnedCredits, proportionFunded } from '@src/utils/classStatus';
 import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-import { proportionFunded } from '@src/utils/classStatus';
 import { SmartContractType } from 'types';
 import { useAsyncFn } from 'react-use';
 
@@ -26,13 +26,15 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
-  const [buttonAmount, setButtonAmount] = useState<string>('');
 
   const c2 = cc.c2;
   const c3 = cc.c3;
   const activeCC = c2 ? c2 : c3;
 
   const fundRatio = proportionFunded(c2);
+  const { addrBalances, decimals: c2Decimals } = c3.info;
+  const creditsEarned = isC3(activeCC) && getEarnedCredits(addrBalances, c2Decimals);
+  const creditValue = isC3(activeCC) && numberWithCommas(fundRatio * creditsEarned);
 
   const [, cashOut] = useAsyncFn(
     async (amount?: number) => {
@@ -75,17 +77,17 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
     [cc]
   );
 
-  //maybe just tell them the number of credits
   const alertMath = (amount, action) => {
     return contractType === SmartContractType.C2
       ? `CURRENT VALUE: $${amount * fundRatio} - Are you sure you want to ${action} ${amount} credits? `
-      : `Are you sure you want to ${action} all funded credits?`;
+      : `Are you sure you want to ${action} ${action === 'relinquish' ? `${amount}` : `${creditValue}`} credits?`;
   };
 
   const FormButtonText = (action, amount) => {
-    const actionDetails = isC3(activeCC)
-      ? `${action} all funded Credits`
-      : `${action} ${numberWithCommas(amount)} Credits`;
+    const actionDetails =
+      isC3(activeCC) && action === 'cash out'
+        ? `Cash out ${creditValue} credits`
+        : `${action} ${numberWithCommas(amount)} Credits`;
     return !action ? 'choose action' : `${actionDetails}`;
   };
 
@@ -125,16 +127,17 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
             <option value="cash out">Cash Out</option>
             <option value="relinquish">Relinquish</option>
           </Select>
-          {!isC3(activeCC) && (
-            <Input
-              className={fieldDiv}
-              labelText="Number of credits"
-              name="amount"
-              type="number"
-              placeholder="344"
-              required
-            />
-          )}
+          {!isC3(activeCC) ||
+            (values.action === 'relinquish' && (
+              <Input
+                className={fieldDiv}
+                labelText="Number of credits"
+                name="amount"
+                type="number"
+                placeholder="344"
+                required
+              />
+            ))}
           <button
             type="submit"
             disabled={isSubmitting || !values.action}

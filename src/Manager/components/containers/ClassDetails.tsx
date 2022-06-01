@@ -35,6 +35,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const c3 = useC3(cryptoAddress.address, memberAddresses);
   const cc = { c2: c2, c3: c3 };
 
+  const isC2 = type === SmartContractType.C2;
   const isContractManager = ContractManager(agreement, user);
 
   //this should filter for payments to that recipient
@@ -62,11 +63,15 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
           chainId={cryptoAddress.chainId}
           withCopy
         />
-        <ClassFundingRatio
-          cryptoAddress={cryptoAddress.address}
-          memberAddresses={memberAddresses}
-          contractType={CCClass.type}
-        />
+        <div className="text-xs uppercase text-gray-600">
+          {isC2 && (
+            <ClassFundingRatio
+              cryptoAddress={cryptoAddress.address}
+              memberAddresses={memberAddresses}
+              contractType={CCClass.type}
+            />
+          )}
+        </div>
       </div>
 
       <div className="my-3 mb-6">
@@ -81,6 +86,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         cryptoAddress={cryptoAddress.address}
         memberAddresses={memberAddresses}
         contractType={CCClass.type}
+        isContractManager={!!isContractManager}
       />
 
       {allPayments.length > 0 && (

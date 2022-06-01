@@ -4,17 +4,17 @@ import { ClassStatus } from '@src/utils/classStatus';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { SmartContractType } from 'types';
 
-interface ClassStatusBlockProps {
+type ClassStatusProps = {
   cryptoAddress: string;
   memberAddresses: string[];
   contractType: SmartContractType;
-}
+};
 
-export const ClassFundingRatio: React.FC<ClassStatusBlockProps> = ({
-  cryptoAddress,
-  memberAddresses,
-  contractType,
-}) => {
+type ClassStatusBlockProps = ClassStatusProps & {
+  isContractManager: boolean;
+};
+
+export const ClassFundingRatio: React.FC<ClassStatusProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
   const { creditsAuthorized, fundRatio, loading } = ClassStatus(cryptoAddress, memberAddresses, contractType);
   if (loading) {
     return (
@@ -23,35 +23,28 @@ export const ClassFundingRatio: React.FC<ClassStatusBlockProps> = ({
       </>
     );
   }
-  return (
-    <div className="text-xs uppercase text-gray-600">
-      {creditsAuthorized > 0 ? `${Math.round(fundRatio * 100)}%` : '0%'} FUNDED
-    </div>
-  );
+  return <>{creditsAuthorized > 0 ? `${Math.round(fundRatio * 100)}%` : '0%'} FUNDED</>;
 };
 
-export const ClassCreditsStats: React.FC<ClassStatusBlockProps> = ({
-  cryptoAddress,
-  memberAddresses,
-  contractType,
-}) => {
-  const { creditsAuthorized, creditsEarned, loading } = ClassStatus(cryptoAddress, memberAddresses, contractType);
+export const ClassCreditsStats: React.FC<ClassStatusProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
+  const { creditsAuthorized, creditsUnfunded, creditsEarned, loading } = ClassStatus(
+    cryptoAddress,
+    memberAddresses,
+    contractType
+  );
   if (loading) {
     return <></>;
   }
   return (
     <>
-      <div>Total paid: {numberWithCommas(creditsAuthorized)}</div>
+      <div>Total ever paid: {numberWithCommas(creditsAuthorized)}</div>
+      <div>Remaining unfunded: {numberWithCommas(creditsUnfunded)}</div>
       {/* <div>Remaining Credits: {creditsAuthorized - creditsOutstanding}</div> */}
-      <div>Credits I hold: {numberWithCommas(creditsEarned)}</div>
     </>
   );
 };
-export const ClassFundingStats: React.FC<ClassStatusBlockProps> = ({
-  cryptoAddress,
-  memberAddresses,
-  contractType,
-}) => {
+
+export const ClassFundingStats: React.FC<ClassStatusProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
   const { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading } = ClassStatus(
     cryptoAddress,
     memberAddresses,
@@ -68,13 +61,36 @@ export const ClassFundingStats: React.FC<ClassStatusBlockProps> = ({
   );
 };
 
-const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
-  return (
+const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({
+  cryptoAddress,
+  memberAddresses,
+  contractType,
+  isContractManager,
+}) => {
+  const { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, creditsUnfunded, loading } = ClassStatus(
+    cryptoAddress,
+    memberAddresses,
+    contractType
+  );
+
+  const isC2 = contractType === SmartContractType.C2;
+
+  const c2Block = (
+    <>
+      <div>Total paid: {numberWithCommas(creditsAuthorized)}</div>
+      {isContractManager && <div>Remaining unfunded: {numberWithCommas(creditsUnfunded)}</div>}
+      Credits I hold: {numberWithCommas(creditsEarned)} (value:{' '}
+      {`${numberWithCommas(fundRatio * creditsEarned)} ${backingCurrency} `})
+    </>
+  );
+  const c3Block = (
     <div>
-      <ClassCreditsStats cryptoAddress={cryptoAddress} memberAddresses={memberAddresses} contractType={contractType} />
-      <ClassFundingStats cryptoAddress={cryptoAddress} memberAddresses={memberAddresses} contractType={contractType} />
+      {isContractManager && <div>Remaining unfunded: {numberWithCommas(creditsUnfunded)}</div>} Credits I hold:{' '}
+      {numberWithCommas(creditsEarned)}{' '}
+      <div>Available to claim: {`${numberWithCommas(fundRatio * creditsEarned)} ${backingCurrency} `}</div>
     </div>
   );
+  return <div>{isC2 ? c2Block : c3Block}</div>;
 };
 
 export default ClassStatusBlock;

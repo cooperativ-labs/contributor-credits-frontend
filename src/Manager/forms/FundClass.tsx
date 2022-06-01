@@ -27,7 +27,8 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
   const activeCC = c2 ? c2 : c3;
 
   // --- TO DO create service ---
-  const { totalSupply, bacStaked, decimals: c2Decimals, address } = activeCC.info;
+  const { totalSupply, bacStaked, decimals: c2Decimals, address, totalBacNeededToFund } = activeCC.info;
+  const { decimals: bacDecimals } = activeCC.bacInfo;
   const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
   const backingCurrency = activeCC.bacInfo.symbol;
 
@@ -43,7 +44,7 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
   };
 
   const currentAmountStaked = parseInt(getAmountStaked(activeCC)._hex);
-  const maxFund = creditsAuthorized - currentAmountStaked;
+  const creditsUnfunded = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
   //----------
 
   const FormButtonText = (amount) => {
@@ -110,7 +111,7 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
             disabled={isSubmitting || buttonStep === 'submitting'}
             onClick={(e) => {
               e.preventDefault();
-              setFieldValue('amount', maxFund);
+              setFieldValue('amount', creditsUnfunded);
             }}
           >
             Fully Fund
