@@ -186,7 +186,6 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
       >
         {({ isSubmitting, values }) => (
           <Form className="flex flex-col">
-            {emailRequiredNotice}
             <div className="flex items-end">
               <Checkbox className={fieldDiv} checked={values.customToggle} name="customToggle" />
               <p className="mb-4 ml-2 text-sm text-blue-900 font-semibold text-opacity-80 ">Use custom text</p>

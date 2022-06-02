@@ -5,6 +5,7 @@ import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from 'ethers';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { C3Type } from '@src/web3/hooks/useC3';
+import { classDetails } from '@src/utils/classStatus';
 import { Form, Formik } from 'formik';
 import { isC3, toContractInteger, toHumanNumber } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
@@ -27,24 +28,19 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
   const activeCC = c2 ? c2 : c3;
 
   // --- TO DO create service ---
-  const { totalSupply, bacStaked, decimals: c2Decimals, address, totalBacNeededToFund } = activeCC.info;
-  const { decimals: bacDecimals } = activeCC.bacInfo;
-  const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
-  const backingCurrency = activeCC.bacInfo.symbol;
+  const {
+    address,
+    creditsAuthorized,
+    remainingUnfunded,
+    creditsEarned,
+    currentAmountStaked,
+    fundRatio,
+    backingCurrency,
+    loading,
+    isOwner,
+    isFunded,
+  } = classDetails(activeCC);
 
-  const getAmountStaked = (cc: C2Type | C3Type): BigNumber => {
-    if (!cc.bacContract || !cc.bacInfo) {
-      return BigNumber.from([0]);
-    }
-    const { decimals: bacDecimals } = cc.bacInfo;
-    if (totalSupply.eq(0)) {
-      return BigNumber.from([1]);
-    }
-    return toHumanNumber(bacStaked, bacDecimals);
-  };
-
-  const currentAmountStaked = parseInt(getAmountStaked(activeCC)._hex);
-  const creditsUnfunded = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
   //----------
 
   const FormButtonText = (amount) => {
@@ -56,6 +52,9 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
     async (amount: number) => {
       const fundAmount = toContractInteger(BigNumber.from(amount), activeCC.bacInfo.decimals);
       if (isC3(activeCC)) {
+        alert(
+          'Funding these Contributor Credits requires two wallet transactions. Do not leave this page until both have completed.'
+        );
         dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
         console.log('isC3');
         const allowance = await c3.bacContract.approve(c3.contract.address, fundAmount);
@@ -111,7 +110,7 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
             disabled={isSubmitting || buttonStep === 'submitting'}
             onClick={(e) => {
               e.preventDefault();
-              setFieldValue('amount', creditsUnfunded);
+              setFieldValue('amount', remainingUnfunded);
             }}
           >
             Fully Fund

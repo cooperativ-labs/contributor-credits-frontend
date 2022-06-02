@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 import { C2Type, useC2 } from '@src/web3/hooks/useC2';
 import { C3Type, useC3 } from '@src/web3/hooks/useC3';
-import { toHumanNumber } from '@src/web3/util';
+import { isC3, toHumanNumber } from '@src/web3/util';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
 import { SmartContractType } from 'types';
@@ -24,20 +24,77 @@ export const proportionFunded = (cc: C2Type | C3Type): number => {
   return stakedBac / totalC2;
 };
 
-export const getEarnedCredits = (addrBalances, c2Decimals): number => {
+export const getAddrItemInfo = (addrItems, decimals): number => {
   const { account: walletAddress } = useWeb3React<Web3Provider>();
-
-  const claim = addrBalances.get(walletAddress);
+  const claim = addrItems?.get(walletAddress);
   function earned() {
     if (claim) {
       if (claim.eq(0)) {
         return BigNumber.from([0]);
       }
-      return toHumanNumber(claim, c2Decimals);
+      return toHumanNumber(claim, decimals);
     }
     return BigNumber.from([0]);
   }
   return parseInt(earned()._hex);
+};
+
+export const classDetails = (cc) => {
+  const {
+    totalSupply,
+    totalAmountFunded,
+    bacStaked,
+    addrBalances,
+    decimals: c2Decimals,
+    totalBacNeededToFund,
+    isFunded,
+    isOwner,
+    address,
+    addrBacWithdrawn,
+    addrShares,
+  } = cc.info;
+
+  const { decimals: bacDecimals } = cc.bacInfo;
+
+  const getAmountStaked = (cc: C2Type | C3Type): BigNumber => {
+    if (!cc.bacContract || !cc.bacInfo) {
+      return BigNumber.from([0]);
+    }
+    const { decimals: bacDecimals } = cc.bacInfo;
+    if (totalSupply.eq(0)) {
+      return BigNumber.from([1]);
+    }
+    return toHumanNumber(bacStaked, bacDecimals);
+  };
+
+  const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
+  const amountEverFunded = totalAmountFunded && parseInt(toHumanNumber(totalAmountFunded, bacDecimals)._hex);
+  const remainingUnfunded = creditsAuthorized - amountEverFunded;
+  const currentAmountStaked = parseInt(getAmountStaked(cc)._hex);
+  const other = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
+  const backingCurrency = cc.bacInfo.symbol;
+  const creditsEarned = getAddrItemInfo(addrBalances, c2Decimals);
+  const bacWithdrawn = getAddrItemInfo(addrBacWithdrawn, bacDecimals);
+  const userShares = getAddrItemInfo(addrShares, c2Decimals);
+  const fundRatio = proportionFunded(cc);
+  const creditsUnfunded = (1 - fundRatio) * creditsAuthorized;
+  const loading = false;
+
+  return {
+    address,
+    creditsAuthorized,
+    creditsUnfunded,
+    currentAmountStaked,
+    remainingUnfunded,
+    creditsEarned,
+    userShares,
+    fundRatio,
+    backingCurrency,
+    bacWithdrawn,
+    loading,
+    isOwner,
+    isFunded,
+  };
 };
 
 export const ClassStatus = (cryptoAddress: string, memberAddresses: string[], contractType: SmartContractType) => {
@@ -47,31 +104,12 @@ export const ClassStatus = (cryptoAddress: string, memberAddresses: string[], co
       : useC3(cryptoAddress, memberAddresses);
 
   if (cc) {
-    const { totalSupply, addrBalances, decimals: c2Decimals, totalBacNeededToFund, isFunded } = cc.info;
-
-    const { decimals: bacDecimals } = cc.bacInfo;
-    const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
-    const creditsUnfunded = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
-
-    const backingCurrency = cc.bacInfo.symbol;
-    const creditsEarned = getEarnedCredits(addrBalances, c2Decimals);
-    const fundRatio = proportionFunded(cc);
-    const loading = false;
-    const isOwner = cc.info.isOwner;
-
-    return {
-      creditsAuthorized,
-      creditsUnfunded,
-      creditsEarned,
-      fundRatio,
-      backingCurrency,
-      loading,
-      isOwner,
-      isFunded,
-    };
+    return classDetails(cc);
   } else {
     const creditsAuthorized: number = null;
     const creditsUnfunded: number = null;
+    const currentAmountStaked: number = null;
+    const remainingUnfunded: number = null;
     const creditsEarned: number = null;
     const fundRatio: number = null;
     const backingCurrency: string = 'null';
@@ -79,9 +117,12 @@ export const ClassStatus = (cryptoAddress: string, memberAddresses: string[], co
     const isFunded = false;
 
     const loading = true;
+
     return {
       creditsAuthorized,
       creditsUnfunded,
+      currentAmountStaked,
+      remainingUnfunded,
       creditsEarned,
       fundRatio,
       backingCurrency,

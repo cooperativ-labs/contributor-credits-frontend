@@ -30,7 +30,6 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-
   const c2 = useC2(cryptoAddress.address, memberAddresses);
   const c3 = useC3(cryptoAddress.address, memberAddresses);
   const cc = { c2: c2, c3: c3 };

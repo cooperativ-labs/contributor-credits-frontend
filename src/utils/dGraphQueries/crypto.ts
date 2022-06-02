@@ -49,6 +49,7 @@ export const GET_CONTRIBUTOR_CREDITS = gql`
       id
       description
       triggerShortDescription
+      type
       triggers {
         name
         type

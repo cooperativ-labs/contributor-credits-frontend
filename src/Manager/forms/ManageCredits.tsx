@@ -6,8 +6,8 @@ import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { C3Type } from '@src/web3/hooks/useC3';
+import { classDetails } from '@src/utils/classStatus';
 import { Form, Formik } from 'formik';
-import { getEarnedCredits, proportionFunded } from '@src/utils/classStatus';
 import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
@@ -31,9 +31,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
   const c3 = cc.c3;
   const activeCC = c2 ? c2 : c3;
 
-  const fundRatio = proportionFunded(c2);
-  const { addrBalances, decimals: c2Decimals } = c3.info;
-  const creditsEarned = isC3(activeCC) && getEarnedCredits(addrBalances, c2Decimals);
+  const { creditsEarned, fundRatio } = classDetails(activeCC);
   const creditValue = isC3(activeCC) && numberWithCommas(fundRatio * creditsEarned);
 
   const [, cashOut] = useAsyncFn(
@@ -91,6 +89,8 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
     return !action ? 'choose action' : `${actionDetails}`;
   };
 
+  const showAmountField = (action) => !isC3(activeCC) || action === 'relinquish';
+
   return (
     <Formik
       initialValues={{
@@ -127,17 +127,16 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
             <option value="cash out">Cash Out</option>
             <option value="relinquish">Relinquish</option>
           </Select>
-          {!isC3(activeCC) ||
-            (values.action === 'relinquish' && (
-              <Input
-                className={fieldDiv}
-                labelText="Number of credits"
-                name="amount"
-                type="number"
-                placeholder="344"
-                required
-              />
-            ))}
+          {showAmountField(values.action) && (
+            <Input
+              className={fieldDiv}
+              labelText="Number of credits"
+              name="amount"
+              type="number"
+              placeholder="344"
+              required
+            />
+          )}
           <button
             type="submit"
             disabled={isSubmitting || !values.action}

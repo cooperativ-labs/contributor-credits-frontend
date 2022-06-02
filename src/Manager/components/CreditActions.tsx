@@ -1,4 +1,3 @@
-import cn from 'classnames';
 import ManageCredits from '../forms/ManageCredits';
 import PayCredits, { PayCreditsProps } from '../forms/PayCredits';
 import React, { FC, useState } from 'react';
@@ -7,8 +6,7 @@ import Button from './buttons/Button';
 import CloseButton from './buttons/CloseButton';
 import FormChainWarning from './FormChainWarning';
 import FundClass from '../forms/FundClass';
-import { getEarnedCredits } from '@src/utils/classStatus';
-import { isC3 } from '@src/web3/util';
+import { classDetails } from '@src/utils/classStatus';
 import { SmartContractType } from 'types';
 
 type ClassActionsProps = PayCreditsProps & {
@@ -33,16 +31,15 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, ccId, chainId, agreementId, c
 
   const activeCC = c2 ? c2 : c3;
 
-  const isFunded = activeCC.info.isFunded;
-  const isOwner = activeCC.info.isOwner;
-  const { addrBalances, decimals: c2Decimals } = activeCC.info;
-  const creditsEarned = getEarnedCredits(addrBalances, c2Decimals);
+  const { creditsAuthorized, creditsEarned, isOwner, isFunded } = classDetails(activeCC);
+  const isFresh = creditsAuthorized === 0;
+  const showButtons = !isFunded || isFresh;
 
   const ActionOptions = (
     <div className="flex justify-between ">
       {isOwner && (
         <>
-          {!isFunded && (
+          {showButtons && (
             <Button
               className={`${selectionButtonClass} ${panelVisible === 'fund' ? selected : unselected}`}
               onClick={() => setPanelVisible('fund')}
@@ -50,7 +47,7 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, ccId, chainId, agreementId, c
               Fund
             </Button>
           )}
-          {!isFunded && (
+          {showButtons && (
             <button
               className={`${selectionButtonClass} ${panelVisible === 'pay' ? selected : unselected}`}
               onClick={() => setPanelVisible('pay')}

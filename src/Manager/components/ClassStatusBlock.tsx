@@ -67,11 +67,15 @@ const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({
   contractType,
   isContractManager,
 }) => {
-  const { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, creditsUnfunded, loading } = ClassStatus(
-    cryptoAddress,
-    memberAddresses,
-    contractType
-  );
+  const {
+    creditsAuthorized,
+    creditsEarned,
+    fundRatio,
+    backingCurrency,
+    creditsUnfunded,
+    remainingUnfunded,
+    currentAmountStaked,
+  } = ClassStatus(cryptoAddress, memberAddresses, contractType);
 
   const isC2 = contractType === SmartContractType.C2;
 
@@ -85,9 +89,9 @@ const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({
   );
   const c3Block = (
     <div>
-      {isContractManager && <div>Remaining unfunded: {numberWithCommas(creditsUnfunded)}</div>} Credits I hold:{' '}
-      {numberWithCommas(creditsEarned)}{' '}
-      <div>Available to claim: {`${numberWithCommas(fundRatio * creditsEarned)} ${backingCurrency} `}</div>
+      {isContractManager && <div>Remaining unfunded: {numberWithCommas(remainingUnfunded)}</div>} Credits I hold:{' '}
+      {numberWithCommas(creditsEarned)}
+      <div>Available to claim: {`${numberWithCommas(currentAmountStaked / creditsEarned)} ${backingCurrency} `}</div>
     </div>
   );
   return <div>{isC2 ? c2Block : c3Block}</div>;
