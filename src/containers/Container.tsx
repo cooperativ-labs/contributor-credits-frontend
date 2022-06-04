@@ -1,8 +1,7 @@
 import cn from 'classnames';
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 export interface ContainerProps {
-  children?: ReactNodeLike | ReactNodeLike[];
+  children: React.ReactNode;
   constrain?: string;
   className?: string;
 }

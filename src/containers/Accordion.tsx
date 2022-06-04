@@ -9,12 +9,11 @@ import {
   resetNextUuid,
 } from 'react-accessible-accordion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNodeLike } from 'prop-types';
 
 export interface AccordionProps {
   className?: string;
   accordionHeaders?: string | string[];
-  children: ReactNodeLike[];
+  children: React.ReactNode;
 }
 
 const Accordion: React.FunctionComponent<AccordionProps> = ({ children, accordionHeaders }) => {

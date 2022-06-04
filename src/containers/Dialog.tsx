@@ -2,12 +2,11 @@ import Card from '@src/containers/Card';
 import cn from 'classnames';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNodeLike } from 'prop-types';
 import { useEffect } from 'react';
 
 export interface DialogProps {
   className?: string;
-  children: ReactNodeLike;
+  children: React.ReactNode;
   visible: boolean;
   onClose: (e) => void;
 }

@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 export interface SidebarItemProps {
   className?: string;
   toggleable?: boolean;
-  children: ReactNodeLike;
+  children: React.ReactNode;
   onClick?(): any;
   subItem?: boolean;
 }

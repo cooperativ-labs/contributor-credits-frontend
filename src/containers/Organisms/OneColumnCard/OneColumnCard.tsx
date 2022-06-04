@@ -1,24 +1,23 @@
 import Card from '@src/containers/Card';
 import cn from 'classnames';
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 
 export interface OneColumnCardProps {
   className?: string;
   style?: any;
-  slot1?: ReactNodeLike;
+  slot1?: React.ReactNode;
   slot1Header?: string;
   slot1HeaderClass?: string;
-  slot2?: ReactNodeLike;
+  slot2?: React.ReactNode;
   slot2Header?: string;
   slot2HeaderClass?: string;
-  slot3?: ReactNodeLike;
+  slot3?: React.ReactNode;
   slot3Header?: string;
   slot3HeaderClass?: string;
-  slot4?: ReactNodeLike;
+  slot4?: React.ReactNode;
   slot4Header?: string;
   slot4HeaderClass?: string;
-  slot5?: ReactNodeLike;
+  slot5?: React.ReactNode;
   slot5Header?: string;
   slot5HeaderClass?: string;
 }

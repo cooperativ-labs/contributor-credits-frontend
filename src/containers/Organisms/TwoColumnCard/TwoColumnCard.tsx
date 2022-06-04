@@ -1,15 +1,14 @@
 import Card from '@src/containers/Card';
 import cn from 'classnames';
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 import { useCallback } from 'react';
 
 export interface TwoColumnCardProps {
   className?: string;
   slot1Class?: string;
   slot2Class?: string;
-  slot1?: ReactNodeLike;
-  slot2: ReactNodeLike;
+  slot1?: React.ReactNode;
+  slot2: React.ReactNode;
   orientation?: string;
 }
 

@@ -1,12 +1,11 @@
 import BaseCard from './cards/BaseCard';
 import useWindowSize from '@hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNodeLike } from 'prop-types';
 import { useEffect } from 'react';
 
 export interface ActionDialogProps {
   visible: boolean;
-  children: ReactNodeLike;
+  children: React.ReactNode;
   preventClose?: boolean;
   onClose: (e) => void;
 }

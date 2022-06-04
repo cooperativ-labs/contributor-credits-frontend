@@ -1,12 +1,10 @@
-import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNodeLike } from 'prop-types';
 
 interface SectionBlockProps {
   sectionTitle: string;
-  children: ReactNodeLike;
+  children: React.ReactNode;
   className?: string;
   startOpen?: boolean;
 }
@@ -18,7 +16,7 @@ const SectionBlock: React.FC<SectionBlockProps> = ({ sectionTitle, children, cla
   };
   return (
     <div className="md:w-96">
-      <Button
+      <button
         className={cn(className, 'h-8 py-4 mb-2 min-w-max flex items-center rounded outline-none')}
         onClick={handleDetailsReveal}
       >
@@ -27,7 +25,7 @@ const SectionBlock: React.FC<SectionBlockProps> = ({ sectionTitle, children, cla
           {detailsShown && <FontAwesomeIcon icon="chevron-up" />}
           {!detailsShown && <FontAwesomeIcon icon="chevron-down" />}
         </div>
-      </Button>
+      </button>
       {detailsShown && <div>{children}</div>}
     </div>
   );

@@ -1,9 +1,8 @@
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 
 export interface OneColumnLayoutProps {
   className?: string;
-  children: ReactNodeLike | ReactNodeLike[];
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const OneColumnLayout: React.FunctionComponent<OneColumnLayoutProps> = ({ className, children }) => {

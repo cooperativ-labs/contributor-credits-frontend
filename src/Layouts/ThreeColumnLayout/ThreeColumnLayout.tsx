@@ -1,9 +1,8 @@
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 
 export interface ThreeColumnLayoutProps {
   className?: string;
-  children: ReactNodeLike[];
+  children: React.ReactNode[];
 }
 
 const ThreeColumnLayout: React.FunctionComponent<ThreeColumnLayoutProps> = ({ className, children }) => {

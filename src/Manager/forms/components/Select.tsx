@@ -1,12 +1,11 @@
 import cn from 'classnames';
 import React from 'react';
 import { ErrorMessage, Field } from 'formik';
-import { ReactNodeLike } from 'prop-types';
 
 export interface SelectProps {
   id?: any;
   name: string;
-  children: ReactNodeLike;
+  children: React.ReactNode;
   required?: boolean;
   multiple?: boolean;
 }

@@ -1,10 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import { ReactNodeLike } from 'prop-types';
 
 export interface ListEntityProps {
   className?: string;
-  children: ReactNodeLike;
+  children: React.ReactNode;
 }
 
 const ListEntity: React.FunctionComponent<ListEntityProps> = ({ children, ...props }) => {

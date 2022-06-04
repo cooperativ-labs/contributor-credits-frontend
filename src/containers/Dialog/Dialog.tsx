@@ -1,11 +1,10 @@
 import Popup from 'reactjs-popup';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ReactNodeLike } from 'prop-types';
 
 export interface DialogProps {
   trigger: JSX.Element | ((isOpen: boolean) => JSX.Element);
-  body: ReactNodeLike;
+  body: React.ReactNode;
 }
 
 const Dialog: React.FunctionComponent<DialogProps> = ({ body, trigger }) => {

@@ -2,11 +2,9 @@ import cn from 'classnames';
 import React from 'react';
 import { resetNextUuid } from 'react-accessible-accordion';
 
-import { ReactNodeLike } from 'prop-types';
-
 export interface TwoColumnLayoutProps {
   className?: string;
-  children: ReactNodeLike[];
+  children: React.ReactNode[];
   twoThirdsLayout?: boolean;
 }
 
