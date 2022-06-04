@@ -1,17 +1,18 @@
 import cn from 'classnames';
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { ButtonProps } from './Button';
 
 const buttonGradient =
   'bg-gradient-to-r from-cLightBlue to-cDarkBlue hover:from-cDarkBlue hover:to-cLightBlue shadow-lg hover:shadow-2xl focus:shadow-sm';
 
-interface ActionButtonProps {
+type ActionButtonProps = ButtonProps & {
   className?: string;
   link?: string;
   onClick?: () => {};
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
-}
+};
 
 const ActionButton: FC<ActionButtonProps> = ({ link, onClick, className, type, disabled, children, ...rest }) => {
   return (

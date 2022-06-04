@@ -1,4 +1,3 @@
-import '../styles/hamburgers.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@styles/main.css';
 import '@styles/tailwind.css';
@@ -17,7 +16,6 @@ import {
   faChevronDown,
   faChevronUp,
   faClock,
-  faCog,
   faCoins,
   faCommentDots,
   faDatabase,

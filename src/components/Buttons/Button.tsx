@@ -7,6 +7,7 @@ export interface ButtonProps {
   textColor?: string;
   borderColor?: string;
   disabled?: boolean;
+  children: React.ReactNode;
   onClick?(): any;
 }
 

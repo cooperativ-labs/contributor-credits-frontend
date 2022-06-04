@@ -2,7 +2,7 @@ import Button, { ButtonProps } from './Button';
 import cn from 'classnames';
 import React, { FC } from 'react';
 
-interface StandardButtonProps extends ButtonProps {
+type StandardButtonProps = ButtonProps & {
   external?: boolean;
   outlined?: boolean;
   large?: boolean;
@@ -12,7 +12,7 @@ interface StandardButtonProps extends ButtonProps {
   color?: string;
   className?: string;
   onClick?: () => void;
-}
+};
 
 const StandardButton: FC<StandardButtonProps> = ({
   external,

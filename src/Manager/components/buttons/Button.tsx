@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 export interface ButtonProps {
+  children?: React.ReactNode;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   backgroundColor?: string;
