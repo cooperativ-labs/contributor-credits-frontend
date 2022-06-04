@@ -12,18 +12,12 @@ import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
 type FormChainWarningProps = {
-  cc?: { c2: C2Type; c3: C3Type };
+  activeCC?: C2Type | C3Type;
 };
 
-const FormChainWarning: FC<FormChainWarningProps> = ({ cc }) => {
+const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
   const { chainId } = useWeb3React<Web3Provider>();
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
-
-  const c2 = cc?.c2;
-  const c3 = cc?.c3;
-
-  const activeCC = c2 ? c2 : c3;
-
   const mintBac = async (amount: BigNumber) => {
     if (isMintableERC20(activeCC.bacContract)) {
       setButtonStep('submitting');

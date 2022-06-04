@@ -1,97 +1,84 @@
 import Loading from './Loading';
 import React from 'react';
+import { C2Type } from '@src/web3/hooks/useC2';
+import { C3Type } from '@src/web3/hooks/useC3';
 import { ClassStatus } from '@src/utils/classStatus';
+import { isC3 } from '@src/web3/util';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-import { SmartContractType } from 'types';
 
 type ClassStatusProps = {
-  cryptoAddress: string;
-  memberAddresses: string[];
-  contractType: SmartContractType;
+  activeCC: C2Type | C3Type;
 };
 
 type ClassStatusBlockProps = ClassStatusProps & {
   isContractManager: boolean;
 };
 
-export const ClassFundingRatio: React.FC<ClassStatusProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
-  const { creditsAuthorized, fundRatio, loading } = ClassStatus(cryptoAddress, memberAddresses, contractType);
-  if (loading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
+export const ClassFundingRatio: React.FC<ClassStatusProps> = ({ activeCC }) => {
+  if (!activeCC) {
+    return <Loading />;
   }
+  const { creditsAuthorized, fundRatio } = ClassStatus(activeCC);
   return <>{creditsAuthorized > 0 ? `${Math.round(fundRatio * 100)}%` : '0%'} FUNDED</>;
 };
 
-export const ClassCreditsStats: React.FC<ClassStatusProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
-  const { creditsAuthorized, creditsUnfunded, creditsEarned, loading } = ClassStatus(
-    cryptoAddress,
-    memberAddresses,
-    contractType
-  );
-  if (loading) {
-    return <></>;
+export const ClassCreditsStats: React.FC<ClassStatusProps> = ({ activeCC }) => {
+  if (!activeCC) {
+    return <Loading />;
   }
+  const { creditsAuthorized, c2RemainingUnfunded, c3RemainingUnfunded } = ClassStatus(activeCC);
+  const remainingUnfunded = isC3(activeCC) ? c3RemainingUnfunded : c2RemainingUnfunded;
   return (
     <>
       <div>Total ever paid: {numberWithCommas(creditsAuthorized)}</div>
-      <div>Remaining unfunded: {numberWithCommas(creditsUnfunded)}</div>
-      {/* <div>Remaining Credits: {creditsAuthorized - creditsOutstanding}</div> */}
+      <div>Remaining unfunded: {numberWithCommas(remainingUnfunded)}</div>
     </>
   );
 };
 
-export const ClassFundingStats: React.FC<ClassStatusProps> = ({ cryptoAddress, memberAddresses, contractType }) => {
-  const { creditsAuthorized, creditsEarned, fundRatio, backingCurrency, loading } = ClassStatus(
-    cryptoAddress,
-    memberAddresses,
-    contractType
-  );
-  if (loading) {
-    return <></>;
+export const ClassFundingStats: React.FC<ClassStatusProps> = ({ activeCC }) => {
+  if (!activeCC) {
+    return <Loading />;
   }
+  const { creditsAuthorized, creditsEarned, fundRatio, backingCurrency } = ClassStatus(activeCC);
   return (
     <>
       <div>Current funding: {`${numberWithCommas(fundRatio * creditsAuthorized)} ${backingCurrency} `}</div>
-      <div>Value of my Credits: {`${numberWithCommas(fundRatio * creditsEarned)} ${backingCurrency} `}</div>
+      <div>For me: {`${numberWithCommas(fundRatio * creditsEarned)} ${backingCurrency} `}</div>
     </>
   );
 };
 
-const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({
-  cryptoAddress,
-  memberAddresses,
-  contractType,
-  isContractManager,
-}) => {
+const ClassStatusBlock: React.FC<ClassStatusBlockProps> = ({ activeCC, isContractManager }) => {
+  if (!activeCC) {
+    return <Loading />;
+  }
+
   const {
     creditsAuthorized,
     creditsEarned,
     fundRatio,
     backingCurrency,
-    creditsUnfunded,
-    remainingUnfunded,
-    currentAmountStaked,
-  } = ClassStatus(cryptoAddress, memberAddresses, contractType);
+    c2RemainingUnfunded,
+    c3RemainingUnfunded,
+    userAvailableToClaim,
+  } = ClassStatus(activeCC);
 
-  const isC2 = contractType === SmartContractType.C2;
+  const isC2 = !isC3(activeCC);
 
   const c2Block = (
     <>
       <div>Total paid: {numberWithCommas(creditsAuthorized)}</div>
-      {isContractManager && <div>Remaining unfunded: {numberWithCommas(creditsUnfunded)}</div>}
+      {isContractManager && <div>Remaining unfunded: {numberWithCommas(c2RemainingUnfunded)}</div>}
       Credits I hold: {numberWithCommas(creditsEarned)} (value:{' '}
       {`${numberWithCommas(fundRatio * creditsEarned)} ${backingCurrency} `})
     </>
   );
   const c3Block = (
     <div>
-      {isContractManager && <div>Remaining unfunded: {numberWithCommas(remainingUnfunded)}</div>} Credits I hold:{' '}
+      {isContractManager && <div>Remaining unfunded: {numberWithCommas(c3RemainingUnfunded)}</div>} Credits I hold:{' '}
       {numberWithCommas(creditsEarned)}
-      <div>Available to claim: {`${numberWithCommas(currentAmountStaked / creditsEarned)} ${backingCurrency} `}</div>
+      <div>Available to claim: {`${numberWithCommas(userAvailableToClaim)} ${backingCurrency} `}</div>
     </div>
   );
   return <div>{isC2 ? c2Block : c3Block}</div>;

@@ -6,32 +6,20 @@ import Button from './buttons/Button';
 import CloseButton from './buttons/CloseButton';
 import FormChainWarning from './FormChainWarning';
 import FundClass from '../forms/FundClass';
-import { classDetails } from '@src/utils/classStatus';
-import { SmartContractType } from 'types';
+import { ClassStatus } from '@src/utils/classStatus';
 
-type ClassActionsProps = PayCreditsProps & {
-  name: string;
-  contractType: SmartContractType;
-};
+type CreditActionsProps = PayCreditsProps;
 
-const panelClass = 'relative p-3';
+const panelClass = 'p-3';
 const selected = 'text-white bg-gray-600';
 const unselected = 'text-cDarkBlue';
 const selectionButtonClass = 'uppercase text-sm font-medium w-full p-3';
 
-const ClassActions: FC<ClassActionsProps> = ({ cc, ccId, chainId, agreementId, contractType }) => {
+const CreditActions: FC<CreditActionsProps> = ({ activeCC, ccId, chainId, agreementId }) => {
+  console.log(ccId);
   const [panelVisible, setPanelVisible] = useState<undefined | 'pay' | 'fund' | 'manage'>(undefined);
 
-  const c2 = cc.c2;
-  const c3 = cc.c3;
-
-  if (!c2 && !c3) {
-    return <></>;
-  }
-
-  const activeCC = c2 ? c2 : c3;
-
-  const { creditsAuthorized, creditsEarned, isOwner, isFunded } = classDetails(activeCC);
+  const { creditsAuthorized, creditsEarned, isOwner, backingCurrency, isFunded } = ClassStatus(activeCC);
   const isFresh = creditsAuthorized === 0;
   const showButtons = !isFunded || isFresh;
 
@@ -71,34 +59,25 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, ccId, chainId, agreementId, c
   );
 
   return (
-    <div className="mt-8 relative border-2 border-gray-400 rounded-md">
+    <div className="mt-8 border-2 border-gray-400 rounded-md">
       {ActionOptions}
       {panelVisible && (
         <div className="relative px-2 border-t-2 border-grey-500">
-          {panelVisible && (
-            <>
-              <CloseButton
-                onClose={() => setPanelVisible(undefined)}
-                className="absolute right-0 top-1 hover:shadow-lg text-gray-800 w-10 h-10 m-2 rounded-full"
-              />
-            </>
-          )}
-
           {panelVisible === 'fund' && (
             <div className={panelClass}>
-              <FundClass cc={cc} />
-              <FormChainWarning cc={cc} />
+              <FundClass activeCC={activeCC} />
+              <FormChainWarning activeCC={activeCC} />
             </div>
           )}
           {panelVisible === 'pay' && (
             <div className={panelClass}>
-              <PayCredits cc={cc} ccId={ccId} chainId={chainId} agreementId={agreementId} />
+              <PayCredits activeCC={activeCC} ccId={ccId} chainId={chainId} agreementId={agreementId} />
               <FormChainWarning />
             </div>
           )}
           {panelVisible === 'manage' && (
             <div className={panelClass}>
-              <ManageCredits cc={cc} chainId={chainId} contractType={contractType} />
+              <ManageCredits activeCC={activeCC} chainId={chainId} backingCurrency={backingCurrency} />
               <FormChainWarning />
             </div>
           )}
@@ -108,4 +87,4 @@ const ClassActions: FC<ClassActionsProps> = ({ cc, ccId, chainId, agreementId, c
   );
 };
 
-export default ClassActions;
+export default CreditActions;

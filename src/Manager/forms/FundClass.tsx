@@ -7,44 +7,27 @@ import { C2Type } from '@src/web3/hooks/useC2';
 import { C3Type } from '@src/web3/hooks/useC3';
 import { classDetails } from '@src/utils/classStatus';
 import { Form, Formik } from 'formik';
-import { isC3, toContractInteger, toHumanNumber } from '@src/web3/util';
+import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { useAsyncFn } from 'react-use';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
-interface FundClassProps {
-  cc: { c2: C2Type; c3: C3Type };
-}
+type FundClassProps = {
+  activeCC: C2Type | C3Type;
+};
 
-const FundClass: React.FC<FundClassProps> = ({ cc }) => {
+const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
 
-  const c2 = cc.c2;
-  const c3 = cc.c3;
-  const activeCC = c2 ? c2 : c3;
+  const { address, backingCurrency, c2RemainingUnfunded, c3RemainingUnfunded } = classDetails(activeCC);
 
-  // --- TO DO create service ---
-  const {
-    address,
-    creditsAuthorized,
-    remainingUnfunded,
-    creditsEarned,
-    currentAmountStaked,
-    fundRatio,
-    backingCurrency,
-    loading,
-    isOwner,
-    isFunded,
-  } = classDetails(activeCC);
-
-  //----------
-
+  const remainingUnfunded = isC3(activeCC) ? c3RemainingUnfunded : c2RemainingUnfunded;
   const FormButtonText = (amount) => {
-    const fundTarget = (amount + currentAmountStaked) / creditsAuthorized;
+    const fundTarget = amount / remainingUnfunded;
     return !amount ? 'CHOOSE AMOUNT' : `Fund to ${numberWithCommas(fundTarget * 100, 2)}%`;
   };
 
@@ -53,21 +36,18 @@ const FundClass: React.FC<FundClassProps> = ({ cc }) => {
       const fundAmount = toContractInteger(BigNumber.from(amount), activeCC.bacInfo.decimals);
       if (isC3(activeCC)) {
         alert(
-          'Funding these Contributor Credits requires two wallet transactions. Do not leave this page until both have completed.'
+          'NOTE: Funding these Contributor Credits requires **TWO** wallet transactions. Do not leave this page until both have completed.'
         );
         dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-        console.log('isC3');
-        const allowance = await c3.bacContract.approve(c3.contract.address, fundAmount);
+        const allowance = await activeCC.bacContract.approve(activeCC.contract.address, fundAmount);
         await allowance.wait();
-        console.log(allowance);
-        const txResp = await c3.contract.fund(fundAmount);
+        const txResp = await activeCC.contract.fund(fundAmount);
         await txResp.wait();
         setButtonStep('confirmed');
         dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
       } else {
         dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-        console.log('isC2');
-        const txResp = await c2.bacContract.transfer(address, fundAmount);
+        const txResp = await activeCC.bacContract.transfer(address, fundAmount);
         await txResp.wait();
         setButtonStep('confirmed');
         dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });

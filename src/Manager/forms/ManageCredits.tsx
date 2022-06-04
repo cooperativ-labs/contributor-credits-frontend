@@ -1,3 +1,4 @@
+import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
 import Input from './components/Inputs';
 import React, { FC, useContext, useState } from 'react';
@@ -11,28 +12,23 @@ import { Form, Formik } from 'formik';
 import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-import { SmartContractType } from 'types';
 import { useAsyncFn } from 'react-use';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
 export type ManageCreditsProps = {
-  cc: { c2: C2Type; c3: C3Type };
+  activeCC: C2Type | C3Type;
   chainId: number;
-  contractType: SmartContractType;
+  backingCurrency: string;
 };
 
-const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) => {
+const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurrency }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
-  const c2 = cc.c2;
-  const c3 = cc.c3;
-  const activeCC = c2 ? c2 : c3;
-
-  const { creditsEarned, fundRatio } = classDetails(activeCC);
-  const creditValue = isC3(activeCC) && numberWithCommas(fundRatio * creditsEarned);
+  const { fundRatio, userAvailableToClaim, creditsEarned } = classDetails(activeCC);
+  const creditValue = userAvailableToClaim.toFixed(0);
 
   const [, cashOut] = useAsyncFn(
     async (amount?: number) => {
@@ -40,11 +36,13 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
 
       try {
         if (isC3(activeCC)) {
-          const txResp = await c3.contract.cashout();
+          const txResp = await activeCC.contract.cashout();
           await txResp.wait();
           setButtonStep('submitted');
         } else {
-          const txResp = await c2.contract.cashout(toContractInteger(BigNumber.from(amount), c2.info.decimals));
+          const txResp = await activeCC.contract.cashout(
+            toContractInteger(BigNumber.from(amount), activeCC.info.decimals)
+          );
           await txResp.wait();
         }
       } catch (error) {
@@ -55,7 +53,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
       }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
-    [cc]
+    [activeCC]
   );
 
   const [, burnCredits] = useAsyncFn(
@@ -72,21 +70,66 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
       }
       dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
-    [cc]
+    [activeCC]
   );
 
   const alertMath = (amount, action) => {
-    return contractType === SmartContractType.C2
-      ? `CURRENT VALUE: $${amount * fundRatio} - Are you sure you want to ${action} ${amount} credits? `
-      : `Are you sure you want to ${action} ${action === 'relinquish' ? `${amount}` : `${creditValue}`} credits?`;
+    const cashoutAmount = numberWithCommas(amount * fundRatio, 3);
+    return isC3(activeCC)
+      ? `Are you sure you want to ${action} ${action === 'relinquish' ? `${amount}` : `${creditValue}`} credits?`
+      : `CURRENT VALUE: ${cashoutAmount} ${backingCurrency} - Are you sure you want to ${action} ${amount} credits? `;
   };
 
-  const FormButtonText = (action, amount) => {
-    const actionDetails =
-      isC3(activeCC) && action === 'cash out'
-        ? `Cash out ${creditValue} credits`
-        : `${action} ${numberWithCommas(amount)} Credits`;
-    return !action ? 'choose action' : `${actionDetails}`;
+  const manageFormSubmitButton = (values, isSubmitting) => {
+    const buttonDisable = (values): boolean => {
+      const answer =
+        !values.action ||
+        (values.action === 'relinquish' && userAvailableToClaim > 0) ||
+        userAvailableToClaim < values.amount ||
+        creditsEarned < values.amount;
+      return answer;
+    };
+
+    const formButtonText = (action, amount): string => {
+      const baseAction = `${action} ${numberWithCommas(amount)} Credits`;
+      const c3Cashout = `Cash out ${creditValue} credits`;
+      const c3Relinquish =
+        userAvailableToClaim > 0 ? 'You must claim available funding before relinquishing credits' : baseAction;
+
+      if (isC3(activeCC)) {
+        return action === 'cash out' ? c3Cashout : c3Relinquish;
+      } else if (action) {
+        return creditsEarned < amount ? `You can cash out a maximum of ${creditsEarned} credits` : baseAction;
+      } else {
+        return 'choose action';
+      }
+    };
+
+    return (
+      <Button
+        type="submit"
+        disabled={isSubmitting || buttonDisable(values)}
+        className={cn(
+          buttonDisable(values)
+            ? 'bg-gray-500 hover:bg-gray-400'
+            : values.action === 'relinquish'
+            ? 'bg-red-900 hover:bg-red-800'
+            : 'bg-blue-900 hover:bg-blue-800',
+          ' text-white font-bold uppercase my-8 rounded p-4'
+        )}
+      >
+        <LoadingButtonText
+          state={buttonStep}
+          //@ts-ignore - ReactSelective strips "value" from the thing it returns.
+          //You expect values.recipient.value.[something], but instead get values.recipient.[something]
+          idleText={formButtonText(values.action, values.amount, chainId)}
+          submittingText="Deploying (this could take a sec)"
+          confirmedText="Submitted"
+          rejectedText="You rejected the transaction. Click here to try again."
+          failedText="transaction failed"
+        />
+      </Button>
+    );
   };
 
   const showAmountField = (action) => !isC3(activeCC) || action === 'relinquish';
@@ -137,25 +180,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ cc, chainId, contractType }) =>
               required
             />
           )}
-          <button
-            type="submit"
-            disabled={isSubmitting || !values.action}
-            className={cn(
-              values.action === 'relinquish' ? 'bg-red-900' : 'bg-blue-900',
-              'hover:bg-blue-800 text-white font-bold uppercase my-8 rounded p-4'
-            )}
-          >
-            <LoadingButtonText
-              state={buttonStep}
-              //@ts-ignore - ReactSelective strips "value" from the thing it returns.
-              //You expect values.recipient.value.[something], but instead get values.recipient.[something]
-              idleText={FormButtonText(values.action, values.amount, chainId)}
-              submittingText="Deploying (this could take a sec)"
-              confirmedText="Submitted"
-              rejectedText="You rejected the transaction. Click here to try again."
-              failedText="transaction failed"
-            />
-          </button>
+          {manageFormSubmitButton(values, isSubmitting)}
         </Form>
       )}
     </Formik>

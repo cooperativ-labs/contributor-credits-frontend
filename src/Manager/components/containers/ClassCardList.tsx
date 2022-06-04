@@ -14,6 +14,7 @@ import { Web3Provider } from '@ethersproject/providers';
 
 interface ClassCardListProps {
   user: User;
+  selectedClassId: string;
   setSelectedClassId: any;
   agreements: ContributorCreditClass[];
   unestablishedSmartContracts;
@@ -24,6 +25,7 @@ const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
 
 const ClassCardList: FC<ClassCardListProps> = ({
+  selectedClassId,
   setSelectedClassId,
   user,
   agreements,
@@ -69,7 +71,11 @@ const ClassCardList: FC<ClassCardListProps> = ({
             if (cClass && cClass.cryptoAddress.chainId === chainId)
               return (
                 <div key={index} className="my-2 w-full">
-                  <CCClassCard cClass={cClass} setSelectedClassId={setSelectedClassId} />
+                  <CCClassCard
+                    cClass={cClass}
+                    isSelected={selectedClassId === cClass.id}
+                    setSelectedClassId={setSelectedClassId}
+                  />
                 </div>
               );
           })}

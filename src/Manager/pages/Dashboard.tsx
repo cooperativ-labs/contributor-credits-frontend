@@ -53,6 +53,7 @@ const Dashboard: FC = () => {
         <div className={cn(selectedClassId ? 'hidden md:flex col-span-2' : 'flex md:col-span-2', 'flex-col')}>
           <ClassCardList
             user={user}
+            selectedClassId={selectedClassId}
             setSelectedClassId={setSelectedClassId}
             agreements={agreements}
             unestablishedSmartContracts={unestablishedSmartContracts}

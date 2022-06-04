@@ -10,7 +10,7 @@ import { ApplicationStoreProps, store } from '@context/store';
 import { BigNumber } from '@ethersproject/bignumber';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { C3Type } from '@src/web3/hooks/useC3';
-import { CurrencyCode, SmartContractType } from 'types';
+import { CurrencyCode } from 'types';
 import { currentDate } from '@src/utils/dGraphQueries/gqlUtils';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { toContractInteger } from '@src/web3/util';
@@ -19,7 +19,7 @@ import { useMutation } from '@apollo/client';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
-const FormButtonText = (recipient, amount, chainId) => {
+const formButtonText = (recipient, amount, chainId) => {
   return !recipient || !amount ? (
     'Pay a team recipient'
   ) : (
@@ -31,22 +31,18 @@ const FormButtonText = (recipient, amount, chainId) => {
 };
 
 export type PayCreditsProps = {
-  cc: { c2: C2Type; c3: C3Type };
+  activeCC: C2Type | C3Type;
   ccId: string;
   chainId: number;
   agreementId: string;
 };
 
-const PayCredits: FC<PayCreditsProps> = ({ cc, ccId, chainId, agreementId }) => {
+const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
-
-  const c2 = cc.c2;
-  const c3 = cc.c3;
-  const activeCC = c2 ? c2 : c3;
 
   if (error && !alerted) {
     alert('Oops. Looks like something went wrong');
@@ -157,7 +153,7 @@ const PayCredits: FC<PayCreditsProps> = ({ cc, ccId, chainId, agreementId }) => 
               state={buttonStep}
               //@ts-ignore - ReactSelective strips "value" from the thing it returns.
               //You expect values.recipient.value.[something], but instead get values.recipient.[something]
-              idleText={FormButtonText(values.recipient, values.amount, chainId)}
+              idleText={formButtonText(values.recipient, values.amount, chainId)}
               submittingText="Deploying (this could take a sec)"
               confirmedText="Confirmed!"
               rejectedText="You rejected the transaction. Click here to try again."

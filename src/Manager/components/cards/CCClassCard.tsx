@@ -1,45 +1,45 @@
 import cn from 'classnames';
 import React from 'react';
+import { C2Type, useC2 } from '@src/web3/hooks/useC2';
+import { C3Type, useC3 } from '@src/web3/hooks/useC3';
 import { ClassCreditsStats, ClassFundingRatio, ClassFundingStats } from '../ClassStatusBlock';
 import { ClassStatus } from '@src/utils/classStatus';
-import { ContractManager } from '@src/Manager/pages/Dashboard';
-import { ContributorCreditClass, User } from 'types';
+import { ContributorCreditClass } from 'types';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
+import { isC3 } from '@src/web3/util';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-type ClassCardProps = {
-  cClass: ContributorCreditClass;
-  setSelectedClassId: any;
+type ClassCardDetailsProps = ClassCardProps & {
+  activeCC: C2Type | C3Type;
 };
 
-const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId }) => {
-  const { id, name, triggers, cryptoAddress, triggerShortDescription, type, agreement } = cClass;
+const _CCClassCard: React.FC<ClassCardDetailsProps> = ({ cClass, isSelected, setSelectedClassId, activeCC }) => {
+  const { id, name, triggers, triggerShortDescription, type } = cClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
-  const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const { isOwner } = ClassStatus(cryptoAddress.address, memberAddresses, cClass.type);
-
+  const { isOwner } = ClassStatus(activeCC);
   const isContractManager = isOwner;
-
   return (
-    <div className={cn('border-2 rounded-lg p-3 bg-opacity-10 hover:shadow-md', isContractManager && 'bg-green-400')}>
+    <div
+      className={cn(
+        'border-2 rounded-lg p-3 bg-opacity-10 hover:shadow-md',
+        isContractManager && 'bg-green-400',
+        isSelected && 'bg-blue-300 border-cLightBlue'
+      )}
+      onClick={() => {
+        setSelectedClassId(id);
+      }}
+    >
       {isContractManager && (
         <div className="inline-block my-2 p-1 px-2 rounded-full bg-green-600 text-xs font-semibold text-gray-100 items-center">
           Contract Creator
         </div>
       )}
-      <div
-        className="md:grid grid-cols-4 "
-        onClick={() => {
-          setSelectedClassId(id);
-        }}
-      >
+      <div className="md:grid grid-cols-4 ">
         <div className="font-bold md:font-base col-span-1 self-center">
-          {name} {type}
-          <ClassFundingRatio
-            cryptoAddress={cryptoAddress.address}
-            memberAddresses={memberAddresses}
-            contractType={cClass.type}
-          />
+          <div>
+            {name} {type}
+          </div>
+          {!isC3(activeCC) && <ClassFundingRatio activeCC={activeCC} />}
         </div>
         <div className="col-span-1">
           {triggerFundraising.amount ? (
@@ -49,26 +49,33 @@ const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId }) =
             </>
           ) : (
             <>
-              <div>{triggerShortDescription}</div>{' '}
+              <div>{triggerShortDescription}</div>
             </>
           )}
         </div>
-        <div className="col-span-1">
-          <ClassCreditsStats
-            cryptoAddress={cryptoAddress.address}
-            memberAddresses={memberAddresses}
-            contractType={cClass.type}
-          />
-        </div>
-        <div className="col-span-1">
-          <ClassFundingStats
-            cryptoAddress={cryptoAddress.address}
-            memberAddresses={memberAddresses}
-            contractType={cClass.type}
-          />
-        </div>
+        <div className="col-span-1">{<ClassCreditsStats activeCC={activeCC} />}</div>
+        <div className="col-span-1">{<ClassFundingStats activeCC={activeCC} />}</div>
       </div>
     </div>
+  );
+};
+
+type ClassCardProps = {
+  cClass: ContributorCreditClass;
+  setSelectedClassId: any;
+  isSelected: boolean;
+};
+
+const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, isSelected }) => {
+  const { cryptoAddress, agreement } = cClass;
+
+  const memberAddresses = agreement.payments.map((payment) => payment.recipient);
+  const c2 = useC2(cryptoAddress.address, memberAddresses);
+  const c3 = useC3(cryptoAddress.address, memberAddresses);
+  const activeCC = c3 ?? c2;
+
+  return (
+    <_CCClassCard cClass={cClass} isSelected={isSelected} setSelectedClassId={setSelectedClassId} activeCC={activeCC} />
   );
 };
 

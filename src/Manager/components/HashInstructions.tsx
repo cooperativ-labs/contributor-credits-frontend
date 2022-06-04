@@ -6,20 +6,14 @@ import { DownloadFile } from '@src/utils/helpersCCClass';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type HashInstructionsProps = {
-  cc: { c2: C2Type; c3: C3Type };
+  activeCC: C2Type | C3Type;
   agreementText: string;
 };
 
-const HashInstructions: FC<HashInstructionsProps> = ({ cc, agreementText }) => {
+const HashInstructions: FC<HashInstructionsProps> = ({ activeCC, agreementText }) => {
   const [copied, setCopied] = useState<boolean>(false);
-  const c2 = cc.c2;
-  const c3 = cc.c3;
 
-  if (!c2 && !c3) {
-    return <></>;
-  }
-
-  const hash = c2 ? c2.info.agreementHash : c3.info.agreementHash;
+  const hash = activeCC.info.agreementHash;
 
   return (
     <div className="p-3 border-2 border-cLightBlue bg-gray-100 rounded-md">

@@ -69,25 +69,27 @@ export const classDetails = (cc) => {
 
   const creditsAuthorized = parseInt(toHumanNumber(totalSupply, c2Decimals)._hex);
   const amountEverFunded = totalAmountFunded && parseInt(toHumanNumber(totalAmountFunded, bacDecimals)._hex);
-  const remainingUnfunded = creditsAuthorized - amountEverFunded;
+  const fundRatio = proportionFunded(cc);
+  const c3RemainingUnfunded = creditsAuthorized - amountEverFunded;
+  const c2RemainingUnfunded = (1 - fundRatio) * creditsAuthorized;
   const currentAmountStaked = parseInt(getAmountStaked(cc)._hex);
-  const other = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
+  // const bacNeededToFund = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
   const backingCurrency = cc.bacInfo.symbol;
   const creditsEarned = getAddrItemInfo(addrBalances, c2Decimals);
   const bacWithdrawn = getAddrItemInfo(addrBacWithdrawn, bacDecimals);
   const userShares = getAddrItemInfo(addrShares, c2Decimals);
-  const fundRatio = proportionFunded(cc);
-  const creditsUnfunded = (1 - fundRatio) * creditsAuthorized;
   const loading = false;
+  const userAvailableToClaim = (userShares / creditsAuthorized) * amountEverFunded - bacWithdrawn;
 
   return {
     address,
     creditsAuthorized,
-    creditsUnfunded,
+    c2RemainingUnfunded,
     currentAmountStaked,
-    remainingUnfunded,
+    amountEverFunded,
+    c3RemainingUnfunded,
     creditsEarned,
-    userShares,
+    userAvailableToClaim,
     fundRatio,
     backingCurrency,
     bacWithdrawn,
@@ -97,19 +99,15 @@ export const classDetails = (cc) => {
   };
 };
 
-export const ClassStatus = (cryptoAddress: string, memberAddresses: string[], contractType: SmartContractType) => {
-  const cc =
-    contractType === SmartContractType.C2
-      ? useC2(cryptoAddress, memberAddresses)
-      : useC3(cryptoAddress, memberAddresses);
-
-  if (cc) {
-    return classDetails(cc);
+export const ClassStatus = (activeCC) => {
+  if (activeCC) {
+    return classDetails(activeCC);
   } else {
     const creditsAuthorized: number = null;
-    const creditsUnfunded: number = null;
+    const c2RemainingUnfunded: number = null;
     const currentAmountStaked: number = null;
-    const remainingUnfunded: number = null;
+    const c3RemainingUnfunded: number = null;
+    const userAvailableToClaim: number = null;
     const creditsEarned: number = null;
     const fundRatio: number = null;
     const backingCurrency: string = 'null';
@@ -120,9 +118,10 @@ export const ClassStatus = (cryptoAddress: string, memberAddresses: string[], co
 
     return {
       creditsAuthorized,
-      creditsUnfunded,
+      c2RemainingUnfunded,
       currentAmountStaked,
-      remainingUnfunded,
+      c3RemainingUnfunded,
+      userAvailableToClaim,
       creditsEarned,
       fundRatio,
       backingCurrency,

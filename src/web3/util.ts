@@ -17,5 +17,5 @@ export const toContractInteger = (n: HumanNumber, nDecimals: Decimals): Contract
 };
 
 export function isC3(cc: C2Type | C3Type): cc is C3Type {
-  return cc.info.version.startsWith('C3');
+  return cc?.info.version.startsWith('C3');
 }

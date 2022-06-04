@@ -32,7 +32,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
   const c2 = useC2(cryptoAddress.address, memberAddresses);
   const c3 = useC3(cryptoAddress.address, memberAddresses);
-  const cc = { c2: c2, c3: c3 };
+  const activeCC = c3 ?? c2;
 
   const isC2 = type === SmartContractType.C2;
   const isContractManager = ContractManager(agreement, user);
@@ -63,16 +63,9 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
           withCopy
         />
         <div className="text-xs uppercase text-gray-600">
-          {isC2 && (
-            <ClassFundingRatio
-              cryptoAddress={cryptoAddress.address}
-              memberAddresses={memberAddresses}
-              contractType={CCClass.type}
-            />
-          )}
+          {activeCC && isC2 && <ClassFundingRatio activeCC={activeCC} />}
         </div>
       </div>
-
       <div className="my-3 mb-6">
         <CCClassDescription
           payerName={agreement.organizationName}
@@ -81,30 +74,15 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
           triggerRevenue={triggerRevenue}
         />
       </div>
-      <ClassStatusBlock
-        cryptoAddress={cryptoAddress.address}
-        memberAddresses={memberAddresses}
-        contractType={CCClass.type}
-        isContractManager={!!isContractManager}
-      />
-
+      <ClassStatusBlock activeCC={activeCC} isContractManager={!!isContractManager} />
       {allPayments.length > 0 && (
         <SectionBlock sectionTitle="Payments" className="mt-6">
           {displayPayments()}
         </SectionBlock>
       )}
 
-      <ClassActions
-        name={name}
-        chainId={cryptoAddress.chainId}
-        cc={cc}
-        ccId={id}
-        agreementId={agreement.id}
-        contractType={CCClass.type}
-      />
-      <div className="mt-5">
-        <HashInstructions cc={cc} agreementText={agreement.text} />
-      </div>
+      <ClassActions chainId={cryptoAddress.chainId} activeCC={activeCC} ccId={id} agreementId={agreement.id} />
+      <div className="mt-5">{activeCC && <HashInstructions activeCC={activeCC} agreementText={agreement.text} />}</div>
     </div>
   );
 };
