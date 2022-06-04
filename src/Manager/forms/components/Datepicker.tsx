@@ -64,7 +64,7 @@ export const Datepicker: React.FC<CustomDatepickerProps> = ({
           fieldHeight
         )}
       />
-      <ErrorMessage name={name} component="div" className="text-sm text-red-500" />
+      <ErrorMessage name={name} className="text-sm text-red-500" />
     </div>
   );
 };

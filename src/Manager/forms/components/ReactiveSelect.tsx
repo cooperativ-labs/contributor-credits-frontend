@@ -70,7 +70,7 @@ const ReactiveSelect: React.FC<any> = ({ options, name, className, labelText, fi
         </label>
       )}
       <Field name={name} component={SelectField} options={options} required={required} />
-      <ErrorMessage name={name} component="div" className="text-sm text-red-500" />
+      <ErrorMessage name={name} className="text-sm text-red-500" />
     </div>
   );
 };

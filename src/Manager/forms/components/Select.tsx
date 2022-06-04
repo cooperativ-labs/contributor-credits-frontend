@@ -53,7 +53,7 @@ const Select: React.FC<CustomSelectProps> = ({
       >
         {children}
       </Field>
-      <ErrorMessage name={name} component="div" className="text-sm text-red-500" />
+      <ErrorMessage name={name} className="text-sm text-red-500" />
     </div>
   );
 };

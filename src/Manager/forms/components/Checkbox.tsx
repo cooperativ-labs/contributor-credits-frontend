@@ -53,7 +53,7 @@ const Checkbox: React.FC<CustomCheckboxProps> = ({
         )}
         required={required}
       />
-      <ErrorMessage name={name} component="div" className="text-sm text-red-500" />
+      <ErrorMessage name={name} className="text-sm text-red-500" />
     </div>
   );
 };
