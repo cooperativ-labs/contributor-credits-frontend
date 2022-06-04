@@ -1,10 +1,9 @@
 import { Web3Provider } from '@ethersproject/providers';
-import { C2Type, useC2 } from '@src/web3/hooks/useC2';
-import { C3Type, useC3 } from '@src/web3/hooks/useC3';
-import { isC3, toHumanNumber } from '@src/web3/util';
+import { C2Type } from '@src/web3/hooks/useC2';
+import { C3Type } from '@src/web3/hooks/useC3';
+import { toHumanNumber } from '@src/web3/util';
 import { useWeb3React } from '@web3-react/core';
 import { BigNumber } from 'ethers';
-import { SmartContractType } from 'types';
 
 export const proportionFunded = (cc: C2Type | C3Type): number => {
   const { totalSupply, bacStaked, decimals: c2Decimals, totalBacNeededToFund } = cc.info;
@@ -24,8 +23,7 @@ export const proportionFunded = (cc: C2Type | C3Type): number => {
   return stakedBac / totalC2;
 };
 
-export const getAddrItemInfo = (addrItems, decimals): number => {
-  const { account: walletAddress } = useWeb3React<Web3Provider>();
+export const getAddrItemInfo = (addrItems, decimals, walletAddress): number => {
   const claim = addrItems?.get(walletAddress);
   function earned() {
     if (claim) {
@@ -39,7 +37,7 @@ export const getAddrItemInfo = (addrItems, decimals): number => {
   return parseInt(earned()._hex);
 };
 
-export const classDetails = (cc) => {
+export const classDetails = (cc, usersWallet: string) => {
   const {
     totalSupply,
     totalAmountFunded,
@@ -75,9 +73,9 @@ export const classDetails = (cc) => {
   const currentAmountStaked = parseInt(getAmountStaked(cc)._hex);
   // const bacNeededToFund = parseInt(toHumanNumber(totalBacNeededToFund, bacDecimals)._hex);
   const backingCurrency = cc.bacInfo.symbol;
-  const creditsEarned = getAddrItemInfo(addrBalances, c2Decimals);
-  const bacWithdrawn = getAddrItemInfo(addrBacWithdrawn, bacDecimals);
-  const userShares = getAddrItemInfo(addrShares, c2Decimals);
+  const creditsEarned = getAddrItemInfo(addrBalances, c2Decimals, usersWallet);
+  const bacWithdrawn = getAddrItemInfo(addrBacWithdrawn, bacDecimals, usersWallet);
+  const userShares = getAddrItemInfo(addrShares, c2Decimals, usersWallet);
   const loading = false;
   const userAvailableToClaim = (userShares / creditsAuthorized) * amountEverFunded - bacWithdrawn;
 
@@ -100,8 +98,10 @@ export const classDetails = (cc) => {
 };
 
 export const ClassStatus = (activeCC) => {
+  const { account: usersWallet } = useWeb3React<Web3Provider>();
+
   if (activeCC) {
-    return classDetails(activeCC);
+    return classDetails(activeCC, usersWallet);
   } else {
     const creditsAuthorized: number = null;
     const c2RemainingUnfunded: number = null;
@@ -113,7 +113,6 @@ export const ClassStatus = (activeCC) => {
     const backingCurrency: string = 'null';
     const isOwner = undefined;
     const isFunded = false;
-
     const loading = true;
 
     return {

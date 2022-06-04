@@ -39,7 +39,6 @@ export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, cl
           await activate(selectedConnector);
           await CustomTokenService(signer, walletAddress);
         } catch (err) {
-          console.log(err);
           alert(WalletErrorCodes(err));
         }
       } else {

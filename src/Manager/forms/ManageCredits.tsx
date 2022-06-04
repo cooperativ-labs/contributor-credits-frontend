@@ -13,6 +13,8 @@ import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { useAsyncFn } from 'react-use';
+import { useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -23,11 +25,12 @@ export type ManageCreditsProps = {
 };
 
 const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurrency }) => {
+  const { account: usersWallet } = useWeb3React<Web3Provider>();
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
 
-  const { fundRatio, userAvailableToClaim, creditsEarned } = classDetails(activeCC);
+  const { fundRatio, userAvailableToClaim, creditsEarned } = classDetails(activeCC, usersWallet);
   const creditValue = userAvailableToClaim.toFixed(0);
 
   const [, cashOut] = useAsyncFn(
@@ -46,7 +49,6 @@ const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurre
           await txResp.wait();
         }
       } catch (error) {
-        console.log(error);
         if (error.code === 4001) {
           setButtonStep('rejected');
         }

@@ -30,9 +30,10 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const c2 = useC2(cryptoAddress.address, memberAddresses);
-  const c3 = useC3(cryptoAddress.address, memberAddresses);
-  const activeCC = c3 ?? c2;
+  const activeCC =
+    type === SmartContractType.C3
+      ? useC3(cryptoAddress.address, memberAddresses)
+      : useC2(cryptoAddress.address, memberAddresses);
 
   const isC2 = type === SmartContractType.C2;
   const isContractManager = ContractManager(agreement, user);
@@ -58,7 +59,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
       <div className="mb-6">
         <FormattedCryptoAddress
           label={'Address:'}
-          address={cryptoAddress.address}
+          address={activeCC?.contract.address}
           chainId={cryptoAddress.chainId}
           withCopy
         />

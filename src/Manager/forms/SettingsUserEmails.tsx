@@ -11,7 +11,7 @@ const SettingsUserEmails = ({ user }) => {
   const [addUserEmails, { data, error }] = useMutation(ADD_USER_EMAIL);
 
   if (error && !alerted) {
-    alert('Oops. Looks like something went wrong');
+    alert(`Oops. Looks like something went wrong ${error.message}`);
     setAlerted(true);
   }
 
@@ -23,7 +23,6 @@ const SettingsUserEmails = ({ user }) => {
         public: false,
       }}
       validate={async (values) => {
-        // console.log(await checkEmailTaken(values.address));
         const errors: any = {}; /** @TODO : Shape */
         if (!values.address) {
           errors.address = 'Please include an email address.';

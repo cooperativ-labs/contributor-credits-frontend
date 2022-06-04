@@ -22,7 +22,7 @@ const EmailAddressListItem: FC<EmailAddressListItemProps> = ({ email, withEdit }
   const [deleteEmail, { error: deleteError }] = useMutation(REMOVE_USER_EMAIL);
 
   if (updateError || (deleteError && !alerted)) {
-    alert('Oops, looks like something went wrong.');
+    alert(`Oops. Looks like something went wrong ${(updateError.message, deleteError.message)}`);
     setAlerted(true);
   }
 
@@ -52,7 +52,6 @@ const EmailAddressListItem: FC<EmailAddressListItemProps> = ({ email, withEdit }
                 name: name,
               }}
               onSubmit={(values, { setSubmitting }) => {
-                console.log(values);
                 setSubmitting(true);
                 updateEmailAddress({
                   variables: {

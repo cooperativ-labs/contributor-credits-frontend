@@ -28,7 +28,7 @@ const SettingsUserWallets: FC<SettingsUserWalletsProps> = ({ user }) => {
   const [updateUserWallets, { error }] = useMutation(UPDATE_USER_WALLETS);
 
   if (error && !alerted) {
-    alert('Oops. Looks like something went wrong');
+    alert(`Oops. Looks like something went wrong ${error.message}`);
     setAlerted(true);
   }
 
@@ -53,9 +53,7 @@ const SettingsUserWallets: FC<SettingsUserWalletsProps> = ({ user }) => {
           },
         });
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

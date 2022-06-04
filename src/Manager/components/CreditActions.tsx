@@ -3,7 +3,6 @@ import PayCredits, { PayCreditsProps } from '../forms/PayCredits';
 import React, { FC, useState } from 'react';
 
 import Button from './buttons/Button';
-import CloseButton from './buttons/CloseButton';
 import FormChainWarning from './FormChainWarning';
 import FundClass from '../forms/FundClass';
 import { ClassStatus } from '@src/utils/classStatus';
@@ -16,18 +15,18 @@ const unselected = 'text-cDarkBlue';
 const selectionButtonClass = 'uppercase text-sm font-medium w-full p-3';
 
 const CreditActions: FC<CreditActionsProps> = ({ activeCC, ccId, chainId, agreementId }) => {
-  console.log(ccId);
   const [panelVisible, setPanelVisible] = useState<undefined | 'pay' | 'fund' | 'manage'>(undefined);
 
   const { creditsAuthorized, creditsEarned, isOwner, backingCurrency, isFunded } = ClassStatus(activeCC);
   const isFresh = creditsAuthorized === 0;
-  const showButtons = !isFunded || isFresh;
+  const showFund = !isFunded && !isFresh;
+  const showPayFundOnly = !isFunded || isFresh;
 
   const ActionOptions = (
     <div className="flex justify-between ">
       {isOwner && (
         <>
-          {showButtons && (
+          {showFund && (
             <Button
               className={`${selectionButtonClass} ${panelVisible === 'fund' ? selected : unselected}`}
               onClick={() => setPanelVisible('fund')}
@@ -35,7 +34,7 @@ const CreditActions: FC<CreditActionsProps> = ({ activeCC, ccId, chainId, agreem
               Fund
             </Button>
           )}
-          {showButtons && (
+          {showPayFundOnly && (
             <button
               className={`${selectionButtonClass} ${panelVisible === 'pay' ? selected : unselected}`}
               onClick={() => setPanelVisible('pay')}

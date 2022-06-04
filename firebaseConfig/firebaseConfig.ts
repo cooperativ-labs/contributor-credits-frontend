@@ -28,9 +28,7 @@ export const CustomTokenService = async (signer, walletAddress) => {
       });
       //@ts-ignore
       return result.data.nonce;
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
   try {
     const walletUserData = await walletUserDataResponse();
@@ -41,9 +39,7 @@ export const CustomTokenService = async (signer, walletAddress) => {
       const response = await signInWithCustomToken(auth, getCustomToken);
       return response.user;
     } catch (err) {}
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
 
 export default fireApp;

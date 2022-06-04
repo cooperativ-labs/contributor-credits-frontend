@@ -15,8 +15,7 @@ const SettingUserPersonalInfo = ({ user }) => {
   const [alerted, setAlerted] = useState<boolean>(false);
 
   if (error) {
-    console.log(error);
-    alert('Oops. Looks like something went wrong');
+    alert(`Oops. Looks like something went wrong ${error.message}`);
   }
   if (data && !alerted) {
     alert(`${data.updateUser.user[0].displayName} was successfully updated!`);

@@ -59,8 +59,7 @@ const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComp
   const [addUser, { data, error }] = useMutation(ADD_USER_WITH_WALLET);
 
   if (error) {
-    console.log(error);
-    alert('Oops. Looks like something went wrong');
+    alert(`Oops. Looks like something went wrong ${error.message}`);
   }
 
   if (data && data.addUser !== null) {

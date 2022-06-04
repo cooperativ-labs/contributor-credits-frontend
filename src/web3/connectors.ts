@@ -23,7 +23,7 @@ export const SupportedChainIds = [
     id: 3,
     name: 'Ropsten',
     blockExplorer: 'https://ropsten.etherscan.io',
-    faucet: 'https://faucet.dimensions.network/',
+    faucet: 'https://faucet.egorfine.com/',
     protocol: CryptoAddressProtocol.Eth,
     contractsSupported: true,
     color: 'cYellow',

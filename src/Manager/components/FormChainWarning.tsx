@@ -45,7 +45,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
             >
               <LoadingButtonText
                 state={buttonStep}
-                idleText="Get free testing currency"
+                idleText="Get test USDC for funding"
                 submittingText="You will need to confirm in your wallet"
                 confirmedText="Your testing currency should arrive soon"
               />

@@ -45,7 +45,7 @@ const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId 
   const [alerted, setAlerted] = useState<boolean>(false);
 
   if (error && !alerted) {
-    alert('Oops. Looks like something went wrong');
+    alert(`Oops. Looks like something went wrong ${error.message}`);
     setAlerted(true);
   }
 
@@ -154,7 +154,7 @@ const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId 
               //@ts-ignore - ReactSelective strips "value" from the thing it returns.
               //You expect values.recipient.value.[something], but instead get values.recipient.[something]
               idleText={formButtonText(values.recipient, values.amount, chainId)}
-              submittingText="Deploying (this could take a sec)"
+              submittingText="Paying (this could take a sec)"
               confirmedText="Confirmed!"
               rejectedText="You rejected the transaction. Click here to try again."
             />

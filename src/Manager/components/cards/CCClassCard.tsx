@@ -4,7 +4,7 @@ import { C2Type, useC2 } from '@src/web3/hooks/useC2';
 import { C3Type, useC3 } from '@src/web3/hooks/useC3';
 import { ClassCreditsStats, ClassFundingRatio, ClassFundingStats } from '../ClassStatusBlock';
 import { ClassStatus } from '@src/utils/classStatus';
-import { ContributorCreditClass } from 'types';
+import { ContributorCreditClass, SmartContractType } from 'types';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { isC3 } from '@src/web3/util';
 import { numberWithCommas } from '@src/utils/helpersMoney';
@@ -67,12 +67,13 @@ type ClassCardProps = {
 };
 
 const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, isSelected }) => {
-  const { cryptoAddress, agreement } = cClass;
+  const { cryptoAddress, agreement, type } = cClass;
 
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const c2 = useC2(cryptoAddress.address, memberAddresses);
-  const c3 = useC3(cryptoAddress.address, memberAddresses);
-  const activeCC = c3 ?? c2;
+  const activeCC =
+    type === SmartContractType.C3
+      ? useC3(cryptoAddress.address, memberAddresses)
+      : useC2(cryptoAddress.address, memberAddresses);
 
   return (
     <_CCClassCard cClass={cClass} isSelected={isSelected} setSelectedClassId={setSelectedClassId} activeCC={activeCC} />

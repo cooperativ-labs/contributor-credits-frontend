@@ -11,6 +11,8 @@ import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { useAsyncFn } from 'react-use';
+import { useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -19,11 +21,12 @@ type FundClassProps = {
 };
 
 const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
+  const { account: usersWallet } = useWeb3React<Web3Provider>();
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
 
-  const { address, backingCurrency, c2RemainingUnfunded, c3RemainingUnfunded } = classDetails(activeCC);
+  const { address, backingCurrency, c2RemainingUnfunded, c3RemainingUnfunded } = classDetails(activeCC, usersWallet);
 
   const remainingUnfunded = isC3(activeCC) ? c3RemainingUnfunded : c2RemainingUnfunded;
   const FormButtonText = (amount) => {
@@ -34,24 +37,37 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
   const [, fundCredits] = useAsyncFn(
     async (amount: number) => {
       const fundAmount = toContractInteger(BigNumber.from(amount), activeCC.bacInfo.decimals);
-      if (isC3(activeCC)) {
-        alert(
-          'NOTE: Funding these Contributor Credits requires **TWO** wallet transactions. Do not leave this page until both have completed.'
-        );
-        dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-        const allowance = await activeCC.bacContract.approve(activeCC.contract.address, fundAmount);
-        await allowance.wait();
-        const txResp = await activeCC.contract.fund(fundAmount);
-        await txResp.wait();
-        setButtonStep('confirmed');
-        dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-      } else {
-        dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
-        const txResp = await activeCC.bacContract.transfer(address, fundAmount);
-        await txResp.wait();
-        setButtonStep('confirmed');
-        dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+      try {
+        if (isC3(activeCC)) {
+          if (
+            window.confirm(
+              'NOTE: Funding these Contributor Credits requires **TWO** wallet transactions. Do not leave this page until both have completed.'
+            )
+          ) {
+            dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+            const allowance = await activeCC.bacContract.approve(activeCC.contract.address, fundAmount);
+            await allowance.wait();
+            const txResp = await activeCC.contract.fund(fundAmount);
+            await txResp.wait();
+            setButtonStep('confirmed');
+            dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+          } else {
+            dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+            setButtonStep('idle');
+          }
+        } else {
+          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+          const txResp = await activeCC.bacContract.transfer(address, fundAmount);
+          await txResp.wait();
+          setButtonStep('confirmed');
+          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+        }
+      } catch (error) {
+        if (error.code === 4001) {
+          setButtonStep('rejected');
+        }
       }
+      dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
     },
     [activeCC]
   );
@@ -101,6 +117,7 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
               idleText={FormButtonText(values.amount)}
               submittingText="Funding (this could take a sec)"
               confirmedText="Confirmed!"
+              rejectedText="You rejected the transaction. Click here to try again."
             />
           </FormButton>
         </Form>
