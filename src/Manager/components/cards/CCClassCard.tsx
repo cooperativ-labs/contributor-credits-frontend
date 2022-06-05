@@ -22,7 +22,7 @@ const _CCClassCard: React.FC<ClassCardDetailsProps> = ({ cClass, isSelected, set
     <div
       className={cn(
         'border-2 rounded-lg p-3 bg-opacity-10 hover:shadow-md',
-        isContractManager && 'bg-green-400',
+        isContractManager && 'bg-emerald-400',
         isSelected && 'bg-blue-300 border-cLightBlue'
       )}
       onClick={() => {
@@ -30,7 +30,7 @@ const _CCClassCard: React.FC<ClassCardDetailsProps> = ({ cClass, isSelected, set
       }}
     >
       {isContractManager && (
-        <div className="inline-block my-2 p-1 px-2 rounded-full bg-green-600 text-xs font-semibold text-gray-100 items-center">
+        <div className="inline-block my-2 p-1 px-2 rounded-full bg-emerald-600 text-xs font-semibold text-gray-100 items-center">
           Contract Creator
         </div>
       )}

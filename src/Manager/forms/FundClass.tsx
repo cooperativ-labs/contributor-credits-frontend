@@ -50,9 +50,9 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
             const txResp = await activeCC.contract.fund(fundAmount);
             await txResp.wait();
             setButtonStep('confirmed');
-            dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+            // dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
           } else {
-            dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+            // dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
             setButtonStep('idle');
           }
         } else {
@@ -60,7 +60,7 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
           const txResp = await activeCC.bacContract.transfer(address, fundAmount);
           await txResp.wait();
           setButtonStep('confirmed');
-          dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
+          // dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
         }
       } catch (error) {
         if (error.code === 4001) {

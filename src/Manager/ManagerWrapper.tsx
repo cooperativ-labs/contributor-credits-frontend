@@ -89,7 +89,7 @@ const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComp
 const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {
   return (
     <div className="h-full">
-      <div className={cn(BackgroundGradient, 'min-h-full w-screen min-h-screen')}>
+      <div className={cn(BackgroundGradient, 'w-screen min-h-screen')}>
         <AlertPopup />
         <EnsureCompatibleNetwork>
           <WalletChooserModal />

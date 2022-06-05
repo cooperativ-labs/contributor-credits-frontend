@@ -15,6 +15,8 @@ import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
+import StandardButton from '@src/Manager/components/buttons/StandardButton';
+import router from 'next/router';
 
 const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
@@ -153,7 +155,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
                   <FormChainWarning />
                 </div>
               </div>
-              <div className="hidden md:flex border-t-1 lg:border-0 flex col-span-3 md:max-w-max">
+              <div className="hidden md:flex border-t-1 lg:border-0 col-span-3 md:max-w-max">
                 <PresentLegalText agreement={agreement} />
               </div>
             </div>
@@ -165,7 +167,18 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
             </div>
           )
         ) : (
-          <div className="font-bold text-center">The smart contract at this address has already been established.</div>
+          <div className="flex flex-col items-center">
+            <div className="font-bold text-center">
+              The smart contract at this address has already been established.
+            </div>
+            <StandardButton
+              onClick={() => router.push(`/app`)}
+              className="mt-3"
+              color="blue"
+              outlined
+              text={'return to dashboard'}
+            />
+          </div>
         )}
       </div>
     </div>

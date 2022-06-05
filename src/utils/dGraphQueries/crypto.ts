@@ -119,6 +119,9 @@ export const CREATE_UNESTABLISHED_SMART_CONTRACT = gql`
           id
           unestablishedSmartContracts {
             id
+            cryptoAddress {
+              id
+            }
           }
         }
         cryptoAddress {

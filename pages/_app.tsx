@@ -84,7 +84,7 @@ export default function MyApp({ Component, pageProps }): ReactElement {
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <SetAppContext pageProps={pageProps}>
+      <SetAppContext>
         <StateProvider>
           <AnalyticsContext.Provider value={analyticsContext}>
             <div id="outer-container" className="bg-gradient-to-b from-gray-100 to-blue-50 flex flex-col">

@@ -9,7 +9,7 @@ export const MarkPublic: FC<MarkPublicProps> = ({ isPublic }) => {
   return (
     <div className="items-center font-bold">
       {isPublic ? (
-        <div className="text-sm text-green-600"> Public </div>
+        <div className="text-sm text-emerald-600"> Public </div>
       ) : (
         <div className="text-sm text-red-600"> Not public </div>
       )}

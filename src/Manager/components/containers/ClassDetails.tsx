@@ -51,6 +51,8 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
     return 'No payments to display';
   };
 
+  const ensureContractMatchesDB = activeCC && activeCC.contract.address === cryptoAddress.address;
+
   return (
     <div className="">
       <h1 className="text-3xl font-bold">
@@ -59,7 +61,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
       <div className="mb-6">
         <FormattedCryptoAddress
           label={'Address:'}
-          address={activeCC?.contract.address}
+          address={cryptoAddress.address}
           chainId={cryptoAddress.chainId}
           withCopy
         />
@@ -82,7 +84,11 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
         </SectionBlock>
       )}
 
-      <ClassActions chainId={cryptoAddress.chainId} activeCC={activeCC} ccId={id} agreementId={agreement.id} />
+      {ensureContractMatchesDB ? (
+        <ClassActions chainId={cryptoAddress.chainId} activeCC={activeCC} ccId={id} agreementId={agreement.id} />
+      ) : (
+        'ensuring contract matches our records...'
+      )}
       <div className="mt-5">{activeCC && <HashInstructions activeCC={activeCC} agreementText={agreement.text} />}</div>
     </div>
   );

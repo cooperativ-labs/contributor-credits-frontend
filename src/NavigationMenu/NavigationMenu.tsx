@@ -18,7 +18,7 @@ const LogInButton: React.FC<any> = () => {
   return (
     <>
       <Button
-        className=" px-5 m-2 rounded-full whitespace-nowrap bg-white border-2 border-gray-400 border-opacity-100 text-gray-400 hover:text-white hover:bg-green-500 md:w-min "
+        className=" px-5 m-2 rounded-full whitespace-nowrap bg-white border-2 border-gray-400 border-opacity-100 text-gray-400 hover:text-white hover:bg-emerald-500 md:w-min "
         aria-label="log in"
       >
         Log In

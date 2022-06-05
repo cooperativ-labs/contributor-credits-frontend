@@ -50,8 +50,8 @@ and holders of these credits will be able to cash them in. For an in-depth expla
       content={
         <div className="font-semibold text-gray-400 mt-4">
           Contributors can easily "charge" for their work on an early-stage passion-project as a way of ensuring that
-          they <span className="text-green-500 font-bold">share in the profits</span> if the project{' '}
-          <span className="text-green-500 font-bold">turns out to be successful</span>.
+          they <span className="text-emerald-500 font-bold">share in the profits</span> if the project{' '}
+          <span className="text-emerald-500 font-bold">turns out to be successful</span>.
         </div>
       }
     />
@@ -64,8 +64,8 @@ and holders of these credits will be able to cash them in. For an in-depth expla
       content={
         <div className="font-semibold text-gray-400 mt-4">
           Contributors can easily "charge" for their work on an early-stage passion-project and{' '}
-          <span className="text-green-500 font-bold">claim their share</span> of each Dollar or Euro{' '}
-          <span className="text-green-500 font-bold">as it arrives</span>.
+          <span className="text-emerald-500 font-bold">claim their share</span> of each Dollar or Euro{' '}
+          <span className="text-emerald-500 font-bold">as it arrives</span>.
         </div>
       }
     />

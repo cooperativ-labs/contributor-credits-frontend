@@ -7,6 +7,7 @@ import { setContext } from '@apollo/client/link/context';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { WalletErrorCodes } from './web3/helpersChain';
 import { Web3Provider } from '@ethersproject/providers';
+import router from 'next/router';
 
 declare let window: any;
 
@@ -18,10 +19,9 @@ export const WalletOwnerContext = React.createContext<{
 
 type SetAppContextProps = {
   children: React.ReactNode;
-  pageProps: any;
 };
 
-const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) => {
+const SetAppContext: React.FC<SetAppContextProps> = ({ children }) => {
   const { activate, active } = useWeb3React<Web3Provider>();
   const [tried, setTried] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -41,19 +41,18 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children, pageProps }) =>
       .then((res) => setTried(true));
   }
 
-  // useEffect(() => {
-  //   const ethereum = window.ethereum;
-  //   if (ethereum) {
-  //     ethereum.on('accountsChanged', (accounts: Array<string>) => {
-  //       console.log('Changed Account', accounts);
-  //       signOut(auth)
-  //         .then(() => {})
-  //         .catch((error) => {
-  //           console.log('// An error happened.');
-  //         });
-  //     });
-  //   }
-  // });
+  useEffect(() => {
+    const ethereum = window.ethereum;
+    if (ethereum) {
+      ethereum.on('accountsChanged', (accounts: Array<string>) => {
+        signOut(auth)
+          .then(() => router.reload())
+          .catch((error) => {
+            console.log('// An error happened.');
+          });
+      });
+    }
+  });
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {

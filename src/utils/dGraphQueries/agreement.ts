@@ -58,6 +58,7 @@ export const ADD_CC_AGREEMENT = gql`
       ]
     ) {
       agreement {
+        id
         ...agreementData
       }
     }
@@ -66,6 +67,7 @@ export const ADD_CC_AGREEMENT = gql`
         id
         used
         cryptoAddress {
+          id
           address
         }
       }
@@ -101,6 +103,7 @@ export const ADD_CC_PAYMENT = gql`
       agreement {
         id
         payments {
+          id
           ...paymentData
         }
       }

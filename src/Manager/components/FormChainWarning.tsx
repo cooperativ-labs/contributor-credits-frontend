@@ -63,7 +63,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
   };
 
   const Live = () => {
-    const chainColor = chainId === 137 ? 'blue' : 'green';
+    const chainColor = chainId === 137 ? 'purple' : 'emerald';
     return (
       <div
         className={cn(

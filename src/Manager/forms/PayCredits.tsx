@@ -138,7 +138,7 @@ const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId 
             labelText="Amount of credits to pay"
             name="amount"
             type="number"
-            placeholder="344"
+            placeholder="e.g. 344"
             required
           />
           <Input
