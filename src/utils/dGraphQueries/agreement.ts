@@ -104,7 +104,6 @@ export const ADD_CC_PAYMENT = gql`
         id
         payments {
           id
-          ...paymentData
         }
       }
     }
