@@ -111,6 +111,21 @@ export const ADD_CC_PAYMENT = gql`
   }
 `;
 
+export const ADD_DOCUMENT = gql`
+  mutation AddCcPayment($agreementId: [ID!], $agreementText: String!) {
+    updateAgreement(input: { filter: { id: $agreementId }, set: { text: $agreementText } }) {
+      agreement {
+        id
+        text
+        payments {
+          id
+          ...paymentData
+        }
+      }
+    }
+  }
+`;
+
 export const GET_AGREEMENTS_THAT_PAID_ME = gql`
   ${CORE_CC_FIELDS}
   ${CORE_PAYMENT_FIELDS}

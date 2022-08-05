@@ -5,7 +5,7 @@ COPY package.json yarn.lock ./
 
 RUN apk --no-cache --virtual build-dependencies add \
         git \
-        python2 \
+        python3\
         make \
         g++
 RUN yarn install --frozen-lockfile
