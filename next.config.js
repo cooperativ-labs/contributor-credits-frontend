@@ -6,7 +6,6 @@ const GRAPHQL_ENDPOINT =
     : 'http://localhost:8080/graphql';
 
 module.exports = {
-  swcMinify: true,
   env: {
     NEXT_PUBLIC_GRAPHQL_ENDPOINT: GRAPHQL_ENDPOINT,
   },
