@@ -1,7 +1,7 @@
 import BaseCard from './cards/BaseCard';
 import useWindowSize from '@hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 export interface ActionDialogProps {
   visible: boolean;

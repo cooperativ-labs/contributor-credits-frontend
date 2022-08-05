@@ -122,9 +122,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurre
       >
         <LoadingButtonText
           state={buttonStep}
-          //@ts-ignore - ReactSelective strips "value" from the thing it returns.
-          //You expect values.recipient.value.[something], but instead get values.recipient.[something]
-          idleText={formButtonText(values.action, values.amount, chainId)}
+          idleText={formButtonText(values.action, values.amount)}
           submittingText="Deploying (this could take a sec)"
           confirmedText="Submitted"
           rejectedText="You rejected the transaction. Click here to try again."

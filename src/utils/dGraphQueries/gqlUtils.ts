@@ -1,6 +1,6 @@
 // import { initializeApollo } from '../apolloClient';
-import { CHECK_WALLET_EXIST } from './crypto';
-import { CHECK_EMAIL_TAKEN } from './user';
+// import { CHECK_WALLET_EXIST } from './crypto';
+// import { CHECK_EMAIL_TAKEN } from './user';
 
 // const apolloClient = initializeApollo();
 
@@ -43,7 +43,6 @@ export function rfc3339(d) {
 }
 
 export function timezoneOffset(offset) {
-  var sign;
   if (offset === 0) {
     return 'Z';
   }
@@ -52,7 +51,7 @@ export function timezoneOffset(offset) {
     return n < 10 ? '0' + n : n;
   }
 
-  sign = offset > 0 ? '-' : '+';
+  const sign = offset > 0 ? '-' : '+';
   offset = Math.abs(offset);
   return sign + pad(Math.floor(offset / 60)) + ':' + pad(offset % 60);
 }

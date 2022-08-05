@@ -11,7 +11,6 @@ import { MatchSupportedChains } from '@src/web3/connectors';
 import { Form, Formik } from 'formik';
 import { ValuesOfCorrectTypeRule } from 'graphql';
 import React from 'react';
-import { SmartContractType } from 'types/';
 
 const UpdateAgreementText: React.FC = () => {
   const { uuid } = React.useContext(WalletOwnerContext);

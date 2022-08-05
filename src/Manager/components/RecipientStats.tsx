@@ -7,9 +7,7 @@ import { User } from 'types';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
-interface RecipientStatsProps {}
-
-const RecipientStats: FC<RecipientStatsProps> = () => {
+const RecipientStats: FC = () => {
   const { active, account } = useWeb3React<Web3Provider>();
   const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: account } });
   const paymentsToMe = data?.queryPayment;

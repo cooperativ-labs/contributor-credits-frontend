@@ -15,9 +15,7 @@ import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
 
-type UserMenuProps = {};
-
-const UserMenu: FC<UserMenuProps> = ({}) => {
+const UserMenu: FC = () => {
   const { account: walletAddress, chainId, active } = useWeb3React<Web3Provider>();
   const [open, setOpen] = useState<boolean>(false);
 

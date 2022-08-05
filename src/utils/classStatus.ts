@@ -110,7 +110,7 @@ export const ClassStatus = (activeCC) => {
     const userAvailableToClaim: number = null;
     const creditsEarned: number = null;
     const fundRatio: number = null;
-    const backingCurrency: string = 'null';
+    const backingCurrency = null;
     const isOwner = undefined;
     const isFunded = false;
     const loading = true;

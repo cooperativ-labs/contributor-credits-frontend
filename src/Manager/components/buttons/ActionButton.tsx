@@ -9,7 +9,7 @@ const buttonGradient =
 type ActionButtonProps = ButtonProps & {
   className?: string;
   link?: string;
-  onClick?: () => {};
+  onClick?: () => void;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
 };

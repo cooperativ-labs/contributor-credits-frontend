@@ -9,8 +9,6 @@ import { stack as Menu } from 'react-burger-menu';
 
 import { useContext, useState } from 'react';
 
-export interface SideBarProps {}
-
 const styles = {
   bmBurgerButton: {
     display: 'none',
@@ -83,7 +81,7 @@ const sidebarMenu = [
   },
 ];
 
-const SideBar: React.FunctionComponent<SideBarProps> = () => {
+const SideBar: React.FunctionComponent = () => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch, sidebarOpen } = applicationStore;
 

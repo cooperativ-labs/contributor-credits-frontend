@@ -37,11 +37,10 @@ const SettingUserPersonalInfo = ({ user }) => {
       validate={(values) => {
         const errors: any = {}; /** @TODO : Shape */
 
-        // @ts-ignore - we turn these into strings, then turn them back into arrays before submission
         if (/[^a-z A-Z 0-9,.'-]/.test(values?.expertise)) {
           errors.expertise = 'Please only use letters, numbers, spaces, and commas.';
         }
-        // @ts-ignore - we turn these into strings, then turn them back into arrays before submission
+
         if (/[^a-z A-Z 0-9,.'-]/.test(values?.interests)) {
           errors.interests = 'Please only use letters, numbers, spaces, and commas.';
         }

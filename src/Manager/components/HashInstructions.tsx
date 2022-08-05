@@ -24,7 +24,6 @@ const HashInstructions: FC<HashInstructionsProps> = ({ activeCC, agreementText }
         color="blue"
         text="Download Agreement Text"
         onClick={() => DownloadFile(agreementText, 'agreement-text.md')}
-        children={''}
       />
       <span className="mb-1 mr-2">
         Agreement Hash: {hash?.slice(2, 7)}...{hash?.slice(-8)}

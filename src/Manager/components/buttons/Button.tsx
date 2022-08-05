@@ -14,11 +14,11 @@ export interface ButtonProps {
 export type LoadingButtonStateType = 'idle' | 'submitting' | 'confirmed' | 'failed' | 'submitted' | 'rejected';
 export type LoadingButtonTextType = {
   state: LoadingButtonStateType;
-  idleText: string;
-  submittingText: string;
-  confirmedText: string;
-  failedText?: string;
-  rejectedText?: string;
+  idleText: any;
+  submittingText: any;
+  confirmedText: any;
+  failedText?: any;
+  rejectedText?: any;
 };
 
 export const LoadingButtonText = ({

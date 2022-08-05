@@ -41,7 +41,7 @@ const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId 
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
-  const [addPayment, { data, error }] = useMutation(ADD_CC_PAYMENT);
+  const [addPayment, { error }] = useMutation(ADD_CC_PAYMENT);
   const [alerted, setAlerted] = useState<boolean>(false);
 
   if (error && !alerted) {
@@ -151,8 +151,6 @@ const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId 
           <FormButton type="submit" disabled={isSubmitting || buttonStep === 'submitting'}>
             <LoadingButtonText
               state={buttonStep}
-              //@ts-ignore - ReactSelective strips "value" from the thing it returns.
-              //You expect values.recipient.value.[something], but instead get values.recipient.[something]
               idleText={formButtonText(values.recipient, values.amount, chainId)}
               submittingText="Paying (this could take a sec)"
               confirmedText="Confirmed!"
