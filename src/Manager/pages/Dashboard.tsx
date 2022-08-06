@@ -29,9 +29,6 @@ const Dashboard: FC = () => {
   if (!user) {
     return <></>;
   }
-
-  console.log(user);
-
   const { unestablishedSmartContracts, agreements } = user;
 
   return (
