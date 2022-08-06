@@ -30,6 +30,8 @@ const Dashboard: FC = () => {
     return <></>;
   }
 
+  console.log(user);
+
   const { unestablishedSmartContracts, agreements } = user;
 
   return (
