@@ -26,6 +26,8 @@ export const networkColor = (chainId, walletAddress) => {
       return `bg-${color} hover:text-black`;
     case 3:
       return `bg-${color} hover:text-black`;
+    case 5:
+      return `bg-${color} hover:text-black`;
     case 137:
       return `bg-${color} hover:text-black`;
     case 80001:

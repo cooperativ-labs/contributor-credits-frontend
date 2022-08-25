@@ -12,8 +12,8 @@ const EnsureCompatibleNetwork = ({ children }: { children: any }) => {
     return (
       <div className="flex flex-col h-full w-screen items-center justify-center">
         <Card className="md:w-96 rounded-lg mx-4 md:mx-auto mt-4  p-4 ">
-          The blockchain you are using is not compatible with Contributor Credits. Please use <strong>Ropsten</strong>{' '}
-          for testing and the <strong>Ethereum Mainnet</strong> or <strong>Polygon</strong> for real transactions.{' '}
+          The blockchain you are using is not compatible with Contributor Credits. Please use <strong>Görli</strong> for
+          testing and the <strong>Ethereum Mainnet</strong> or <strong>Polygon</strong> for real transactions.{' '}
         </Card>
       </div>
     );
