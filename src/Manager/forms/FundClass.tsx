@@ -12,8 +12,8 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { useAsyncFn } from 'react-use';
 import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 import { WalletErrorCodes } from '@src/web3/helpersChain';
+import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 

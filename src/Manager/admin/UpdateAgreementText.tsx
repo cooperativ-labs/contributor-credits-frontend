@@ -1,10 +1,10 @@
-import { useMutation } from '@apollo/client';
 import FormButton from '@src/Manager/components/buttons/FormButton';
-import PresentLegalText from '@src/Manager/components/PresentLegalText';
 import Input from '@src/Manager/forms/components/Inputs';
+import PresentLegalText from '@src/Manager/components/PresentLegalText';
+import React from 'react';
 import { ADD_DOCUMENT } from '@src/utils/dGraphQueries/agreement';
 import { Form, Formik } from 'formik';
-import React from 'react';
+import { useMutation } from '@apollo/client';
 
 const UpdateAgreementText: React.FC = () => {
   const [updateAgreement, { data, error }] = useMutation(ADD_DOCUMENT);

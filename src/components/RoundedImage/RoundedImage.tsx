@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export interface RoundedImageProps {
+export type RoundedImageProps = {
   src: string;
   className?: string;
-}
+};
 
 const RoundedImage: React.FunctionComponent<RoundedImageProps> = ({ src, ...rest }) => {
   const { className, ...props } = rest;

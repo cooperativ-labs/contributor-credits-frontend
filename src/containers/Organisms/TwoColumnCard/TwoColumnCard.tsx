@@ -3,14 +3,14 @@ import cn from 'classnames';
 import React from 'react';
 import { useCallback } from 'react';
 
-export interface TwoColumnCardProps {
+export type TwoColumnCardProps = {
   className?: string;
   slot1Class?: string;
   slot2Class?: string;
   slot1?: React.ReactNode;
   slot2: React.ReactNode;
   orientation?: string;
-}
+};
 
 const TwoColumnCard: React.FunctionComponent<TwoColumnCardProps> = ({
   slot1,

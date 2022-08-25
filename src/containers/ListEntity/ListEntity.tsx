@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export interface ListEntityProps {
+export type ListEntityProps = {
   className?: string;
   children: React.ReactNode;
-}
+};
 
 const ListEntity: React.FunctionComponent<ListEntityProps> = ({ children, ...props }) => {
   const { className, ...rest } = props;

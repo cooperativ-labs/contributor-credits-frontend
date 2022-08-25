@@ -7,10 +7,10 @@ import useWindowSize from '@hooks/useWindowSize';
 import { ApplicationStoreProps, store } from '@context/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface NavBarProps {
+type NavBarProps = {
   transparent?: boolean;
   gaming?: boolean;
-}
+};
 
 export const NavBar: FC<NavBarProps> = () => {
   const applicationStore: ApplicationStoreProps = useContext(store);

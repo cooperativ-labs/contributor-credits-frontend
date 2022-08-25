@@ -1,14 +1,14 @@
 import BaseCard from './cards/BaseCard';
+import React, { useEffect } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect } from 'react';
 
-export interface ActionDialogProps {
+export type ActionDialogProps = {
   visible: boolean;
   children: React.ReactNode;
   preventClose?: boolean;
   onClose: (e) => void;
-}
+};
 
 const ActionDialog: React.FunctionComponent<ActionDialogProps> = ({
   visible = true,

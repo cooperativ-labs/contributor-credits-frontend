@@ -2,10 +2,10 @@ import cn from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
-export interface FooterProps {
+export type FooterProps = {
   color?: string;
   lightText?: boolean;
-}
+};
 
 const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
   const textColor = lightText ? 'text-gray-300' : 'text-gray-600';

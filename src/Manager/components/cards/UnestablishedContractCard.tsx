@@ -8,9 +8,9 @@ import React from 'react';
 import router from 'next/router';
 import { SmartContractUnestablished } from 'types';
 
-interface UnestablishedContractCardProps {
+type UnestablishedContractCardProps = {
   unestablishedContract: SmartContractUnestablished;
-}
+};
 
 const UnestablishedContractCard: React.FC<UnestablishedContractCardProps> = ({ unestablishedContract }) => {
   const { id, cryptoAddress, type } = unestablishedContract;

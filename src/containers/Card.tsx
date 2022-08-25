@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export interface CardProps {
+export type CardProps = {
   children: React.ReactNode;
   style?: any;
   className?: string;
   onClick?: () => void;
-}
+};
 
 const Card: React.FunctionComponent<CardProps> = ({ children, onClick, ...rest }) => {
   const { className, style, ...props } = rest;

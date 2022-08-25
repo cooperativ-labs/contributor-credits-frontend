@@ -1,11 +1,11 @@
-import { useMutation } from '@apollo/client';
 import FormButton from '@src/Manager/components/buttons/FormButton';
 import Input from '@src/Manager/forms/components/Inputs';
-import { CREATE_UNESTABLISHED_SMART_CONTRACT } from '@src/utils/dGraphQueries/crypto';
-import { Form, Formik } from 'formik';
 import React from 'react';
-import { SmartContractType } from 'types/index';
+import { CREATE_UNESTABLISHED_SMART_CONTRACT } from '@src/utils/dGraphQueries/crypto';
 import { CryptoAddressProtocol } from 'types/index';
+import { Form, Formik } from 'formik';
+import { SmartContractType } from 'types/index';
+import { useMutation } from '@apollo/client';
 
 const AddCcContract: React.FC = () => {
   const [createContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);

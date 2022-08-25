@@ -36,12 +36,12 @@ import {
 import { fab, faGithub, faLinkedin, faPython, faReact, faSlackHash } from '@fortawesome/free-brands-svg-icons';
 
 config.autoAddCss = false;
+import CookieBanner from '@src/CookieBanner';
+import SetCookieContext from '@src/SetCookieContext';
 import { StateProvider } from '@context/store';
 import { useAnalytics } from 'hooks/analytics';
 import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
-import SetCookieContext from '@src/SetCookieContext';
-import CookieBanner from '@src/CookieBanner';
 
 library.add(fas, faCommentDots);
 library.add(fas, faHome);

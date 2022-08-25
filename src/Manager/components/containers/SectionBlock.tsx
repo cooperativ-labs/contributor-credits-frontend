@@ -2,12 +2,12 @@ import cn from 'classnames';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface SectionBlockProps {
+type SectionBlockProps = {
   sectionTitle: string;
   children: React.ReactNode;
   className?: string;
   startOpen?: boolean;
-}
+};
 
 const SectionBlock: React.FC<SectionBlockProps> = ({ sectionTitle, children, className, startOpen }) => {
   const [detailsShown, setDetailsShown] = useState(startOpen);

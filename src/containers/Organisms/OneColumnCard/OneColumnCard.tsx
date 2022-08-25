@@ -2,7 +2,7 @@ import Card from '@src/containers/Card';
 import cn from 'classnames';
 import React from 'react';
 
-export interface OneColumnCardProps {
+export type OneColumnCardProps = {
   className?: string;
   style?: any;
   slot1?: React.ReactNode;
@@ -20,7 +20,7 @@ export interface OneColumnCardProps {
   slot5?: React.ReactNode;
   slot5Header?: string;
   slot5HeaderClass?: string;
-}
+};
 
 const OneColumnCard: React.FunctionComponent<OneColumnCardProps> = ({
   slot1Header,

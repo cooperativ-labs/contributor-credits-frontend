@@ -3,12 +3,12 @@ import cn from 'classnames';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export interface CompanyProps {
+export type CompanyProps = {
   className?: string;
   thumbnail?: string;
   title: string;
   subTitle: string;
-}
+};
 
 const Company: React.FunctionComponent<CompanyProps> = ({ thumbnail, title, subTitle, className }) => {
   return (

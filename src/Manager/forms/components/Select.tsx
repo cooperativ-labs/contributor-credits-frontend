@@ -2,19 +2,19 @@ import cn from 'classnames';
 import React from 'react';
 import { ErrorMessage, Field } from 'formik';
 
-export interface SelectProps {
+export type SelectProps = {
   id?: any;
   name: string;
   children: React.ReactNode;
   required?: boolean;
   multiple?: boolean;
-}
-export interface CustomSelectProps extends SelectProps {
+};
+export type CustomSelectProps = SelectProps & {
   labelText?: string;
   className: string;
   fieldClass?: string;
   fieldLabelClass?: string;
-}
+};
 
 const Select: React.FC<CustomSelectProps> = ({
   labelText,

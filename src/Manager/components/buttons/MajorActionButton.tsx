@@ -6,9 +6,9 @@ import React, { FC } from 'react';
 const buttonGradient =
   'bg-gradient-to-r from-cLightBlue to-cDarkBlue hover:from-cDarkBlue hover:to-cLightBlue shadow-lg hover:shadow-2xl focus:shadow-sm';
 
-interface MajorActionButtonProps extends ButtonProps {
+type MajorActionButtonProps = ButtonProps & {
   link?: string;
-}
+};
 
 export const MajorActionButton: FC<MajorActionButtonProps> = ({
   children,

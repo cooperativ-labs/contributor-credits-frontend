@@ -2,7 +2,7 @@ import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
 import React from 'react';
 
-interface MarketingButtonProps {
+type MarketingButtonProps = {
   external?: boolean;
   outlined?: boolean;
   large?: boolean;
@@ -10,7 +10,7 @@ interface MarketingButtonProps {
   text: string;
   symbols?: any;
   className?: string;
-}
+};
 
 const MarketingButton: React.FC<MarketingButtonProps> = ({
   external,

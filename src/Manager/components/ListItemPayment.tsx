@@ -2,13 +2,13 @@ import React from 'react';
 import { getHumanDate } from '@src/utils/helpersGeneral';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-export interface ListItemPaymentProps {
+export type ListItemPaymentProps = {
   title: any;
   amount?: number;
   currency?: number | string;
   date?: string;
   note?: string;
-}
+};
 
 const ListItemPayment: React.FC<ListItemPaymentProps> = ({ title, amount, currency, date, note }) => {
   return (

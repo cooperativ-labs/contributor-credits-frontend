@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import React from 'react';
-export interface ContainerProps {
+export type ContainerProps = {
   children: React.ReactNode;
   constrain?: string;
   className?: string;
-}
+};
 
 const Container: React.FunctionComponent<ContainerProps> = ({ className, children, constrain = '1280px' }) => {
   return (

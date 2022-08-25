@@ -12,13 +12,13 @@ import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
-interface ClassCardListProps {
+type ClassCardListProps = {
   user: User;
   selectedClassId: string;
   setSelectedClassId: any;
   agreements: ContributorCreditClass[];
   unestablishedSmartContracts;
-}
+};
 
 export const colStyle = 'col-span-1 uppercase text-sm font-bold text-gray-700';
 const HowToCreate =

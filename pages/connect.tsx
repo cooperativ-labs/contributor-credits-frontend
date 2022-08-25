@@ -4,9 +4,9 @@ import SelectWallet from '../src/Manager/components/ModalSelectWallet';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
-interface LoginProps {
+type LoginProps = {
   nextLink: string;
-}
+};
 const Login: FC<LoginProps> = ({ nextLink }) => {
   return (
     <div className="h-full">

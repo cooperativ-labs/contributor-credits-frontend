@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface ButtonProps {
+export type ButtonProps = {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   backgroundColor?: string;
@@ -9,7 +9,7 @@ export interface ButtonProps {
   disabled?: boolean;
   children: React.ReactNode;
   onClick?(): any;
-}
+};
 
 const Button: React.FunctionComponent<ButtonProps> = ({
   children,

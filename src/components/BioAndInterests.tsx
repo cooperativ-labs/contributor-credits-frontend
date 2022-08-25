@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
-export interface BioAndInterestsProps {
+export type BioAndInterestsProps = {
   className?: string;
   bio: string;
   interests: string[];
-}
+};
 
 const BioAndInterests: React.FunctionComponent<BioAndInterestsProps> = ({ bio, interests, ...props }) => {
   const { className } = props;

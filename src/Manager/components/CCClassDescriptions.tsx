@@ -2,12 +2,12 @@ import React from 'react';
 import { ContributorCreditClassTrigger } from 'types';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 
-interface CCClassDescriptionProps {
+type CCClassDescriptionProps = {
   payerName: string;
   triggerFundraising: ContributorCreditClassTrigger;
   triggerRevenue: ContributorCreditClassTrigger;
   classShortDescription: string;
-}
+};
 
 const DescriptionWithTriggers = ({ payerName, triggerFundraising, triggerRevenue }) => {
   return (

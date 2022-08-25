@@ -1,15 +1,15 @@
 import { useMutation } from '@apollo/client';
 
 import FormButton from '@src/Manager/components/buttons/FormButton';
-import PresentLegalText from '@src/Manager/components/PresentLegalText';
 import Input from '@src/Manager/forms/components/Inputs';
+import PresentLegalText from '@src/Manager/components/PresentLegalText';
+import React from 'react';
 import Select from '@src/Manager/forms/components/Select';
 import { ADD_CC_AGREEMENT } from '@src/utils/dGraphQueries/agreement';
 import { bacOptions, currencyOptionsExcludeCredits } from '@src/utils/enumConverters';
-import { Form, Formik } from 'formik';
-import React from 'react';
-import { SmartContractType } from 'types/index';
 import { CryptoAddressProtocol } from 'types/index';
+import { Form, Formik } from 'formik';
+import { SmartContractType } from 'types/index';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 

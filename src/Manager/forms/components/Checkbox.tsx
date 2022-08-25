@@ -2,19 +2,19 @@ import cn from 'classnames';
 import React from 'react';
 import { ErrorMessage, Field } from 'formik';
 
-export interface CheckboxProps {
+export type CheckboxProps = {
   id?: any;
   name: string;
   required?: boolean;
   checked: boolean;
-}
-export interface CustomCheckboxProps extends CheckboxProps {
+};
+export type CustomCheckboxProps = CheckboxProps & {
   labelText?: string;
   className?: string;
   fieldClass?: string;
   fieldLabelClass?: string;
   sideLabel?: boolean;
-}
+};
 
 const Checkbox: React.FC<CustomCheckboxProps> = ({
   labelText,

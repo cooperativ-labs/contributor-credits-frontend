@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import React, { FC } from 'react';
 
-export interface BaseCardProps {
+export type BaseCardProps = {
   children: React.ReactNode;
   style?: any;
   className?: string;
   center?: boolean;
   width?: string;
-}
+};
 
 const BaseCard: FC<BaseCardProps> = ({ children, ...rest }) => {
   const { className, style, ...props } = rest;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-export interface ThreeColumnLayoutProps {
+export type ThreeColumnLayoutProps = {
   className?: string;
   children: React.ReactNode[];
-}
+};
 
 const ThreeColumnLayout: React.FunctionComponent<ThreeColumnLayoutProps> = ({ className, children }) => {
   const leftColumn = children[0];

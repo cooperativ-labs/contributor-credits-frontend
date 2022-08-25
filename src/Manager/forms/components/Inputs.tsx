@@ -5,22 +5,22 @@ import { ErrorMessage, Field } from 'formik';
 export const defaultFieldLabelClass = 'text-sm text-blue-900 font-semibold text-opacity-80';
 export const defaultFieldDiv = 'pt-3 bg-opacity-0';
 
-export interface InputProps {
+export type InputProps = {
   name: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
   onBlur?: any;
-}
+};
 
-export interface CustomInputProps extends InputProps {
+export type CustomInputProps = InputProps & {
   labelText?: string;
   className: string;
   fieldClass?: string;
   fieldLabelClass?: string;
   fieldHeight?: string;
   textArea?: boolean;
-}
+};
 
 export const Input: React.FC<CustomInputProps> = ({
   labelText,

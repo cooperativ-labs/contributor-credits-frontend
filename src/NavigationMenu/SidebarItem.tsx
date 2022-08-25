@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
-export interface SidebarItemProps {
+export type SidebarItemProps = {
   className?: string;
   toggleable?: boolean;
   children: React.ReactNode;
   onClick?(): any;
   subItem?: boolean;
-}
+};
 
 const SidebarItem: React.FunctionComponent<SidebarItemProps> = ({ children, subItem, ...props }) => {
   const { className, ...rest } = props;

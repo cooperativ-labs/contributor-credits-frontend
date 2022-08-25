@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './PercentageCircle.module.css';
 
-export interface PercentageCircleProps {
+export type PercentageCircleProps = {
   percentage: number;
   size?: string;
-}
+};
 
 const PercentageCircle: React.FunctionComponent<PercentageCircleProps> = ({ percentage, size }) => {
   const classes = `${styles[size]} ${styles.c100} ${styles[`p${percentage.toString()}`]}`;

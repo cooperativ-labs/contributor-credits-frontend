@@ -1,7 +1,7 @@
 // store.js
 import React, { createContext, useReducer } from 'react';
 
-export interface ApplicationStoreProps {
+export type ApplicationStoreProps = {
   ManagerSidebarOpen: boolean;
   WalletModalOpen: boolean;
   WalletActionLockModalOpen: boolean;
@@ -9,7 +9,7 @@ export interface ApplicationStoreProps {
   noticesOpen: boolean;
   project: any;
   dispatch: React.Dispatch<any>;
-}
+};
 
 const initialState: ApplicationStoreProps = {
   project: {},

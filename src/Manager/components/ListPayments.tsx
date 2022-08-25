@@ -5,9 +5,9 @@ import { Payment } from 'types';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
 
-interface ListProps {
+type ListProps = {
   payments: Payment[];
-}
+};
 
 const PaymentList: React.FC<ListProps> = ({ payments }) => {
   const { chainId } = useWeb3React<Web3Provider>();

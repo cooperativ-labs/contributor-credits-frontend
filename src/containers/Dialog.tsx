@@ -4,12 +4,12 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 
-export interface DialogProps {
+export type DialogProps = {
   className?: string;
   children: React.ReactNode;
   visible: boolean;
   onClose: (e) => void;
-}
+};
 
 const Dialog: React.FunctionComponent<DialogProps> = ({ children, visible = true, onClose = () => {}, ...props }) => {
   const { className, ...rest } = props;

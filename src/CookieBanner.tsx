@@ -1,8 +1,8 @@
+import Button from './components/Buttons/Button';
 import cn from 'classnames';
 import Link from 'next/link';
 import React, { FC, useEffect, useState } from 'react';
 import router from 'next/router';
-import Button from './components/Buttons/Button';
 
 const buttonGradient =
   'bg-gradient-to-r from-cLightBlue to-cDarkBlue hover:from-cDarkBlue hover:to-cLightBlue shadow-lg hover:shadow-2xl focus:shadow-sm';

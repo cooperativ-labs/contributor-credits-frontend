@@ -10,7 +10,7 @@ import { connectors, GetConnector } from '@src/web3/connectors';
 import { WalletErrorCodes } from '@src/web3/helpersChain';
 import { Web3Provider } from '@ethersproject/providers';
 
-interface ConnectorProps {
+type ConnectorProps = {
   index: number;
   connector: {
     id: string;
@@ -21,7 +21,7 @@ interface ConnectorProps {
     description: string;
   };
   length: number;
-}
+};
 
 const Connector: FC<ConnectorProps> = ({ index, connector, length }) => {
   return (

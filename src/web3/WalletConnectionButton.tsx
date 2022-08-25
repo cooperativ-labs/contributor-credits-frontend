@@ -1,6 +1,6 @@
 import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
 import { CustomTokenService } from 'firebaseConfig/firebaseConfig';
 import { GetConnector, MatchSupportedChains } from './connectors';
 import { useRouter } from 'next/router';
@@ -10,11 +10,11 @@ import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
 declare let window: any;
 
-interface WalletConnectButtonProps {
-  children: React.ReactChild;
+type WalletConnectButtonProps = {
+  children: ReactNode;
   className?: string;
   nextLink?: string;
-}
+};
 
 export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, className, nextLink }) => {
   const [walletExists, setWalletExists] = useState<boolean>(false);

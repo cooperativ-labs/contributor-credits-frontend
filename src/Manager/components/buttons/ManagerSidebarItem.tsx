@@ -3,10 +3,10 @@ import React, { FC, useContext } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 import { ApplicationStoreProps, store } from '@context/store';
 
-interface ManagerSidebarItemProps {
+type ManagerSidebarItemProps = {
   title: string;
   link: string;
-}
+};
 
 const ManagerSidebarItem: FC<ManagerSidebarItemProps> = ({ title, link }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);

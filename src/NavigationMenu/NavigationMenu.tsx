@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-export interface NavigationMenuProps {
+export type NavigationMenuProps = {
   className?: string;
   thumbnail: string;
   name: string;
-}
+};
 import Button from '@src/components/Buttons/Button';
 import Link from 'next/link';
 import React from 'react';

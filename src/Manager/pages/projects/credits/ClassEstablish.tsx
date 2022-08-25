@@ -4,6 +4,8 @@ import FormattedCryptoAddress from '@src/Manager/components/FormattedCryptoAddre
 import FormChainWarning from '@src/Manager/components/FormChainWarning';
 import PresentLegalText from '@src/Manager/components/PresentLegalText';
 import React, { useContext, useState } from 'react';
+import router from 'next/router';
+import StandardButton from '@src/Manager/components/buttons/StandardButton';
 import { currencyOptions } from '@src/utils/enumConverters';
 import { generateAgreement } from '@src/utils/helpersAgreement';
 import { GET_USER } from '@src/utils/dGraphQueries/user';
@@ -15,8 +17,6 @@ import { useQuery } from '@apollo/client';
 import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
 import { Web3Provider } from '@ethersproject/providers';
-import StandardButton from '@src/Manager/components/buttons/StandardButton';
-import router from 'next/router';
 
 const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";

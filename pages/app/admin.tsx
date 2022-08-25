@@ -1,11 +1,11 @@
-import { useQuery } from '@apollo/client';
 import AddAgreementToAccount from '@src/Manager/admin/AddAgreementToAccount';
 import AddCcContract from '@src/Manager/admin/AddCcContract';
-import UpdateAgreementText from '@src/Manager/admin/UpdateAgreementText';
 import CCClassDetails from '@src/Manager/components/containers/ClassDetails';
-import { WalletOwnerContext } from '@src/SetAppContext';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
 import React from 'react';
+import UpdateAgreementText from '@src/Manager/admin/UpdateAgreementText';
+import { GET_USER } from '@src/utils/dGraphQueries/user';
+import { useQuery } from '@apollo/client';
+import { WalletOwnerContext } from '@src/SetAppContext';
 
 const Admin: React.FC = () => {
   const { uuid } = React.useContext(WalletOwnerContext);

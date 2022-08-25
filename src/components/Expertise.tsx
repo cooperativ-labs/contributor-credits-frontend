@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export interface ExpertiseProps {
+export type ExpertiseProps = {
   className?: string;
   expertise: string[];
   showHeader: boolean;
-}
+};
 
 const Expertise: React.FunctionComponent<ExpertiseProps> = ({ showHeader, expertise, ...props }) => {
   const { className, ...rest } = props;

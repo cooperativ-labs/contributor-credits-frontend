@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import router from 'next/router';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { auth, CustomTokenService } from 'firebaseConfig/firebaseConfig';
 import { getAuth, signOut } from 'firebase/auth';
@@ -7,7 +8,6 @@ import { setContext } from '@apollo/client/link/context';
 import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
 import { WalletErrorCodes } from './web3/helpersChain';
 import { Web3Provider } from '@ethersproject/providers';
-import router from 'next/router';
 
 declare let window: any;
 

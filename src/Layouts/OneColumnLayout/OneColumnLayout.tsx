@@ -1,9 +1,9 @@
 import React from 'react';
 
-export interface OneColumnLayoutProps {
+export type OneColumnLayoutProps = {
   className?: string;
   children: React.ReactNode | React.ReactNode[];
-}
+};
 
 const OneColumnLayout: React.FunctionComponent<OneColumnLayoutProps> = ({ className, children }) => {
   return (

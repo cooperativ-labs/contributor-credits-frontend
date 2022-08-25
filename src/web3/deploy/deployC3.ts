@@ -1,5 +1,4 @@
-import { Signer } from 'ethers';
-import { Contract } from '@ethersproject/contracts';
+import { Contract, Signer } from 'ethers';
 import { C3__factory } from 'types/web3';
 
 export const deploy_c3_v1_0_0 = async (signer: Signer): Promise<Contract> => {

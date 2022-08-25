@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-export interface ButtonProps {
+export type ButtonProps = {
   children?: React.ReactNode;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -9,7 +9,7 @@ export interface ButtonProps {
   borderColor?: string;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-}
+};
 
 export type LoadingButtonStateType = 'idle' | 'submitting' | 'confirmed' | 'failed' | 'submitted' | 'rejected';
 export type LoadingButtonTextType = {

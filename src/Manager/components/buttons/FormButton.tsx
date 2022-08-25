@@ -2,10 +2,10 @@ import Button, { ButtonProps } from './Button';
 import cn from 'classnames';
 import React, { FC } from 'react';
 
-interface FormButtonProps extends ButtonProps {
+type FormButtonProps = ButtonProps & {
   outlined?: boolean;
   color?: string;
-}
+};
 
 const FormButton: FC<FormButtonProps> = ({
   children,

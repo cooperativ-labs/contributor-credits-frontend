@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
-interface PresentLegalTextProps {
+type PresentLegalTextProps = {
   agreement: string;
-}
+};
 
 const PresentLegalText: FC<PresentLegalTextProps> = ({ agreement }) => {
   return (

@@ -2,11 +2,11 @@ import cn from 'classnames';
 import React from 'react';
 import { resetNextUuid } from 'react-accessible-accordion';
 
-export interface TwoColumnLayoutProps {
+export type TwoColumnLayoutProps = {
   className?: string;
   children: React.ReactNode[];
   twoThirdsLayout?: boolean;
-}
+};
 
 const TwoColumnLayout: React.FunctionComponent<TwoColumnLayoutProps> = ({ className, children, twoThirdsLayout }) => {
   const leftChildren = children.filter((child, index) => index % 2 === 0);
