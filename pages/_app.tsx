@@ -2,8 +2,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@styles/main.css';
 import '@styles/tailwind.css';
 import 'tailwindcss/tailwind.css';
-import AnalyticsContext from '@context/analytics';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import SetAppContext from '@src/SetAppContext';
 import { config, library } from '@fortawesome/fontawesome-svg-core';
@@ -41,6 +40,8 @@ import { StateProvider } from '@context/store';
 import { useAnalytics } from 'hooks/analytics';
 import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
+import SetCookieContext from '@src/SetCookieContext';
+import CookieBanner from '@src/CookieBanner';
 
 library.add(fas, faCommentDots);
 library.add(fas, faHome);
@@ -79,21 +80,36 @@ function getLibrary(provider: any): Web3Provider {
 }
 
 export default function MyApp({ Component, pageProps }): ReactElement {
-  const [dynamicDimensions, setDynamicDimensions] = useAnalytics();
-  const analyticsContext = { dynamicDimensions, setDynamicDimensions };
+  const [cookiesApproved, setCookiesApproved] = useState(undefined);
+
+  const withCookies = (
+    <SetCookieContext>
+      <div id="outer-container" className="bg-gradient-to-b from-gray-100 to-blue-50 flex flex-col">
+        <main id="page-wrap flex-grow h-full">
+          <Component {...pageProps} />
+        </main>
+      </div>
+    </SetCookieContext>
+  );
+
+  const withoutCookies = (
+    <div id="outer-container" className="bg-gradient-to-b from-gray-100 to-blue-50 flex flex-col">
+      <main id="page-wrap flex-grow h-full">
+        <Component {...pageProps} />
+        <CookieBanner />
+      </main>{' '}
+    </div>
+  );
+
+  useEffect(() => {
+    const result = window.localStorage?.getItem('COOKIE_APPROVED');
+    setCookiesApproved(result);
+  }, [setCookiesApproved]);
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <SetAppContext>
-        <StateProvider>
-          <AnalyticsContext.Provider value={analyticsContext}>
-            <div id="outer-container" className="bg-gradient-to-b from-gray-100 to-blue-50 flex flex-col">
-              <main id="page-wrap flex-grow h-full">
-                <Component {...pageProps} />
-              </main>
-            </div>
-          </AnalyticsContext.Provider>
-        </StateProvider>
+        <StateProvider>{cookiesApproved === 'approved' ? withCookies : withoutCookies}</StateProvider>
       </SetAppContext>
     </Web3ReactProvider>
   );
