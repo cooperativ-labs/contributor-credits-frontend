@@ -87,7 +87,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurre
       const answer =
         !values.action ||
         (values.action === 'relinquish' && userAvailableToClaim > 0) ||
-        userAvailableToClaim < values.amount ||
+        (values.action !== 'relinquish' && userAvailableToClaim < values.amount) ||
         creditsEarned < values.amount;
       return answer;
     };
