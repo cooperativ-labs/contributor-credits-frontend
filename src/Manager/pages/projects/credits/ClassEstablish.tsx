@@ -173,9 +173,8 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
             </div>
             <StandardButton
               onClick={() => router.push(`/app`)}
-              className="mt-3"
+              className="mt-3 bg-blue-700 hover:bg-blue-800"
               color="blue"
-              outlined
               text={'return to dashboard'}
             />
           </div>

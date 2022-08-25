@@ -344,6 +344,7 @@ enum CurrencyCode {
 	USDC
 	DAI
 	USDC_TEST_
+	USDC_TEST_GOER
 	DAI_TEST_
 	PoS_USDC
 	PoS_DAI

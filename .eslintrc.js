@@ -1,5 +1,5 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
+  // parser: 'prettier',
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -12,17 +12,9 @@ module.exports = {
       version: 'detect',
     },
   },
-  plugins: ['react', 'prettier', '@typescript-eslint'],
-  extends: [
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
+  plugins: ['react', 'prettier'],
+  extends: ['prettier'],
   rules: {
-    '@typescript-eslint/class-name-casing': 0,
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/no-empty-function': 0,
     'object-curly-spacing': ['warn', 'always'],
     'no-unused-vars': [
       'warn',
@@ -31,15 +23,7 @@ module.exports = {
         args: 'none',
       },
     ],
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-unused-vars': [
-      'warn',
-      {
-        vars: 'all',
-        args: 'none',
-      },
-    ],
+
     'max-len': [
       'error',
       {

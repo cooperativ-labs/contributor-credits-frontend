@@ -53,7 +53,7 @@ const WalletActionLockModel: FC<WalletActionLockModelProps> = ({ noModal }) => {
                   </div>
                 </div>
               </div>
-              <div className="text-orange-700 font-semibold mt-5">Confirm this transaction in your wallet.</div>
+              <div className="text-orange-700 font-semibold mt-5">Confirm and view status in your wallet.</div>
               <div className="text-gray-700 mt-5">
                 Please do not refresh. This can take a few minutes. You can check the status of the transaction in your
                 wallet.

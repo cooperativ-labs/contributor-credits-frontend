@@ -12,13 +12,8 @@ module.exports = {
       version: 'detect',
     },
   },
-  plugins: ['react', 'prettier', '@typescript-eslint'],
-  extends: [
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
+  plugins: ['react', 'prettier'],
+  extends: ['prettier'],
   rules: {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/class-name-casing': 0,

@@ -4,9 +4,7 @@ env:
   browser: true
   commonjs: true
 extends:
-  - eslint:recommended
-  - plugin:react/recommended
-parser: "@typescript-eslint/parser"
+  - prettier
 parserOptions:
   ecmaFeatures:
     experimentalObjectRestSpread: true
@@ -17,7 +15,6 @@ parserOptions:
 plugins:
   - prettier
   - react
-  - "@typescript-eslint/eslint-plugin"
   - sort-imports-es6-autofix
   - react-hooks
 rules:

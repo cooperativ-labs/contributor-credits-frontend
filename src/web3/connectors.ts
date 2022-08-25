@@ -92,7 +92,7 @@ export const SupportedChainIds = [
     faucet: 'https://goerli-faucet.mudit.blog',
     blockExplorer: 'https://goerli.etherscan.io',
     protocol: CryptoAddressProtocol.Eth,
-    contractsSupported: true,
+    contractsSupported: false,
     color: 'blue-300',
   },
   {

@@ -13,6 +13,7 @@ import { numberWithCommas } from '@src/utils/helpersMoney';
 import { useAsyncFn } from 'react-use';
 import { useWeb3React } from '@web3-react/core';
 import { Web3Provider } from '@ethersproject/providers';
+import { WalletErrorCodes } from '@src/web3/helpersChain';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -47,8 +48,16 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
             dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
             const allowance = await activeCC.bacContract.approve(activeCC.contract.address, fundAmount);
             await allowance.wait();
-            const txResp = await activeCC.contract.fund(fundAmount);
-            await txResp.wait();
+            try {
+              const txResp = await activeCC.contract.fund(fundAmount);
+              await txResp.wait();
+            } catch (err) {
+              console.log(WalletErrorCodes(err));
+              alert(
+                'There was an error. This sometimes happens when the amount of funds in your wallet are less than the amount you are trying to send to the contract.'
+              );
+              setButtonStep('failed');
+            }
             setButtonStep('confirmed');
             // dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
           } else {
@@ -118,6 +127,7 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
               submittingText="Funding (this could take a sec)"
               confirmedText="Confirmed!"
               rejectedText="You rejected the transaction. Click here to try again."
+              failedText="Looks like something went wrong."
             />
           </FormButton>
         </Form>

@@ -62,6 +62,15 @@ export const currencyOptions = [
   },
   {
     type: currencyType.CRYP,
+    value: 'USDC_TEST_GOER',
+    symbol: 'USDC*',
+    address: '0x07865c6E87B9F70255377e024ace6630C1Eaa37F',
+    website: 'https://www.centre.io/',
+    protocol: CryptoAddressProtocol.Eth,
+    chainId: 5,
+  },
+  {
+    type: currencyType.CRYP,
     value: 'DAI_TEST_',
     symbol: 'DAI*',
     address: '0xfDdfE7C9Ba9649fB8943f9277830972aa6f3a6bB',
