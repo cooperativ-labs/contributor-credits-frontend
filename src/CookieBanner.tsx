@@ -11,7 +11,7 @@ const CookieBanner: FC = () => {
   const [approvalState, setApprovalState] = useState(undefined);
   useEffect(() => {
     setApprovalState(window.localStorage);
-  });
+  }, [setApprovalState]);
 
   return (
     <div className="fixed bottom-0 md:bottom-4 md:right-10 md:left-10 z-40 mx-auto w-full md:w-auto bg-cGold p-3 shadow-xl md:rounded-xl cursor-pointer">

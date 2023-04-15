@@ -115,12 +115,13 @@ const PayCredits: FC<PayCreditsProps> = ({ activeCC, ccId, chainId, agreementId 
         }
         return errors;
       }}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         setAlerted(false);
         setSubmitting(true);
         setButtonStep('submitting');
         await payCredits(agreementId, values.amount, values.recipient, values.note);
         setSubmitting(false);
+        resetForm();
       }}
     >
       {({ isSubmitting, values }) => (

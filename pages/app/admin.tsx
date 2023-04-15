@@ -17,8 +17,6 @@ const Admin: React.FC = () => {
   });
   const user = userData?.queryUser[0];
 
-  console.log(userError, userData);
-
   return uuid === '0x531518985601FE8866fd5F39e9a3754F1fc38296' ? (
     <div className="mx-auto w-5/12">
       <AddCcContract />

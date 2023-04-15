@@ -1,9 +1,9 @@
-import { Web3Provider } from '@ethersproject/providers';
 import { C2Type } from '@src/web3/hooks/useC2';
 import { C3Type } from '@src/web3/hooks/useC3';
 import { toHumanNumber } from '@src/web3/util';
-import { useWeb3React } from '@web3-react/core';
+
 import { BigNumber } from 'ethers';
+import { useAccount } from 'wagmi';
 
 export const proportionFunded = (cc: C2Type | C3Type): number => {
   const { totalSupply, bacStaked, decimals: c2Decimals, totalBacNeededToFund } = cc.info;
@@ -98,10 +98,10 @@ export const classDetails = (cc, usersWallet: string) => {
 };
 
 export const ClassStatus = (activeCC) => {
-  const { account: usersWallet } = useWeb3React<Web3Provider>();
+  const { address: walletAddress, isConnected } = useAccount();
 
-  if (activeCC) {
-    return classDetails(activeCC, usersWallet);
+  if (activeCC && isConnected) {
+    return classDetails(activeCC, walletAddress);
   } else {
     const creditsAuthorized: number = null;
     const c2RemainingUnfunded: number = null;

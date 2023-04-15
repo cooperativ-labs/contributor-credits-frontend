@@ -1,12 +1,8 @@
 import cn from 'classnames';
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import WalletConnectButton from '@src/web3/WalletConnectionButton';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { MatchSupportedChains } from '@src/web3/connectors';
-import { useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
-import { WalletOwnerContext } from '@src/SetAppContext';
-import { Web3Provider } from '@ethersproject/providers';
+import { useAccount, useChainId } from 'wagmi';
 
 export const networkIcon = (chainId, walletAddress) => {
   if (!walletAddress) {
@@ -17,43 +13,39 @@ export const networkIcon = (chainId, walletAddress) => {
 };
 
 export const networkColor = (chainId, walletAddress) => {
+  // const [networkColor, setNetworkColor] = useState('gray-300');
+
   const color = MatchSupportedChains(chainId)?.color;
   if (!walletAddress) {
-    return 'bg-white border-2 border-gray-300';
+    return 'bg-gray-400 border-2 border-gray-300';
   }
-  switch (chainId) {
-    case 1:
-      return `bg-${color} hover:text-black`;
-    case 3:
-      return `bg-${color} hover:text-black`;
-    case 5:
-      return `bg-${color} hover:text-black`;
-    case 137:
-      return `bg-${color} hover:text-black`;
-    case 80001:
-      return `bg-${color} hover:text-black`;
-    case undefined:
-      return 'bg-gray-300 border-2 border-gray-300';
-    default:
-      return 'bg-cRed hover:text-black';
+
+  if ([1, 11155111, 137, 80001].includes(chainId)) {
+    return `bg-${color} hover:text-${color}}`;
+  } else if (chainId === undefined) {
+    return 'bg-gray-300 border-2 border-gray-300';
   }
+  return 'bg-cRed hover:text-black';
 };
+
 type NetworkIndicatorDotProps = {
   chainId: number | undefined;
   walletAddress: string;
 };
 
 export const NetworkIndicatorDot: FC<NetworkIndicatorDotProps> = ({ chainId, walletAddress }) => {
-  return <div className={cn(networkColor(chainId, walletAddress), 'flex rounded-full h-3 w-3 mr-1')} />;
+  const bgAndTextColor = networkColor(chainId, walletAddress);
+  return <div className={`${bgAndTextColor} flex rounded-full h-3 w-3 mr-1`} />;
 };
 
 const NetworkIndicator: FC = () => {
-  const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
-  const { uuid } = useContext(WalletOwnerContext);
-  const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
-  const user = userData?.queryUser[0];
+  const { address: walletAddress } = useAccount();
+  const chainId = useChainId();
+  // const { uuid } = useContext(WalletOwnerContext);
+  // const { loading: userLoading, data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
+  // const user = userData?.queryUser[0];
 
-  const whichWallet = `with ${user?.walletAddresses.find((userWallet) => userWallet.address === walletAddress)?.name}`;
+  // const whichWallet = `with ${user?.walletAddresses.find((userWallet) => userWallet.address === walletAddress)?.name}`;
 
   const hoverColor = `hover:${networkColor(chainId, walletAddress)}`;
   const ChainName = () => {
@@ -63,20 +55,19 @@ const NetworkIndicator: FC = () => {
     switch (chainId) {
       case 1:
         return `Ethereum`;
-      case 3:
-        return 'Test Transactions Only';
-      case 5:
-        return 'Test Transactions Only';
+      case 11155111:
+        return 'Sepolia';
       case 137:
         return `Polygon`;
       case 80001:
-        return 'Test Transactions Only';
+        return 'Polygon Testnet';
       case undefined:
         return 'Click here to connect a wallet';
       default:
         return 'Incompatible Network';
     }
   };
+
   return (
     <WalletConnectButton className="focus:outline-none">
       <div

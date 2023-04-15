@@ -1,7 +1,6 @@
 import { CurrencyCode, Payment } from 'types';
 import { liveChain } from '@src/web3/connectors';
-import { unique } from './helpersGeneral';
-import { useWeb3React } from '@web3-react/core';
+import { useChainId } from 'wagmi';
 
 export function numberWithCommas(amount: number, decimals = 0) {
   return amount ? amount.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0';
@@ -20,7 +19,8 @@ export const GetCashPayments = (payments: Payment[]) => {
 };
 
 export const GetCcPayments = (payments: Payment[], classId?: string) => {
-  const { chainId } = useWeb3React();
+  const chainId = useChainId();
+
   const saughtClass = (payment) => {
     return classId ? payment.currency.contributorCreditClass.id === classId : true;
   };

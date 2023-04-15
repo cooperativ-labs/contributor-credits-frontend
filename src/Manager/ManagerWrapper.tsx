@@ -10,11 +10,11 @@ import router from 'next/router';
 import WalletActionLockModel from './WalletActionLockModel';
 import WalletChooserModal from './WalletChooserModal';
 import WarningBanner from '@src/components/Alerts/WarningBanner';
-import { ADD_USER_WITH_WALLET, GET_USER } from '@src/utils/dGraphQueries/user';
-import { useMutation, useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
+import { ADD_USER_WITH_WALLET } from '@src/utils/dGraphQueries/user';
+
+import { useAccount } from 'wagmi';
+import { useMutation } from '@apollo/client';
 import { WalletOwnerContext } from '@src/SetAppContext';
-import { Web3Provider } from '@ethersproject/providers';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
@@ -55,7 +55,7 @@ type ManagerWrapperProps = {
 
 const ManagerNavigationFrame: FC<ManagerWrapperProps> = ({ children, loadingComponent }) => {
   const { uuid } = useContext(WalletOwnerContext);
-  const { account: walletAddress } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
   const [addUser, { data, error }] = useMutation(ADD_USER_WITH_WALLET);
 
   if (error) {

@@ -9,7 +9,6 @@ import { useMutation } from '@apollo/client';
 const UpdateAgreementText: React.FC = () => {
   const [updateAgreement, { data, error }] = useMutation(ADD_DOCUMENT);
 
-  console.log(data, error);
   return (
     <Formik
       initialValues={{

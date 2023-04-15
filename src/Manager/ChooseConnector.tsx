@@ -1,14 +1,12 @@
 import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useWeb3React } from '@web3-react/core';
-
-import BaseCard from './components/cards/BaseCard';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { ApplicationStoreProps, store } from '@context/store';
-import { connectors, GetConnector } from '@src/web3/connectors';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SupportedEthConnectors } from '@src/web3/connectors';
+
+import { useConnect } from 'wagmi';
 import { WalletErrorCodes } from '@src/web3/helpersChain';
-import { Web3Provider } from '@ethersproject/providers';
 
 type ConnectorProps = {
   index: number;
@@ -56,30 +54,25 @@ const Connector: FC<ConnectorProps> = ({ index, connector, length }) => {
 const ChooseConnector: FC = () => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletModal } = applicationStore;
-  const { activate } = useWeb3React<Web3Provider>();
-  const [selection, setSelection] = useState(undefined);
-  useEffect(() => {
-    setSelection(window.sessionStorage);
-  });
+  const { connect, error } = useConnect();
 
   return (
     <>
       <h2 className="text-lg font-bold text-center my-8">Connect Your Wallet</h2>
-      {connectors.map((connector, i) => {
-        const selectedConnector = GetConnector(connector.id);
+      {SupportedEthConnectors.map((supportedConnector, i) => {
+        const connector = supportedConnector.connector;
         return (
           <Button
             key={i}
             className="w-full"
             onClick={() => {
-              selection?.setItem('CHOSEN_CONNECTOR', connector.id);
-              activate(selectedConnector).catch((err) => {
-                alert(WalletErrorCodes(err));
-              });
+              window.sessionStorage.setItem('CHOSEN_CONNECTOR', supportedConnector.id);
+              connect({ connector });
+              error && alert(WalletErrorCodes(error));
               dispatchWalletModal({ type: 'TOGGLE_WALLET_MODAL' });
             }}
           >
-            <Connector index={i} connector={connector} length={connectors.length} />
+            <Connector index={i} connector={supportedConnector} length={SupportedEthConnectors.length} />
           </Button>
         );
       })}

@@ -8,15 +8,15 @@ import { isMintableERC20 } from '@src/web3/info/erc20Info';
 import { LoadingButtonStateType, LoadingButtonText } from './buttons/Button';
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { toContractInteger } from '@src/web3/util';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
+import { useChainId, useNetwork } from 'wagmi';
 
 type FormChainWarningProps = {
   activeCC?: C2Type | C3Type;
 };
 
 const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
-  const { chainId } = useWeb3React<Web3Provider>();
+  const chainId = useChainId();
+  const { chain } = useNetwork();
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const mintBac = async (amount: BigNumber) => {
     if (isMintableERC20(activeCC.bacContract)) {
@@ -27,6 +27,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
   };
 
   const Testing = () => {
+    const bacName = activeCC?.bacInfo.symbol;
     return (
       <div>
         <div className="p-2 mt-3 border-2 border-yellow-600 bg-cYellow bg-opacity-50 text-yellow-900 rounded-md">
@@ -45,7 +46,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
             >
               <LoadingButtonText
                 state={buttonStep}
-                idleText="Get test USDC for funding"
+                idleText={`Get test ${bacName} for funding`}
                 submittingText="You will need to confirm in your wallet"
                 confirmedText="Your testing currency should arrive soon"
               />
@@ -82,7 +83,7 @@ const FormChainWarning: FC<FormChainWarningProps> = ({ activeCC }) => {
     );
   };
 
-  return chainId === 1 || chainId === 137 ? <Live /> : <Testing />;
+  return chain?.testnet ? <Testing /> : <Live />;
 };
 
 export default FormChainWarning;

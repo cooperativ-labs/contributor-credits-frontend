@@ -9,9 +9,9 @@ import { Form, Formik } from 'formik';
 import { GET_CRYPTO_ADDRESS } from '@src/utils/dGraphQueries/crypto';
 import { UPDATE_USER_WALLETS } from '@src/utils/dGraphQueries/user';
 import { useMutation, useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
+
+import { useAccount, useChainId, useSigner } from 'wagmi';
 import { utils } from 'ethers';
-import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'md:pt-3 md:my-2 bg-opacity-0';
 
@@ -20,7 +20,9 @@ type SettingsUserWalletsProps = {
 };
 
 const SettingsUserWallets: FC<SettingsUserWalletsProps> = ({ user }) => {
-  const { account: walletAddress, chainId, library } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
+  const chainId = useChainId();
+  const { data: signer } = useSigner();
   const { data: walletData } = useQuery(GET_CRYPTO_ADDRESS, {
     variables: { walletAddress: walletAddress },
   });
@@ -38,7 +40,6 @@ const SettingsUserWallets: FC<SettingsUserWalletsProps> = ({ user }) => {
 
   const handleWalletAddition = async (values) => {
     try {
-      const signer = await library.getSigner();
       const signature = await signer.signMessage(walletVerificationString);
       const recoveredAddress = utils.verifyMessage(walletVerificationString, signature);
       if (walletAddress === recoveredAddress) {

@@ -2,18 +2,16 @@ import ChooseConnectorButton from '../ChooseConnectorButton';
 import React, { FC } from 'react';
 import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
 import { numberWithCommas, TotalCreditsWithValue } from '@src/utils/helpersMoney';
+import { useAccount } from 'wagmi';
 import { useQuery } from '@apollo/client';
-import { User } from 'types';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 
 const RecipientStats: FC = () => {
-  const { active, account } = useWeb3React<Web3Provider>();
-  const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: account } });
+  const { address: walletAddress } = useAccount();
+  const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: walletAddress } });
   const paymentsToMe = data?.queryPayment;
   const myCreditEarnings = TotalCreditsWithValue(paymentsToMe && paymentsToMe);
 
-  if (active && paymentsToMe) {
+  if (walletAddress && paymentsToMe) {
     return myCreditEarnings.creditsReceived > 0 ? (
       <>
         <hr className="my-5" />

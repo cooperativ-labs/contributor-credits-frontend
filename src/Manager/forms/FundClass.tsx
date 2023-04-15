@@ -1,3 +1,4 @@
+import Button from '@src/components/Buttons/Button';
 import FormButton from '../components/buttons/FormButton';
 import Input from './components/Inputs';
 import React, { useContext, useState } from 'react';
@@ -10,10 +11,9 @@ import { Form, Formik } from 'formik';
 import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+import { useAccount } from 'wagmi';
 import { useAsyncFn } from 'react-use';
-import { useWeb3React } from '@web3-react/core';
 import { WalletErrorCodes } from '@src/web3/helpersChain';
-import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -22,12 +22,12 @@ type FundClassProps = {
 };
 
 const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
-  const { account: usersWallet } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
 
-  const { address, backingCurrency, c2RemainingUnfunded, c3RemainingUnfunded } = classDetails(activeCC, usersWallet);
+  const { address, backingCurrency, c2RemainingUnfunded, c3RemainingUnfunded } = classDetails(activeCC, walletAddress);
 
   const remainingUnfunded = isC3(activeCC) ? c3RemainingUnfunded : c2RemainingUnfunded;
   const FormButtonText = (amount) => {
@@ -52,11 +52,11 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
               const txResp = await activeCC.contract.fund(fundAmount);
               await txResp.wait();
             } catch (err) {
-              console.log(WalletErrorCodes(err));
               alert(
                 'There was an error. This sometimes happens when the amount of funds in your wallet are less than the amount you are trying to send to the contract.'
               );
               setButtonStep('failed');
+              throw new Error(WalletErrorCodes(err));
             }
             setButtonStep('confirmed');
             // dispatchWalletActionLockModalOpen({ type: 'TOGGLE_WALLET_ACTION_LOCK' });
@@ -109,8 +109,8 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
             placeholder="344"
             required
           />
-          <FormButton
-            outlined
+          <button
+            className="text-xs text-gray-600 -mt-2 hover:text-gray-900"
             type="button"
             disabled={isSubmitting || buttonStep === 'submitting'}
             onClick={(e) => {
@@ -119,7 +119,7 @@ const FundClass: React.FC<FundClassProps> = ({ activeCC }) => {
             }}
           >
             Fully Fund
-          </FormButton>
+          </button>
           <FormButton type="submit" disabled={isSubmitting || buttonStep === 'submitting'}>
             <LoadingButtonText
               state={buttonStep}

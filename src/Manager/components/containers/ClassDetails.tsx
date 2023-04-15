@@ -11,11 +11,11 @@ import { ContractManager } from '@src/Manager/pages/Dashboard';
 import { ContributorCreditClass, SmartContractType, User } from 'types';
 import { GET_CONTRIBUTOR_CREDITS } from '@src/utils/dGraphQueries/crypto';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
+
+import { useAccount } from 'wagmi';
 import { useC2 } from '@src/web3/hooks/useC2';
 import { useC3 } from '@src/web3/hooks/useC3';
 import { useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 
 type BaseProps = {
   user: User;
@@ -26,7 +26,7 @@ type DetailsProps = BaseProps & {
 };
 
 const Details: FC<DetailsProps> = ({ CCClass, user }) => {
-  const { account } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
   const { name, cryptoAddress, agreement, triggers, id, triggerShortDescription, type } = CCClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
@@ -40,7 +40,7 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
 
   //this should filter for payments to that recipient
   const allPayments = agreement.payments;
-  const myPayments = allPayments.filter((payment) => payment.recipient === account);
+  const myPayments = allPayments.filter((payment) => payment.recipient === walletAddress);
 
   const displayPayments = () => {
     if (isContractManager && allPayments) {

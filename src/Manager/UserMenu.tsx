@@ -5,18 +5,14 @@ import FormattedCryptoAddress from './components/FormattedCryptoAddress';
 import Link from 'next/link';
 import LogoutButton from './components/buttons/LogoutButton';
 import NetworkIndicator, { networkIcon, NetworkIndicatorDot } from './components/indicators/NetworkIndicator';
-import React, { FC, useContext, useState } from 'react';
-import RecipientStats from './components/RecipientStats';
+import React, { FC, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { MatchSupportedChains } from '@src/web3/connectors';
-import { useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
-import { WalletOwnerContext } from '@src/SetAppContext';
-import { Web3Provider } from '@ethersproject/providers';
+import { useAccount, useChainId } from 'wagmi';
 
 const UserMenu: FC = () => {
-  const { account: walletAddress, chainId, active } = useWeb3React<Web3Provider>();
+  const { address: walletAddress, isConnected } = useAccount();
+  const chainId = useChainId();
   const [open, setOpen] = useState<boolean>(false);
 
   const networkImage = networkIcon(chainId, walletAddress);
@@ -40,7 +36,6 @@ const UserMenu: FC = () => {
                   <NetworkIndicatorDot chainId={chainId} walletAddress={walletAddress} />
                 </div>
               )}
-              {/* <img src={userInfo?.image ?? '/assets/images/user-images/placeholder.png'} /> */}
             </div>
             Account: {walletAddress.slice(-4)}
             <div className="p-1">
@@ -53,7 +48,7 @@ const UserMenu: FC = () => {
         {open && (
           <div className="absolute top-0 bottom-0 left-0 right-0 z-40" onClick={() => setOpen(!open)}>
             <Card className="absolute top-12 right-0 p-3 w-56 rounded-xl shadow-lg">
-              {active && (
+              {isConnected && (
                 <div className="flex flex-col items-center">
                   <NetworkIndicator />
                   <div className="mt-3" />

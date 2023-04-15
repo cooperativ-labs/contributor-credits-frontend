@@ -34,14 +34,13 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { fab, faGithub, faLinkedin, faPython, faReact, faSlackHash } from '@fortawesome/free-brands-svg-icons';
+import { wagmiClient } from '@src/web3/connectors';
 
 config.autoAddCss = false;
 import CookieBanner from '@src/CookieBanner';
 import SetCookieContext from '@src/SetCookieContext';
 import { StateProvider } from '@context/store';
-import { useAnalytics } from 'hooks/analytics';
-import { Web3Provider } from '@ethersproject/providers';
-import { Web3ReactProvider } from '@web3-react/core';
+import { WagmiConfig } from 'wagmi';
 
 library.add(fas, faCommentDots);
 library.add(fas, faHome);
@@ -73,12 +72,6 @@ library.add(fab, faLinkedin);
 library.add(fab, faSlackHash);
 library.add(fab, faGithub);
 
-function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = 12000;
-  return library;
-}
-
 export default function MyApp({ Component, pageProps }): ReactElement {
   const [cookiesApproved, setCookiesApproved] = useState(undefined);
 
@@ -107,10 +100,10 @@ export default function MyApp({ Component, pageProps }): ReactElement {
   }, [setCookiesApproved]);
 
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
+    <WagmiConfig client={wagmiClient}>
       <SetAppContext>
         <StateProvider>{cookiesApproved === 'approved' ? withCookies : withoutCookies}</StateProvider>
       </SetAppContext>
-    </Web3ReactProvider>
+    </WagmiConfig>
   );
 }

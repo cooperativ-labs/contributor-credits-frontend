@@ -76,7 +76,7 @@ const CreditActions: FC<CreditActionsProps> = ({ activeCC, ccId, chainId, agreem
           )}
           {panelVisible === 'manage' && (
             <div className={panelClass}>
-              <ManageCredits activeCC={activeCC} chainId={chainId} backingCurrency={backingCurrency} />
+              <ManageCredits activeCC={activeCC} backingCurrency={backingCurrency} />
               <FormChainWarning />
             </div>
           )}

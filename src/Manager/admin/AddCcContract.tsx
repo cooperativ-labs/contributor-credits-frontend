@@ -10,7 +10,6 @@ import { useMutation } from '@apollo/client';
 const AddCcContract: React.FC = () => {
   const [createContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
 
-  console.log(data, error);
   if (data) {
     alert(data.addSmartContractUnestablished.smartContractUnestablished[0].cryptoAddress.address);
   }

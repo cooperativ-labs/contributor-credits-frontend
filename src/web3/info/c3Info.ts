@@ -1,9 +1,9 @@
 import { Erc20Info, getERC20Info } from '@web3/info/erc20Info';
 import promiseAllProperties from 'promise-all-properties';
 import { C3, ERC20 } from '../../../types/web3';
-import { ContractInteger } from '@web3/util';
 import { BigNumber, Event } from 'ethers';
 import { unique, mapZip } from '@src/utils/helpersGeneral';
+import { ContractInteger } from '../util';
 
 export type C3EventType = 'Issued' | 'Burned' | 'CashedOut' | 'Funded';
 

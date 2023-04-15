@@ -26,7 +26,7 @@ const WalletChooserModal: FC<WalletChooserModalProps> = ({ noModal }) => {
       document.body.style.top = '';
       // window.scrollTo(0, parseInt(scrollY));
     }
-  }, [WalletModalOpen]);
+  }, [WalletModalOpen, windowSize.width]);
 
   if (WalletModalOpen) {
     return (

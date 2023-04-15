@@ -31,7 +31,7 @@ export const ClassCreditsStats: React.FC<ClassStatusProps> = ({ activeCC }) => {
   return (
     <>
       <div>Total ever paid: {numberWithCommas(creditsAuthorized)}</div>
-      <div>Remaining unfunded: {numberWithCommas(remainingUnfunded)}</div>
+      <div>Remaining unfunded: {remainingUnfunded > 0 ? numberWithCommas(remainingUnfunded) : 0}</div>
     </>
   );
 };

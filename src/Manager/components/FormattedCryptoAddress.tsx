@@ -3,14 +3,18 @@ import React, { FC, useState } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MatchSupportedChains } from '@src/web3/connectors';
+import { useEnsName } from 'wagmi';
 
 type FormattedCryptoAddressProps = {
   chainId: number;
-  address: string;
+  address: any;
   label?: string;
   withCopy?: boolean;
   className?: string;
   showFull?: boolean;
+  lookupType?: 'address' | 'tx';
+  userName?: string;
+  isYou?: boolean;
 };
 
 const FormattedCryptoAddress: FC<FormattedCryptoAddressProps> = ({
@@ -23,6 +27,8 @@ const FormattedCryptoAddress: FC<FormattedCryptoAddressProps> = ({
 }) => {
   const [copied, setCopied] = useState<boolean>(false);
   const blockExplorer = chainId && MatchSupportedChains(chainId).blockExplorer;
+
+  const { data: ensName } = useEnsName({ address });
   const windowSize = useWindowSize();
   const isDesktop = windowSize.width > 768;
   return (

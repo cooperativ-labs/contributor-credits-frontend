@@ -16,8 +16,6 @@ const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 const AddAgreementToAccount: React.FC = () => {
   const [createAgreement, { data, error }] = useMutation(ADD_CC_AGREEMENT);
 
-  console.log(data, error);
-
   return (
     <Formik
       initialValues={{

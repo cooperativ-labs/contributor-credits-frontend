@@ -8,9 +8,9 @@ import UnestablishedContractCard from '../cards/UnestablishedContractCard';
 import { ContributorCreditClass, User } from 'types';
 import { GET_AGREEMENTS_THAT_PAID_ME } from '@src/utils/dGraphQueries/agreement';
 import { unique } from '@src/utils/helpersGeneral';
+
+import { useAccount, useChainId, useNetwork } from 'wagmi';
 import { useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 
 type ClassCardListProps = {
   user: User;
@@ -31,7 +31,9 @@ const ClassCardList: FC<ClassCardListProps> = ({
   agreements,
   unestablishedSmartContracts,
 }) => {
-  const { active, chainId, account } = useWeb3React<Web3Provider>();
+  const { address: account } = useAccount();
+  const chainId = useChainId();
+  const chain = useNetwork();
   const { data } = useQuery(GET_AGREEMENTS_THAT_PAID_ME, { variables: { walletAddress: account } });
   const paymentsToMe = data?.queryPayment;
 
@@ -51,7 +53,7 @@ const ClassCardList: FC<ClassCardListProps> = ({
   };
 
   const existingClasses = contributorCreditClasses().length > 0;
-  if (active) {
+  if (chain) {
     return (
       <Card className="bg-white rounded-xl shadow-md p-6">
         <h1 className="text-cDarkBlue text-xl font-semiBold">Contributor Credits</h1>

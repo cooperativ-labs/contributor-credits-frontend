@@ -31,7 +31,7 @@ const ActionDialog: React.FunctionComponent<ActionDialogProps> = ({
       document.body.style.top = '';
       // window.scrollTo(0, parseInt(scrollY));
     }
-  }, [visible]);
+  }, [visible, windowSize.width]);
 
   return (
     <div data-test="component-payment-send" {...rest}>

@@ -12,20 +12,19 @@ import { Form, Formik } from 'formik';
 import { isC3, toContractInteger } from '@src/web3/util';
 import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons/Button';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+
+import { useAccount } from 'wagmi';
 import { useAsyncFn } from 'react-use';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
 export type ManageCreditsProps = {
   activeCC: C2Type | C3Type;
-  chainId: number;
   backingCurrency: string;
 };
 
-const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurrency }) => {
-  const { account: usersWallet } = useWeb3React<Web3Provider>();
+const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, backingCurrency }) => {
+  const { address: usersWallet } = useAccount();
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
@@ -82,7 +81,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurre
       : `CURRENT VALUE: ${cashoutAmount} ${backingCurrency} - Are you sure you want to ${action} ${amount} credits? `;
   };
 
-  const manageFormSubmitButton = (values, isSubmitting) => {
+  const manageFormSubmitButton = (values: { action: string; amount: number }, isSubmitting: boolean) => {
     const buttonDisable = (values): boolean => {
       const answer =
         !values.action ||
@@ -92,7 +91,7 @@ const ManageCredits: FC<ManageCreditsProps> = ({ activeCC, chainId, backingCurre
       return answer;
     };
 
-    const formButtonText = (action, amount): string => {
+    const formButtonText = (action: string, amount: number): string => {
       const baseAction = `${action} ${numberWithCommas(amount)} Credits`;
       const c3Cashout = `Cash out ${creditValue} credits`;
       const c3Relinquish =

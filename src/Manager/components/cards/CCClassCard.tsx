@@ -8,6 +8,7 @@ import { ContributorCreditClass, SmartContractType } from 'types';
 import { GetClassTriggers } from '@src/utils/helpersCCClass';
 import { isC3 } from '@src/web3/util';
 import { numberWithCommas } from '@src/utils/helpersMoney';
+import { useAccount } from 'wagmi';
 
 type ClassCardDetailsProps = ClassCardProps & {
   activeCC: C2Type | C3Type;
@@ -16,7 +17,9 @@ type ClassCardDetailsProps = ClassCardProps & {
 const _CCClassCard: React.FC<ClassCardDetailsProps> = ({ cClass, isSelected, setSelectedClassId, activeCC }) => {
   const { id, name, triggers, triggerShortDescription, type } = cClass;
   const { triggerFundraising, triggerRevenue } = GetClassTriggers(triggers);
-  const { isOwner } = ClassStatus(activeCC);
+  const { isConnected } = useAccount();
+  const { isOwner } = isConnected && ClassStatus(activeCC);
+
   const isContractManager = isOwner;
   return (
     <div

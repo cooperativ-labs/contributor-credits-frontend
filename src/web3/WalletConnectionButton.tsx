@@ -1,13 +1,13 @@
 import Button from '@src/components/Buttons/Button';
 import cn from 'classnames';
-import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { CustomTokenService } from 'firebaseConfig/firebaseConfig';
 import { GetConnector, MatchSupportedChains } from './connectors';
 import { useRouter } from 'next/router';
-import { useWeb3React } from '@web3-react/core';
+
+import { useAccount, useChainId, useConnect, useSigner } from 'wagmi';
 import { WalletErrorCodes, WalletErrorMessages } from './helpersChain';
-import { WalletOwnerContext } from '@src/SetAppContext';
-import { Web3Provider } from '@ethersproject/providers';
+
 declare let window: any;
 
 type WalletConnectButtonProps = {
@@ -24,7 +24,10 @@ export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, cl
     setSelectedConnector(GetConnector(selection));
   }, [setSelectedConnector]);
   const router = useRouter();
-  const { account: walletAddress, library, activate, error, chainId } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
+  const chainId = useChainId();
+  const { data: signer } = useSigner();
+  const { connect, error } = useConnect();
 
   useEffect(() => {
     const ethereum = window.ethereum;
@@ -32,12 +35,13 @@ export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, cl
   }, [setWalletExists]);
 
   async function TestAndActivateWallet() {
-    const signer = library.getSigner();
     if (walletExists) {
       if (MatchSupportedChains(chainId)) {
+        const connector = selectedConnector;
         try {
-          await activate(selectedConnector);
+          await connect({ connector });
           await CustomTokenService(signer, walletAddress);
+          nextLink && router.push(nextLink);
         } catch (err) {
           alert(WalletErrorCodes(err));
         }
@@ -46,8 +50,6 @@ export const WalletConnectButton: FC<WalletConnectButtonProps> = ({ children, cl
           chainId === undefined ? WalletErrorMessages.NeedToApproveConnection : WalletErrorMessages.OnIncompatibleChain
         );
       }
-      error && alert(WalletErrorCodes(error));
-      nextLink && router.push(nextLink);
     } else {
       alert('Using Cooperativ requires an Ethereum wallet. You can get one for free at MetaMask.io');
     }

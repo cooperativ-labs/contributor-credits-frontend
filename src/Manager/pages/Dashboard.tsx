@@ -4,21 +4,22 @@ import ClassCardList from '../components/containers/ClassCardList';
 import cn from 'classnames';
 import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import React, { FC, useContext, useState } from 'react';
-import { ADD_USER_EMAIL, GET_USER } from '@src/utils/dGraphQueries/user';
 import { Agreement } from 'types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useMutation, useQuery } from '@apollo/client';
+import { GET_USER } from '@src/utils/dGraphQueries/user';
+import { useAccount, useChainId } from 'wagmi';
+import { useQuery } from '@apollo/client';
 import { User } from 'types';
-import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
-import { Web3Provider } from '@ethersproject/providers';
 
 export const ContractManager = (agreement: Agreement, user: User) => {
   return agreement.signatories.find((signatory) => signatory.user.id === user.id);
 };
 
 const Dashboard: FC = () => {
-  const { account: walletAddress, chainId } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
+  const chainId = useChainId();
+
   const { uuid } = useContext(WalletOwnerContext);
   const { data: userData, error: userError } = useQuery(GET_USER, {
     variables: { uuid: uuid },

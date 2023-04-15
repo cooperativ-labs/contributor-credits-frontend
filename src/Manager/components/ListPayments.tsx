@@ -2,15 +2,14 @@ import FormattedCryptoAddress from './FormattedCryptoAddress';
 import ListItemPayment from './ListItemPayment';
 import React from 'react';
 import { Payment } from 'types';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
+import { useChainId } from 'wagmi';
 
 type ListProps = {
   payments: Payment[];
 };
 
 const PaymentList: React.FC<ListProps> = ({ payments }) => {
-  const { chainId } = useWeb3React<Web3Provider>();
+  const chainId = useChainId();
 
   return (
     <div>

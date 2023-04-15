@@ -18,6 +18,6 @@ export const WalletErrorCodes = (error) => {
     case 4001:
       return WalletErrorMessages.RejectedAttemptToConnect;
     default:
-      return `Error: ${error.message} (check your wallet settings to make sure you are using the Ethereum or Ropsten networks)`;
+      return `Error: ${error.message} (check your wallet settings to make sure you are using a compatible networks)`;
   }
 };

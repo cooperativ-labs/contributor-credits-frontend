@@ -10,9 +10,8 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { SmartContractType } from 'types';
 import { useAsyncFn } from 'react-use';
+import { useChainId, useSigner } from 'wagmi';
 import { useMutation } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -23,8 +22,8 @@ type CreateCcClassProps = {
 const CreateCcClass: FC<CreateCcClassProps> = ({ userId }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
-  const { library, chainId } = useWeb3React<Web3Provider>();
-  const signer = library.getSigner();
+  const chainId = useChainId();
+  const { data: signer } = useSigner();
   const [addUnestablishedSmartContract, { data, error }] = useMutation(CREATE_UNESTABLISHED_SMART_CONTRACT);
   const [buttonStep, setButtonStep] = useState<LoadingButtonStateType>('idle');
   const [alerted, setAlerted] = useState<boolean>(false);

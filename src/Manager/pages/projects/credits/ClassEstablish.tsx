@@ -12,11 +12,11 @@ import { GET_USER } from '@src/utils/dGraphQueries/user';
 import { MatchSupportedChains } from '@src/web3/connectors';
 import { numberWithCommas } from '@src/utils/helpersMoney';
 import { SmartContractType, SmartContractUnestablished } from 'types';
+
+import { useAccount, useChainId } from 'wagmi';
 import { useAsync } from 'react-use';
 import { useQuery } from '@apollo/client';
-import { useWeb3React } from '@web3-react/core';
 import { WalletOwnerContext } from '@src/SetAppContext';
-import { Web3Provider } from '@ethersproject/providers';
 
 const HowToCreate =
   "Create a new class by first publishing a smart contract to Ethereum, then 'Establishing' it by attaching a legal contract. You can begin paying Credits once the Class has been established.";
@@ -42,7 +42,8 @@ type ClassEstablishProps = {
 };
 
 const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) => {
-  const { chainId, account } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
+  const chainId = useChainId();
   const { uuid } = useContext(WalletOwnerContext);
   const [customText, setCustomText] = useState<boolean>();
   const { data: userData } = useQuery(GET_USER, { variables: { uuid: uuid } });
@@ -123,7 +124,7 @@ const ClassEstablish: React.FC<ClassEstablishProps> = ({ availableContract }) =>
       revenueTriggerAmount: revenueTriggerAmount && numberWithCommas(revenueTriggerAmount),
       triggerText: triggerText,
       signature: signature,
-      signerAddress: account,
+      signerAddress: walletAddress,
       signerEmail: email,
       isNotMainnet: !isMainNet,
     },

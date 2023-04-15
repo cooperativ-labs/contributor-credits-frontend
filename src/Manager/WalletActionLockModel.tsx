@@ -23,7 +23,7 @@ const WalletActionLockModel: FC<WalletActionLockModelProps> = ({ noModal }) => {
       document.body.style.top = '';
       // window.scrollTo(0, parseInt(scrollY));
     }
-  }, [WalletActionLockModalOpen]);
+  }, [WalletActionLockModalOpen, windowSize.width]);
 
   if (WalletActionLockModalOpen) {
     return (

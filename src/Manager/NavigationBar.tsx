@@ -1,6 +1,5 @@
 import Button from '@src/components/Buttons/Button';
 import Link from 'next/link';
-import LogoutButton from './components/buttons/LogoutButton';
 import React, { FC, useContext } from 'react';
 import UserMenu from './UserMenu';
 import useWindowSize from '@hooks/useWindowSize';
@@ -14,7 +13,6 @@ type NavBarProps = {
 
 export const NavBar: FC<NavBarProps> = () => {
   const applicationStore: ApplicationStoreProps = useContext(store);
-
   const { dispatch } = applicationStore;
   const windowSize = useWindowSize();
   return (

@@ -18,10 +18,10 @@ import { LoadingButtonStateType, LoadingButtonText } from '../components/buttons
 import { sha256 } from 'js-sha256';
 import { SmartContractType, User } from 'types';
 import { SmartContractUnestablished } from 'types';
-import { TransactionResponse, Web3Provider } from '@ethersproject/providers';
+import { TransactionResponse } from '@ethersproject/providers';
+import { useChainId, useSigner } from 'wagmi';
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { useWeb3React } from '@web3-react/core';
 
 const fieldDiv = 'pt-3 my-2 bg-opacity-0';
 
@@ -44,9 +44,9 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
 }) => {
   const applicationStore: ApplicationStoreProps = useContext(store);
   const { dispatch: dispatchWalletActionLockModalOpen } = applicationStore;
-  const { chainId, library } = useWeb3React<Web3Provider>();
+  const chainId = useChainId();
   const [alerted, setAlerted] = useState<boolean>(false);
-  const signer = library.getSigner();
+  const { data: signer } = useSigner();
   const { cryptoAddress, type, id } = availableContract;
   //Feels a bit sketchy getting project from the unestablished contract here
 
@@ -55,7 +55,7 @@ const CCEstablishForm: FC<CCEstablishFormProps> = ({
   const agreementHash = sha256(agreement);
 
   const contract =
-    type == SmartContractType.C2
+    type === SmartContractType.C2
       ? C2__factory.connect(cryptoAddress.address, signer)
       : C3__factory.connect(cryptoAddress.address, signer);
   const establishContract = async (): Promise<void> => {

@@ -15,7 +15,7 @@ const SectionBlock: React.FC<SectionBlockProps> = ({ sectionTitle, children, cla
     setDetailsShown(!detailsShown);
   };
   return (
-    <div className="md:w-96">
+    <div className="lg:min-w-min">
       <button
         className={cn(className, 'h-8 py-4 mb-2 min-w-max flex items-center rounded outline-none')}
         onClick={handleDetailsReveal}

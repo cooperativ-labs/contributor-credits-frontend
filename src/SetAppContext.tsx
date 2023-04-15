@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import router from 'next/router';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
-import { auth, CustomTokenService } from 'firebaseConfig/firebaseConfig';
-import { getAuth, signOut } from 'firebase/auth';
+import { auth } from 'firebaseConfig/firebaseConfig';
 import { GetConnector } from './web3/connectors';
 import { setContext } from '@apollo/client/link/context';
-import { useWeb3React, Web3ReactProvider } from '@web3-react/core';
+import { signOut } from 'firebase/auth';
+import { useConnect } from 'wagmi';
 import { WalletErrorCodes } from './web3/helpersChain';
-import { Web3Provider } from '@ethersproject/providers';
-
 declare let window: any;
 
 export const WalletOwnerContext = React.createContext<{
@@ -22,23 +20,23 @@ type SetAppContextProps = {
 };
 
 const SetAppContext: React.FC<SetAppContextProps> = ({ children }) => {
-  const { activate, active } = useWeb3React<Web3Provider>();
   const [tried, setTried] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [userLoading, setUserLoading] = useState(true);
   const [selectedConnector, setSelectedConnector] = useState(undefined);
+
+  const { connect, error } = useConnect();
 
   useEffect(() => {
     const selection = window.sessionStorage?.getItem('CHOSEN_CONNECTOR');
     setSelectedConnector(GetConnector(selection));
   }, [setSelectedConnector]);
 
-  if (selectedConnector && !tried && !active) {
-    activate(selectedConnector)
-      .catch((err) => {
-        alert(WalletErrorCodes(err));
-      })
-      .then((res) => setTried(true));
+  if (selectedConnector && !tried) {
+    const connector = selectedConnector;
+    connect({ connector });
+    error && alert(WalletErrorCodes(error));
+    setTried(true);
   }
 
   useEffect(() => {
@@ -48,7 +46,7 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children }) => {
         signOut(auth)
           .then(() => router.reload())
           .catch((error) => {
-            console.log('// An error happened.');
+            throw new Error(error);
           });
       });
     }

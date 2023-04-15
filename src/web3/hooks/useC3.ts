@@ -1,11 +1,11 @@
-import { useWeb3React } from '@web3-react/core';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { C3, C3__factory, ERC20, ERC20__factory, MintableERC20, MintableERC20__factory } from '../../../types/web3';
-import { Web3Provider } from '@ethersproject/providers';
 import { Erc20Info, getERC20Info } from '@web3/info/erc20Info';
 import { C3Info, getC3Info } from '@web3/info/c3Info';
 import { liveChain } from '../connectors';
+
+import { useAccount, useChainId, useSigner } from 'wagmi';
 
 export type C3Type = {
   contract: C3;
@@ -17,11 +17,13 @@ export type C3Type = {
 };
 
 export const useC3 = (address: string, memberAddresses: string[]): C3Type | undefined => {
-  const { chainId, account, library } = useWeb3React<Web3Provider>();
+  const { address: walletAddress } = useAccount();
+  const chainId = useChainId();
+  const { data: signer } = useSigner();
+
   const [c3, setC3] = useState<C3Type | undefined>(undefined);
 
   const [, fetchC3] = useAsyncFn(async () => {
-    const signer = library.getSigner();
     const c3Contract = C3__factory.connect(address, signer);
     // const c3Class = await getC3Class(address);
     const isEstablished = await c3Contract.isEstablished();
@@ -35,7 +37,7 @@ export const useC3 = (address: string, memberAddresses: string[]): C3Type | unde
       : MintableERC20__factory.connect(bacAddress, signer);
     const bacInfo = await getERC20Info(bacContract);
 
-    const c3Info = await getC3Info(c3Contract, bacContract, account, memberAddresses);
+    const c3Info = await getC3Info(c3Contract, bacContract, walletAddress, memberAddresses);
 
     setC3({
       contract: c3Contract,
@@ -46,7 +48,7 @@ export const useC3 = (address: string, memberAddresses: string[]): C3Type | unde
       refresh: fetchC3,
     });
     return;
-  }, [account, library, address]);
+  }, [signer, walletAddress, address]);
 
   useEffect(() => {
     fetchC3().then();
