@@ -63,6 +63,37 @@ const _CCClassCard: React.FC<ClassCardDetailsProps> = ({ cClass, isSelected, set
   );
 };
 
+type _ClassCardProps = ClassCardProps & {
+  memberAddresses: string[];
+  cryptoAddress: { address: string };
+};
+
+const C2ClassCard: React.FC<_ClassCardProps> = ({
+  cClass,
+  setSelectedClassId,
+  isSelected,
+  memberAddresses,
+  cryptoAddress,
+}) => {
+  const activeCC = useC2(cryptoAddress.address, memberAddresses);
+  return (
+    <_CCClassCard cClass={cClass} isSelected={isSelected} setSelectedClassId={setSelectedClassId} activeCC={activeCC} />
+  );
+};
+
+const C3ClassCard: React.FC<_ClassCardProps> = ({
+  cClass,
+  setSelectedClassId,
+  isSelected,
+  memberAddresses,
+  cryptoAddress,
+}) => {
+  const activeCC = useC3(cryptoAddress.address, memberAddresses);
+  return (
+    <_CCClassCard cClass={cClass} isSelected={isSelected} setSelectedClassId={setSelectedClassId} activeCC={activeCC} />
+  );
+};
+
 type ClassCardProps = {
   cClass: ContributorCreditClass;
   setSelectedClassId: any;
@@ -71,16 +102,28 @@ type ClassCardProps = {
 
 const CCClassCard: React.FC<ClassCardProps> = ({ cClass, setSelectedClassId, isSelected }) => {
   const { cryptoAddress, agreement, type } = cClass;
-
   const memberAddresses = agreement.payments.map((payment) => payment.recipient);
-  const activeCC =
-    type === SmartContractType.C3
-      ? useC3(cryptoAddress.address, memberAddresses)
-      : useC2(cryptoAddress.address, memberAddresses);
-
-  return (
-    <_CCClassCard cClass={cClass} isSelected={isSelected} setSelectedClassId={setSelectedClassId} activeCC={activeCC} />
-  );
+  if (type === SmartContractType.C2) {
+    return (
+      <C2ClassCard
+        cClass={cClass}
+        isSelected={isSelected}
+        setSelectedClassId={setSelectedClassId}
+        memberAddresses={memberAddresses}
+        cryptoAddress={cryptoAddress}
+      />
+    );
+  } else if (type === SmartContractType.C3) {
+    return (
+      <C3ClassCard
+        cClass={cClass}
+        isSelected={isSelected}
+        setSelectedClassId={setSelectedClassId}
+        memberAddresses={memberAddresses}
+        cryptoAddress={cryptoAddress}
+      />
+    );
+  }
 };
 
 export default CCClassCard;
