@@ -1,11 +1,14 @@
 import Button from './Button';
 import cn from 'classnames';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import router from 'next/router';
 import { getAuth, signOut } from 'firebase/auth';
 import { useDisconnect } from 'wagmi';
+import { ApplicationStoreProps, store } from '@context/store';
 
 const LogoutButton: FC = () => {
+  const applicationStore: ApplicationStoreProps = useContext(store);
+  const { dispatch: setLogoutModal } = applicationStore;
   const { disconnect } = useDisconnect();
 
   const outlinedClass = `text-cLightBlue hover:text-white bg-opacity-100 hover:bg-opacity-1 hover:bg-cDarkBlue border-2 border-cLightBlue hover:border-white`;
@@ -13,6 +16,7 @@ const LogoutButton: FC = () => {
   async function handleDisconnect() {
     signOut(auth)
       .then(() => {
+        setLogoutModal({ type: 'TOGGLE_LOADING_MODAL' });
         disconnect();
         window.sessionStorage?.removeItem('CHOSEN_CONNECTOR');
         router.reload();

@@ -15,6 +15,7 @@ import { ADD_USER_WITH_WALLET } from '@src/utils/dGraphQueries/user';
 import { useAccount } from 'wagmi';
 import { useMutation } from '@apollo/client';
 import { WalletOwnerContext } from '@src/SetAppContext';
+import LogoutModal from './components/ModalLoggingOut';
 
 const BackgroundGradient = 'bg-gradient-to-b from-gray-100 to-blue-50';
 
@@ -90,6 +91,7 @@ const ManagerWrapper: FC<ManagerWrapperProps> = ({ children, loadingComponent })
   return (
     <div className="h-full">
       <div className={cn(BackgroundGradient, 'w-screen min-h-screen')}>
+        <LogoutModal />
         <AlertPopup />
         <EnsureCompatibleNetwork>
           <WalletChooserModal />

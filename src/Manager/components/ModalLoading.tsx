@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Loading from './Loading';
 import React, { FC } from 'react';
 

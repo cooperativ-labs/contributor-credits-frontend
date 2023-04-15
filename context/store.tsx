@@ -2,6 +2,7 @@
 import React, { createContext, useReducer } from 'react';
 
 export type ApplicationStoreProps = {
+  LoadingModalOn: boolean;
   ManagerSidebarOpen: boolean;
   WalletModalOpen: boolean;
   WalletActionLockModalOpen: boolean;
@@ -13,6 +14,7 @@ export type ApplicationStoreProps = {
 
 const initialState: ApplicationStoreProps = {
   project: {},
+  LoadingModalOn: false,
   ManagerSidebarOpen: false,
   WalletModalOpen: false,
   WalletActionLockModalOpen: false,
@@ -25,6 +27,8 @@ const { Provider } = store;
 const StateProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
+      case 'TOGGLE_LOADING_MODAL':
+        return { ...state, LoadingModalOn: !state.LoadingModalOn };
       case 'TOGGLE_MANAGER_SIDEBAR':
         return { ...state, ManagerSidebarOpen: !state.ManagerSidebarOpen };
       case 'TOGGLE_WALLET_MODAL':
