@@ -54,7 +54,7 @@
     "classnames": "^2.2.6",
     "eslint-plugin-prettier": "^4.2.1",
     "ethers": "^5",
-    "firebase": "^9.9.3",
+    "firebase": "^9.19.1",
     "formik": "^2.2.9",
     "graphql": "^16.6.0",
     "js-file-download": "^0.4.12",

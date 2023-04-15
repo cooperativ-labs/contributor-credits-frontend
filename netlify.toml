@@ -6,3 +6,7 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  YARN_VERSION = "1.22.19"
+  NODE_VERSION = "16.13.0" 
