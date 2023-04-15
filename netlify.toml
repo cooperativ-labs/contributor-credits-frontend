@@ -1,5 +1,8 @@
-[build]
+[context.production]
+  command = "yarn build-production"
   publish = ".next"
+  [context.production.environment]
+    NEXT_PUBLIC_DEPLOY_STAGE='production'
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
