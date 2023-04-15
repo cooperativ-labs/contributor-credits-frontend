@@ -1,11 +1,12 @@
 import cn from 'classnames';
-import Link from 'next/link';
 import React from 'react';
 
 export type FooterProps = {
   color?: string;
   lightText?: boolean;
 };
+
+const thisYear = new Date().getFullYear();
 
 const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
   const textColor = lightText ? 'text-gray-300' : 'text-gray-600';
@@ -27,20 +28,17 @@ const Footer: React.FunctionComponent<FooterProps> = ({ color, lightText }) => {
         <div className="flex px-4 py-1 md:p-0">
           <a href="https://cooperativ.io" rel="noreferrer" target="_blank">
             <span className="flex md:mr-8 w-max">
-              <img src={stamp} alt="logo" width="15" /> Cooperativ Labs Inc. 2022{' '}
+              <img src={stamp} alt="logo" width="15" /> {`Cooperativ Labs Inc. ${thisYear}`}{' '}
             </span>
           </a>
-          <a target="_blank" rel="noreferrer" href="undefined/icons/set/api">
-            Icons by Icons8
-          </a>
         </div>
-        <div>
-          <Link href="https://cooperativ.io/terms">
-            <a className="px-4 py-1 md:p-0 md:mr-8 w-max">Terms of Service</a>
-          </Link>
-          <Link href="https://cooperativ.io/privacy">
-            <a className="px-4 py-1 md:p-0 w-max">Privacy Policy</a>
-          </Link>
+        <div className="flex">
+          <a href="https://cooperativ.io/terms" rel="noreferrer" target="_blank">
+            <div className="px-4 py-1 md:p-0 md:mr-8 w-max">Terms of Service</div>
+          </a>
+          <a href="https://cooperativ.io/privacy" rel="noreferrer" target="_blank">
+            <div className="px-4 py-1 md:p-0 w-max">Privacy Policy</div>
+          </a>
         </div>
       </footer>
     </div>
