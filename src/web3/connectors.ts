@@ -16,7 +16,7 @@ export const liveChain = (chainId) => {
   return false;
 };
 
-export const SupportedChains = [mainnet, sepolia, polygon, polygonMumbai];
+export const SupportedChains = [mainnet, sepolia, goerli, polygon, polygonMumbai];
 
 const { chains, provider, webSocketProvider } = configureChains(SupportedChains, [
   publicProvider(),
@@ -48,15 +48,15 @@ export const SupportedChainsAddendum = [
     contractsSupported: true,
     color: 'blue-300',
   },
-  // {
-  //   id: goerli.id,
-  //   name: goerli.name,
-  //   blockExplorer: goerli.blockExplorers.default.url,
-  //   protocol: CryptoAddressProtocol.Eth,
-  //   icon: '/assets/images/chain-logos/sepolia-logo.png',
-  //   contractsSupported: true,
-  //   color: 'blue-300',
-  // },
+  {
+    id: goerli.id,
+    name: goerli.name,
+    blockExplorer: goerli.blockExplorers.default.url,
+    protocol: CryptoAddressProtocol.Eth,
+    icon: '/assets/images/chain-logos/sepolia-logo.png',
+    contractsSupported: true,
+    color: 'blue-300',
+  },
   // {
   //   id: 100001,
   //   name: 'Jupiter',
@@ -200,20 +200,20 @@ export const SupportedEthConnectors = [
       chains: SupportedChains,
     }),
   },
-  {
-    id: 'safewallet',
-    name: 'Safe Connect',
-    logo: '/assets/images/wallet-logos/safe-logo.png',
-    experimental: false,
-    description: 'Connect to Safe',
-    connector: new SafeConnector({
-      chains: SupportedChains,
-      options: {
-        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-        debug: true,
-      },
-    }),
-  },
+  // {
+  //   id: 'safewallet',
+  //   name: 'Safe Connect',
+  //   logo: '/assets/images/wallet-logos/safe-logo.png',
+  //   experimental: false,
+  //   description: 'Connect to Safe',
+  //   connector: new SafeConnector({
+  //     chains: SupportedChains,
+  //     options: {
+  //       allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+  //       debug: true,
+  //     },
+  //   }),
+  // },
 ];
 
 export const GetConnector = (id: WalletConnectorIdType) => {
