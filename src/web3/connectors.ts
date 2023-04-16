@@ -210,7 +210,7 @@ export const SupportedEthConnectors = [
       chains: SupportedChains,
       options: {
         allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-        debug: false,
+        debug: true,
       },
     }),
   },
