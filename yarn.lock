@@ -13401,6 +13401,13 @@ react-animated-slider@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-animated-slider/-/react-animated-slider-2.0.0.tgz#121729ba4c76c0aa4f5166ca78d0eda0ec77dd54"
   integrity sha512-JOvLvqAfdNrYjPJWnCZbtS7d/DxSowDTFeIbaS5xUDEVJe3whgxUD6rDZ6+VI0Rhp9N03ogdpuNKlFJIoPhIyg==
 
+react-app-rewired@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-2.2.1.tgz#84901ee1e3f26add0377ebec0b41bcdfce9fc211"
+  integrity sha512-uFQWTErXeLDrMzOJHKp0h8P1z0LV9HzPGsJ6adOtGlA/B9WfT6Shh4j2tLTTGlXOfiVx6w6iWpp7SOC5pvk+gA==
+  dependencies:
+    semver "^5.6.0"
+
 react-burger-menu@^3.0.2:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/react-burger-menu/-/react-burger-menu-3.0.9.tgz#8ce525adfbf2dd760af7650a3ac3baadbc782e26"

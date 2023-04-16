@@ -46,7 +46,8 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children }) => {
           });
       });
     }
-  });
+  }),
+    [];
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
