@@ -9,15 +9,15 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
       - name: Install NPM dependencies
         run: yarn
       # - name: Unit Testing
         # run: yarn test:unit
-      - name: Send dgraph schema
-        run: |
-          npm install -g slash-graphql 
-          slash-graphql update-schema ./dgraph/schema.graphql -e https://blue-surf-550072.us-east-1.aws.cloud.dgraph.io/graphql -t ${{ secrets.DGRAPH_ADMIN_DEPLOY_CC }}
-      - name: Generate Types
-        run: yarn generate-production
+      # - name: Send dgraph schema
+      #   run: |
+      #     npm install -g slash-graphql 
+      #     slash-graphql update-schema ./dgraph/schema.graphql -e https://blue-surf-550072.us-east-1.aws.cloud.dgraph.io/graphql -t ${{ secrets.DGRAPH_ADMIN_DEPLOY_CC }}
+      # - name: Generate Types
+      #   run: yarn generate-production
      
