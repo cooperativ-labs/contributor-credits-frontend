@@ -27,21 +27,18 @@ const FormattedCryptoAddress: FC<FormattedCryptoAddressProps> = ({
 }) => {
   const [copied, setCopied] = useState<boolean>(false);
   const blockExplorer = chainId && MatchSupportedChains(chainId).blockExplorer;
-
   const { data: ensName } = useEnsName({ address });
   const windowSize = useWindowSize();
   const isDesktop = windowSize.width > 768;
+
+  const splitAddress = `${address.slice(0, 7)}... ${address.slice(-4)}`;
+  const presentAddressOhneENS =
+    showFull && isDesktop ? address : <span className="hover:underline whitespace-nowrap">{splitAddress}</span>;
+
   return (
     <span className={cn('flex', [className ? className : 'text-sm text-gray-700'])}>
       <a target="_blank" rel="noreferrer" href={`${blockExplorer}/address/${address}`}>
-        {label}{' '}
-        {showFull && isDesktop ? (
-          address
-        ) : (
-          <span className="hover:underline">
-            {address?.slice(0, 7)}...{address?.slice(-4)}
-          </span>
-        )}
+        {label} {ensName ?? presentAddressOhneENS}
       </a>
       {withCopy && (
         <button

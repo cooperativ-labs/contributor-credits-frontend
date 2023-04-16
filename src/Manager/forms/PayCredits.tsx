@@ -2,7 +2,6 @@ import Input from './components/Inputs';
 import React, { FC, useContext, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { numberWithCommas } from '@src/utils/helpersMoney';
-
 import FormattedCryptoAddress from '../components/FormattedCryptoAddress';
 import FormButton from '../components/buttons/FormButton';
 import { ADD_CC_PAYMENT } from '@src/utils/dGraphQueries/agreement';
