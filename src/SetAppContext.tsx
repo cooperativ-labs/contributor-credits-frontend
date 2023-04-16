@@ -23,21 +23,27 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children }) => {
   const [tried, setTried] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [userLoading, setUserLoading] = useState(true);
-  const [selectedConnector, setSelectedConnector] = useState(undefined);
+  // const [selectedConnector, setSelectedConnector] = useState(undefined);
+  const { connect, connectors, error } = useConnect();
 
-  const { connect, error } = useConnect();
+  const AUTOCONNECTED_CONNECTOR_IDS = ['safe'];
 
   useEffect(() => {
     const selection = window.sessionStorage?.getItem('CHOSEN_CONNECTOR');
-    setSelectedConnector(GetConnector(selection));
-  }, [setSelectedConnector]);
+    AUTOCONNECTED_CONNECTOR_IDS.forEach((connector) => {
+      const connectorInstance = connectors.find((c) => 'safe' === connector && c.ready);
+      if (connectorInstance) {
+        connect({ connector: connectorInstance });
+      } else if (selection) {
+        const connector = GetConnector(selection);
+        connect({ connector });
+        error && alert(WalletErrorCodes(error));
+      }
+      return;
+    });
+  }, [connectors, connect, error]);
 
-  if (selectedConnector && !tried) {
-    const connector = selectedConnector;
-    connect({ connector });
-    error && alert(WalletErrorCodes(error));
-    setTried(true);
-  }
+  // setSelectedConnector(GetConnector(selection));
 
   useEffect(() => {
     const ethereum = window.ethereum;

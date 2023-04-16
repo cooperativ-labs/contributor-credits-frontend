@@ -24,7 +24,7 @@ const { chains, provider, webSocketProvider } = configureChains(SupportedChains,
 ]);
 
 export const wagmiClient = createClient({
-  autoConnect: true,
+  autoConnect: false,
   provider,
   webSocketProvider,
 });
@@ -200,20 +200,20 @@ export const SupportedEthConnectors = [
       chains: SupportedChains,
     }),
   },
-  // {
-  //   id: 'safewallet',
-  //   name: 'Safe Connect',
-  //   logo: '/assets/images/wallet-logos/safe-logo.png',
-  //   experimental: false,
-  //   description: 'Connect to Safe',
-  //   connector: new SafeConnector({
-  //     chains,
-  //     options: {
-  //       allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
-  //       debug: false,
-  //     },
-  //   }),
-  // },
+  {
+    id: 'safewallet',
+    name: 'Safe Connect',
+    logo: '/assets/images/wallet-logos/safe-logo.png',
+    experimental: false,
+    description: 'Connect to Safe',
+    connector: new SafeConnector({
+      chains: SupportedChains,
+      options: {
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+        debug: false,
+      },
+    }),
+  },
 ];
 
 export const GetConnector = (id: WalletConnectorIdType) => {
