@@ -5,7 +5,7 @@ import { auth } from 'firebaseConfig/firebaseConfig';
 import { GetConnector } from './web3/connectors';
 import { setContext } from '@apollo/client/link/context';
 import { signOut } from 'firebase/auth';
-import { useConnect } from 'wagmi';
+import { useConnect, useDisconnect } from 'wagmi';
 import { WalletErrorCodes } from './web3/helpersChain';
 declare let window: any;
 
@@ -23,15 +23,19 @@ const SetAppContext: React.FC<SetAppContextProps> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [userLoading, setUserLoading] = useState(true);
   const { connect, connectors, error } = useConnect();
-
+  const { disconnect } = useDisconnect();
   const safeConnectorInstance = connectors.find((c) => 'safe' === c.id && c.ready);
 
   useEffect(() => {
     const selection = window.sessionStorage?.getItem('CHOSEN_CONNECTOR');
     const connector = safeConnectorInstance ? safeConnectorInstance : GetConnector(selection);
     if (connector) {
-      connect({ connector: safeConnectorInstance });
-      error && alert(`here, ${WalletErrorCodes(error)}`);
+      console.log(connector);
+      connect({ connector });
+      if (error) {
+        disconnect();
+        alert(`here, ${WalletErrorCodes(error)}`);
+      }
     }
   }, [connect, safeConnectorInstance, error]);
 
