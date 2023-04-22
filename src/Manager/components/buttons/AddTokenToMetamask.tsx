@@ -46,7 +46,7 @@ const AddTokenToMetamask: React.FC<AddTokenToMetamaskProps> = ({
     <div>
       <button
         className={
-          'text-xs font-bold text-slate-200 p-1 px-2 my-1 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:bg-gradient-to-l from-cyan-600 to-blue-600 '
+          'text-xs font-bold text-slate-200 p-1 px-2 my-1 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:bg-gradient-to-l '
         }
         onClick={handleClick}
       >
