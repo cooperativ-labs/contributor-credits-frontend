@@ -54,17 +54,21 @@ const Details: FC<DetailsProps> = ({ CCClass, user }) => {
   const ensureContractMatchesDB = activeCC && activeCC.contract.address === cryptoAddress.address;
 
   return (
-    <div className="">
+    <div className="mt-2">
       <h1 className="text-3xl font-bold">
         {name} {type}
       </h1>
-      <div className="mb-6">
+      <div className="mb-6 ">
         <FormattedCryptoAddress
+          className="justify-between"
           label={'Address:'}
           address={cryptoAddress.address}
           chainId={cryptoAddress.chainId}
           withCopy
+          withAddToken
+          addTokenSymbol={`${SmartContractType.C3 ? 'C3' : 'C2'}`}
         />
+
         <div className="text-xs uppercase text-gray-600">
           {activeCC && isC2 && <ClassFundingRatio activeCC={activeCC} />}
         </div>
