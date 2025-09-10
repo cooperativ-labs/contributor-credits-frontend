@@ -102,7 +102,9 @@ export default function MyApp({ Component, pageProps }): ReactElement {
   return (
     <WagmiConfig client={wagmiClient}>
       <SetAppContext>
-        <StateProvider>{cookiesApproved === 'approved' ? withCookies : withoutCookies}</StateProvider>
+        <StateProvider>
+          {cookiesApproved === 'approved' ? withCookies : withoutCookies}
+        </StateProvider>
       </SetAppContext>
     </WagmiConfig>
   );
